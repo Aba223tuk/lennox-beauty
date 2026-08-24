@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 560" role="img" aria-label="The Silk Serum bottle spraying a fine mist">
+  <defs>
+    <linearGradient id="bodyH" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c8c1b4"/>
+      <stop offset=".09" stop-color="#e7e3da"/>
+      <stop offset=".24" stop-color="#fdfcfa"/>
+      <stop offset=".36" stop-color="#ffffff"/>
+      <stop offset=".52" stop-color="#f8f5ef"/>
+      <stop offset=".74" stop-color="#ece7dd"/>
+      <stop offset=".92" stop-color="#d5cec2"/>
+      <stop offset="1" stop-color="#c3bbad"/>
+    </linearGradient>
+    <linearGradient id="liquidV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9f5ed"/>
+      <stop offset=".55" stop-color="#f1eadd"/>
+      <stop offset="1" stop-color="#e9e0cf"/>
+    </linearGradient>
+    <linearGradient id="collarH" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#cfc9be"/>
+      <stop offset=".16" stop-color="#efece6"/>
+      <stop offset=".42" stop-color="#ffffff"/>
+      <stop offset=".68" stop-color="#eeebe4"/>
+      <stop offset="1" stop-color="#c9c2b6"/>
+    </linearGradient>
+    <radialGradient id="mistDot">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".9"/>
+      <stop offset=".7" stop-color="#f2ede2" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#f2ede2" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="soft3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="soft1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.2"/></filter>
+  </defs>
+
+  <g transform="translate(60,0)">
+    <!-- ground shadow -->
+    <ellipse cx="150" cy="521" rx="94" ry="13" fill="#141414" opacity=".13" filter="url(#soft6)"/>
+
+    <!-- body -->
+    <path d="M75,258 C75,240 88,232 100,230 L200,230 C212,232 225,240 225,258 L225,472 C225,498 205,507 150,507 C95,507 75,498 75,472 Z" fill="#f4f0e9"/>
+    <path d="M81,300 L219,300 L219,470 C219,493 201,501 150,501 C99,501 81,493 81,470 Z" fill="url(#liquidV)"/>
+    <ellipse cx="150" cy="300" rx="69" ry="7" fill="#fdfaf4" opacity=".9"/>
+    <ellipse cx="150" cy="301.5" rx="69" ry="6" fill="#e6ddcc" opacity=".55"/>
+    <path d="M75,258 C75,240 88,232 100,230 L200,230 C212,232 225,240 225,258 L225,472 C225,498 205,507 150,507 C95,507 75,498 75,472 Z" fill="url(#bodyH)" opacity=".62"/>
+    <rect x="102" y="252" width="15" height="234" rx="7.5" fill="#ffffff" opacity=".6" filter="url(#soft3)"/>
+    <rect x="185" y="262" width="7" height="212" rx="3.5" fill="#ffffff" opacity=".28" filter="url(#soft3)"/>
+    <path d="M84,492 C100,502 200,502 216,492" stroke="#ffffff" stroke-width="3" fill="none" opacity=".45" filter="url(#soft1)"/>
+
+    <!-- shoulder -->
+    <path d="M100,231 C106,206 119,198 124,196 L176,196 C181,198 194,206 200,231 Z" fill="#f5f1ea"/>
+    <path d="M100,231 C106,206 119,198 124,196 L176,196 C181,198 194,206 200,231 Z" fill="url(#bodyH)" opacity=".45"/>
+    <path d="M112,224 C116,208 124,202 127,200" stroke="#ffffff" stroke-width="4" fill="none" opacity=".5" filter="url(#soft1)"/>
+
+    <!-- ribbed collar -->
+    <rect x="111" y="158" width="78" height="40" rx="4" fill="url(#collarH)"/>
+    <g stroke="#b3ac9f" stroke-width="1.1" opacity=".33">
+      <line x1="116" y1="161" x2="116" y2="195"/><line x1="120" y1="161" x2="120" y2="195"/>
+      <line x1="124" y1="161" x2="124" y2="195"/><line x1="128" y1="161" x2="128" y2="195"/>
+      <line x1="132" y1="161" x2="132" y2="195"/><line x1="136" y1="161" x2="136" y2="195"/>
+      <line x1="140" y1="161" x2="140" y2="195"/><line x1="144" y1="161" x2="144" y2="195"/>
+      <line x1="148" y1="161" x2="148" y2="195"/><line x1="152" y1="161" x2="152" y2="195"/>
+      <line x1="156" y1="161" x2="156" y2="195"/><line x1="160" y1="161" x2="160" y2="195"/>
+      <line x1="164" y1="161" x2="164" y2="195"/><line x1="168" y1="161" x2="168" y2="195"/>
+      <line x1="172" y1="161" x2="172" y2="195"/><line x1="176" y1="161" x2="176" y2="195"/>
+      <line x1="180" y1="161" x2="180" y2="195"/><line x1="184" y1="161" x2="184" y2="195"/>
+    </g>
+    <rect x="111" y="158" width="78" height="6" rx="3" fill="#ffffff" opacity=".5"/>
+
+    <!-- exposed sprayer, no cap -->
+    <rect x="135" y="104" width="30" height="56" rx="3" fill="#fbfaf8"/>
+    <rect x="135" y="104" width="30" height="56" rx="3" fill="url(#collarH)" opacity=".5"/>
+    <rect x="131" y="86" width="38" height="24" rx="4" fill="#f7f5f1"/>
+    <rect x="131" y="86" width="38" height="24" rx="4" fill="url(#collarH)" opacity=".4"/>
+    <rect x="119" y="91" width="13" height="11" rx="2.5" fill="#eceae3"/>
+    <circle cx="123.5" cy="96.5" r="2" fill="#948d80"/>
+    <path d="M137,90 L137,106" stroke="#ffffff" stroke-width="2.5" opacity=".7" filter="url(#soft1)"/>
+  </g>
+
+  <!-- fine mist cone spraying left -->
+  <g>
+    <circle cx="160" cy="96" r="3.2" fill="url(#mistDot)"/>
+    <circle cx="146" cy="88" r="2.6" fill="url(#mistDot)"/>
+    <circle cx="147" cy="104" r="2.8" fill="url(#mistDot)"/>
+    <circle cx="130" cy="80" r="3.4" fill="url(#mistDot)"/>
+    <circle cx="128" cy="96" r="4.2" fill="url(#mistDot)"/>
+    <circle cx="131" cy="113" r="3.2" fill="url(#mistDot)"/>
+    <circle cx="112" cy="71" r="3.8" fill="url(#mistDot)"/>
+    <circle cx="108" cy="89" r="4.6" fill="url(#mistDot)"/>
+    <circle cx="109" cy="107" r="4.2" fill="url(#mistDot)"/>
+    <circle cx="113" cy="123" r="3.4" fill="url(#mistDot)"/>
+    <circle cx="92" cy="62" r="4.2" fill="url(#mistDot)" opacity=".85"/>
+    <circle cx="86" cy="82" r="5.2" fill="url(#mistDot)" opacity=".8"/>
+    <circle cx="85" cy="102" r="5" fill="url(#mistDot)" opacity=".8"/>
+    <circle cx="90" cy="122" r="4.4" fill="url(#mistDot)" opacity=".75"/>
+    <circle cx="95" cy="138" r="3.6" fill="url(#mistDot)" opacity=".7"/>
+    <circle cx="70" cy="55" r="4.6" fill="url(#mistDot)" opacity=".6"/>
+    <circle cx="62" cy="76" r="5.6" fill="url(#mistDot)" opacity=".55"/>
+    <circle cx="60" cy="98" r="5.8" fill="url(#mistDot)" opacity=".55"/>
+    <circle cx="64" cy="120" r="5" fill="url(#mistDot)" opacity=".5"/>
+    <circle cx="72" cy="140" r="4" fill="url(#mistDot)" opacity=".45"/>
+    <circle cx="46" cy="66" r="5" fill="url(#mistDot)" opacity=".35"/>
+    <circle cx="40" cy="90" r="6" fill="url(#mistDot)" opacity=".32"/>
+    <circle cx="42" cy="114" r="5.4" fill="url(#mistDot)" opacity=".3"/>
+    <circle cx="50" cy="136" r="4.4" fill="url(#mistDot)" opacity=".26"/>
+    <circle cx="26" cy="78" r="5.4" fill="url(#mistDot)" opacity=".18"/>
+    <circle cx="24" cy="104" r="5.8" fill="url(#mistDot)" opacity=".16"/>
+    <circle cx="30" cy="126" r="4.6" fill="url(#mistDot)" opacity=".14"/>
+  </g>
+</svg>

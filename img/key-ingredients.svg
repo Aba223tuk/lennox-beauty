@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 580" role="img" aria-label="The Silk Serum's main benefiting ingredients: smoothing silicones, pro-vitamin B5 panthenol, and a conditioning polymer">
+  <defs>
+    <filter id="kiSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>
+  </defs>
+
+  <rect x="14" y="14" width="312" height="552" rx="14" fill="#faf9f7"/>
+
+  <!-- dividers -->
+  <line x1="40" y1="188" x2="300" y2="188" stroke="#ececec" stroke-width="1"/>
+  <line x1="40" y1="360" x2="300" y2="360" stroke="#ececec" stroke-width="1"/>
+
+  <!-- ===== 1: smoothing silicones ===== -->
+  <g transform="translate(170,72) scale(1.6)">
+    <circle cx="0" cy="0" r="27" fill="#f1eadd" stroke="#141414" stroke-width="2"/>
+    <path d="M-14,-14 C-8,-20 2,-21 9,-15" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" opacity=".85" filter="url(#kiSoft)"/>
+    <circle cx="9" cy="-15" r="2.2" fill="#ffffff" opacity=".9"/>
+  </g>
+  <text x="170" y="141" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" letter-spacing=".04em" fill="#141414">SMOOTHING SILICONES</text>
+  <text x="170" y="163" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#5c5c5c">Seals the cuticle,</text>
+  <text x="170" y="181" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#5c5c5c">blocks humidity &amp; adds shine</text>
+
+  <!-- ===== 2: panthenol ===== -->
+  <g transform="translate(170,246) scale(1.6)" fill="none" stroke="#141414" stroke-width="2">
+    <circle cx="0" cy="0" r="9"/>
+    <line x1="0" y1="-9" x2="0" y2="-22"/>
+    <line x1="7.8" y1="4.5" x2="18" y2="12"/>
+    <line x1="-7.8" y1="4.5" x2="-18" y2="12"/>
+    <circle cx="0" cy="-22" r="4.5" fill="#8a7357" stroke="none"/>
+    <circle cx="18" cy="12" r="4.5" fill="#8a7357" stroke="none"/>
+    <circle cx="-18" cy="12" r="4.5" fill="#8a7357" stroke="none"/>
+  </g>
+  <text x="170" y="314" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" letter-spacing=".04em" fill="#141414">PRO-VITAMIN B5</text>
+  <text x="170" y="336" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#5c5c5c">Panthenol nourishes,</text>
+  <text x="170" y="354" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#5c5c5c">softens &amp; adds moisture</text>
+
+  <!-- ===== 3: conditioning polymer ===== -->
+  <g transform="translate(170,430) scale(1.6)" fill="none" stroke="#141414" stroke-width="2.1" stroke-linecap="round">
+    <path d="M0,-26 C-6,-10 4,4 -2,20 C-4,26 0,30 2,32"/>
+    <path d="M-11,-18 C-9,-14 -13,-10 -11,-6 C-9,-2 -13,2 -11,6 C-9,10 -13,14 -11,18" opacity=".6"/>
+    <path d="M11,-18 C13,-14 9,-10 11,-6 C13,-2 9,2 11,6 C13,10 9,14 11,18" opacity=".6"/>
+  </g>
+  <text x="170" y="508" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="600" letter-spacing=".04em" fill="#141414">CONDITIONING POLYMER</text>
+  <text x="170" y="530" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#5c5c5c">Polyquaternium-37 fights</text>
+  <text x="170" y="548" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" fill="#5c5c5c">frizz &amp; static all day</text>
+</svg>

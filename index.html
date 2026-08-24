@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lennox Beauty — The Silk Serum</title>
+<meta name="description" content="The Silk Serum smooths flyaways, seals out humidity, and cuts your morning routine to 60 seconds. Launch week: buy one, get one free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414;
+    --ink-soft:#5c5c5c;
+    --line:#ececec;
+    --accent:#8a7357;
+    --accent-dark:#6f5c42;
+    --bg:#ffffff;
+    --bg-soft:#faf9f7;
+    --radius:14px;
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;display:block}
+  a{color:inherit}
+
+  /* ---------- announcement ---------- */
+  .bar{
+    background:var(--ink);
+    color:#fff;
+    text-align:center;
+    font-size:.78rem;
+    letter-spacing:.04em;
+    padding:.55rem 1rem;
+    font-weight:500;
+  }
+  .bar b{color:#d9cbb2;font-weight:600}
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.1rem 1.25rem;
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);z-index:50;
+  }
+  .logo{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  .logo span{color:var(--accent)}
+
+  /* ---------- burger menu ---------- */
+  .burger{
+    width:40px;height:40px;flex:none;border:none;background:none;cursor:pointer;padding:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  }
+  .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .site-menu{
+    position:fixed;inset:0;background:#fff;z-index:40;
+    display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
+    padding:2rem 1.5rem;transform:translateY(-100%);transition:transform .3s ease;
+  }
+  .site-menu.open{transform:translateY(0)}
+  .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
+  .site-menu a.btn{font-family:var(--sans);font-size:1rem;font-weight:600;width:fit-content;margin-top:.5rem}
+  body.menu-open{overflow:hidden}
+
+  /* ---------- layout helpers ---------- */
+  .wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem}
+  section{padding:4rem 0}
+  .kicker{
+    font-size:.72rem;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);
+    margin-bottom:1rem;
+  }
+  h1,h2{font-family:var(--serif);font-weight:600;line-height:1.05;letter-spacing:0}
+  h1{font-size:clamp(2.6rem,11vw,4.6rem)}
+  h2{font-size:clamp(1.9rem,7vw,2.9rem);margin-bottom:1rem}
+  .muted{color:var(--ink-soft)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:4.5rem 0 3.5rem;text-align:left}
+  .hero p.lead{
+    font-size:1.06rem;color:var(--ink-soft);
+    margin:1.4rem 0 2rem;max-width:34rem;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--ink);color:#fff;
+    font-weight:600;font-size:.95rem;
+    padding:1rem 1.9rem;border-radius:999px;
+    text-decoration:none;border:none;cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{background:#000;transform:translateY(-1px)}
+  .btn.accent{background:var(--accent)}
+  .btn.accent:hover{background:var(--accent-dark)}
+  .btn.ghost{background:none;color:var(--ink);border:1.5px solid var(--ink);padding:calc(1rem - 1.5px) 1.9rem}
+  .btn.ghost:hover{background:var(--ink);color:#fff}
+  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+  .hero .sub{font-size:.8rem;color:var(--ink-soft);margin-top:.9rem}
+
+  .hero-strip{
+    display:grid;grid-template-columns:1fr;gap:.6rem;
+    margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line);
+    font-size:.9rem;font-weight:500;
+  }
+  .hero-strip div::before{content:"— ";color:var(--accent)}
+
+  /* ---------- bottle visual ---------- */
+  .visual{
+    margin:3rem auto 0;
+    display:flex;justify-content:center;
+    background:var(--bg-soft);
+    border-radius:var(--radius);
+    padding:3rem 0;
+  }
+
+  /* ---------- problem ---------- */
+  .problem{background:var(--ink);color:#fff;border-radius:0}
+  .problem .kicker{color:#d9cbb2}
+  .problem p{color:#cfcfcf;max-width:38rem;margin-bottom:1rem}
+  .problem p b{color:#fff}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2.5rem}
+  .step{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.6rem;
+  }
+  .step .num{
+    font-family:var(--serif);font-size:2rem;color:var(--accent);
+    line-height:1;margin-bottom:.7rem;
+  }
+  .step h3{font-size:1rem;margin-bottom:.35rem}
+  .step p{font-size:.92rem;color:var(--ink-soft)}
+
+  /* ---------- offer ---------- */
+  .offer{background:var(--bg-soft);border-radius:var(--radius)}
+  .offer-inner{padding:3.5rem 1.5rem;text-align:center;max-width:34rem;margin:0 auto}
+  .price-row{
+    display:flex;justify-content:center;align-items:baseline;gap:.8rem;
+    margin:1.5rem 0 .4rem;flex-wrap:wrap;
+  }
+  .price-old{color:var(--ink-soft);text-decoration:line-through;font-size:1.1rem}
+  .price-new{font-family:var(--serif);font-size:2.6rem;font-weight:600}
+  .price-note{font-size:.85rem;color:var(--ink-soft);margin-bottom:1.8rem}
+  .offer ul{
+    list-style:none;text-align:left;margin:0 auto 2rem;max-width:22rem;
+    font-size:.93rem;
+  }
+  .offer li{padding:.45rem 0;border-bottom:1px solid var(--line)}
+  .offer li::before{content:"✓  ";color:var(--accent);font-weight:600}
+
+  /* ---------- catalog ---------- */
+  .collection-band{
+    background:var(--bg-soft);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .collection-band .head{text-align:center;max-width:36rem;margin:0 auto}
+  .collection-band .head::after{
+    content:"";display:block;width:44px;height:2px;
+    background:var(--accent);margin:1.6rem auto 0;
+  }
+  .catalog{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:3rem}
+  .card{
+    background:#fff;
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:2.2rem 1.5rem 1.8rem;text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:.4rem;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    border-color:#e0dcd5;
+    box-shadow:0 18px 40px -18px rgba(20,20,20,.18);
+  }
+  .card svg{height:92px;margin-bottom:.8rem}
+  .card h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.1}
+  .card .desc{font-size:.85rem;color:var(--ink-soft);max-width:15rem}
+  .card .price{font-weight:600;font-size:.95rem;margin-top:.5rem}
+  .card .price s{color:var(--ink-soft);font-weight:400;margin-right:.4rem}
+  .badge{
+    font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    padding:.3rem .7rem;border-radius:999px;margin-top:.6rem;
+  }
+  .badge.live{background:var(--ink);color:#fff}
+  .badge.soon{border:1px solid var(--line);color:var(--ink-soft)}
+  .card a.badge.live{text-decoration:none}
+  @media(min-width:760px){
+    .catalog{grid-template-columns:repeat(4,1fr)}
+  }
+
+  /* ---------- guarantee ---------- */
+  .guarantee{text-align:center}
+  .guarantee p{max-width:30rem;margin:0 auto;color:var(--ink-soft)}
+
+  /* ---------- faq ---------- */
+  details{
+    border-bottom:1px solid var(--line);
+    padding:1.1rem 0;
+  }
+  summary{
+    cursor:pointer;font-weight:600;font-size:.97rem;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--serif);font-size:1.3rem;color:var(--accent)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:.7rem;font-size:.93rem;color:var(--ink-soft);max-width:40rem}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:3rem 1.25rem 7rem;
+    text-align:center;font-size:.85rem;color:var(--ink-soft);
+  }
+  footer .logo{margin-bottom:1rem}
+
+  /* ---------- sticky mobile cta ---------- */
+  .sticky-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);
+    padding:.7rem 1rem;
+    display:flex;gap:.9rem;align-items:center;justify-content:space-between;
+  }
+  .sticky-cta .p{font-size:.85rem;font-weight:600}
+  .sticky-cta .p small{display:block;font-weight:400;color:var(--ink-soft);font-size:.72rem}
+  .sticky-cta .btn{padding:.75rem 1.3rem;font-size:.85rem;white-space:nowrap}
+
+  /* ---------- modal ---------- */
+  .modal-back{
+    position:fixed;inset:0;background:rgba(20,20,20,.45);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:1.25rem;
+  }
+  .modal-back.open{display:flex}
+  .modal{
+    background:#fff;border-radius:var(--radius);
+    padding:2.2rem 1.8rem;max-width:24rem;text-align:center;
+  }
+  .modal h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:.6rem}
+  .modal p{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.4rem}
+
+  /* ---------- desktop ---------- */
+  @media(min-width:760px){
+    section{padding:5.5rem 0}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+    .hero .visual{margin:0}
+    .hero-strip{grid-template-columns:repeat(3,auto);gap:2.5rem;grid-column:1/-1}
+    .steps{grid-template-columns:repeat(3,1fr)}
+    .sticky-cta{display:none}
+    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 1 FREE</b></div>
+
+<header>
+  <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="logo">Lennox <span>Beauty</span></div>
+  <span style="width:40px" aria-hidden="true"></span>
+</header>
+
+<nav class="site-menu" id="siteMenu" aria-hidden="true">
+  <a href="#how-it-works" onclick="closeMenu()">How It Works</a>
+  <a href="#offer" onclick="closeMenu()">The Offer</a>
+  <a href="#collection" onclick="closeMenu()">The Collection</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a class="btn accent" href="product.html" onclick="closeMenu()">Shop Now</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero wrap">
+  <div>
+    <div class="kicker">The Silk Serum</div>
+    <h1>Frizz doesn't stand a chance.</h1>
+    <p class="lead">A featherweight argan-infused serum that smooths flyaways, seals out humidity, and cuts your morning routine to 60 seconds. No heat. No salon. No $60 miracle products.</p>
+    <div class="cta-row">
+      <a class="btn accent" href="product.html">Claim My Free Bottle</a>
+      <a class="btn ghost" href="#collection">See the collection</a>
+    </div>
+    <p class="sub">$34.99 a bottle — 2nd bottle free · 30-day guarantee</p>
+  </div>
+
+  <div class="visual" aria-hidden="true">
+    <img src="img/bottle-front.svg" alt="" width="210" height="392" style="height:auto">
+  </div>
+
+  <div class="hero-strip">
+    <div>60-second routine</div>
+    <div>Humidity-proof finish</div>
+    <div>2nd bottle free at launch</div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section class="problem">
+  <div class="wrap problem-grid">
+    <div>
+      <div class="kicker">Sound familiar?</div>
+      <h2>You've tried everything.<br>We know.</h2>
+    </div>
+    <div>
+      <p>The oils that made your hair greasy. The $60 serum that did nothing. The 40 minutes with a straightener — undone by one humid afternoon.</p>
+      <p><b>Frizz isn't a "you" problem.</b> Most products either coat your hair in buildup or strip it dry. The Silk Serum does neither: it lays the hair cuticle flat so humidity can't get in — which means hair that stays smooth from your mirror to midnight.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEPS ================= -->
+<section class="wrap" id="how-it-works">
+  <div class="kicker">How it works</div>
+  <h2>Sixty seconds. That's the routine.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>Start anywhere</h3>
+      <p>Damp or dry hair — no prep, no wash required.</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>2–3 drops</h3>
+      <p>Work through mid-lengths and ends. Takes a minute.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>Air dry &amp; go</h3>
+      <p>Smooth, glossy, frizz-free — all day, any weather.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFFER ================= -->
+<section class="wrap" id="offer">
+  <div class="offer">
+    <div class="offer-inner">
+      <div class="kicker">Launch week only</div>
+      <h2>Buy one.<br>Get one free.</h2>
+      <div class="price-row">
+        <span class="price-old">$69.98</span>
+        <span class="price-new">$34.99</span>
+      </div>
+      <p class="price-note">Pay for one bottle at $34.99 — the second is on us.</p>
+      <ul>
+        <li>2 × 50ml Silk Serum (≈ 3 months of use)</li>
+        <li>Tracked US shipping</li>
+        <li>30-day money-back guarantee</li>
+        <li>No subscription. No fine print.</li>
+      </ul>
+      <a class="btn accent" href="product.html">Get 2 Bottles — $34.99</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATALOG ================= -->
+<section class="collection-band" id="collection">
+<div class="wrap">
+  <div class="head">
+    <div class="kicker">The collection</div>
+    <h2>One goal. Four steps.</h2>
+    <p class="muted">Every Lennox product exists for the same reason: hair that stays smooth without effort. Start with the Silk Serum — the rest of the routine is on its way.</p>
+  </div>
+
+  <div class="catalog">
+
+    <div class="card" onclick="location.href='product.html'" style="cursor:pointer">
+      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="22" y="8" width="16" height="12" rx="2" stroke="#141414" stroke-width="2"/>
+        <path d="M18 28 C18 24 22 21 30 21 C38 21 42 24 42 28 L44 100 C44 108 38 113 30 113 C22 113 16 108 16 100 Z" stroke="#141414" stroke-width="2"/>
+        <path d="M19 70 L41 70 L42 100 C42 106 37 110 30 110 C23 110 18 106 18 100 Z" fill="#eee9e2"/>
+        <line x1="24" y1="48" x2="36" y2="48" stroke="#8a7357" stroke-width="1.4"/>
+      </svg>
+      <h3>The Silk Serum</h3>
+      <p class="desc">Smooths flyaways &amp; seals out humidity in 60 seconds.</p>
+      <p class="price">$34.99 · 2nd bottle free</p>
+      <a class="badge live" href="product.html">Launch offer</a>
+    </div>
+
+    <div class="card">
+      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="12" y="52" width="36" height="52" rx="8" stroke="#141414" stroke-width="2"/>
+        <rect x="10" y="40" width="40" height="14" rx="4" stroke="#141414" stroke-width="2"/>
+        <path d="M14 76 L46 76 L46 96 C46 100 42 102 38 102 L22 102 C18 102 14 100 14 96 Z" fill="#eee9e2"/>
+      </svg>
+      <h3>The Repair Mask</h3>
+      <p class="desc">Weekly keratin deep-conditioner for damage &amp; dullness.</p>
+      <p class="price">Coming soon</p>
+      <span class="badge soon">In development</span>
+    </div>
+
+    <div class="card">
+      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="20" y="30" width="20" height="74" rx="6" stroke="#141414" stroke-width="2"/>
+        <path d="M24 30 C24 20 28 14 30 12 C32 14 36 20 36 30 Z" fill="#eee9e2" stroke="#141414" stroke-width="2"/>
+        <line x1="24" y1="60" x2="36" y2="60" stroke="#8a7357" stroke-width="1.4"/>
+      </svg>
+      <h3>The Sleek Stick</h3>
+      <p class="desc">Pocket-size wax stick that tames flyaways on the go.</p>
+      <p class="price">Coming soon</p>
+      <span class="badge soon">In development</span>
+    </div>
+
+    <div class="card">
+      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M26 8 L38 8 L36 20 L28 20 Z" stroke="#141414" stroke-width="2"/>
+        <rect x="24" y="20" width="16" height="10" rx="2" stroke="#141414" stroke-width="2"/>
+        <path d="M18 38 C18 33 23 30 32 30 C41 30 46 33 46 38 L44 102 C44 109 39 113 32 113 C25 113 20 109 20 102 Z" stroke="#141414" stroke-width="2"/>
+        <path d="M21 66 L43 66 L42 102 C42 107 38 110 32 110 C26 110 22 107 22 102 Z" fill="#eee9e2"/>
+      </svg>
+      <h3>The Silk Mist</h3>
+      <p class="desc">Featherweight leave-in spray for shine &amp; heat protection.</p>
+      <p class="price">Coming soon</p>
+      <span class="badge soon">In development</span>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ================= GUARANTEE ================= -->
+<section class="wrap guarantee">
+  <div class="kicker">Zero risk</div>
+  <h2>Love it, or it's free.</h2>
+  <p>Use the Silk Serum for 30 days. If your hair isn't noticeably smoother, email us and we refund every cent. No returns, no forms, no guilt trip.</p>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="wrap" id="faq">
+  <div class="kicker">Questions</div>
+  <h2>Asked &amp; answered.</h2>
+  <details>
+    <summary>Will this make my hair greasy?</summary>
+    <p>No — it's a serum, not an oil. 2–3 drops absorb into the hair shaft instead of sitting on top. If coconut or castor oil burned you before, this feels completely different.</p>
+  </details>
+  <details>
+    <summary>Does it work on curly, textured, or color-treated hair?</summary>
+    <p>Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair.</p>
+  </details>
+  <details>
+    <summary>How long until I see results?</summary>
+    <p>Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why the second bottle is free.</p>
+  </details>
+  <details>
+    <summary>When will I get it?</summary>
+    <p>Orders ship within 2 business days and arrive in 8–15 business days, tracked. You'll get the tracking number by email the moment it ships.</p>
+  </details>
+  <details>
+    <summary>What if it doesn't work for me?</summary>
+    <p>30-day money-back guarantee. Email support@lennoxbeauty.com and we refund you — you don't even ship the bottle back.</p>
+  </details>
+  <details>
+    <summary>What's in it?</summary>
+    <p>Full ingredient list published here soon — we list every ingredient, nothing hidden.</p>
+  </details>
+</section>
+
+<footer>
+  <div class="logo">Lennox <span>Beauty</span></div>
+  <p>© 2026 Lennox Beauty · support@lennoxbeauty.com<br>30-day money-back guarantee</p>
+</footer>
+
+<!-- sticky mobile CTA -->
+<div class="sticky-cta">
+  <div class="p">Buy 1, Get 1 Free — $34.99<small>Launch week only</small></div>
+  <a class="btn accent" href="product.html">Claim offer</a>
+</div>
+
+<!-- pre-launch modal (removed when Shopify checkout is wired) -->
+<div class="modal-back" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3>Almost live ✨</h3>
+    <p>Checkout opens this week. This button will connect straight to secure Shopify checkout.</p>
+    <button class="btn" onclick="closeModal()">Got it</button>
+  </div>
+</div>
+
+<script>
+  function openModal(){document.getElementById('modal').classList.add('open')}
+  function closeModal(){document.getElementById('modal').classList.remove('open')}
+
+  function toggleMenu(){
+    const open = document.getElementById('siteMenu').classList.toggle('open');
+    document.getElementById('burgerBtn').classList.toggle('open', open);
+    document.getElementById('burgerBtn').setAttribute('aria-expanded', open);
+    document.getElementById('siteMenu').setAttribute('aria-hidden', !open);
+    document.body.classList.toggle('menu-open', open);
+  }
+  function closeMenu(){
+    document.getElementById('siteMenu').classList.remove('open');
+    document.getElementById('burgerBtn').classList.remove('open');
+    document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
+    document.getElementById('siteMenu').setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+
+</body>
+</html>

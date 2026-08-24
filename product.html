@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silk Serum — Lennox Beauty</title>
+<meta name="description" content="The Silk Serum — anti-frizz argan hair serum. Launch week: buy one, get one free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414;
+    --ink-soft:#5c5c5c;
+    --line:#ececec;
+    --accent:#8a7357;
+    --accent-dark:#6f5c42;
+    --bg:#ffffff;
+    --bg-soft:#faf9f7;
+    --radius:14px;
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+
+  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.78rem;letter-spacing:.04em;padding:.55rem 1rem;font-weight:500}
+  .bar b{color:#d9cbb2;font-weight:600}
+
+  header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:50}
+  .logo{font-family:var(--serif);font-size:1.15rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;text-decoration:none}
+  .logo span{color:var(--accent)}
+  .back{font-size:.82rem;color:var(--ink-soft);text-decoration:none}
+  .back:hover{color:var(--ink)}
+
+  /* burger menu */
+  .burger{
+    width:40px;height:40px;flex:none;border:none;background:none;cursor:pointer;padding:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  }
+  .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .site-menu{
+    position:fixed;inset:0;background:#fff;z-index:40;
+    display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
+    padding:2rem 1.5rem;transform:translateY(-100%);transition:transform .3s ease;
+  }
+  .site-menu.open{transform:translateY(0)}
+  .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
+  body.menu-open{overflow:hidden}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem}
+  .product{padding-top:2.5rem;padding-bottom:4rem;display:grid;grid-template-columns:minmax(0,1fr);gap:2.5rem}
+
+  /* gallery */
+  .gallery{min-width:0}
+  .main-frame{position:relative}
+  .gallery .main{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);
+    aspect-ratio:1/1;position:relative;
+    display:flex;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .gallery .main::-webkit-scrollbar{display:none}
+  .slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center;scroll-snap-align:start}
+  .slide img{max-height:82%;max-width:88%;width:auto;height:auto;object-fit:contain}
+  .g-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:36px;height:36px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(255,255,255,.9);color:var(--ink);font-size:1.15rem;line-height:1;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;
+  }
+  .g-nav:hover{background:#fff}
+  .g-nav.prev{left:.6rem}
+  .g-nav.next{right:.6rem}
+  .thumbs{display:flex;gap:.6rem;margin-top:.7rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .thumbs::-webkit-scrollbar{display:none}
+  .thumb{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;
+    flex:0 0 66px;width:66px;height:66px;display:flex;align-items:center;justify-content:center;
+    color:#b5b0a8;font-size:.55rem;letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:.3rem;
+    cursor:pointer;transition:border-color .15s ease;
+  }
+  @media(min-width:820px){
+    .thumb{flex-basis:76px;width:76px;height:76px}
+  }
+  .thumb img{max-height:78%;max-width:85%;width:auto;height:auto;object-fit:contain}
+  .thumb.active{border-color:var(--ink);border-width:2px}
+  .thumb.empty{border-style:dashed;cursor:default}
+
+  /* info */
+  .kicker{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,8vw,3.2rem);line-height:1.05;margin-bottom:.8rem}
+  .lead{color:var(--ink-soft);font-size:.98rem;margin-bottom:1.6rem;max-width:30rem}
+
+  .price-line{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+  .price-line .old{color:var(--ink-soft);text-decoration:line-through;font-size:1.05rem}
+  .price-line .now{font-family:var(--serif);font-size:2.2rem;font-weight:700}
+  .price-line .tag{background:var(--ink);color:#fff;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px}
+  .per{font-size:.83rem;color:var(--ink-soft);margin:.3rem 0 1.6rem}
+
+  .box{border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem;margin-bottom:1rem}
+  .box .label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.8rem}
+
+  /* qty */
+  .qty-row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .qty-row .what{font-size:.9rem;font-weight:500}
+  .qty-row .what small{display:block;font-weight:400;color:var(--ink-soft);font-size:.78rem}
+  .qty{display:flex;align-items:center;border:1px solid var(--ink);border-radius:999px}
+  .qty button{
+    width:42px;height:42px;border:none;background:none;font-size:1.25rem;cursor:pointer;
+    color:var(--ink);line-height:1;font-family:var(--sans);
+  }
+  .qty button:disabled{color:#c9c9c9;cursor:default}
+  .qty .n{min-width:2rem;text-align:center;font-weight:600}
+
+  /* upsell */
+  .upsell{display:flex;align-items:flex-start;gap:.9rem;cursor:pointer;user-select:none}
+  .upsell input{margin-top:.25rem;accent-color:var(--accent);width:1.05rem;height:1.05rem;cursor:pointer}
+  .upsell .t{font-size:.9rem;font-weight:500}
+  .upsell .t small{display:block;font-weight:400;color:var(--ink-soft);font-size:.78rem}
+  .upsell .p{margin-left:auto;font-weight:600;font-size:.9rem;white-space:nowrap}
+  .upsell .p s{color:var(--ink-soft);font-weight:400;font-size:.78rem;margin-right:.3rem}
+
+  /* total + cta */
+  .total-row{display:flex;justify-content:space-between;align-items:baseline;margin:1.4rem 0 .3rem}
+  .ship-note{font-size:.8rem;margin:0 0 .9rem;color:var(--ink-soft)}
+  .ship-note.unlocked{color:var(--accent);font-weight:600}
+  .total-row .lbl{font-size:.9rem;color:var(--ink-soft)}
+  .total-row .val{font-family:var(--serif);font-size:1.9rem;font-weight:700}
+  .btn{
+    display:block;width:100%;text-align:center;
+    background:var(--accent);color:#fff;font-weight:600;font-size:1rem;
+    padding:1.05rem;border-radius:999px;border:none;cursor:pointer;font-family:var(--sans);
+    transition:background .15s ease,transform .15s ease;
+  }
+  .btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
+  .trust{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;font-size:.75rem;color:var(--ink-soft);margin-top:.9rem}
+
+  /* details accordions */
+  .details-sec{max-width:44rem;margin:0 auto;padding-bottom:5rem}
+  details{border-bottom:1px solid var(--line);padding:1.1rem 0}
+  summary{cursor:pointer;font-weight:600;font-size:.97rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--serif);font-size:1.3rem;color:var(--accent)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:.7rem;font-size:.93rem;color:var(--ink-soft)}
+  .detail-img{display:block;width:100%;max-width:26rem;height:auto;margin-top:.9rem;border-radius:10px}
+  .ingredients-img{max-width:15rem;margin-left:auto;margin-right:auto}
+  .ing-note{font-style:italic;font-size:.82rem!important}
+  .soon{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);color:var(--ink-soft);padding:.25rem .6rem;border-radius:999px;margin-left:.6rem}
+
+  footer{border-top:1px solid var(--line);padding:2.5rem 1.25rem;text-align:center;font-size:.85rem;color:var(--ink-soft)}
+
+  /* modal */
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,20,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:1.25rem}
+  .modal-back.open{display:flex}
+  .modal{background:#fff;border-radius:var(--radius);padding:2.2rem 1.8rem;max-width:24rem;text-align:center}
+  .modal h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;margin-bottom:.6rem}
+  .modal p{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.4rem}
+  .modal .btn{background:var(--ink)}
+
+  @media(min-width:820px){
+    .product{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3.5rem;padding-top:3.5rem;padding-bottom:5rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 1 FREE</b> · Free US shipping on orders $50+</div>
+
+<header>
+  <a class="back" href="index.html">← Back</a>
+  <a class="logo" href="index.html">Lennox <span>Beauty</span></a>
+  <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="site-menu" id="siteMenu" aria-hidden="true">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="index.html#how-it-works" onclick="closeMenu()">How It Works</a>
+  <a href="index.html#offer" onclick="closeMenu()">The Offer</a>
+  <a href="index.html#collection" onclick="closeMenu()">The Collection</a>
+  <a href="index.html#faq" onclick="closeMenu()">FAQ</a>
+</nav>
+
+<div class="wrap product">
+
+  <!-- ================= GALLERY ================= -->
+  <div class="gallery">
+    <div class="main-frame">
+      <div class="main" id="galleryMain">
+        <div class="slide"><img src="img/bottle-front.svg" alt="The Silk Serum bottle"></div>
+        <div class="slide"><img src="img/bottle-duo.svg" alt="Two bottles of The Silk Serum — buy one get one free"></div>
+        <div class="slide"><img src="img/bottle-mist.svg" alt="The Silk Serum bottle spraying a fine mist"></div>
+        <div class="slide"><img src="img/effects-before-after.svg" alt="Before and after using The Silk Serum: frizzy hair becomes smooth and glossy"></div>
+        <div class="slide"><img src="img/key-ingredients.svg" alt="The Silk Serum's main benefiting ingredients: smoothing silicones, pro-vitamin B5 panthenol, and a conditioning polymer"></div>
+      </div>
+      <button class="g-nav prev" onclick="galleryStep(-1)" aria-label="Previous image">‹</button>
+      <button class="g-nav next" onclick="galleryStep(1)" aria-label="Next image">›</button>
+    </div>
+    <div class="thumbs" id="galleryThumbs">
+      <div class="thumb active" onclick="galleryGo(0)"><img src="img/bottle-front.svg" alt=""></div>
+      <div class="thumb" onclick="galleryGo(1)"><img src="img/bottle-duo.svg" alt=""></div>
+      <div class="thumb" onclick="galleryGo(2)"><img src="img/bottle-mist.svg" alt=""></div>
+      <div class="thumb" onclick="galleryGo(3)"><img src="img/effects-before-after.svg" alt=""></div>
+      <div class="thumb" onclick="galleryGo(4)"><img src="img/key-ingredients.svg" alt=""></div>
+      <div class="thumb empty">Coming<br>soon</div>
+    </div>
+  </div>
+
+  <!-- ================= INFO ================= -->
+  <div>
+    <div class="kicker">Lennox Beauty</div>
+    <h1>The Silk Serum</h1>
+    <p class="lead">A featherweight argan-infused serum that smooths flyaways and seals out humidity — in 60 seconds, no heat.</p>
+
+    <div class="price-line">
+      <span class="old">$69.98</span>
+      <span class="now" id="headline-price">$34.99</span>
+      <span class="tag">Buy 1 Get 1 Free</span>
+    </div>
+    <p class="per" id="per-note">2 bottles — buy 1, get 1 free · Launch week only</p>
+
+    <!-- qty -->
+    <div class="box">
+      <div class="label">Quantity</div>
+      <div class="qty-row">
+        <div class="what">Silk Serum — $34.99 <small>Every bottle ships with a 2nd one free (2 × 50ml ≈ 3 months)</small></div>
+        <div class="qty">
+          <button id="minus" onclick="changeQty(-1)" aria-label="Decrease quantity">−</button>
+          <span class="n" id="qty">1</span>
+          <button onclick="changeQty(1)" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- upsell -->
+    <div class="box">
+      <div class="label">Most add this</div>
+      <label class="upsell">
+        <input type="checkbox" id="upsell" onchange="recalc()">
+        <span class="t">Add a 3rd bottle — 50% off<small>Unlocks free shipping. One-time offer.</small></span>
+        <span class="p"><s>$34.99</s>$17.49</span>
+      </label>
+    </div>
+
+    <div class="total-row">
+      <span class="lbl" id="total-desc">2 bottles + shipping</span>
+      <span class="val" id="total">$39.98</span>
+    </div>
+    <p class="ship-note" id="ship-note"></p>
+
+    <!-- SHOPIFY BUY BUTTON SLOT — replace with Buy Button embed once checkout is live -->
+    <button class="btn" onclick="openModal()" id="cta">Claim My Free Bottle</button>
+    <div class="trust">
+      <span>🚚 Free US shipping $50+</span><span>📦 Tracked delivery</span><span>💯 30-day guarantee</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DETAILS ================= -->
+<div class="wrap details-sec">
+  <details open>
+    <summary>Why two bottles?</summary>
+    <p>One 50ml bottle lasts 5–6 weeks of daily use. Real, stay-smooth-all-day results build over 2–3 months of consistent use — so every launch order ships with a second bottle, free. That's the honest reason.</p>
+  </details>
+  <details>
+    <summary>How to use</summary>
+    <img class="detail-img" src="img/how-to-use.svg" alt="How to use The Silk Serum: apply two to three drops, work through hair, then air dry">
+    <p>Work 2–3 drops through mid-lengths and ends of damp or dry hair. Air dry or style as usual. Takes about 60 seconds.</p>
+  </details>
+  <details>
+    <summary>Full details</summary>
+    <img class="detail-img ingredients-img" src="img/effects-before-after.svg" alt="Before and after using The Silk Serum: frizzy hair becomes smooth and glossy">
+    <p>Consistent use lays the hair cuticle flat, cutting flyaways and sealing out humidity — most people see visibly smoother hair from the first application, with the full stay-smooth-all-day effect building over 2–4 weeks. Texture close-ups and full product specifications are being finalized and will be published here.</p>
+  </details>
+  <details>
+    <summary>Ingredients</summary>
+    <img class="detail-img ingredients-img" src="img/key-ingredients.svg" alt="The Silk Serum's main benefiting ingredients: smoothing silicones, pro-vitamin B5 panthenol, and a conditioning polymer">
+    <p>Full formula (INCI): Aqua (Water), Cyclopentasiloxane, Dimethiconol, Cyclomethicone, Propylene Glycol, Amodimethicone, Trideceth-10, Phenoxyethanol, DMDM Hydantoin, Fragrance, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, PPG-1 Trideceth-6, Acrylates/Stearyl Methacrylate Copolymer, Sorbitan Oleate, Citric Acid, Panthenol.</p>
+    <p class="ing-note">List reflects the confirmed raw-material formula. Final label order (by concentration) will be confirmed once the finished-product declaration is issued.</p>
+  </details>
+  <details>
+    <summary>Shipping &amp; delivery</summary>
+    <p>Orders ship within 2 business days and arrive in 8–15 business days with tracking emailed to you. US shipping is a flat $4.99 — free on orders of $50 or more.</p>
+  </details>
+  <details>
+    <summary>Our guarantee</summary>
+    <p>Use the Silk Serum for 30 days. If your hair isn't noticeably smoother, email support@lennoxbeauty.com and we refund every cent — no returns, no forms.</p>
+  </details>
+</div>
+
+<footer>
+  <div class="logo" style="display:block;margin-bottom:.6rem">Lennox <span>Beauty</span></div>
+  © 2026 Lennox Beauty · support@lennoxbeauty.com
+</footer>
+
+<!-- pre-launch modal -->
+<div class="modal-back" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3>Almost live ✨</h3>
+    <p>Checkout opens this week. This button will connect straight to secure Shopify checkout.</p>
+    <button class="btn" onclick="closeModal()">Got it</button>
+  </div>
+</div>
+
+<script>
+  const BOTTLE_PRICE = 34.99;   // per bottle — BOGO: each paid bottle ships with a free one
+  const UPSELL_PRICE = 17.49;   // extra bottle at 50%
+  const SHIPPING = 4.99;        // flat US rate
+  const FREE_SHIP_AT = 50;      // free shipping threshold
+  let qty = 1;
+
+  function changeQty(d){
+    qty = Math.min(5, Math.max(1, qty + d));
+    document.getElementById('qty').textContent = qty;
+    document.getElementById('minus').disabled = qty === 1;
+    recalc();
+  }
+
+  function recalc(){
+    const up = document.getElementById('upsell').checked;
+    const subtotal = qty * BOTTLE_PRICE + (up ? UPSELL_PRICE : 0);
+    const freeShip = subtotal >= FREE_SHIP_AT;
+    const total = subtotal + (freeShip ? 0 : SHIPPING);
+    const bottles = qty * 2 + (up ? 1 : 0);
+    document.getElementById('total').textContent = '$' + total.toFixed(2);
+    document.getElementById('total-desc').textContent =
+      bottles + ' bottles' + (freeShip ? ' · free US shipping' : ' + $' + SHIPPING.toFixed(2) + ' shipping');
+    document.getElementById('per-note').textContent =
+      bottles + ' bottles — buy ' + qty + ', get ' + qty + ' free' +
+      (up ? ' + 1 half price' : '') + ' · Launch week only';
+    const note = document.getElementById('ship-note');
+    if (freeShip) {
+      note.textContent = '✓ Free shipping unlocked';
+      note.classList.add('unlocked');
+    } else {
+      note.textContent = 'You’re $' + (FREE_SHIP_AT - subtotal).toFixed(2) + ' away from free shipping — add the 3rd bottle above';
+      note.classList.remove('unlocked');
+    }
+  }
+
+  function openModal(){document.getElementById('modal').classList.add('open')}
+  function closeModal(){document.getElementById('modal').classList.remove('open')}
+
+  function toggleMenu(){
+    const open = document.getElementById('siteMenu').classList.toggle('open');
+    document.getElementById('burgerBtn').classList.toggle('open', open);
+    document.getElementById('burgerBtn').setAttribute('aria-expanded', open);
+    document.getElementById('siteMenu').setAttribute('aria-hidden', !open);
+    document.body.classList.toggle('menu-open', open);
+  }
+  function closeMenu(){
+    document.getElementById('siteMenu').classList.remove('open');
+    document.getElementById('burgerBtn').classList.remove('open');
+    document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
+    document.getElementById('siteMenu').setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  changeQty(0);
+
+  // gallery
+  const galleryMain = document.getElementById('galleryMain');
+  const galleryThumbList = Array.from(document.querySelectorAll('#galleryThumbs .thumb:not(.empty)'));
+
+  function galleryGo(i){
+    const slide = galleryMain.children[i];
+    if (slide) slide.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'});
+  }
+  function galleryStep(d){
+    const w = galleryMain.clientWidth;
+    const i = Math.round(galleryMain.scrollLeft / w) + d;
+    galleryGo(Math.max(0, Math.min(galleryMain.children.length - 1, i)));
+  }
+  galleryMain.addEventListener('scroll', () => {
+    const w = galleryMain.clientWidth;
+    const i = Math.round(galleryMain.scrollLeft / w);
+    galleryThumbList.forEach((t, idx) => t.classList.toggle('active', idx === i));
+  });
+</script>
+
+</body>
+</html>
