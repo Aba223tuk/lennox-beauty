@@ -257,8 +257,8 @@
     </div>
     <p class="ship-note" id="ship-note"></p>
 
-    <!-- SHOPIFY BUY BUTTON SLOT — replace with Buy Button embed once checkout is live -->
-    <button class="btn" onclick="openModal()" id="cta">Claim My Free Bottle</button>
+    <!-- Wired to Shopify checkout via cart permalink -->
+    <button class="btn" onclick="goToCheckout()" id="cta">Claim My Free Bottle</button>
     <div class="trust">
       <span>🚚 Free US shipping $50+</span><span>📦 Tracked delivery</span><span>💯 30-day guarantee</span>
     </div>
@@ -303,15 +303,6 @@
   © 2026 Lennox Beauty · support@lennoxbeauty.com
 </footer>
 
-<!-- pre-launch modal -->
-<div class="modal-back" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <h3>Almost live ✨</h3>
-    <p>Checkout opens this week. This button will connect straight to secure Shopify checkout.</p>
-    <button class="btn" onclick="closeModal()">Got it</button>
-  </div>
-</div>
-
 <script>
   const BOTTLE_PRICE = 34.99;   // per bottle — BOGO: each paid bottle ships with a free one
   const UPSELL_PRICE = 17.49;   // extra bottle at 50%
@@ -348,8 +339,38 @@
     }
   }
 
-  function openModal(){document.getElementById('modal').classList.add('open')}
-  function closeModal(){document.getElementById('modal').classList.remove('open')}
+  // Shopify checkout — Storefront API cart (public token, safe to expose)
+  const SHOP_API = 'https://90uhee-je.myshopify.com/api/2024-07/graphql.json';
+  const SF_TOKEN = 'c733224a494da57cec069f47ad128634';
+  const VARIANT_MAIN = 'gid://shopify/ProductVariant/52292169760984';   // Silk Serum BOGO (2 × 100ml)
+  const VARIANT_ADDON = 'gid://shopify/ProductVariant/52292183883992';  // 3rd bottle 50% off
+
+  async function goToCheckout(){
+    const cta = document.getElementById('cta');
+    const orig = cta.textContent;
+    cta.disabled = true; cta.textContent = 'Preparing secure checkout…';
+    const lines = [{merchandiseId: VARIANT_MAIN, quantity: qty}];
+    if (document.getElementById('upsell').checked) lines.push({merchandiseId: VARIANT_ADDON, quantity: 1});
+    try {
+      const res = await fetch(SHOP_API, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': SF_TOKEN},
+        body: JSON.stringify({
+          query: 'mutation($lines:[CartLineInput!]!){ cartCreate(input:{lines:$lines}){ cart{ checkoutUrl } userErrors{ message } } }',
+          variables: {lines}
+        })
+      });
+      const data = await res.json();
+      const url = data && data.data && data.data.cartCreate && data.data.cartCreate.cart && data.data.cartCreate.cart.checkoutUrl;
+      if (url) { window.location.href = url; return; }
+      throw new Error('no checkout url');
+    } catch (e) {
+      cta.disabled = false; cta.textContent = orig;
+      const note = document.getElementById('ship-note');
+      note.textContent = 'Checkout is temporarily unavailable — please try again in a minute.';
+      note.classList.remove('unlocked');
+    }
+  }
 
   function toggleMenu(){
     const open = document.getElementById('siteMenu').classList.toggle('open');

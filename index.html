@@ -488,19 +488,7 @@
   <a class="btn accent" href="product.html">Claim offer</a>
 </div>
 
-<!-- pre-launch modal (removed when Shopify checkout is wired) -->
-<div class="modal-back" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <h3>Almost live ✨</h3>
-    <p>Checkout opens this week. This button will connect straight to secure Shopify checkout.</p>
-    <button class="btn" onclick="closeModal()">Got it</button>
-  </div>
-</div>
-
 <script>
-  function openModal(){document.getElementById('modal').classList.add('open')}
-  function closeModal(){document.getElementById('modal').classList.remove('open')}
-
   function toggleMenu(){
     const open = document.getElementById('siteMenu').classList.toggle('open');
     document.getElementById('burgerBtn').classList.toggle('open', open);
