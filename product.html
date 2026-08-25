@@ -8,6 +8,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2111917956205326');
+fbq('track','PageView');
+fbq('track','ViewContent',{
+  content_name:'The Silk Serum',
+  content_type:'product',
+  content_ids:['CJST212881401AZ'],
+  value:34.99,
+  currency:'USD'
+});
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></noscript>
 <style>
   :root{
     --ink:#141414;
@@ -355,6 +374,19 @@
     } else {
       lines.push({merchandiseId: VARIANT_2PACK, quantity: qty});
     }
+
+    // Meta: signal checkout intent with the real basket value
+    try {
+      const up = document.getElementById('upsell').checked;
+      const sub = qty * BOTTLE_PRICE + (up ? UPSELL_PRICE : 0);
+      fbq('track','InitiateCheckout',{
+        content_type:'product',
+        content_ids: up ? ['CJST212881401AZ','CJST212881402BY'] : ['CJST212881401AZ'],
+        num_items: qty * 2 + (up ? 1 : 0),
+        value: +(sub + (sub >= FREE_SHIP_AT ? 0 : SHIPPING)).toFixed(2),
+        currency:'USD'
+      });
+    } catch (e) {}
     try {
       const res = await fetch(SHOP_API, {
         method: 'POST',
