@@ -161,6 +161,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
   .trust{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;font-size:.75rem;color:var(--ink-soft);margin-top:.9rem}
 
+  /* assurances — sit above the CTA, where the decision is actually made */
+  .assure{list-style:none;margin:0 0 1.1rem;padding:0;display:grid;gap:.6rem}
+  .assure li{position:relative;padding-left:1.5rem;font-size:.83rem;line-height:1.5;color:var(--ink-soft)}
+  .assure li::before{content:"✓";position:absolute;left:0;top:-.05rem;color:var(--accent);font-weight:700}
+  .assure b{color:var(--ink);font-weight:600}
+  /* vertical padding on an inline link grows the tap target without shifting the line box */
+  .assure a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;padding:.4rem 0}
+  @media(min-width:760px){.assure li{font-size:.86rem}}
+
   /* details accordions */
   .details-sec{max-width:44rem;margin:0 auto;padding-bottom:5rem}
   details{border-bottom:1px solid var(--line);padding:1.1rem 0}
@@ -273,10 +282,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
     <p class="ship-note" id="ship-note"></p>
 
+    <ul class="assure">
+      <li><b>Free US shipping, always.</b> Leaves our New Jersey warehouse in 1–2 business days, tracked — at your door in about a week, not six.</li>
+      <li><b>30 days to change your mind.</b> If your hair isn't noticeably smoother, we refund every cent — no returns to mail, no forms to fill in.</li>
+      <li><b>A real person answers.</b> Text or call <a href="tel:+19296709555">(929) 670-9555</a> — that's a direct line, not a ticket queue.</li>
+    </ul>
+
     <!-- Wired to Shopify checkout via cart permalink -->
     <button class="btn" onclick="goToCheckout()" id="cta">Claim My Free Bottle</button>
     <div class="trust">
-      <span>📍 Ships from New Jersey</span><span>📦 Tracked · at your door in ~1 week</span><span>💯 30-day guarantee</span>
+      <span>🔒 Secure checkout by Shopify</span><span>Visa · Mastercard · Amex · Shop Pay</span>
     </div>
   </div>
 </div>
@@ -346,9 +361,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('per-note').textContent =
       bottles + ' bottles — buy ' + qty + ', get ' + qty + ' free' +
       (up ? ' + 1 at $' + UPSELL_PRICE.toFixed(2) : '') + ' · Launch week only';
+    // shipping/guarantee live in the .assure list above the CTA now;
+    // ship-note is kept solely for the checkout-failure message below
     const note = document.getElementById('ship-note');
-    note.textContent = '✓ Free US shipping — ships from New Jersey';
-    note.classList.add('unlocked');
+    note.textContent = '';
+    note.classList.remove('unlocked');
   }
 
   // Shopify checkout — Storefront API cart (public token, safe to expose)
