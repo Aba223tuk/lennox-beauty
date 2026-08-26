@@ -63,8 +63,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
   a{color:inherit}
 
-  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.78rem;letter-spacing:.04em;padding:.55rem 1rem;font-weight:500}
+  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.78rem;letter-spacing:.04em;padding:.55rem 1rem;font-weight:500;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.15rem .55rem}
   .bar b{color:#d9cbb2;font-weight:600}
+  .bar .cd{white-space:nowrap}
+  .bar .cd-t{color:#d9cbb2;font-weight:700;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  @media(max-width:520px){.bar-ship{display:none}}
+  .cta-timer{margin:0 0 .55rem;font-size:.82rem;text-align:center;color:var(--ink-soft)}
+  .cta-timer b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
   header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:50}
   .logo{font-family:var(--serif);font-size:1.15rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;text-decoration:none}
@@ -248,7 +253,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   "image": [
     "https://lennoxbeauty.com/img/silk/silk-09.webp",
     "https://lennoxbeauty.com/img/silk/silk-01.webp",
-    "https://lennoxbeauty.com/img/silk/silk-03.webp"
+    "https://lennoxbeauty.com/img/silk/silk-07.webp"
   ],
   "brand": {
     "@type": "Brand",
@@ -325,7 +330,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </head>
 <body>
 
-<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b> · Free US shipping on every order</div>
+<div class="bar" id="promoBar"><span>LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b><span class="bar-ship"> · Free US shipping on every order</span></span><span class="cd" id="countdown">· ends in <b class="cd-t">—</b></span></div>
 
 <header>
   <a class="back" href="index.html">← Back</a>
@@ -352,8 +357,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <div class="slide"><img src="img/silk/silk-09.webp" alt="Three 100ml bottles of The Silk Serum — buy one, get two free"></div>
         <div class="slide"><img src="img/silk/silk-01.webp" alt="The Silk Serum being misted through long brown hair"></div>
         <div class="slide"><img src="img/silk/silk-07.webp" alt="A single 100ml bottle of The Silk Serum"></div>
-        <div class="slide"><img src="img/silk/silk-05.webp" alt="The fine-mist nozzle spraying an even, weightless veil"></div>
-        <div class="slide"><img src="img/silk/silk-02.webp" alt="Smooth, glossy hair after using The Silk Serum"></div>
+        <div class="slide"><img src="img/silk/silk-08.webp" alt="Five 100ml bottles of The Silk Serum — the five-bottle bundle"></div>
+        <div class="slide"><img src="img/silk/silk-04.webp" alt="A 100ml bottle of The Silk Serum shown to scale — 15cm tall"></div>
       </div>
       <button class="g-nav prev" onclick="galleryStep(-1)" aria-label="Previous image">‹</button>
       <button class="g-nav next" onclick="galleryStep(1)" aria-label="Next image">›</button>
@@ -362,8 +367,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <div class="thumb active" onclick="galleryGo(0)"><img src="img/silk/silk-09.webp" alt=""></div>
       <div class="thumb" onclick="galleryGo(1)"><img src="img/silk/silk-01.webp" alt=""></div>
       <div class="thumb" onclick="galleryGo(2)"><img src="img/silk/silk-07.webp" alt=""></div>
-      <div class="thumb" onclick="galleryGo(3)"><img src="img/silk/silk-05.webp" alt=""></div>
-      <div class="thumb" onclick="galleryGo(4)"><img src="img/silk/silk-02.webp" alt=""></div>
+      <div class="thumb" onclick="galleryGo(3)"><img src="img/silk/silk-08.webp" alt=""></div>
+      <div class="thumb" onclick="galleryGo(4)"><img src="img/silk/silk-04.webp" alt=""></div>
     </div>
   </div>
 
@@ -416,6 +421,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </ul>
 
     <!-- Wired to Shopify checkout via cart permalink -->
+    <p class="cta-timer" id="ctaTimer"></p>
     <button class="btn" onclick="goToCheckout()" id="cta">Claim My 2 Free Bottles</button>
     <div class="trust">
       <span>🔒 Secure checkout by Shopify</span><span>Visa · Mastercard · Amex · Shop Pay</span>
@@ -431,12 +437,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </details>
   <details>
     <summary>How to use</summary>
-    <img class="detail-img" src="img/silk/silk-05.webp" alt="The Silk Serum's fine-mist nozzle spraying an even, weightless veil">
+    <img class="detail-img" src="img/silk/silk-01.webp" alt="The Silk Serum being misted through long brown hair">
     <p>Start with dry or towel-dried hair. Mist 2–3 sprays evenly over mid-lengths and ends from about a hand's width away, comb through, then air dry or blow-dry as usual. No rinsing — it's a leave-in. Takes about a minute.</p>
   </details>
   <details>
     <summary>Full details</summary>
-    <img class="detail-img ingredients-img" src="img/silk/silk-02.webp" alt="Smooth, glossy hair after using The Silk Serum">
+    <img class="detail-img ingredients-img" src="img/silk/silk-04.webp" alt="A 100ml bottle of The Silk Serum shown to scale — 15cm tall">
     <p>A leave-in smoothing mist (100ml spray bottle) that lays the hair cuticle flat, cutting flyaways and static while adding shine. The micro-fine nozzle throws a roughly 54-micron mist — finer than a human hair — so it spreads evenly instead of landing in wet patches, which is what makes a spray feel weightless rather than greasy.</p>
     <p>Most people see smoother hair from the first application, with the full stay-smooth-all-day effect building over 2–4 weeks. Non-greasy, dry-touch finish, and a soft fragrance that lingers in your hair through the day.</p>
   </details>
@@ -460,6 +466,34 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const UPSELL_PRICE = 16.00;   // upgrade one bundle from 3 bottles to 5 ($54.99 − $38.99)
   const SHIPPING = 0;           // free US shipping on every order
   const FREE_SHIP_AT = 0;       // free shipping threshold (0 = always free)
+
+  /* ---------- launch-week countdown ----------
+     One real cutoff for every visitor — no per-session reset, no rolling fake.
+     Sun 30 Aug 2026, 23:59:59 America/New_York = 31 Aug 2026, 03:59:59 UTC.
+     When this passes the offer must actually end: raise the price in Shopify
+     and drop the "Buy 1 Get 2 Free" copy, or the timer becomes a lie. */
+  const OFFER_ENDS = Date.UTC(2026, 7, 31, 3, 59, 59);
+
+  function renderCountdown(){
+    const left = OFFER_ENDS - Date.now();
+    const cd = document.getElementById('countdown');
+    const ct = document.getElementById('ctaTimer');
+    if (left <= 0){
+      clearInterval(offerTick);
+      if (cd) cd.remove();
+      if (ct) ct.remove();
+      return;
+    }
+    const s = Math.floor(left / 1000);
+    const pad = n => String(n).padStart(2, '0');
+    const days = Math.floor(s / 86400);
+    const clock = (days ? days + 'd ' : '') +
+      pad(Math.floor(s % 86400 / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
+    if (cd) cd.querySelector('.cd-t').textContent = clock;
+    if (ct) ct.innerHTML = 'Launch-week pricing ends in <b>' + clock + '</b>';
+  }
+  const offerTick = setInterval(renderCountdown, 1000);
+  renderCountdown();
   let qty = 1;
 
   function changeQty(d){
