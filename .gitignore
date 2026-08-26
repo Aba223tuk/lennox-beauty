@@ -1,0 +1,4 @@
+# Untouched supplier originals, kept locally as a restore point.
+# These still carry the OUZHINE wordmark that the shipped images have had
+# removed, so publishing them would undo the change on a public repo.
+img/silk/_orig/
