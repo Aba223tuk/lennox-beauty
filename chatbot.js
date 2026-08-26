@@ -67,45 +67,45 @@
   /* ---------- content ----------
      Sourced from the live site. If site copy changes, change these too. */
   var T = {
-    greet: "Hi 👋 I'm the Lennox assistant.\nAsk me anything about The Silk Serum — how it works, what's in it, or when it would arrive.\n\nWhat would you like to know?",
+    greet: "Hi 👋 I'm the Lennox assistant.\nAsk me anything about The Silk Serum — how it works, what it smells like, or when it would arrive.\n\nWhat would you like to know?",
 
-    what: "The Silk Serum is a featherweight keratin leave-in — a 100ml pump serum, not an oil.\n\nOne or two pumps through mid-lengths and ends lays the hair cuticle flat, so flyaways smooth out and humidity can't get in. It dries down silky rather than greasy.\n\nThe whole routine takes about sixty seconds.",
+    what: "The Silk Serum is a featherweight leave-in mist — a 100ml spray bottle, not a heavy oil.\n\nTwo or three sprays through mid-lengths and ends lays the hair cuticle flat, so flyaways smooth out and static disappears. The nozzle throws a very fine mist, so it spreads evenly instead of landing in wet patches — that's what keeps it feeling weightless rather than greasy.\n\nThe whole routine takes about sixty seconds.",
 
-    pricing: "$39.99 a bottle — and during launch week the second bottle is free.\n\n• 2 × 100ml for $39.99 (≈ 5 months of use)\n• Free US shipping on every order\n• Add a 3rd bottle for $12.49\n\nNo subscription, no fine print.",
+    pricing: "$38.99 — and during launch week that gets you three bottles, not one.\n\n• 3 × 100ml for $38.99 (≈ 7 months of use)\n• Free US shipping on every order\n• Make it 5 bottles for $16 more\n\nNo subscription, no fine print.",
 
-    shipping: "Orders ship from our New Jersey warehouse within 1–2 business days, then arrive 3–5 days later with USPS tracking — most land at your door within about a week.\n\nThe tracking number is emailed to you the moment it ships. US shipping is free on every order.",
+    shipping: "Orders are dispatched within 1–2 business days and typically arrive 7–13 days later, tracked the whole way.\n\nThe tracking number is emailed to you the moment it ships. US shipping is free on every order.",
 
-    ingredients: "The full list, exactly as published for the current batch:\n\nAqua (Water), Cetrimonium Chloride, Dimethicone, 1,2-Hexanediol, Hydrolyzed Keratin.\n\nHydrolyzed keratin rebuilds strength along damaged lengths, cetrimonium chloride — the salon-standard conditioning agent — kills static, and dimethicone seals the cuticle smooth. Lightly fragranced.\n\nFive ingredients, nothing hidden.",
+    ingredients: "Honest answer: we don't publish a full INCI list on the site yet — the complete ingredient list is printed on the bottle itself.\n\nIf you have a specific allergy or something you need to avoid, text or call " + PHONE_LINK + " before you order and we'll check the current batch for you. I'd rather you ask than guess.",
 
-    howto: "Start with dry or towel-dried hair — no prep, no rinsing.\n\n1. Work 1–2 pumps evenly through mid-lengths and ends\n2. Comb it through\n3. Air dry or blow-dry as usual\n\nIt's a leave-in, so it stays put. Takes about a minute.",
+    howto: "Start with dry or towel-dried hair — no prep, no rinsing.\n\n1. Mist 2–3 sprays over mid-lengths and ends, about a hand's width away\n2. Comb it through\n3. Air dry or blow-dry as usual\n\nIt's a leave-in, so it stays put. Takes about a minute.",
 
-    greasy: "No — that's rather the point of it.\n\nIt's a weightless leave-in serum, not an oil. A pump or two leaves a silky, dry-touch finish instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different.",
+    greasy: "No — that's rather the point of it.\n\nIt's a weightless leave-in mist, not an oil you pour on. The fine spray spreads a very thin, even layer and dries down silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different.",
 
     hairtype: "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz.\n\nSafe for colour-treated hair as well.",
 
-    results: "Flyaways smooth immediately, from the first application.\n\nThe full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's exactly why the second bottle is free.",
+    results: "Flyaways smooth immediately, from the first application.\n\nThe full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's exactly why the other two bottles are free.",
 
     guarantee: "30 days, no risk.\n\nUse it for a month. If your hair isn't noticeably smoother, text or call " + PHONE_LINK + " and we refund every cent — you don't even ship the bottle back. No returns, no forms.",
 
-    maker: "Straight answer: The Silk Serum is produced with our US-stocked manufacturing partner, EELHOE.\n\nThe bottle that arrives carries their label, and it ships from our New Jersey warehouse. We'd rather tell you that up front than have it surprise you at the door.",
+    maker: "Straight answer: we don't make The Silk Serum ourselves — it's produced by a manufacturing partner, and the bottle that arrives carries their label rather than ours.\n\nWe'd rather tell you that up front than have it surprise you at the door.",
 
-    lasts: "One 100ml bottle is roughly 2–3 months of daily use.\n\nSince every launch order ships with a second bottle free, that's about 5 months in the box for $39.99.",
+    lasts: "One 100ml bottle is roughly 2–3 months of daily use.\n\nSince every launch order ships with two extra bottles free, that's about 7 months in the box for $38.99.",
 
-    scent: "Lightly fragranced — a soft, clean scent that fades once your hair is dry. Nothing heavy or perfumey.",
+    scent: "It's a perfumed mist, so the scent is part of the product rather than an afterthought — soft and warm, noticeable when you first spray, then settling into your hair through the day.\n\nIt won't fight your perfume.",
 
     nosub: "No subscription and no fine print. It's a one-time purchase — you buy it once, it ships once.",
 
-    collection: "The Silk Serum is the one that's live today.\n\nThree more are in development: The Repair Mask (weekly keratin deep-conditioner), The Sleek Stick (pocket wax stick for flyaways) and The Silk Mist (leave-in spray for shine and heat protection).\n\nStart with the serum — the rest of the routine is on its way.",
+    collection: "The Silk Serum is the one that's live today.\n\nThree more are in development: The Repair Mask (weekly deep-conditioner), The Sleek Stick (pocket wax stick for flyaways) and The Heat Shield (pre-styling primer against heat damage).\n\nStart with the serum — the rest of the routine is on its way.",
 
     support: "A real person handles these — text or call:\n\n📱 " + PHONE_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Texting is usually fastest.",
 
-    buy: "Launch offer: buy one bottle at $39.99 and the second is free.\n\n<a href=\"" + SHOP_URL + "\">Claim my free bottle →</a>",
+    buy: "Launch offer: pay for one bottle at $38.99 and three arrive.\n\n<a href=\"" + SHOP_URL + "\">Claim my 2 free bottles →</a>",
 
-    fallback: "I'll be honest — I'm a scripted assistant, so that one is outside what I know.\n\nA person can help: text or call " + PHONE_LINK + ". Or ask me about the offer, shipping, ingredients, or how to use it.",
+    fallback: "I'll be honest — I'm a scripted assistant, so that one is outside what I know.\n\nA person can help: text or call " + PHONE_LINK + ". Or ask me about the offer, shipping, the scent, or how to use it.",
 
     thanks: "Any time. Anything else about the serum?",
 
-    hi: "Hi! Ask me anything about The Silk Serum — the offer, shipping, ingredients, or how to use it."
+    hi: "Hi! Ask me anything about The Silk Serum — the offer, shipping, the scent, or how to use it."
   };
 
   var CHIPS_MAIN = [
@@ -127,7 +127,7 @@
     /* Problems with an existing order go to a human FIRST — before the shipping
        policy answer, which otherwise swallows "my order never arrived". */
     { k: /nev(er|ah) (arrived|came|showed)|not arrived|hasn'?t (arrived|come|shipped)|didn'?t (arrive|come|get)|still waiting|lost|missing|stolen|wrong (item|product|order|address)|damaged|broken|leak|empty bottle|refund my|cancel my|charged twice|double charged/i, r: 'support' },
-    { k: /eelhoe|who makes|who manufact|manufacturer|label on|different (brand|name)|not lennox|whose brand/i, r: 'maker' },
+    { k: /eelhoe|ouzhini|who makes|who manufact|manufacturer|label on|different (brand|name)|not lennox|whose brand/i, r: 'maker' },
     { k: /greas|oily|heavy|weigh (it|my hair) down|residue|buildup|build-up|sticky/i, r: 'greasy' },
     { k: /curl|coil|textur|colou?r[- ]?treated|dyed|bleach|relax|perm|fine hair|thick hair|straight hair|hair type/i, r: 'hairtype' },
     { k: /ingredient|inci|what'?s in it|whats in it|formula|contain|paraben|sulfate|sulphate|silicone|vegan|cruelty|allerg/i, r: 'ingredients' },
