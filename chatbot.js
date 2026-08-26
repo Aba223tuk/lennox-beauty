@@ -71,9 +71,9 @@
 
     what: "The Silk Serum is a featherweight keratin leave-in — a 100ml pump serum, not an oil.\n\nOne or two pumps through mid-lengths and ends lays the hair cuticle flat, so flyaways smooth out and humidity can't get in. It dries down silky rather than greasy.\n\nThe whole routine takes about sixty seconds.",
 
-    pricing: "$34.99 a bottle — and during launch week the second bottle is free.\n\n• 2 × 100ml for $34.99 (≈ 5 months of use)\n• US shipping $4.99 flat, free on orders $50+\n• Add a 3rd bottle for $17.49 (50% off) — that unlocks free shipping\n\nNo subscription, no fine print.",
+    pricing: "$39.99 a bottle — and during launch week the second bottle is free.\n\n• 2 × 100ml for $39.99 (≈ 5 months of use)\n• Free US shipping on every order\n• Add a 3rd bottle for $12.49\n\nNo subscription, no fine print.",
 
-    shipping: "Orders ship from our New Jersey warehouse within 1–2 business days, then arrive 3–5 days later with USPS tracking — most land at your door within about a week.\n\nThe tracking number is emailed to you the moment it ships. US shipping is $4.99 flat, free over $50.",
+    shipping: "Orders ship from our New Jersey warehouse within 1–2 business days, then arrive 3–5 days later with USPS tracking — most land at your door within about a week.\n\nThe tracking number is emailed to you the moment it ships. US shipping is free on every order.",
 
     ingredients: "The full list, exactly as published for the current batch:\n\nAqua (Water), Cetrimonium Chloride, Dimethicone, 1,2-Hexanediol, Hydrolyzed Keratin.\n\nHydrolyzed keratin rebuilds strength along damaged lengths, cetrimonium chloride — the salon-standard conditioning agent — kills static, and dimethicone seals the cuticle smooth. Lightly fragranced.\n\nFive ingredients, nothing hidden.",
 
@@ -89,7 +89,7 @@
 
     maker: "Straight answer: The Silk Serum is produced with our US-stocked manufacturing partner, EELHOE.\n\nThe bottle that arrives carries their label, and it ships from our New Jersey warehouse. We'd rather tell you that up front than have it surprise you at the door.",
 
-    lasts: "One 100ml bottle is roughly 2–3 months of daily use.\n\nSince every launch order ships with a second bottle free, that's about 5 months in the box for $34.99.",
+    lasts: "One 100ml bottle is roughly 2–3 months of daily use.\n\nSince every launch order ships with a second bottle free, that's about 5 months in the box for $39.99.",
 
     scent: "Lightly fragranced — a soft, clean scent that fades once your hair is dry. Nothing heavy or perfumey.",
 
@@ -99,7 +99,7 @@
 
     support: "A real person handles these — text or call:\n\n📱 " + PHONE_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Texting is usually fastest.",
 
-    buy: "Launch offer: buy one bottle at $34.99 and the second is free.\n\n<a href=\"" + SHOP_URL + "\">Claim my free bottle →</a>",
+    buy: "Launch offer: buy one bottle at $39.99 and the second is free.\n\n<a href=\"" + SHOP_URL + "\">Claim my free bottle →</a>",
 
     fallback: "I'll be honest — I'm a scripted assistant, so that one is outside what I know.\n\nA person can help: text or call " + PHONE_LINK + ". Or ask me about the offer, shipping, ingredients, or how to use it.",
 

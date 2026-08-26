@@ -21,7 +21,7 @@ fbq('track','ViewContent',{
   content_name:'The Silk Serum',
   content_type:'product',
   content_ids:['CJST212881401AZ'],
-  value:34.99,
+  value:39.99,
   currency:'USD'
 });
 </script>
@@ -191,7 +191,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </head>
 <body>
 
-<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 1 FREE</b> · Free US shipping on orders $50+</div>
+<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 1 FREE</b> · Free US shipping on every order</div>
 
 <header>
   <a class="back" href="index.html">← Back</a>
@@ -238,8 +238,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <p class="lead">A featherweight leave-in serum with hydrolyzed keratin that smooths flyaways, repairs split ends, and seals out humidity — one pump, under a minute.</p>
 
     <div class="price-line">
-      <span class="old">$69.98</span>
-      <span class="now" id="headline-price">$34.99</span>
+      <span class="old">$79.98</span>
+      <span class="now" id="headline-price">$39.99</span>
       <span class="tag">Buy 1 Get 1 Free</span>
     </div>
     <p class="per" id="per-note">2 bottles — buy 1, get 1 free · Launch week only</p>
@@ -248,7 +248,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <div class="box">
       <div class="label">Quantity</div>
       <div class="qty-row">
-        <div class="what">Silk Serum — $34.99 <small>Every bottle ships with a 2nd one free (2 × 100ml ≈ 5 months)</small></div>
+        <div class="what">Silk Serum — $39.99 <small>Every bottle ships with a 2nd one free (2 × 100ml ≈ 5 months)</small></div>
         <div class="qty">
           <button id="minus" onclick="changeQty(-1)" aria-label="Decrease quantity">−</button>
           <span class="n" id="qty">1</span>
@@ -262,14 +262,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <div class="label">Most add this</div>
       <label class="upsell">
         <input type="checkbox" id="upsell" onchange="recalc()">
-        <span class="t">Add a 3rd bottle — 50% off<small>Unlocks free shipping. One-time offer.</small></span>
-        <span class="p"><s>$34.99</s>$17.49</span>
+        <span class="t">Add a 3rd bottle — $12.49<small>Best value. One-time offer.</small></span>
+        <span class="p"><s>$39.99</s>$12.49</span>
       </label>
     </div>
 
     <div class="total-row">
-      <span class="lbl" id="total-desc">2 bottles + shipping</span>
-      <span class="val" id="total">$39.98</span>
+      <span class="lbl" id="total-desc">2 bottles · free US shipping</span>
+      <span class="val" id="total">$39.99</span>
     </div>
     <p class="ship-note" id="ship-note"></p>
 
@@ -307,7 +307,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </details>
   <details>
     <summary>Shipping &amp; delivery</summary>
-    <p>Every order ships from our New Jersey warehouse within 1–2 business days and typically arrives 3–5 days later with USPS tracking emailed to you — most orders are at your door within a week. US shipping is a flat $4.99 — free on orders of $50 or more.</p>
+    <p>Every order ships from our New Jersey warehouse within 1–2 business days and typically arrives 3–5 days later with USPS tracking emailed to you — most orders are at your door within a week. US shipping is free on every order.</p>
   </details>
   <details>
     <summary>Our guarantee</summary>
@@ -321,10 +321,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </footer>
 
 <script>
-  const BOTTLE_PRICE = 34.99;   // per bottle — BOGO: each paid bottle ships with a free one
-  const UPSELL_PRICE = 17.49;   // extra bottle at 50%
-  const SHIPPING = 4.99;        // flat US rate
-  const FREE_SHIP_AT = 50;      // free shipping threshold
+  const BOTTLE_PRICE = 39.99;   // per bottle — BOGO: each paid bottle ships with a free one
+  const UPSELL_PRICE = 12.49;   // 3rd bottle add-on (3-pack $52.48 − 2-pack $39.99)
+  const SHIPPING = 0;           // free US shipping on every order
+  const FREE_SHIP_AT = 0;       // free shipping threshold (0 = always free)
   let qty = 1;
 
   function changeQty(d){
@@ -345,15 +345,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       bottles + ' bottles' + (freeShip ? ' · free US shipping' : ' + $' + SHIPPING.toFixed(2) + ' shipping');
     document.getElementById('per-note').textContent =
       bottles + ' bottles — buy ' + qty + ', get ' + qty + ' free' +
-      (up ? ' + 1 half price' : '') + ' · Launch week only';
+      (up ? ' + 1 at $' + UPSELL_PRICE.toFixed(2) : '') + ' · Launch week only';
     const note = document.getElementById('ship-note');
-    if (freeShip) {
-      note.textContent = '✓ Free shipping unlocked';
-      note.classList.add('unlocked');
-    } else {
-      note.textContent = 'You’re $' + (FREE_SHIP_AT - subtotal).toFixed(2) + ' away from free shipping — add the 3rd bottle above';
-      note.classList.remove('unlocked');
-    }
+    note.textContent = '✓ Free US shipping — ships from New Jersey';
+    note.classList.add('unlocked');
   }
 
   // Shopify checkout — Storefront API cart (public token, safe to expose)
