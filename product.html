@@ -63,13 +63,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
   a{color:inherit}
 
-  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.78rem;letter-spacing:.04em;padding:.55rem 1rem;font-weight:500;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.15rem .55rem}
+  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.78rem;letter-spacing:.04em;padding:.55rem 1rem;font-weight:500}
   .bar b{color:#d9cbb2;font-weight:600}
-  .bar .cd{white-space:nowrap}
-  .bar .cd-t{color:#d9cbb2;font-weight:700;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-  @media(max-width:520px){.bar-ship{display:none}}
-  .cta-timer{margin:0 0 .55rem;font-size:.82rem;text-align:center;color:var(--ink-soft)}
-  .cta-timer b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
   header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:50}
   .logo{font-family:var(--serif);font-size:1.15rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;text-decoration:none}
@@ -330,7 +325,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </head>
 <body>
 
-<div class="bar" id="promoBar"><span>LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b><span class="bar-ship"> · Free US shipping on every order</span></span><span class="cd" id="countdown">· ends in <b class="cd-t">—</b></span></div>
+<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b> · Free US shipping on every order</div>
 
 <header>
   <a class="back" href="index.html">← Back</a>
@@ -423,7 +418,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </ul>
 
     <!-- Wired to Shopify checkout via cart permalink -->
-    <p class="cta-timer" id="ctaTimer"></p>
     <button class="btn" onclick="goToCheckout()" id="cta">Claim My 2 Free Bottles</button>
     <div class="trust">
       <span>🔒 Secure checkout by Shopify</span><span>Visa · Mastercard · Amex · Shop Pay</span>
@@ -468,34 +462,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const UPSELL_PRICE = 16.00;   // upgrade one bundle from 3 bottles to 5 ($54.99 − $38.99)
   const SHIPPING = 0;           // free US shipping on every order
   const FREE_SHIP_AT = 0;       // free shipping threshold (0 = always free)
-
-  /* ---------- launch-week countdown ----------
-     One real cutoff for every visitor — no per-session reset, no rolling fake.
-     Sun 30 Aug 2026, 23:59:59 America/New_York = 31 Aug 2026, 03:59:59 UTC.
-     When this passes the offer must actually end: raise the price in Shopify
-     and drop the "Buy 1 Get 2 Free" copy, or the timer becomes a lie. */
-  const OFFER_ENDS = Date.UTC(2026, 7, 31, 3, 59, 59);
-
-  function renderCountdown(){
-    const left = OFFER_ENDS - Date.now();
-    const cd = document.getElementById('countdown');
-    const ct = document.getElementById('ctaTimer');
-    if (left <= 0){
-      clearInterval(offerTick);
-      if (cd) cd.remove();
-      if (ct) ct.remove();
-      return;
-    }
-    const s = Math.floor(left / 1000);
-    const pad = n => String(n).padStart(2, '0');
-    const days = Math.floor(s / 86400);
-    const clock = (days ? days + 'd ' : '') +
-      pad(Math.floor(s % 86400 / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
-    if (cd) cd.querySelector('.cd-t').textContent = clock;
-    if (ct) ct.innerHTML = 'Launch-week pricing ends in <b>' + clock + '</b>';
-  }
-  const offerTick = setInterval(renderCountdown, 1000);
-  renderCountdown();
   let qty = 1;
 
   function changeQty(d){

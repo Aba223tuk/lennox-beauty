@@ -73,15 +73,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     letter-spacing:.04em;
     padding:.55rem 1rem;
     font-weight:500;
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:center;
-    gap:.15rem .55rem;
   }
   .bar b{color:#d9cbb2;font-weight:600}
-  .bar .cd{white-space:nowrap}
-  .bar .cd-t{color:#d9cbb2;font-weight:700;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
   /* ---------- header ---------- */
   header{
@@ -400,7 +393,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </head>
 <body>
 
-<div class="bar" id="promoBar"><span>LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b></span><span class="cd" id="countdown">· ends in <b class="cd-t">—</b></span></div>
+<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b></div>
 
 <header>
   <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
@@ -625,25 +618,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.body.classList.remove('menu-open');
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-
-  /* ---------- launch-week countdown ----------
-     Must stay in sync with the same constant in product.html.
-     Sun 30 Aug 2026, 23:59:59 America/New_York = 31 Aug 2026, 03:59:59 UTC. */
-  const OFFER_ENDS = Date.UTC(2026, 7, 31, 3, 59, 59);
-
-  function renderCountdown(){
-    const left = OFFER_ENDS - Date.now();
-    const cd = document.getElementById('countdown');
-    if (left <= 0){ clearInterval(offerTick); if (cd) cd.remove(); return; }
-    const s = Math.floor(left / 1000);
-    const pad = n => String(n).padStart(2, '0');
-    const days = Math.floor(s / 86400);
-    if (cd) cd.querySelector('.cd-t').textContent =
-      (days ? days + 'd ' : '') +
-      pad(Math.floor(s % 86400 / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
-  }
-  const offerTick = setInterval(renderCountdown, 1000);
-  renderCountdown();
 </script>
 
 <script src="chatbot.js" defer></script>
