@@ -585,6 +585,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     const i = Math.round(galleryMain.scrollLeft / w);
     galleryThumbList.forEach((t, idx) => t.classList.toggle('active', idx === i));
   });
+
+  // Diagnostic: did they read the page or bounce at the fold? Without this,
+  // "landed and left" and "read it all and passed" look identical in reporting.
+  let scrollFired = false;
+  addEventListener('scroll', () => {
+    if (scrollFired) return;
+    const doc = document.documentElement;
+    const seen = (scrollY + innerHeight) / doc.scrollHeight;
+    if (seen > 0.5) {
+      scrollFired = true;
+      try { fbq('trackCustom', 'Scroll50'); } catch (e) {}
+    }
+  }, {passive: true});
 </script>
 
 <script src="chatbot.js" defer></script>
