@@ -139,7 +139,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .price-line .old{color:var(--ink-soft);text-decoration:line-through;font-size:1.05rem}
   .price-line .now{font-family:var(--serif);font-size:2.2rem;font-weight:700}
   .price-line .tag{background:var(--ink);color:#fff;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px}
-  .per{font-size:.83rem;color:var(--ink-soft);margin:.3rem 0 1.6rem}
+  .per{font-size:.83rem;color:var(--ink-soft);margin:.3rem 0 .55rem}
+  .stock-note{display:flex;align-items:center;gap:.5rem;margin:0 0 1.6rem;font-size:.83rem;font-weight:600;color:var(--accent)}
+  .stock-note .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
 
   .box{border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem;margin-bottom:1rem}
   .box .label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.8rem}
@@ -325,7 +327,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </head>
 <body>
 
-<div class="bar">LAUNCH WEEK — Buy 1 Silk Serum, <b>Get 2 FREE</b> · Free US shipping on every order</div>
+<div class="bar">LIMITED STOCK — Buy 1 Silk Serum, <b>Get 2 FREE</b> · Free US shipping on every order</div>
 
 <header>
   <a class="back" href="index.html">← Back</a>
@@ -381,6 +383,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <span class="tag">Buy 1 Get 2 Free</span>
     </div>
     <p class="per" id="per-note">3 bottles — buy 1, get 2 free · Launch week only</p>
+    <p class="stock-note"><span class="dot" aria-hidden="true"></span>Limited stock</p>
 
     <!-- qty -->
     <div class="box">
