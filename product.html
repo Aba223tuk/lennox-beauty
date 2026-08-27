@@ -569,6 +569,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       if (url) { window.location.href = url; return; }
       throw new Error('no checkout url');
     } catch (e) {
+      // A failure here creates no Shopify session, so the click would otherwise be
+      // invisible in every analytics source. Record it against the pixel that is
+      // already loaded, so a broken checkout shows up instead of reading as apathy.
+      try { fbq('trackCustom', 'CheckoutFailed'); } catch (_) {}
       cta.disabled = false; cta.textContent = orig;
       const note = document.getElementById('ship-note');
       note.textContent = 'Checkout is temporarily unavailable — please try again in a minute.';
