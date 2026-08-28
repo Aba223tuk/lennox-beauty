@@ -43,6 +43,32 @@ fbq('track','ViewContent',{
   currency:'USD'
 });
 </script>
+
+<!-- Google Analytics 4. Shopify's analytics can't see this site (it is static on GitHub
+     Pages and the store is used headless via the Storefront API), so traffic is measured
+     here instead. Paste the Measurement ID from GA4 > Admin > Data streams; until it is a
+     real G- id the tag never loads, and gtag stays a no-op so later calls can't throw. -->
+<script>
+  window.GA_ID = 'G-RVCCLVESX7';
+</script>
+<script>
+(function(){
+  var ok = /^G-[A-Z0-9]{8,}$/.test(window.GA_ID || '');
+  if (!ok) { window.gtag = function(){}; return; }
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  document.head.appendChild(s);
+  gtag('js', new Date());
+  gtag('config', window.GA_ID);
+  gtag('event','view_item',{
+    currency:'USD', value:38.99,
+    items:[{item_id:'LB-SILK-3PK', item_name:'The Silk Serum', price:38.99, quantity:1}]
+  });
+})();
+</script>
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></noscript>
 <style>
@@ -594,6 +620,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         value: +(sub + (sub >= FREE_SHIP_AT ? 0 : SHIPPING)).toFixed(2),
         currency:'USD'
       });
+      gtag('event','begin_checkout',{
+        currency:'USD',
+        value: +(sub + (sub >= FREE_SHIP_AT ? 0 : SHIPPING)).toFixed(2),
+        items: [{item_id: up ? 'LB-SILK-5PK' : 'LB-SILK-3PK', item_name:'The Silk Serum', quantity: qty}]
+      });
     } catch (e) {}
     try {
       const res = await fetch(SHOP_API, {
@@ -667,6 +698,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     if (seen > 0.5) {
       scrollFired = true;
       try { fbq('trackCustom', 'Scroll50'); } catch (e) {}
+      try { gtag('event','scroll_50'); } catch (e) {}
     }
   }, {passive: true});
 </script>

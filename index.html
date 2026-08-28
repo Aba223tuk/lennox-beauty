@@ -36,6 +36,26 @@ document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','2111917956205326');
 fbq('track','PageView');
 </script>
+
+<!-- Google Analytics 4 — see product.html for why traffic is measured here and not in
+     Shopify. Keep GA_ID identical across both pages or sessions will split. -->
+<script>
+  window.GA_ID = 'G-RVCCLVESX7';
+</script>
+<script>
+(function(){
+  var ok = /^G-[A-Z0-9]{8,}$/.test(window.GA_ID || '');
+  if (!ok) { window.gtag = function(){}; return; }
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  document.head.appendChild(s);
+  gtag('js', new Date());
+  gtag('config', window.GA_ID);
+})();
+</script>
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></noscript>
 <style>
