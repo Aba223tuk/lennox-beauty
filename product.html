@@ -209,6 +209,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
   .trust{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;font-size:.75rem;color:var(--ink-soft);margin-top:.9rem}
 
+  /* compact trust strip — sits with the price, above the gallery */
+  .trust-strip{
+    list-style:none;display:flex;flex-wrap:wrap;gap:.3rem 1rem;
+    margin:0 0 1.4rem;padding:0;font-size:.8rem;color:var(--ink-soft);
+  }
+  .trust-strip li{position:relative;padding-left:1.05rem}
+  .trust-strip li::before{content:"✓";position:absolute;left:0;top:-.03rem;color:var(--accent);font-weight:700}
+  .trust-strip b{color:var(--ink);font-weight:600}
+  /* padding grows the tap target without shifting the line box */
+  .trust-strip a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;padding:.35rem 0}
+
   /* assurances — now below the CTA so they never push the button off the screen */
   .assure{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:.6rem}
   .assure li{position:relative;padding-left:1.5rem;font-size:.83rem;line-height:1.5;color:var(--ink-soft)}
@@ -258,7 +269,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     .p-head .price-line{order:3}
     .p-head .per{order:4}
     .p-head .stock-note{order:5;margin-bottom:.85rem}
-    .p-head .lead{order:6;font-size:.92rem;margin-bottom:0}
+    .p-head .trust-strip{order:6;margin-bottom:1rem;font-size:.78rem;gap:.3rem .85rem}
+    .p-head .lead{order:7;font-size:.92rem;margin-bottom:0}
 
     .gallery .main{aspect-ratio:3/2}
     .thumbs{margin-top:.55rem}
@@ -441,6 +453,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
     <p class="per" id="per-note">3 bottles — buy 1, get 2 free · Launch week only</p>
     <p class="stock-note"><span class="dot" aria-hidden="true"></span>Limited stock</p>
+
+    <!-- Scannable version of the assurances, high on the page. The full-sentence
+         versions stay below the CTA; against overseas dropshippers the NJ warehouse
+         and a phone a human answers are the real differentiators, so they can't sit
+         two screens down where nobody reaches them. -->
+    <ul class="trust-strip">
+      <li>Ships from <b>New Jersey</b></li>
+      <li><b>30-day</b> money-back</li>
+      <li>A real person: <a href="tel:+19296709555">(929) 670-9555</a></li>
+    </ul>
   </div>
 
   <!-- ================= GALLERY ================= -->
