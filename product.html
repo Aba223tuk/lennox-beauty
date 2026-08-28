@@ -91,7 +91,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   body.menu-open{overflow:hidden}
 
   .wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem}
-  .product{padding-top:2.5rem;padding-bottom:4rem;display:grid;grid-template-columns:minmax(0,1fr);gap:2.5rem}
+  /* Mobile source order is head -> gallery -> buy, so the name, price and offer
+     land in the first screen instead of sitting under a full-width square image. */
+  .product{padding-top:1.5rem;padding-bottom:4rem;display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem}
 
   /* gallery */
   .gallery{min-width:0}
@@ -181,8 +183,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
   .trust{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;font-size:.75rem;color:var(--ink-soft);margin-top:.9rem}
 
-  /* assurances — sit above the CTA, where the decision is actually made */
-  .assure{list-style:none;margin:0 0 1.1rem;padding:0;display:grid;gap:.6rem}
+  /* assurances — now below the CTA so they never push the button off the screen */
+  .assure{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:.6rem}
   .assure li{position:relative;padding-left:1.5rem;font-size:.83rem;line-height:1.5;color:var(--ink-soft)}
   .assure li::before{content:"✓";position:absolute;left:0;top:-.05rem;color:var(--accent);font-weight:700}
   .assure b{color:var(--ink);font-weight:600}
@@ -213,8 +215,61 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .modal p{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.4rem}
   .modal .btn{background:var(--ink)}
 
+  /* ---- mobile: buy back the first screen ----
+     Measured at a true 390px viewport, the header/bar/gallery chrome was pushing
+     the quantity box to 877px. Everything here is pixel-shaving plus one reorder:
+     name -> price -> offer -> stock -> description, so the offer lands before
+     the fold instead of after a four-line paragraph. */
+  @media(max-width:819px){
+    .bar{font-size:.72rem;letter-spacing:.02em;padding:.5rem .8rem}
+    .bar-tail{display:none}
+    header{padding:.8rem 1.25rem}
+    .logo{font-size:1.02rem;letter-spacing:.2em}
+
+    .p-head{display:flex;flex-direction:column}
+    .p-head .kicker{order:1;margin-bottom:.45rem}
+    .p-head h1{order:2;margin-bottom:.55rem}
+    .p-head .price-line{order:3}
+    .p-head .per{order:4}
+    .p-head .stock-note{order:5;margin-bottom:.85rem}
+    .p-head .lead{order:6;font-size:.92rem;margin-bottom:0}
+
+    .gallery .main{aspect-ratio:3/2}
+    .thumbs{margin-top:.55rem}
+    .thumb{flex-basis:52px;width:52px;height:52px}
+    .box{padding:1.1rem;margin-bottom:.8rem}
+  }
+
+  /* Sticky mobile buy bar. Deliberately the same .sticky-cta class index.html uses:
+     chatbot.js already scans for .sticky-cta and lifts its launcher above whatever
+     it finds, so the chat bubble stops covering the buy button for free. */
+  .sticky-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:60;
+    display:flex;align-items:center;gap:.9rem;justify-content:space-between;
+    padding:.7rem 1rem;padding-bottom:calc(.7rem + env(safe-area-inset-bottom,0px));
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);
+    box-shadow:0 -6px 22px rgba(20,20,20,.08);
+  }
+  .sticky-cta .p{font-family:var(--serif);font-size:1.3rem;font-weight:700;line-height:1.1;flex:none}
+  .sticky-cta .p small{display:block;font-family:var(--sans);font-weight:400;color:var(--ink-soft);font-size:.68rem}
+  .sticky-cta .btn{flex:1;padding:.85rem 1rem;font-size:.92rem;white-space:nowrap}
+  /* keep the footer clear of the bar */
+  body{padding-bottom:5.5rem}
+
   @media(min-width:820px){
-    .product{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3.5rem;padding-top:3.5rem;padding-bottom:5rem}
+    .product{
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      grid-template-areas:"gallery head" "gallery buy";
+      grid-template-rows:auto 1fr;
+      column-gap:3.5rem;row-gap:1.4rem;align-items:start;
+      padding-top:3.5rem;padding-bottom:5rem;
+    }
+    .p-head{grid-area:head}
+    .gallery{grid-area:gallery}
+    .p-buy{grid-area:buy}
+    .sticky-cta{display:none}
+    body{padding-bottom:0}
   }
 </style>
 <script type="application/ld+json">
@@ -327,7 +382,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </head>
 <body>
 
-<div class="bar">LIMITED STOCK — Buy 1 Silk Serum, <b>Get 2 FREE</b> · Free US shipping on every order</div>
+<div class="bar">LIMITED STOCK — Buy 1 Silk Serum, <b>Get 2 FREE</b><span class="bar-tail"> · Free US shipping on every order</span></div>
 
 <header>
   <a class="back" href="index.html">← Back</a>
@@ -346,6 +401,21 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </nav>
 
 <div class="wrap product">
+
+  <!-- ========= HEAD: name, promise, price — first screen on mobile ========= -->
+  <div class="p-head">
+    <div class="kicker">Lennox Beauty</div>
+    <h1>The Silk Serum</h1>
+    <p class="lead">A featherweight leave-in mist that lays the cuticle flat, kills static, and leaves hair smooth, glossy and softly scented — two or three sprays, under a minute.</p>
+
+    <div class="price-line">
+      <span class="old">$74.97</span>
+      <span class="now" id="headline-price">$38.99</span>
+      <span class="tag">Buy 1 Get 2 Free</span>
+    </div>
+    <p class="per" id="per-note">3 bottles — buy 1, get 2 free · Launch week only</p>
+    <p class="stock-note"><span class="dot" aria-hidden="true"></span>Limited stock</p>
+  </div>
 
   <!-- ================= GALLERY ================= -->
   <div class="gallery">
@@ -371,19 +441,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
   </div>
 
-  <!-- ================= INFO ================= -->
-  <div>
-    <div class="kicker">Lennox Beauty</div>
-    <h1>The Silk Serum</h1>
-    <p class="lead">A featherweight leave-in mist that lays the cuticle flat, kills static, and leaves hair smooth, glossy and softly scented — two or three sprays, under a minute.</p>
-
-    <div class="price-line">
-      <span class="old">$74.97</span>
-      <span class="now" id="headline-price">$38.99</span>
-      <span class="tag">Buy 1 Get 2 Free</span>
-    </div>
-    <p class="per" id="per-note">3 bottles — buy 1, get 2 free · Launch week only</p>
-    <p class="stock-note"><span class="dot" aria-hidden="true"></span>Limited stock</p>
+  <!-- ================= BUY ================= -->
+  <div class="p-buy">
 
     <!-- qty -->
     <div class="box">
@@ -414,18 +473,24 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
     <p class="ship-note" id="ship-note"></p>
 
-    <ul class="assure">
-      <li><b>Free US shipping, always.</b> Dispatched within 1–2 business days and tracked the whole way — most orders arrive in 7–13 days.</li>
-      <li><b>30 days to change your mind.</b> If your hair isn't noticeably smoother, we refund every cent — no returns to mail, no forms to fill in.</li>
-      <li><b>A real person answers.</b> Text or call <a href="tel:+19296709555">(929) 670-9555</a> — that's a direct line, not a ticket queue.</li>
-    </ul>
-
     <!-- Wired to Shopify checkout via cart permalink -->
     <button class="btn" onclick="goToCheckout()" id="cta">Claim My 2 Free Bottles</button>
     <div class="trust">
       <span>🔒 Secure checkout by Shopify</span><span>Visa · Mastercard · Amex · Shop Pay</span>
     </div>
+
+    <ul class="assure">
+      <li><b>Free US shipping, always.</b> Dispatched within 1–2 business days and tracked the whole way — most orders arrive in 7–13 days.</li>
+      <li><b>30 days to change your mind.</b> If your hair isn't noticeably smoother, we refund every cent — no returns to mail, no forms to fill in.</li>
+      <li><b>A real person answers.</b> Text or call <a href="tel:+19296709555">(929) 670-9555</a> — that's a direct line, not a ticket queue.</li>
+    </ul>
   </div>
+</div>
+
+<!-- Sticky mobile buy bar: keeps price and CTA on screen from the first pixel -->
+<div class="sticky-cta">
+  <div class="p"><span id="bb-total">$38.99</span><small id="bb-sub">3 bottles · free shipping</small></div>
+  <button class="btn" onclick="goToCheckout()" id="cta-bar">Claim My 2 Free Bottles</button>
 </div>
 
 <!-- ================= DETAILS ================= -->
@@ -483,6 +548,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('total').textContent = '$' + total.toFixed(2);
     document.getElementById('total-desc').textContent =
       bottles + ' bottles' + (freeShip ? ' · free US shipping' : ' + $' + SHIPPING.toFixed(2) + ' shipping');
+    // keep the sticky mobile bar in step with the basket
+    document.getElementById('bb-total').textContent = '$' + total.toFixed(2);
+    document.getElementById('bb-sub').textContent =
+      bottles + ' bottles' + (freeShip ? ' · free shipping' : ' + shipping');
     document.getElementById('per-note').textContent =
       bottles + ' bottles — buy ' + qty + ', get ' + (qty * 2) + ' free' +
       (up ? ' + 2 more at $' + UPSELL_PRICE.toFixed(2) : '') + ' · Launch week only';
@@ -500,9 +569,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const VARIANT_5PACK = 'gid://shopify/ProductVariant/52304320889048';  // Bundle: 5 Bottles (Best Value) — $54.99
 
   async function goToCheckout(){
-    const cta = document.getElementById('cta');
-    const orig = cta.textContent;
-    cta.disabled = true; cta.textContent = 'Preparing secure checkout…';
+    // Two buttons fire this — the in-page CTA and the sticky mobile bar — so both
+    // have to show the pending state, and both have to come back on failure.
+    const btns = [document.getElementById('cta'), document.getElementById('cta-bar')].filter(Boolean);
+    const orig = btns.map(b => b.textContent);
+    btns.forEach(b => { b.disabled = true; b.textContent = 'Preparing secure checkout…'; });
     // Upsell = one 5-bottle bundle (ships as one 5pc parcel); extra qty ships as 3-bottle parcels
     const lines = [];
     if (document.getElementById('upsell').checked) {
@@ -542,7 +613,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       // invisible in every analytics source. Record it against the pixel that is
       // already loaded, so a broken checkout shows up instead of reading as apathy.
       try { fbq('trackCustom', 'CheckoutFailed'); } catch (_) {}
-      cta.disabled = false; cta.textContent = orig;
+      btns.forEach((b, i) => { b.disabled = false; b.textContent = orig[i]; });
       const note = document.getElementById('ship-note');
       note.textContent = 'Checkout is temporarily unavailable — please try again in a minute.';
       note.classList.remove('unlocked');
