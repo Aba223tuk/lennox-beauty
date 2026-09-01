@@ -248,6 +248,29 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .review figcaption b{color:var(--ink);font-weight:600}
   .review .disc{display:block;margin-top:.22rem;font-size:.76rem;color:#8f887c}
 
+  /* Proof, above the fold. GA4 (Aug 28-31) says two thirds of paid visitors leave
+     in under ten seconds, so the before/after and the review cannot live two
+     screens down where only the patient ones reach them. Deliberately compact:
+     the photo does the work in the first glance, the words are there for whoever
+     slows down, and the full verbatim review still sits under the CTA. */
+  .proof{
+    padding:.6rem .6rem .8rem;margin:0 0 .55rem;
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;
+  }
+  /* The square gallery version of this photo is unreadable shrunk into a card —
+     both halves just read as "brown hair". This is a wide crop of the same two
+     frames, middle band only, where frizz vs. smooth is obvious at a glance.
+     The labelled square is still what the lightbox opens. */
+  .proof-img{display:block;width:100%;border:0;padding:0;background:none;cursor:zoom-in;border-radius:9px;overflow:hidden}
+  .proof-img img{width:100%;height:auto;display:block}
+  .proof .pt{padding:.7rem .35rem 0}
+  .proof .stars{color:var(--accent);font-size:.82rem;letter-spacing:.12em;line-height:1}
+  .proof .q{margin:.4rem 0 0;font-size:.88rem;line-height:1.5;color:var(--ink)}
+  .proof .who{margin:.45rem 0 0;font-size:.74rem;line-height:1.45;color:#8f887c}
+  .proof .who b{color:var(--ink-soft);font-weight:600}
+  .proof .who a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .proof-cap{margin:0 0 1.5rem;font-size:.72rem;line-height:1.45;color:#8f887c}
+
   /* details accordions */
   .details-sec{max-width:44rem;margin:0 auto;padding-bottom:5rem}
   details{border-bottom:1px solid var(--line);padding:1.1rem 0}
@@ -354,8 +377,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     .p-head .per{order:4}
     .p-head .stock-note{order:5;margin-bottom:.85rem}
     .p-head .trust-strip{order:6;margin-bottom:.9rem;font-size:.78rem;gap:.3rem .85rem}
-    .p-head .founder-note{order:7;margin-bottom:1rem;font-size:.83rem}
-    .p-head .lead{order:8;font-size:.92rem;margin-bottom:0}
+    .p-head .proof{order:7;margin-bottom:.5rem}
+    .p-head .proof-cap{order:8;margin-bottom:1rem}
+    .p-head .founder-note{order:9;margin-bottom:1rem;font-size:.83rem}
+    .p-head .lead{order:10;font-size:.92rem;margin-bottom:0}
 
     .gallery .main{aspect-ratio:3/2}
     .thumbs{margin-top:.55rem}
@@ -550,6 +575,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <li>A real person: <a href="tel:+19296709555">(929) 670-9555</a></li>
     </ul>
 
+    <div class="proof">
+      <button type="button" class="proof-img" onclick="openLightbox(5)" aria-label="Enlarge the before and after photo">
+        <img src="img/before-after-strip.webp" width="1200" height="560" fetchpriority="high" decoding="async"
+             alt="Our own hair, unretouched: frizzy and flyaway on the left, smooth and glossy on the right after one use of The Silk Serum">
+      </button>
+      <div class="pt">
+        <div class="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</div>
+        <p class="q">“It made my hair feel softer, smoother, and much easier to manage.”</p>
+        <p class="who"><b>Rolandi J.</b> — we gave him a bottle to try. <a href="#review">Read the whole thing</a></p>
+      </div>
+    </div>
+    <p class="proof-cap">Left: our own hair on waking. Right: the next day, after one use. Unretouched — tap to enlarge.</p>
+
     <p class="founder-note">You've never heard of us — fair reason to be careful. So try it for
       <b>30 days</b>: if your hair isn't noticeably smoother, text or call
       <a href="tel:+19296709555">(929) 670-9555</a> and we'll refund every cent. You keep the
@@ -633,7 +671,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <li><b>A real person answers.</b> Text or call <a href="tel:+19296709555">(929) 670-9555</a> — that's a direct line, not a ticket queue.</li>
     </ul>
 
-    <figure class="review">
+    <figure class="review" id="review">
       <div class="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</div>
       <blockquote>“I really liked this silk serum! It made my hair feel softer, smoother, and much easier to manage. It also helped with frizz and gave my hair a nice shine without making it feel too heavy or greasy. Overall, I'm really happy with it and would definitely recommend it!”</blockquote>
       <figcaption><b>Rolandi J.</b>
