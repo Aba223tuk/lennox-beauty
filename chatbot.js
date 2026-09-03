@@ -71,7 +71,7 @@
 
     what: "The Silk Serum is a featherweight leave-in mist — a 100ml spray bottle, not a heavy oil.\n\nTwo or three sprays through mid-lengths and ends lays the hair cuticle flat, so flyaways smooth out and static disappears. The nozzle throws a very fine mist, so it spreads evenly instead of landing in wet patches — that's what keeps it feeling weightless rather than greasy.\n\nThe whole routine takes about sixty seconds.",
 
-    pricing: "$38.99 — and during launch week that gets you three bottles, not one.\n\n• 3 × 100ml for $38.99 (≈ 7 months of use)\n• Free US shipping on every order\n• Make it 5 bottles for $16 more\n\nNo subscription, no fine print.",
+    pricing: "One 100ml bottle is $24.99, and the price per bottle drops if you take more.\n\n• 1 bottle — $24.99\n• 3 bottles — $38.99 ($13.00 each)\n• 5 bottles — $54.99 ($11.00 each)\n\nFree US shipping on every order. No subscription, no fine print.",
 
     shipping: "Orders are dispatched within 1–2 business days and typically arrive 7–13 days later, tracked the whole way.\n\nThe tracking number is emailed to you the moment it ships. US shipping is free on every order.",
 
@@ -83,13 +83,13 @@
 
     hairtype: "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz.\n\nSafe for colour-treated hair as well.",
 
-    results: "Flyaways smooth immediately, from the first application.\n\nThe full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's exactly why the other two bottles are free.",
+    results: "Flyaways smooth immediately, from the first application.\n\nThe full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set.",
 
     guarantee: "30 days, no risk.\n\nUse it for a month. If your hair isn't noticeably smoother, text or call " + PHONE_LINK + " and we refund every cent — you don't even ship the bottle back. No returns, no forms.",
 
     maker: "Straight answer: we don't make The Silk Serum ourselves — it's produced by a manufacturing partner, and the bottle that arrives carries their label rather than ours.\n\nWe'd rather tell you that up front than have it surprise you at the door.",
 
-    lasts: "One 100ml bottle is roughly 2–3 months of daily use.\n\nSince every launch order ships with two extra bottles free, that's about 7 months in the box for $38.99.",
+    lasts: "One 100ml bottle is roughly 2–3 months of daily use.\n\nSo the 3-bottle set is about 7 months, and the 5-bottle set is about a year.",
 
     scent: "It's a perfumed mist, so the scent is part of the product rather than an afterthought — soft and warm, noticeable when you first spray, then settling into your hair through the day.\n\nIt won't fight your perfume.",
 
@@ -99,7 +99,7 @@
 
     support: "A real person handles these — text or call:\n\n📱 " + PHONE_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Texting is usually fastest.",
 
-    buy: "Launch offer: pay for one bottle at $38.99 and three arrive.\n\n<a href=\"" + SHOP_URL + "\">Claim my 2 free bottles →</a>",
+    buy: "You can start with a single bottle at $24.99, or take 3 or 5 and pay less per bottle.\n\n<a href=\"" + SHOP_URL + "\">See the sizes →</a>",
 
     fallback: "I'll be honest — I'm a scripted assistant, so that one is outside what I know.\n\nA person can help: text or call " + PHONE_LINK + ". Or ask me about the offer, shipping, the scent, or how to use it.",
 
