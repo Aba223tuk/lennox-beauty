@@ -71,7 +71,7 @@
 
     what: "The Silk Serum is a featherweight leave-in mist — a 100ml spray bottle, not a heavy oil.\n\nTwo or three sprays through mid-lengths and ends lays the hair cuticle flat, so flyaways smooth out and static disappears. The nozzle throws a very fine mist, so it spreads evenly instead of landing in wet patches — that's what keeps it feeling weightless rather than greasy.\n\nThe whole routine takes about sixty seconds.",
 
-    pricing: "One 100ml bottle is $24.99, and the price per bottle drops if you take more.\n\n• 1 bottle — $24.99\n• 3 bottles — $38.99 ($13.00 each)\n• 5 bottles — $54.99 ($11.00 each)\n\nFree US shipping on every order. No subscription, no fine print.",
+    pricing: "<b>The Silk Serum</b> — one 100ml bottle is $24.99, and the price per bottle drops if you take more:\n\n• 1 bottle — $24.99\n• 3 bottles — $38.99 ($13.00 each)\n• 5 bottles — $54.99 ($11.00 each)\n\n<b>Batana Oil</b> — one 120g jar is $29.99, or two for $44.99 (the second jar is half price).\n\nFree US shipping on every order. No subscription, no fine print.",
 
     shipping: "Orders are dispatched within 1–2 business days and typically arrive 7–13 days later, tracked the whole way.\n\nThe tracking number is emailed to you the moment it ships. US shipping is free on every order.",
 
@@ -95,7 +95,7 @@
 
     nosub: "No subscription and no fine print. It's a one-time purchase — you buy it once, it ships once.",
 
-    collection: "The Silk Serum is the one that's live today.\n\nThree more are in development: The Repair Mask (weekly deep-conditioner), The Sleek Stick (pocket wax stick for flyaways) and The Heat Shield (pre-styling primer against heat damage).\n\nStart with the serum — the rest of the routine is on its way.",
+    collection: "Two are live today:\n\n• <b>The Silk Serum</b> — the daily leave-in mist, from $24.99\n• <b>Batana Oil</b> — the weekly deep treatment you rinse out, from $29.99\n\nTwo more are in development: The Sleek Stick (pocket wax stick for flyaways) and The Heat Shield (pre-styling primer against heat damage).",
 
     support: "A real person handles these — text or call:\n\n📱 " + PHONE_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Texting is usually fastest.",
 
