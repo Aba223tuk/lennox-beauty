@@ -443,10 +443,27 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       used for generations in Honduras. Heavy — a weekly mask, not a styling oil.
       For hair that breaks faster than it grows.</p>
 
+    <fieldset class="opts">
+      <legend class="sr-only">Choose how many jars</legend>
+
+      <label class="opt">
+        <input type="radio" name="jars" value="1" checked onchange="selectJars(1)">
+        <span class="o-main">1 jar<small>120g · a weekly mask for about 3 months</small></span>
+        <span class="o-price">$29.99</span>
+      </label>
+
+      <label class="opt">
+        <span class="flag">Save $14.99</span>
+        <input type="radio" name="jars" value="2" onchange="selectJars(2)">
+        <span class="o-main">2 jars<small>Second jar half price</small></span>
+        <span class="o-price">$44.99<small>$15.00 for the 2nd</small></span>
+      </label>
+    </fieldset>
+
     <div class="bump" id="bump">
-      <span class="save">Completes the routine</span>
-      <p>Batana is the weekly deep treatment — you rinse it out. <b>The Silk Serum</b> is the
-        daily leave-in mist that keeps hair smooth between washes. Different jobs, same hair.</p>
+      <span class="save" id="bump-save">Completes the routine</span>
+      <p id="bump-copy">Batana is the weekly deep treatment — you rinse it out. <b>The Silk Serum</b>
+        is the daily leave-in mist that keeps hair smooth between washes. Different jobs, same hair.</p>
       <button type="button" onclick="toggleSerum()" id="bump-btn">Add The Silk Serum — $24.99</button>
     </div>
 
@@ -548,18 +565,37 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
                  variant:'gid://shopify/ProductVariant/52304320856280'};
   let addSerum = false;
 
+  /* Prices read back off a real Storefront cart, not calculated here. The Shopify
+     "Buy X get Y" automatic discount makes the second jar $15.00 (it rounds 50% of
+     $29.99 down to a $14.99 discount), so two jars total $44.99 — not the $44.98
+     the arithmetic implies. The page must state what checkout actually charges. */
+  const JARS = {
+    1: {qty:1, price:29.99},
+    2: {qty:2, price:44.99, second:15.00, saves:14.99}
+  };
+  let jars = 1;
+
   function money(n){ return '$' + n.toFixed(2); }
 
-  function toggleSerum(){
-    addSerum = !addSerum;
-    const total = PRODUCT.price + (addSerum ? SERUM.price : 0);
+  function total(){ return JARS[jars].price + (addSerum ? SERUM.price : 0); }
+
+  function render(){
+    const t = total();
+    document.getElementById('cta').textContent = 'Add to cart — ' + money(t);
+    document.getElementById('bb-total').textContent = money(t);
+    document.getElementById('bb-sub').textContent =
+      (jars === 2 ? '2 jars' : '120g jar') + (addSerum ? ' + serum' : '') + ' · free shipping';
     document.getElementById('bump').classList.toggle('taken', addSerum);
     document.getElementById('bump-btn').textContent =
       addSerum ? 'Added — remove The Silk Serum' : 'Add The Silk Serum — ' + money(SERUM.price);
-    document.getElementById('cta').textContent = 'Add to cart — ' + money(total);
-    document.getElementById('bb-total').textContent = money(total);
-    document.getElementById('bb-sub').textContent =
-      addSerum ? '120g jar + serum · free shipping' : '120g jar · free shipping';
+    document.getElementById('err').textContent = '';
+  }
+
+  function selectJars(n){ jars = n; render(); }
+
+  function toggleSerum(){
+    addSerum = !addSerum;
+    render();
     if (addSerum) {
       try { fbq('trackCustom', 'BumpTaken', {to: SERUM.sku, value: SERUM.price, currency: 'USD'}); } catch (e) {}
       try { gtag('event', 'bump_taken', {item_id: SERUM.sku, value: SERUM.price}); } catch (e) {}
@@ -576,16 +612,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('err').textContent = '';
 
     // Intent fires before the network call so a slow cartCreate can't swallow it.
-    const lines = [{merchandiseId: PRODUCT.variant, quantity: 1}];
+    const lines = [{merchandiseId: PRODUCT.variant, quantity: JARS[jars].qty}];
     if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
     const ids = addSerum ? [PRODUCT.sku, SERUM.sku] : [PRODUCT.sku];
-    const total = PRODUCT.price + (addSerum ? SERUM.price : 0);
+    const value = total();
 
     try {
       fbq('track','InitiateCheckout',{content_type:'product', content_ids:ids,
-        num_items:lines.length, value:total, currency:'USD'});
-      gtag('event','begin_checkout',{currency:'USD', value:total,
-        items:[{item_id:PRODUCT.sku, item_name:'Batana Oil', price:PRODUCT.price, quantity:1}]});
+        num_items:JARS[jars].qty + (addSerum ? 1 : 0), value:value, currency:'USD'});
+      gtag('event','begin_checkout',{currency:'USD', value:value,
+        items:[{item_id:PRODUCT.sku, item_name:'Batana Oil', price:PRODUCT.price, quantity:JARS[jars].qty}]});
     } catch (e) {}
 
     try {
@@ -624,6 +660,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
+
+  render();
 
   // ---- gallery ----
   const galleryMain = document.getElementById('galleryMain');
