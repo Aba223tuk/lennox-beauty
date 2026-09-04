@@ -214,6 +214,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     padding:.7rem;border-radius:999px;cursor:pointer;transition:background .15s ease,color .15s ease;
   }
   .bump button:hover{background:var(--accent);color:#fff}
+  /* Taken state: the card has to look decided, or people re-tap it wondering
+     whether it registered. */
+  .bump.taken{background:#efe7db;border-color:var(--accent-dark)}
+  .bump.taken button{background:var(--accent);color:#fff;border-color:var(--accent)}
 
   .btn{
     display:block;width:100%;text-align:center;
@@ -439,6 +443,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       used for generations in Honduras. Heavy — a weekly mask, not a styling oil.
       For hair that breaks faster than it grows.</p>
 
+    <div class="bump" id="bump">
+      <span class="save">Completes the routine</span>
+      <p>Batana is the weekly deep treatment — you rinse it out. <b>The Silk Serum</b> is the
+        daily leave-in mist that keeps hair smooth between washes. Different jobs, same hair.</p>
+      <button type="button" onclick="toggleSerum()" id="bump-btn">Add The Silk Serum — $24.99</button>
+    </div>
+
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $29.99</button>
     <p class="err" id="err" role="status"></p>
 
@@ -530,6 +541,31 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const PRODUCT = {price:29.99, sku:'LB-BATANA', label:'120g jar',
                    variant:'gid://shopify/ProductVariant/52368268034264'};
 
+  /* Cross-sell, not a volume discount. Adds a second cart line at the serum's own
+     list price, so there is no discount to reconcile and the number on this page is
+     exactly what checkout charges. */
+  const SERUM = {price:24.99, sku:'LB-SILK-1', label:'The Silk Serum',
+                 variant:'gid://shopify/ProductVariant/52304320856280'};
+  let addSerum = false;
+
+  function money(n){ return '$' + n.toFixed(2); }
+
+  function toggleSerum(){
+    addSerum = !addSerum;
+    const total = PRODUCT.price + (addSerum ? SERUM.price : 0);
+    document.getElementById('bump').classList.toggle('taken', addSerum);
+    document.getElementById('bump-btn').textContent =
+      addSerum ? 'Added — remove The Silk Serum' : 'Add The Silk Serum — ' + money(SERUM.price);
+    document.getElementById('cta').textContent = 'Add to cart — ' + money(total);
+    document.getElementById('bb-total').textContent = money(total);
+    document.getElementById('bb-sub').textContent =
+      addSerum ? '120g jar + serum · free shipping' : '120g jar · free shipping';
+    if (addSerum) {
+      try { fbq('trackCustom', 'BumpTaken', {to: SERUM.sku, value: SERUM.price, currency: 'USD'}); } catch (e) {}
+      try { gtag('event', 'bump_taken', {item_id: SERUM.sku, value: SERUM.price}); } catch (e) {}
+    }
+  }
+
   const SHOP_API = 'https://90uhee-je.myshopify.com/api/2024-07/graphql.json';
   const SF_TOKEN = 'c733224a494da57cec069f47ad128634';
 
@@ -540,10 +576,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('err').textContent = '';
 
     // Intent fires before the network call so a slow cartCreate can't swallow it.
+    const lines = [{merchandiseId: PRODUCT.variant, quantity: 1}];
+    if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
+    const ids = addSerum ? [PRODUCT.sku, SERUM.sku] : [PRODUCT.sku];
+    const total = PRODUCT.price + (addSerum ? SERUM.price : 0);
+
     try {
-      fbq('track','InitiateCheckout',{content_type:'product', content_ids:[PRODUCT.sku],
-        num_items:1, value:PRODUCT.price, currency:'USD'});
-      gtag('event','begin_checkout',{currency:'USD', value:PRODUCT.price,
+      fbq('track','InitiateCheckout',{content_type:'product', content_ids:ids,
+        num_items:lines.length, value:total, currency:'USD'});
+      gtag('event','begin_checkout',{currency:'USD', value:total,
         items:[{item_id:PRODUCT.sku, item_name:'Batana Oil', price:PRODUCT.price, quantity:1}]});
     } catch (e) {}
 
@@ -553,7 +594,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         headers: {'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': SF_TOKEN},
         body: JSON.stringify({
           query: 'mutation($lines:[CartLineInput!]!){ cartCreate(input:{lines:$lines}){ cart{ checkoutUrl } userErrors{ message } } }',
-          variables: {lines: [{merchandiseId: PRODUCT.variant, quantity: 1}]}
+          variables: {lines: lines}
         })
       });
       const data = await res.json();
