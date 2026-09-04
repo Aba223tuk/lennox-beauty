@@ -605,29 +605,36 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const SHOP_API = 'https://90uhee-je.myshopify.com/api/2024-07/graphql.json';
   const SF_TOKEN = 'c733224a494da57cec069f47ad128634';
 
-  async function goToCheckout(){
-    const btns = [document.getElementById('cta'), document.getElementById('cta-bar')].filter(Boolean);
-    const orig = btns.map(b => b.textContent);
-    btns.forEach(b => { b.disabled = true; b.textContent = 'Preparing secure checkout\u2026'; });
-    document.getElementById('err').textContent = '';
-
-    // Intent fires before the network call so a slow cartCreate can't swallow it.
+  function goToCheckout(){
     const lines = [{merchandiseId: PRODUCT.variant, quantity: JARS[jars].qty}];
     if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
     const ids = addSerum ? [PRODUCT.sku, SERUM.sku] : [PRODUCT.sku];
     const value = total();
 
     try {
-      fbq('track','InitiateCheckout',{content_type:'product', content_ids:ids,
+      fbq('track','AddToCart',{content_type:'product', content_ids:ids,
         num_items:JARS[jars].qty + (addSerum ? 1 : 0), value:value, currency:'USD'});
-      gtag('event','begin_checkout',{currency:'USD', value:value,
+      gtag('event','add_to_cart',{currency:'USD', value:value,
         items:[{item_id:PRODUCT.sku, item_name:'Batana Oil', price:PRODUCT.price, quantity:JARS[jars].qty}]});
     } catch (e) {}
 
+    // One call, so jars and the cross-sold serum land together and the drawer
+    // opens once rather than twice.
+    if (window.Cart) Cart.add(lines);
+    else legacyCheckout(lines, value);
+  }
+
+  /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
+     error, an extension blocking it. Restores the pre-cart behaviour: build a cart
+     and go straight to checkout. Less good, but never a dead button. */
+  async function legacyCheckout(lines, value){
+    const btns = [document.getElementById('cta'), document.getElementById('cta-bar')].filter(Boolean);
+    const orig = btns.map(b => b.textContent);
+    btns.forEach(b => { b.disabled = true; b.textContent = 'Preparing secure checkout\u2026'; });
     try {
-      const res = await fetch(SHOP_API, {
+      const res = await fetch('https://90uhee-je.myshopify.com/api/2024-07/graphql.json', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': SF_TOKEN},
+        headers: {'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': 'c733224a494da57cec069f47ad128634'},
         body: JSON.stringify({
           query: 'mutation($lines:[CartLineInput!]!){ cartCreate(input:{lines:$lines}){ cart{ checkoutUrl } userErrors{ message } } }',
           variables: {lines: lines}
@@ -764,6 +771,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }, {passive: true});
 </script>
 
+<script src="cart.js" defer></script>
 <script src="chatbot.js" defer></script>
 
 </body>

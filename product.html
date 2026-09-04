@@ -735,35 +735,34 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const SHOP_API = 'https://90uhee-je.myshopify.com/api/2024-07/graphql.json';
   const SF_TOKEN = 'c733224a494da57cec069f47ad128634';
 
-  async function goToCheckout(){
-    // Two buttons fire this — the in-page CTA and the sticky mobile bar — so both
-    // have to show the pending state, and both have to come back on failure.
+  function goToCheckout(){
+    const p = PACKS[pack];
+    // Intent still fires here: this is the moment someone commits to the product,
+    // even though the checkout redirect now happens from the cart drawer.
+    try {
+      fbq('track','AddToCart',{content_type:'product', content_ids:[p.sku],
+        num_items:p.bottles, value:p.price, currency:'USD'});
+      gtag('event','add_to_cart',{currency:'USD', value:p.price,
+        items:[{item_id:p.sku, item_name:'The Silk Serum', price:p.price, quantity:1}]});
+    } catch (e) {}
+    if (window.Cart) Cart.add(p.variant, 1);
+    else legacyCheckout([{merchandiseId: p.variant, quantity: 1}], p.price);
+  }
+
+  /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
+     error, an extension blocking it. Restores the pre-cart behaviour: build a cart
+     and go straight to checkout. Less good, but never a dead button. */
+  async function legacyCheckout(lines, value){
     const btns = [document.getElementById('cta'), document.getElementById('cta-bar')].filter(Boolean);
     const orig = btns.map(b => b.textContent);
-    btns.forEach(b => { b.disabled = true; b.textContent = 'Preparing secure checkout…'; });
-    document.getElementById('err').textContent = '';
-    const p = PACKS[pack];
-
-    // Meta/GA: signal checkout intent BEFORE the network call, so a slow or failed
-    // cartCreate can't swallow the event on the redirect.
+    btns.forEach(b => { b.disabled = true; b.textContent = 'Preparing secure checkout\u2026'; });
     try {
-      fbq('track','InitiateCheckout',{
-        content_type:'product', content_ids:[p.sku], num_items:p.bottles,
-        value:p.price, currency:'USD'
-      });
-      gtag('event','begin_checkout',{
-        currency:'USD', value:p.price,
-        items:[{item_id:p.sku, item_name:'The Silk Serum', price:p.price, quantity:1}]
-      });
-    } catch (e) {}
-
-    try {
-      const res = await fetch(SHOP_API, {
+      const res = await fetch('https://90uhee-je.myshopify.com/api/2024-07/graphql.json', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': SF_TOKEN},
+        headers: {'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': 'c733224a494da57cec069f47ad128634'},
         body: JSON.stringify({
           query: 'mutation($lines:[CartLineInput!]!){ cartCreate(input:{lines:$lines}){ cart{ checkoutUrl } userErrors{ message } } }',
-          variables: {lines: [{merchandiseId: p.variant, quantity: 1}]}
+          variables: {lines: lines}
         })
       });
       const data = await res.json();
@@ -771,12 +770,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       if (url) { window.location.href = url; return; }
       throw new Error('no checkout url');
     } catch (e) {
-      // A failure here creates no Shopify session, so the click would otherwise be
-      // invisible in every analytics source. Record it against the pixel that is
-      // already loaded, so a broken checkout shows up instead of reading as apathy.
       try { fbq('trackCustom', 'CheckoutFailed'); } catch (_) {}
       btns.forEach((b, i) => { b.disabled = false; b.textContent = orig[i]; });
-      document.getElementById('err').textContent = 'Checkout is temporarily unavailable — please try again in a moment.';
+      document.getElementById('err').textContent = 'Checkout is temporarily unavailable \u2014 please try again in a moment.';
     }
   }
 
@@ -899,6 +895,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }, {passive: true});
 </script>
 
+<script src="cart.js" defer></script>
 <script src="chatbot.js" defer></script>
 
 </body>
