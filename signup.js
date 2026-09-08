@@ -89,9 +89,14 @@
   }
 
   /* Klaviyo's client-side subscribe endpoint. 202 with an empty body on success.
-     consent:'SUBSCRIBED' is stated explicitly rather than left to default, so the
-     record carries real marketing consent and Klaviyo owns the unsubscribe — which
-     is the whole reason this does not go through the Storefront API instead. */
+
+     Do NOT add a `subscriptions` block to profile.attributes here. It looks like the
+     right way to state consent and it is what the server-side profile API takes, but
+     this endpoint rejects it outright:
+       400 "'subscriptions' is not a valid field for the resource 'profile'"
+     Subscribing IS what /client/subscriptions/ does, so consent is carried by the
+     endpoint itself and Klaviyo owns the unsubscribe — which is the whole reason this
+     does not go through the Storefront API instead. */
   function send(email) {
     return fetch(ENDPOINT, {
       method: 'POST',
@@ -104,10 +109,7 @@
             profile: {
               data: {
                 type: 'profile',
-                attributes: {
-                  email: email,
-                  subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } }
-                }
+                attributes: { email: email }
               }
             }
           },
