@@ -77,12 +77,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   :root{
     --ink:#141414;
     --ink-soft:#5c5c5c;
-    --ink-faint:#8f887c;
+    --ink-faint:#6b655c;
     --line:#ececec;
     --accent:#8a7357;
     --accent-dark:#6f5c42;
     --bg:#ffffff;
     --bg-soft:#faf9f7;
+    /* One gutter for the whole page edge. clamp so a phone gets 24px of breathing
+       room instead of 20px and a desktop gets 36px, without a media query per
+       component. Everything that touches the viewport edge uses it. */
+    --gutter:clamp(1.75rem, 5vw, 2.5rem);
+
     --radius:14px;
     --serif:"Cormorant Garamond",Georgia,serif;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -95,13 +100,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   /* Announcement bar. Deliberately a plain statement of fact, not a countdown:
      shouted scarcity is the single loudest "dropshipper" tell on a page like this. */
-  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.76rem;letter-spacing:.03em;padding:.55rem 1rem;font-weight:500}
+  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.76rem;letter-spacing:.03em;padding:.55rem var(--gutter);font-weight:500}
   .bar b{color:#d9cbb2;font-weight:600}
 
-  header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:50}
-  .logo{font-family:var(--serif);font-size:1.15rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;text-decoration:none}
+  header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem var(--gutter);border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:50}
+  /* Header is a nowrap flex row, but its TEXT children could still wrap inside
+     themselves once flex shrank them below content width — at 390px that broke
+     the logo and the back link onto two lines each. Keep them intrinsic. */
+  .logo{font-family:var(--serif);font-size:1.15rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;text-decoration:none;white-space:nowrap;flex:none}
   .logo span{color:var(--accent)}
-  .back{font-size:.82rem;color:var(--ink-soft);text-decoration:none}
+  .back{font-size:.82rem;color:var(--ink-soft);text-decoration:none;white-space:nowrap;flex:none}
   .back:hover{color:var(--ink)}
 
   /* burger menu */
@@ -116,13 +124,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .site-menu{
     position:fixed;inset:0;background:#fff;z-index:40;
     display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
-    padding:2rem 1.5rem;transform:translateY(-100%);transition:transform .3s ease;
+    padding:2rem var(--gutter);transform:translateY(-100%);transition:transform .3s ease;
   }
   .site-menu.open{transform:translateY(0)}
   .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
   body.menu-open{overflow:hidden}
 
-  .wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--gutter)}
   /* Mobile source order IS the DOM order — gallery, then buy, then everything to read.
      No CSS `order` juggling: the previous page reordered ten children by hand and every
      later edit had to re-derive which number a new element belonged at. */
@@ -141,6 +149,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .gallery .main::-webkit-scrollbar{display:none}
   .slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center;scroll-snap-align:start}
   .slide img{max-height:86%;max-width:88%;width:auto;height:auto;object-fit:contain}
+  /* Same box as a slide image, so the carousel does not jump between the two. */
+  .slide video{max-height:86%;max-width:88%;width:auto;height:auto;object-fit:contain}
+  /* The video slide has nothing to enlarge, so the zoom affordance goes away
+     rather than sitting there doing nothing when it is the current slide. */
+  .main-frame.no-zoom .zoom-hint{display:none}
   .g-nav{
     position:absolute;top:50%;transform:translateY(-50%);
     width:36px;height:36px;border-radius:50%;border:1px solid var(--line);
@@ -184,7 +197,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:.9rem}
   .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;color:var(--ink-soft)}
   .rating .stars{color:var(--accent);font-size:.86rem;letter-spacing:.1em;line-height:1}
-  .rating a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:2px}
 
   /* Size ladder. Radio inputs kept real and focusable — the visual state is drawn from
      :checked/:focus-visible on the input, so keyboard and screen readers get it free. */
@@ -213,11 +225,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     padding:.2rem .55rem;
   }
 
-  /* Order bump. The size ladder states three totals, which asks the visitor to do
-     the arithmetic themselves; nobody does. This states the *marginal* price
-     instead — the two extra bottles are $14, not $49.98 — because that is the
-     actual decision in front of them, and it is the honest number either way.
-     Sits directly above the CTA so it cannot be missed on a phone. */
+  /* Order bump. Was a volume bump — two more bottles for $14 — which moved revenue
+     but no margin: $7.00 a bottle is what the bottles cost us. It now cross-sells
+     Batana Oil at its own list price instead, which is the mirror of the bump the
+     batana page already runs for the serum. Sits directly above the CTA so it
+     cannot be missed on a phone. */
   .bump{
     border:1px solid var(--accent);border-radius:12px;
     background:#f7f2ea;padding:.9rem 1rem;margin-bottom:1rem;
@@ -235,6 +247,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     padding:.7rem;border-radius:999px;cursor:pointer;transition:background .15s ease,color .15s ease;
   }
   .bump button:hover{background:var(--accent);color:#fff}
+  /* Taken state: the card has to look decided, or people re-tap it wondering
+     whether it registered. Matches batana.html. */
+  .bump.taken{background:#efe7db;border-color:var(--accent-dark)}
+  .bump.taken button{background:var(--accent);color:#fff;border-color:var(--accent)}
 
   .btn{
     display:block;width:100%;text-align:center;
@@ -287,11 +303,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   summary::after{content:"+";font-size:1.3rem;color:var(--accent);line-height:1;flex:none}
   details[open] summary::after{content:"−"}
   details p{margin-top:.75rem;font-size:.9rem}
-  details a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  details a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
   .ing{font-size:.84rem!important;font-style:italic}
 
-  footer{border-top:1px solid var(--line);padding:2.5rem 1.25rem;text-align:center;font-size:.85rem;color:var(--ink-soft);margin-top:3rem}
-  footer a{color:var(--accent);font-weight:600}
+  footer{border-top:1px solid var(--line);padding:2.5rem var(--gutter);text-align:center;font-size:.85rem;color:var(--ink-soft);margin-top:3rem}
+  footer a{color:var(--accent-dark);font-weight:600}
 
   /* ---------- lightbox ---------- */
   .lb-back{position:fixed;inset:0;z-index:200;display:none;background:rgba(16,16,16,.95)}
@@ -338,7 +354,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .sticky-cta{
     position:fixed;bottom:0;left:0;right:0;z-index:60;
     display:flex;align-items:center;gap:.9rem;justify-content:space-between;
-    padding:.7rem 1rem;padding-bottom:calc(.7rem + env(safe-area-inset-bottom,0px));
+    padding:.7rem var(--gutter);padding-bottom:calc(.7rem + env(safe-area-inset-bottom,0px));
     background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
     border-top:1px solid var(--line);
     box-shadow:0 -6px 22px rgba(20,20,20,.08);
@@ -360,7 +376,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }
 
   @media(max-width:819px){
-    header{padding:.8rem 1.25rem}
+    header{padding:.8rem var(--gutter)}
     .logo{font-size:1.02rem;letter-spacing:.2em}
   }
 
@@ -392,6 +408,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+1-929-670-9555",
+        "email": "Lennoxsupport@gmail.com",
         "contactType": "customer service",
         "areaServed": "US",
         "availableLanguage": "English"
@@ -485,6 +502,34 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will this make my hair greasy?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work on curly, textured, or color-treated hair?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long until I see results?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it have a scent?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — a soft, warm fragrance that settles into your hair rather than sitting on top of it. It's noticeable when you first mist, then softens into something people catch when you move. It won't fight your perfume." }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -515,9 +560,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <div class="main" id="galleryMain">
         <!-- Slide 1 is the LCP element: high priority. Everything after it is off-screen
              until you swipe, so it loads lazily. Intrinsic width/height on every image
-             so the browser reserves the box and nothing shifts (CLS). -->
-        <div class="slide"><img src="img/silk/silk-07.webp" width="1065" height="1065" fetchpriority="high" decoding="async" alt="A 100ml bottle of The Silk Serum anti-frizz leave-in mist"></div>
-        <div class="slide"><img src="img/before-after-real.webp" width="1000" height="1000" decoding="async" alt="Our own hair photographed from behind, unretouched: frizzy and dull before The Silk Serum, smooth and glossy after one use"></div>
+             so the browser reserves the box and nothing shifts (CLS).
+             The before/after leads: it is the one image that argues, and a bottle on
+             white is the one image every store in the category already shows. The
+             bottle follows immediately, so nobody has to swipe to see what they buy. -->
+        <div class="slide"><img src="img/before-after-real.webp" width="1000" height="1000" fetchpriority="high" decoding="async" alt="Our own hair photographed from behind, unretouched: frizzy and dull before The Silk Serum, smooth and glossy after one use"></div>
+        <!-- Slide 2. Muted, looping and playsinline so it behaves like a moving
+             photograph rather than a video player: no controls to fight the swipe
+             gesture, and nothing to hear. It shows the product, not a result —
+             the only outcome claim on this page is the unretouched photo above. -->
+        <div class="slide"><video src="img/silk/silk-orbit.mp4" poster="img/silk/silk-orbit-poster.jpg"
+             width="720" height="720" autoplay muted loop playsinline preload="metadata"
+             aria-label="The Silk Serum bottle rotating slowly as fine mist and water droplets drift around it"></video></div>
+        <div class="slide"><img src="img/silk/silk-07.webp" width="1065" height="1065" decoding="async" alt="A 100ml bottle of The Silk Serum anti-frizz leave-in mist"></div>
         <div class="slide"><img src="img/silk/silk-04.webp" width="1065" height="1065" decoding="async" alt="A 100ml bottle of The Silk Serum shown to scale — 15cm tall"></div>
         <div class="slide"><img src="img/how-to-use-card.svg" width="1000" height="1000" decoding="async" alt="How to use The Silk Serum in three steps: mist 2–3 sprays over mid-lengths and ends, comb it through, then air dry or blow-dry"></div>
         <div class="slide"><img src="img/silk/silk-09.webp" width="1065" height="1065" decoding="async" alt="The three-bottle set of The Silk Serum"></div>
@@ -540,9 +595,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <h1>The Silk Serum</h1>
     <p class="sub">Anti-frizz leave-in mist · 100ml</p>
 
+    <!-- Stars only. The "1 review" count is cut from the fold — the review itself,
+         with its gifting disclosure, is still in the Reviews section below. -->
     <div class="rating">
       <span class="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
-      <a href="#review">1 review</a>
     </div>
 
     <fieldset class="opts">
@@ -568,10 +624,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </label>
     </fieldset>
 
-    <div class="bump" id="bump" hidden>
-      <span class="save" id="bump-save"></span>
-      <p id="bump-copy"></p>
-      <button type="button" onclick="takeBump()" id="bump-btn"></button>
+    <div class="bump" id="bump">
+      <span class="save">Completes the routine</span>
+      <p>The Silk Serum is the daily leave-in that keeps hair smooth between washes.
+        <b>Batana Oil</b> is the weekly deep treatment you rinse out — for the dryness
+        and damage underneath. Different jobs, same hair.</p>
+      <button type="button" onclick="toggleBatana()" id="bump-btn">Add Batana Oil — $29.99</button>
     </div>
 
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $24.99</button>
@@ -589,8 +647,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   <section>
     <h2>What it is</h2>
-    <p>A featherweight leave-in mist that lays the hair cuticle flat — cutting flyaways and
-      static, adding shine, and leaving a soft scent that lasts through the day. It is a
+    <p>Most products either coat your hair in buildup or strip it dry. This does neither:
+      it is a featherweight leave-in mist that lays the hair cuticle flat — cutting flyaways
+      and static, adding shine, and leaving a soft scent that lasts through the day. It is a
       spray, not an oil, so it finishes dry to the touch instead of greasy.</p>
     <p>The nozzle throws a roughly 54-micron mist, finer than a human hair, so it spreads
       evenly rather than landing in wet patches. Most people notice smoother hair from the
@@ -601,7 +660,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <section id="review">
     <h2>Reviews</h2>
 
-    <button type="button" class="ba" onclick="openLightbox(1)" aria-label="Enlarge the before and after photo">
+    <!-- openLightbox(0), not (1): the before/after is now the gallery's first slide. -->
+    <button type="button" class="ba" onclick="openLightbox(0)" aria-label="Enlarge the before and after photo">
       <img src="img/before-after-strip.webp" width="1200" height="560" loading="lazy" decoding="async"
            alt="Our own hair, unretouched: frizzy and flyaway on the left, smooth and glossy on the right after one use of The Silk Serum">
     </button>
@@ -629,6 +689,31 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <section>
     <h2>Everything else</h2>
 
+    <!-- Objection questions first, logistics after. These four are lifted verbatim from
+         the homepage FAQ; the other two there ("When will I get it?", "What if it doesn't
+         work for me?") are deliberately NOT copied — this page already answers them in the
+         Shipping and guarantee accordions below, and two answers to one question reads as
+         carelessness. Collapsed, so they cost no page height above the fold. -->
+    <details>
+      <summary>Will this make my hair greasy?</summary>
+      <p>No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different.</p>
+    </details>
+
+    <details>
+      <summary>Does it work on curly, textured, or color-treated hair?</summary>
+      <p>Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair.</p>
+    </details>
+
+    <details>
+      <summary>How long until I see results?</summary>
+      <p>Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set.</p>
+    </details>
+
+    <details>
+      <summary>Does it have a scent?</summary>
+      <p>Yes — a soft, warm fragrance that settles into your hair rather than sitting on top of it. It's noticeable when you first mist, then softens into something people catch when you move. It won't fight your perfume.</p>
+    </details>
+
     <details>
       <summary><h3>Ingredients</h3></summary>
       <p class="ing">Aqua (Water), Cetrimonium Chloride, Dimethicone, 1,2-Hexanediol, Hydrolyzed Keratin.</p>
@@ -642,12 +727,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
     <details>
       <summary><h3>Our 30-day guarantee</h3></summary>
-      <p>Use the Silk Serum for 30 days. If your hair isn't noticeably smoother, text or call <a href="tel:+19296709555">(929) 670-9555</a> and we refund every cent — no returns to mail, no forms to fill in. You keep the bottles.</p>
+      <p>Use the Silk Serum for 30 days. If your hair isn't noticeably smoother, text or call <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — no returns to mail, no forms to fill in. You keep the bottles.</p>
     </details>
 
     <details>
       <summary><h3>Questions?</h3></summary>
-      <p>Text or call <a href="tel:+19296709555">(929) 670-9555</a>. That is a direct line to a person, not a ticket queue.</p>
+      <p>Text or call <a href="tel:+19296709555">(929) 670-9555</a>, or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>. Either way it is a person, not a ticket queue.</p>
     </details>
   </section>
 </div>
@@ -667,8 +752,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </div>
 
 <footer>
+  <div data-lb-signup></div>
   <div class="logo" style="display:block;margin-bottom:.6rem">Lennox <span>Beauty</span></div>
-  © 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a>
+  © 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>
 </footer>
 
 <script>
@@ -687,48 +773,43 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   function selectPack(n){
     pack = n;
-    const p = PACKS[pack];
-    document.getElementById('cta').textContent = 'Add to cart — $' + p.price.toFixed(2);
-    document.getElementById('bb-total').textContent = '$' + p.price.toFixed(2);
-    document.getElementById('bb-sub').textContent = p.label + ' · free shipping';
+    const p = PACKS[pack], t = total();
+    document.getElementById('cta').textContent = 'Add to cart — $' + t.toFixed(2);
+    document.getElementById('bb-total').textContent = '$' + t.toFixed(2);
+    document.getElementById('bb-sub').textContent =
+      p.label + (addBatana ? ' + batana' : '') + ' · free shipping';
     document.getElementById('err').textContent = '';
     renderBump();
   }
 
-  /* Every step up the ladder is two more bottles. Price them at the margin —
-     $14.00 and $16.00 — rather than restating the totals the radios already show.
-     Derived from PACKS so it can never drift out of step with the real prices. */
-  const BUMP = {1: 3, 3: 5};
+  /* Cross-sell, not a volume discount. Adds a second cart line at batana's own list
+     price, so there is no discount to reconcile and the number on this page is
+     exactly what checkout charges — verified against a real Storefront cart:
+     1+batana $54.98, 3+batana $68.98, 5+batana $84.98, no discount allocated.
+     The one exception is a visitor who already has a jar in their stored cart:
+     quantity becomes 2, batana's buy-one-get-one-half-price fires, and the real
+     total lands $15 BELOW this estimate. The drawer reads totals back off the live
+     cart, so it corrects itself, and it errs in the customer's favour. */
+  const BATANA = {price:29.99, sku:'LB-BATANA', label:'Batana Oil',
+                  variant:'gid://shopify/ProductVariant/52368268034264'};
+  let addBatana = false;
+
+  function total(){ return PACKS[pack].price + (addBatana ? BATANA.price : 0); }
 
   function renderBump(){
-    const el = document.getElementById('bump');
-    const next = BUMP[pack];
-    if (!next) { el.hidden = true; return; }
-    const from = PACKS[pack], to = PACKS[next];
-    const extra = to.price - from.price;                  // cost of the 2 extra bottles
-    const each = extra / (to.bottles - from.bottles);     // ...per bottle
-    el.hidden = false;
-    // Deliberately the per-bottle price of the EXTRAS, not a "Save $X" total: the
-    // radio rows already show cumulative savings, and a second, smaller "Save $X"
-    // next to them reads as a contradiction rather than a better deal.
-    document.getElementById('bump-save').textContent = '$' + each.toFixed(2) + ' a bottle';
-    document.getElementById('bump-copy').innerHTML =
-      'Add <b>2 more bottles for $' + extra.toFixed(2) + '</b> — that\'s $' + each.toFixed(2) +
-      ' a bottle instead of $' + PACKS[1].price.toFixed(2) + '. One bottle lasts 2–3 months, ' +
-      'and the smoothing effect builds over the first few weeks.';
+    document.getElementById('bump').classList.toggle('taken', addBatana);
     document.getElementById('bump-btn').textContent =
-      'Make it ' + to.bottles + ' bottles — $' + to.price.toFixed(2) + ' →';
+      addBatana ? 'Added — remove Batana Oil'
+                : 'Add Batana Oil — $' + BATANA.price.toFixed(2);
   }
 
-  function takeBump(){
-    const next = BUMP[pack];
-    if (!next) return;
-    const radio = document.querySelector('input[name="pack"][value="' + next + '"]');
-    if (radio) radio.checked = true;
-    selectPack(next);
-    // Worth knowing whether the bump is what moved them, not just that they bought.
-    try { fbq('trackCustom', 'BumpTaken', {to: PACKS[next].sku, value: PACKS[next].price, currency: 'USD'}); } catch (e) {}
-    try { gtag('event', 'bump_taken', {item_id: PACKS[next].sku, value: PACKS[next].price}); } catch (e) {}
+  function toggleBatana(){
+    addBatana = !addBatana;
+    selectPack(pack);
+    if (addBatana) {
+      try { fbq('trackCustom', 'BumpTaken', {to: BATANA.sku, value: BATANA.price, currency: 'USD'}); } catch (e) {}
+      try { gtag('event', 'bump_taken', {item_id: BATANA.sku, value: BATANA.price}); } catch (e) {}
+    }
   }
 
   // Shopify checkout — Storefront API cart (public token, safe to expose)
@@ -736,17 +817,22 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const SF_TOKEN = 'c733224a494da57cec069f47ad128634';
 
   function goToCheckout(){
-    const p = PACKS[pack];
+    const p = PACKS[pack], value = total();
+    const lines = [{merchandiseId: p.variant, quantity: 1}];
+    if (addBatana) lines.push({merchandiseId: BATANA.variant, quantity: 1});
     // Intent still fires here: this is the moment someone commits to the product,
     // even though the checkout redirect now happens from the cart drawer.
     try {
-      fbq('track','AddToCart',{content_type:'product', content_ids:[p.sku],
-        num_items:p.bottles, value:p.price, currency:'USD'});
-      gtag('event','add_to_cart',{currency:'USD', value:p.price,
+      fbq('track','AddToCart',{content_type:'product',
+        content_ids: addBatana ? [p.sku, BATANA.sku] : [p.sku],
+        num_items:p.bottles + (addBatana ? 1 : 0), value:value, currency:'USD'});
+      gtag('event','add_to_cart',{currency:'USD', value:value,
         items:[{item_id:p.sku, item_name:'The Silk Serum', price:p.price, quantity:1}]});
     } catch (e) {}
-    if (window.Cart) Cart.add(p.variant, 1);
-    else legacyCheckout([{merchandiseId: p.variant, quantity: 1}], p.price);
+    // One call, so the pack and the cross-sold jar land together and the drawer
+    // opens once rather than twice.
+    if (window.Cart) Cart.add(lines);
+    else legacyCheckout(lines, value);
   }
 
   /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
@@ -823,6 +909,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   galleryMain.addEventListener('scroll', () => {
     const i = currentSlideIndex();
     dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    galleryMain.parentElement.classList.toggle('no-zoom', lbOf[i] < 0);
   }, {passive: true});
 
   // ---- lightbox ----
@@ -830,7 +917,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const lbStage = document.getElementById('lbStage');
   const lbImg   = document.getElementById('lbImg');
   const lbCount = document.getElementById('lbCount');
-  const lbSlides = Array.from(galleryMain.querySelectorAll('.slide img'));
+  /* The carousel now contains a video slide, which the lightbox does not show, so
+     a slide index and a lightbox index are no longer the same number. Both maps are
+     derived from the DOM rather than hardcoded, so adding or reordering slides later
+     cannot silently put them out of step. */
+  const slideEls = Array.from(galleryMain.children);
+  const lbSlides = slideEls.map(s => s.querySelector('img')).filter(Boolean);
+  const lbOf     = slideEls.map(s => { const im = s.querySelector('img'); return im ? lbSlides.indexOf(im) : -1; });
+  const slideOf  = lbSlides.map(im => slideEls.findIndex(s => s.contains(im)));
   let lbIndex = 0;
 
   function lbRender(){
@@ -843,7 +937,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }
   function openLightbox(i){
     if (!lbSlides.length) return;
-    lbIndex = (typeof i === 'number') ? i : currentSlideIndex();
+    // A number is a lightbox index (the review card deep-links that way). No
+    // argument means "whatever slide is showing" — which the video slide answers
+    // with -1, and there is nothing to open.
+    if (typeof i !== 'number') { i = lbOf[currentSlideIndex()]; if (i < 0) return; }
+    lbIndex = i;
     lbRender();
     lbBack.classList.add('open');
     lbBack.setAttribute('aria-hidden', 'false');
@@ -853,7 +951,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     lbBack.classList.remove('open', 'zoomed');
     lbBack.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('lb-open');
-    galleryGo(lbIndex);            // leave the carousel on whatever they were looking at
+    galleryGo(slideOf[lbIndex]);   // leave the carousel on whatever they were looking at
   }
   function lbStep(d){
     lbIndex = (lbIndex + d + lbSlides.length) % lbSlides.length;
@@ -896,6 +994,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </script>
 
 <script src="cart.js" defer></script>
+<script src="signup.js" defer></script>
 <script src="chatbot.js" defer></script>
 
 </body>

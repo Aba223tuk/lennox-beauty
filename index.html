@@ -62,11 +62,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   :root{
     --ink:#141414;
     --ink-soft:#5c5c5c;
+    --ink-faint:#6b655c;
     --line:#ececec;
     --accent:#8a7357;
     --accent-dark:#6f5c42;
     --bg:#ffffff;
     --bg-soft:#faf9f7;
+    /* One gutter for the whole page edge. clamp so a phone gets 24px of breathing
+       room instead of 20px and a desktop gets 36px, without a media query per
+       component. Everything that touches the viewport edge uses it. */
+    --gutter:clamp(1.75rem, 5vw, 2.5rem);
+
     --radius:14px;
     --serif:"Cormorant Garamond",Georgia,serif;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -86,12 +92,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   /* ---------- announcement ---------- */
   .bar{
+    padding:.55rem var(--gutter);
     background:var(--ink);
     color:#fff;
     text-align:center;
     font-size:.78rem;
     letter-spacing:.04em;
-    padding:.55rem 1rem;
     font-weight:500;
   }
   .bar b{color:#d9cbb2;font-weight:600}
@@ -99,7 +105,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   /* ---------- header ---------- */
   header{
     display:flex;justify-content:space-between;align-items:center;
-    padding:1.1rem 1.25rem;
+    padding:1.1rem var(--gutter);
     border-bottom:1px solid var(--line);
     position:sticky;top:0;background:rgba(255,255,255,.92);
     backdrop-filter:blur(8px);z-index:50;
@@ -110,6 +116,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     letter-spacing:.24em;
     text-transform:uppercase;
     font-weight:500;
+    /* Header is a nowrap flex row, but its TEXT children could still wrap inside
+         themselves once flex shrank them below content width — at 390px that broke
+         the logo and the back link onto two lines each. Keep them intrinsic. */
+    white-space:nowrap;flex:none;
   }
   .logo span{color:var(--accent)}
 
@@ -125,7 +135,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .site-menu{
     position:fixed;inset:0;background:#fff;z-index:40;
     display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
-    padding:2rem 1.5rem;transform:translateY(-100%);transition:transform .3s ease;
+    padding:2rem var(--gutter);transform:translateY(-100%);transition:transform .3s ease;
   }
   .site-menu.open{transform:translateY(0)}
   .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
@@ -133,11 +143,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   body.menu-open{overflow:hidden}
 
   /* ---------- layout helpers ---------- */
-  .wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--gutter)}
   section{padding:4rem 0}
   .kicker{
     font-size:.72rem;font-weight:600;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--accent);
+    text-transform:uppercase;color:var(--accent-dark);
     margin-bottom:1rem;
   }
   h1,h2{font-family:var(--serif);font-weight:600;line-height:1.05;letter-spacing:0}
@@ -146,7 +156,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .muted{color:var(--ink-soft)}
 
   /* ---------- hero ---------- */
-  .hero{padding:4.5rem 0 3.5rem;text-align:left}
+  /* var(--gutter), not 0 — .hero also carries .wrap and the shorthand would
+     reset its horizontal padding, putting the headline against the screen edge. */
+  .hero{padding:4.5rem var(--gutter) 3.5rem;text-align:left}
   .hero p.lead{
     font-size:1.06rem;color:var(--ink-soft);
     margin:1.4rem 0 2rem;max-width:34rem;
@@ -182,6 +194,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     border-radius:var(--radius);
     padding:3rem 0;
   }
+  /* The hero holds a video now rather than a still. Softened corners so it sits in
+     the card the way the photograph did instead of reading as a video player. */
+  .visual video{display:block;border-radius:10px}
 
   /* ---------- problem ---------- */
   .problem{background:var(--ink);color:#fff;border-radius:0}
@@ -225,7 +240,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     font-size:.88rem;line-height:1.55;color:var(--ink-soft);
   }
   .founder-note b{color:var(--ink);font-weight:600}
-  .founder-note a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .founder-note a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
 
   /* ---------- catalog ---------- */
   .collection-band{
@@ -288,9 +303,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   /* ---------- footer ---------- */
   footer{
     border-top:1px solid var(--line);
-    padding:3rem 1.25rem 7rem;
+    padding:3rem var(--gutter) 7rem;
     text-align:center;font-size:.85rem;color:var(--ink-soft);
   }
+  footer a{color:var(--accent-dark);font-weight:600}
   footer .logo{margin-bottom:1rem}
 
   /* ---------- sticky mobile cta ---------- */
@@ -298,7 +314,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     position:fixed;bottom:0;left:0;right:0;z-index:60;
     background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
     border-top:1px solid var(--line);
-    padding:.7rem 1rem;
+    padding:.7rem var(--gutter);
     display:flex;gap:.9rem;align-items:center;justify-content:space-between;
   }
   .sticky-cta .p{font-size:.85rem;font-weight:600}
@@ -308,7 +324,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   /* ---------- modal ---------- */
   .modal-back{
     position:fixed;inset:0;background:rgba(20,20,20,.45);
-    display:none;align-items:center;justify-content:center;z-index:100;padding:1.25rem;
+    display:none;align-items:center;justify-content:center;z-index:100;padding:var(--gutter);
   }
   .modal-back.open{display:flex}
   .modal{
@@ -344,6 +360,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+1-929-670-9555",
+        "email": "Lennoxsupport@gmail.com",
         "contactType": "customer service",
         "areaServed": "US",
         "availableLanguage": "English"
@@ -404,7 +421,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "name": "What if it doesn't work for me?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "30-day money-back guarantee. Text or call (929) 670-9555 and we refund you — you don't even ship the bottle back."
+        "text": "30-day money-back guarantee. Text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund you — you don't even ship the bottle back."
       }
     },
     {
@@ -454,7 +471,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </div>
 
   <div class="visual" aria-hidden="true">
-    <img src="img/silk/silk-07.webp" alt="A 100ml bottle of The Silk Serum anti-frizz leave-in hair mist" width="340" height="340" fetchpriority="high" decoding="async" style="height:auto;max-width:min(340px,82%)">
+    <!-- Same clip as gallery slide 2 on the product page: the real bottle, animated.
+         Muted + loop + playsinline so it reads as a moving photograph, and the poster
+         holds the exact frame the old still showed — so the hero looks identical
+         before the video paints, and nothing shifts if autoplay is blocked. -->
+    <video src="img/silk/silk-orbit.mp4" poster="img/silk/silk-orbit-poster.jpg"
+           width="340" height="340" autoplay muted loop playsinline preload="auto"
+           style="height:auto;max-width:min(340px,82%)"></video>
   </div>
 
   <div class="hero-strip">
@@ -520,7 +543,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </ul>
       <p class="founder-note">You've never heard of us — fair reason to be careful. So try it for
         <b>30 days</b>: if your hair isn't noticeably smoother, text or call
-        <a href="tel:+19296709555">(929) 670-9555</a> and we'll refund every cent. You keep the
+        <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we'll refund every cent. You keep the
         bottles — no returns to mail, no forms.</p>
       <a class="btn accent" href="product.html">Shop the Silk Serum — from $24.99</a>
     </div>
@@ -614,7 +637,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </details>
   <details>
     <summary>What if it doesn't work for me?</summary>
-    <p>30-day money-back guarantee. Text or call <a href="tel:+19296709555">(929) 670-9555</a> and we refund you — you don't even ship the bottle back.</p>
+    <p>30-day money-back guarantee. Text or call <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund you — you don't even ship the bottle back.</p>
   </details>
   <details>
     <summary>Does it have a scent?</summary>
@@ -623,8 +646,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </section>
 
 <footer>
+  <div data-lb-signup></div>
   <div class="logo">Lennox <span>Beauty</span></div>
-  <p>© 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>30-day money-back guarantee</p>
+  <p>© 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>30-day money-back guarantee</p>
 </footer>
 
 <!-- sticky mobile CTA -->
@@ -652,6 +676,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </script>
 
 <script src="cart.js" defer></script>
+<script src="signup.js" defer></script>
 <script src="chatbot.js" defer></script>
 
 </body>

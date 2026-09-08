@@ -2,3 +2,25 @@
 # These still carry the OUZHINE wordmark that the shipped images have had
 # removed, so publishing them would undo the change on a public repo.
 img/silk/_orig/
+
+# Raw supplier originals for the batana shots. The shipped versions are the
+# *-web.jpg files beside them; these untouched ones are kept locally as a restore
+# point only. Same reason as img/silk/_orig/ above — publishing them would put
+# supplier branding onto a public repo.
+img/eelhoe/eelhoe-02.jpg
+img/eelhoe/eelhoe-03.jpg
+img/eelhoe/eelhoe-04.jpg
+img/eelhoe/eelhoe-05.jpg
+img/eelhoe/eelhoe-06.jpg
+img/eelhoe/eelhoe-08.jpg
+img/eelhoe/eelhoe-09.jpg
+img/eelhoe/eelhoe-10.jpg
+img/eelhoe/eelhoe-11.jpg
+
+# Local scratch: probe pages and partial-extraction helpers used while editing.
+_probe*.html
+_head*.txt
+_head_ref.html
+_part_*.txt
+_parts.py
+_wire_cart.py

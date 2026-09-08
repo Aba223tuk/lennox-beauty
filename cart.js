@@ -39,8 +39,27 @@
     '  cost{ subtotalAmount{amount} totalAmount{amount} }',
     '  merchandise{ ...on ProductVariant { id title price{amount}',
     '    image{ url(transform:{maxWidth:160,maxHeight:160}) }',
-    '    product{ title } } } }}}'
+    // A variant with no image of its own is an ordinary Shopify state, not a fault:
+    // only the serum's variants carry per-variant art. Ask for the product's
+    // featured image too so the drawer has something to fall back to.
+    '    product{ title featuredImage{ url(transform:{maxWidth:160,maxHeight:160}) } } } } }}}'
   ].join(' ');
+
+  /* Last resort, for merchandise Shopify has no art for at all. Batana is currently
+     in exactly that state — no variant image, no featured image, an empty images
+     collection — so its line rendered as a bare grey box next to the serum's photo.
+     Keyed by variant id and served from this site. Delete an entry once the real
+     product image is uploaded in Shopify admin; the chain below prefers Shopify's
+     own art whenever it exists, so a stale entry here is inert rather than wrong. */
+  var LOCAL_IMG = {
+    'gid://shopify/ProductVariant/52368268034264': '/img/batana/jar.webp'
+  };
+
+  function lineImage(m) {
+    return (m.image && m.image.url) ||
+           (m.product && m.product.featuredImage && m.product.featuredImage.url) ||
+           LOCAL_IMG[m.id] || '';
+  }
 
   function api(query, variables) {
     return fetch(API, {
@@ -139,25 +158,28 @@
     '.lbc-head h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.35rem;font-weight:600;margin:0}',
     '.lbc-x{width:34px;height:34px;border:none;background:none;cursor:pointer;font-size:1.3rem;line-height:1;color:#5c5c5c}',
     '.lbc-body{flex:1;overflow-y:auto;padding:1.1rem 1.25rem;font-family:Inter,system-ui,sans-serif}',
-    '.lbc-empty{text-align:center;color:#8f887c;font-size:.9rem;padding:3rem 1rem}',
+    /* #6b655c, not the old #8f887c: that was 3.5:1 on white and failed AA for
+       body text. Literal rather than var(--ink-faint) because this stylesheet is
+       injected and must render the same on any page that loads it. */
+    '.lbc-empty{text-align:center;color:#6b655c;font-size:.9rem;padding:3rem 1rem}',
     '.lbc-line{display:flex;gap:.85rem;padding:.9rem 0;border-bottom:1px solid #f2efea}',
     '.lbc-line:last-child{border-bottom:0}',
     '.lbc-thumb{width:62px;height:62px;flex:none;border:1px solid #ececec;border-radius:9px;background:#faf9f7;object-fit:contain}',
     '.lbc-info{flex:1;min-width:0}',
     '.lbc-name{font-size:.87rem;font-weight:600;line-height:1.3;color:#141414}',
-    '.lbc-var{font-size:.76rem;color:#8f887c;margin-top:.1rem}',
-    '.lbc-was{font-size:.76rem;color:#8f887c;text-decoration:line-through;margin-left:.35rem}',
+    '.lbc-var{font-size:.76rem;color:#6b655c;margin-top:.1rem}',
+    '.lbc-was{font-size:.76rem;color:#6b655c;text-decoration:line-through;margin-left:.35rem}',
     '.lbc-row{display:flex;align-items:center;justify-content:space-between;margin-top:.55rem;gap:.6rem}',
     '.lbc-qty{display:flex;align-items:center;border:1px solid #ddd7cd;border-radius:999px}',
     '.lbc-qty button{width:29px;height:29px;border:none;background:none;cursor:pointer;font-size:1rem;line-height:1;color:#141414}',
     '.lbc-qty button:disabled{color:#c9c9c9;cursor:default}',
     '.lbc-qty span{min-width:1.5rem;text-align:center;font-size:.83rem;font-weight:600}',
     '.lbc-price{font-size:.87rem;font-weight:600;white-space:nowrap}',
-    '.lbc-rm{background:none;border:none;color:#8f887c;font-size:.76rem;cursor:pointer;padding:.3rem 0;text-decoration:underline;text-underline-offset:2px}',
+    '.lbc-rm{background:none;border:none;color:#6b655c;font-size:.76rem;cursor:pointer;padding:.3rem 0;text-decoration:underline;text-underline-offset:2px}',
     '.lbc-foot{flex:none;border-top:1px solid #ececec;padding:1.1rem 1.25rem;font-family:Inter,system-ui,sans-serif}',
     '.lbc-sub{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.2rem}',
     '.lbc-sub b{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.5rem;font-weight:700}',
-    '.lbc-note{font-size:.76rem;color:#8f887c;margin:0 0 .85rem}',
+    '.lbc-note{font-size:.76rem;color:#6b655c;margin:0 0 .85rem}',
     '.lbc-go{display:block;width:100%;text-align:center;background:#8a7357;color:#fff;font-weight:600;font-size:.97rem;',
     '  padding:.95rem;border-radius:999px;border:none;cursor:pointer;font-family:Inter,system-ui,sans-serif;text-decoration:none}',
     '.lbc-go:hover{background:#6f5c42}',
@@ -220,7 +242,7 @@
       var l = e.node, m = l.merchandise;
       var full = Number(m.price.amount) * l.quantity;
       var paid = Number(l.cost.totalAmount.amount);
-      var img = m.image ? m.image.url : '';
+      var img = lineImage(m);
       return '<div class="lbc-line">' +
         (img ? '<img class="lbc-thumb" src="' + img + '" alt="" loading="lazy">' : '<div class="lbc-thumb"></div>') +
         '<div class="lbc-info">' +
