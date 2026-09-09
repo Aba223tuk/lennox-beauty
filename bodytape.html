@@ -68,7 +68,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  /* The nav is sticky, so a bare anchor jump parks the target heading under it. */
+  html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
   body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
   a{color:inherit}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -169,6 +170,31 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      page: says what this actually is before asking for the sale. */
   .lead-note{font-size:.94rem;line-height:1.6;color:var(--ink-soft);margin:0 0 1.3rem}
   .lead-note b{color:var(--ink);font-weight:600}
+  /* The reason to buy, above the fold and scannable. Someone off an ad has about a
+     second to find out why this is worth the money, and a spec line is not an answer. */
+  .value-props{list-style:none;margin:.9rem 0 1.1rem;padding:0;display:flex;
+    flex-direction:column;gap:.4rem}
+  .value-props li{position:relative;padding-left:1.35rem;font-size:.96rem;line-height:1.45}
+  .value-props li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+
+  /* Savings had to be hunted for in grey micro-copy the same size as everything else.
+     It is the entire reason the multi-packs exist, so it reads as a filled badge now,
+     with the undiscounted price struck out beside the real one. */
+  .save-pill{
+    display:inline-block;margin-top:.4rem;
+    background:var(--accent);color:#fff;
+    font-size:.7rem;font-weight:700;line-height:1.35;
+    border-radius:999px;padding:.22rem .62rem;
+  }
+  .o-price s{display:block;font-weight:400;font-size:.8rem;color:var(--ink-faint);
+    text-decoration-thickness:1px;margin-bottom:.05rem}
+
+  /* Reassurance at the point of decision, directly under the button. */
+  .buy-trust{list-style:none;margin:1rem 0 .9rem;padding:0;display:grid;
+    grid-template-columns:1fr 1fr;gap:.35rem .9rem}
+  .buy-trust li{position:relative;padding-left:1.15rem;font-size:.78rem;color:var(--ink-soft)}
+  .buy-trust li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+
   .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;color:var(--ink-soft)}
   .rating .stars{color:var(--accent);font-size:.86rem;letter-spacing:.1em;line-height:1}
   .rating a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:2px}
@@ -404,6 +430,30 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lennoxbeauty.com/#org",
+      "name": "Lennox Beauty",
+      "url": "https://lennoxbeauty.com/",
+      "logo": "https://lennoxbeauty.com/favicon.svg",
+      "image": "https://lennoxbeauty.com/img/og.png",
+      "telephone": "+1-929-670-9555",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-929-670-9555",
+        "email": "Lennoxsupport@gmail.com",
+        "contactType": "customer service",
+        "areaServed": "US",
+        "availableLanguage": "English"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "Product",
   "name": "Body Tape — Breast Lift Tape in Three Shades",
   "description": "Body tape in Beige, Brown and Black across three roll widths. 5 metre roll, cut to fit.",
@@ -417,6 +467,36 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     "price": "24.99",
     "availability": "https://schema.org/InStock",
     "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@id": "https://lennoxbeauty.com/#org"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "USD"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 9,
+          "maxValue": 13,
+          "unitCode": "DAY"
+        }
+      }
+    },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
       "applicableCountry": "US",
@@ -425,6 +505,90 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "returnFees": "https://schema.org/FreeReturn"
     }
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://lennoxbeauty.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Body Tape",
+      "item": "https://lennoxbeauty.com/bodytape.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will it hold me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Up to a DD+ with the wide roll. Below a C cup you will use less than half a roll per wear, so the narrow one goes a long way. One roll is roughly five to eight wears depending on cup size and how much lift you build."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it hurt to take off?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not if you soak it first. Two minutes under warm water, then peel slowly with the skin rather than against it. Dry-ripping is what people mean when they say body tape hurts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I have sensitive skin.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Patch-test on your inner arm for twenty minutes before you commit to a whole evening. This is an adhesive, and a small number of people react to any adhesive whatever it is made of."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What it's made of",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Polyethylene backing, medical-grade acrylic pressure-sensitive adhesive, silicone-coated release liner. Latex-free. It is an adhesive, not a skincare product — nothing in it is meant to stay on your skin, and it all comes off with warm water. Read the California disclosure at the bottom of this page before you buy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Shipping & delivery",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dispatched within 1–2 business days and typically arriving 9–13 days later, tracked the whole way. US shipping is free. It ships from our supplier warehouse rather than a domestic one, which is how the price stays where it is — so order ahead of the event, not the week of."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our 30-day guarantee",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use it for 30 days. If it isn't for you, text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund every cent — no returns to mail, no forms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Questions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Text or call (929) 670-9555 , or email Lennoxsupport@gmail.com . Either way it is a person, not a ticket queue."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -476,8 +640,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <h1>Body Tape</h1>
     <p class="sub">Three shades, three widths · 5m roll</p>
 
-    <!-- No star rating and no review count: this product has no customers yet.
-         Both go in the day a real review exists, same rule as Batana. -->
+    <!-- The reason to buy, before anything else. Someone arriving from an ad has about a
+         second to find out why this is worth $24.99, and "three shades, three widths"
+         is a spec line, not an answer. -->
+    <ul class="value-props">
+      <li>Three real shades, so it reads as skin rather than as a stripe of tape.</li>
+      <li>Five metres on the roll — cut the length and shape each neckline needs.</li>
+    </ul>
+
+    <!-- No rating line here, unlike the other two product pages. Batana carries one
+         because its manufacturer's listing has 257 reviews behind it; this tape's has
+         two, from six orders, which is not evidence of anything. A five-star average
+         off two strangers is worse than no average at all. It goes in when there is
+         something real to put in it. -->
     <p class="lead-note">Most body tape comes in one colour — a pinkish beige that
       disappears on one kind of skin and reads as a stripe on everyone else. This comes
       in Beige, Brown and Black, so it looks like skin instead of like tape.</p>
@@ -518,10 +693,26 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </div>
     </div>
 
+    <div class="bump" id="bump">
+      <span class="save">Same night, same bag</span>
+      <p>Tape solves the dress. <b>The Silk Serum</b> solves the hair — two sprays, no
+        flyaways, and it holds through a warm room. Different problem, same evening.</p>
+      <button type="button" onclick="toggleSerum()" id="bump-btn">Add The Silk Serum — $24.99</button>
+    </div>
+
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $24.99</button>
     <p class="err" id="err" role="status"></p>
 
-    <p class="under">Free US shipping · Arrives in about 9–13 days<br>
+    <!-- The reassurances were all further down the page. They belong at the point where
+         someone is deciding whether to hand over money. -->
+    <ul class="buy-trust">
+      <li>Free US shipping</li>
+      <li>Tracked delivery</li>
+      <li>30-day money-back guarantee</li>
+      <li>Secure checkout</li>
+    </ul>
+
+    <p class="under">Arrives in about 9–13 days.<br>
       <b>30 days to change your mind</b> — if it isn't for you, we refund every cent.
       No returns to mail, no forms.</p>
     <p class="pay">Secure checkout by Shopify · Visa · Mastercard · Amex · Shop Pay</p>
@@ -530,6 +721,22 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
 <!-- ========== 4. DESCRIPTION → 5. HOW TO USE → 6. THE REST ========== -->
 <div class="wrap p-info">
+
+  <!-- Same running order as the other two product pages: what it is, then the
+       product-specific section, then how to use it, then the accordions. No proof
+       section here — see the note in the buy column for why. -->
+  <section>
+    <h2>What it is</h2>
+    <p>A roll of skin-safe adhesive tape, five metres long, that you cut to length and
+      stick to yourself instead of wearing a bra. It carries the weight through the tape
+      rather than through straps, which is why it works under a backless dress, a deep V,
+      or anything cut so that a bra would show.</p>
+    <p>It is a single-wear thing. You cut what you need, wear it for an evening, soak it
+      off and throw those pieces away — the rest of the roll keeps. Depending on cup size
+      and how much lift you build, one roll is roughly five to eight wears.</p>
+    <p>What it is not: shapewear, a bra replacement for everyday use, or something to sleep
+      in. It is for the outfit a bra cannot go under.</p>
+  </section>
 
   <section>
     <h2>Picking your shade</h2>
@@ -572,6 +779,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <summary><h3>I have sensitive skin.</h3></summary>
       <p>Patch-test on your inner arm for twenty minutes before you commit to a whole evening.
         This is an adhesive, and a small number of people react to any adhesive whatever it is made of.</p>
+    </details>
+
+    <details>
+      <summary><h3>What it's made of</h3></summary>
+      <p class="ing">Polyethylene backing, medical-grade acrylic pressure-sensitive adhesive,
+        silicone-coated release liner.</p>
+      <p>Latex-free. It is an adhesive, not a skincare product — nothing in it is meant to
+        stay on your skin, and it all comes off with warm water. Read the California
+        disclosure at the bottom of this page before you buy.</p>
     </details>
 
     <details>
@@ -642,17 +858,39 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     'Black-L':'gid://shopify/ProductVariant/52402549031128'
   };
 
+  /* Same cross-sell wiring as the other two product pages: one extra cart line at the
+     serum's own list price, so there is no discount to reconcile and every number the
+     page shows is the number the checkout charges. */
+  const SERUM = {price:24.99, sku:'LB-SILK-1', label:'The Silk Serum',
+                 variant:'gid://shopify/ProductVariant/52304320856280'};
+
   let shade = 'Beige', width = 'M', widthName = 'Medium';
+  let addSerum = false;
 
   function money(n){ return '$' + n.toFixed(2); }
+  function total(){ return PRICE + (addSerum ? SERUM.price : 0); }
 
   function render(){
     document.getElementById('shadeVal').textContent = shade;
     document.getElementById('widthVal').textContent = widthName;
-    document.getElementById('cta').textContent = 'Add to cart — ' + money(PRICE);
-    document.getElementById('bb-total').textContent = money(PRICE);
-    document.getElementById('bb-sub').textContent = shade + ' · ' + width + ' · free shipping';
+    document.getElementById('cta').textContent = 'Add to cart — ' + money(total());
+    document.getElementById('bb-total').textContent = money(total());
+    document.getElementById('bb-sub').textContent = shade + ' · ' + width +
+      (addSerum ? ' + serum · free shipping' : ' · free shipping');
     document.getElementById('err').textContent = '';
+
+    document.getElementById('bump').classList.toggle('taken', addSerum);
+    document.getElementById('bump-btn').textContent =
+      addSerum ? 'Added — remove The Silk Serum' : 'Add The Silk Serum — ' + money(SERUM.price);
+  }
+
+  function toggleSerum(){
+    addSerum = !addSerum;
+    render();
+    if (addSerum) {
+      try { fbq('trackCustom', 'BumpTaken', {to: SERUM.sku, value: SERUM.price, currency: 'USD'}); } catch (e) {}
+      try { gtag('event', 'bump_taken', {item_id: SERUM.sku, value: SERUM.price}); } catch (e) {}
+    }
   }
 
   function wirePicker(id, onPick){
@@ -680,17 +918,22 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       return;
     }
     const lines = [{merchandiseId: id, quantity: 1}];
+    if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
+    const ids = addSerum ? [SKU, SERUM.sku] : [SKU];
+    const value = total();
 
     try {
-      fbq('track','AddToCart',{content_type:'product', content_ids:[SKU],
-        num_items:1, value:PRICE, currency:'USD'});
-      gtag('event','add_to_cart',{currency:'USD', value:PRICE,
+      fbq('track','AddToCart',{content_type:'product', content_ids:ids,
+        num_items:addSerum ? 2 : 1, value:value, currency:'USD'});
+      gtag('event','add_to_cart',{currency:'USD', value:value,
         items:[{item_id:SKU, item_name:'Body Tape', item_variant: shade + ' ' + width,
                 price:PRICE, quantity:1}]});
     } catch (e) {}
 
+    // One call, so the tape and the cross-sold serum land together and the drawer
+    // opens once rather than twice.
     if (window.Cart) Cart.add(lines);
-    else legacyCheckout(lines, PRICE);
+    else legacyCheckout(lines, value);
   }
 
   /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse

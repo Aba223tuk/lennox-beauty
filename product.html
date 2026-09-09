@@ -201,13 +201,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .rating:hover span:last-child{text-decoration:underline}
 
   /* The two lines that answer "why would I buy this" before anything else does. */
+  .lead-note{font-size:.94rem;line-height:1.6;color:var(--ink-soft);margin:0 0 1.3rem}
+  .lead-note b{color:var(--ink);font-weight:600}
+
   .value-props{list-style:none;margin:.9rem 0 1.1rem;padding:0;display:flex;
     flex-direction:column;gap:.4rem}
   .value-props li{position:relative;padding-left:1.35rem;font-size:.96rem;line-height:1.45}
   .value-props li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
 
-  /* Savings should be findable at a glance, not buried in the same grey as the rest of
-     the sub-line — it is the whole reason the multi-packs exist. */
   /* Savings had to be hunted for in grey micro-copy the same size as everything
      else. It is the entire reason the multi-packs exist, so it reads as a filled
      badge now, with the undiscounted price struck out beside the real one. */
@@ -584,22 +585,66 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     {
       "@type": "Question",
       "name": "Will this make my hair greasy?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different."
+      }
     },
     {
       "@type": "Question",
       "name": "Does it work on curly, textured, or color-treated hair?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair."
+      }
     },
     {
       "@type": "Question",
       "name": "How long until I see results?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set."
+      }
     },
     {
       "@type": "Question",
       "name": "Does it have a scent?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes, but lightly — rose. You catch it when you first mist, and it fades to something faint rather than following you round the day. Two of the twenty-two people who rated our manufacturer's listing tagged it “no fragrance”, so treat it as barely-there. It won't fight anything you wear over it." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but lightly — rose. You catch it when you first mist, and it fades to something faint rather than following you round the day. Two of the twenty-two people who rated our manufacturer's listing tagged it “no fragrance”, so treat it as barely-there. It won't fight anything you wear over it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ingredients",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aqua (Water), Cetrimonium Chloride, Dimethicone, 1,2-Hexanediol, Hydrolyzed Keratin. Rose scent. No added colour. If you are sensitive to fragrance, patch test on a small section first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Shipping & delivery",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every order is dispatched within 1–2 business days and typically arrives 7–13 days later, tracked the whole way, with the tracking number emailed to you the moment it ships. US shipping is free on every order, whichever size you pick."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our 30-day guarantee",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Silk Serum for 30 days. If your hair isn't noticeably smoother, text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund every cent — no returns to mail, no forms to fill in. You keep the bottles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Questions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Text or call (929) 670-9555 , or email Lennoxsupport@gmail.com . Either way it is a person, not a ticket queue."
+      }
     }
   ]
 }
@@ -683,6 +728,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <span>1 tester review</span>
     </a>
 
+    <p class="lead-note">A featherweight leave-in mist for hair that goes frizzy the moment
+      it meets humidity. <b>Not an oil</b> — it dries soft, so it works on the days you
+      actually have to leave the house.</p>
+
     <fieldset class="opts">
       <legend class="sr-only">Choose how many bottles</legend>
 
@@ -693,7 +742,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </label>
 
       <label class="opt">
-        <span class="flag">Most popular</span>
+        <!-- Was "Most popular". It is not — we do not have the orders behind that claim,
+             and inventing one is the same trick as inventing a review. "Best value" is
+             just arithmetic, and it is true. -->
+        <span class="flag">Best value</span>
         <input type="radio" name="pack" value="3" onchange="selectPack(3)">
         <span class="o-main">3 bottles<small>about 7 months · $13.00 each</small>
           <b class="save-pill">Save $35.98 &middot; 48% off</b></span>
@@ -834,22 +886,22 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
          Shipping and guarantee accordions below, and two answers to one question reads as
          carelessness. Collapsed, so they cost no page height above the fold. -->
     <details>
-      <summary>Will this make my hair greasy?</summary>
+      <summary><h3>Will this make my hair greasy?</h3></summary>
       <p>No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different.</p>
     </details>
 
     <details>
-      <summary>Does it work on curly, textured, or color-treated hair?</summary>
+      <summary><h3>Does it work on curly, textured, or color-treated hair?</h3></summary>
       <p>Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair.</p>
     </details>
 
     <details>
-      <summary>How long until I see results?</summary>
+      <summary><h3>How long until I see results?</h3></summary>
       <p>Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set.</p>
     </details>
 
     <details>
-      <summary>Does it have a scent?</summary>
+      <summary><h3>Does it have a scent?</h3></summary>
       <p>Yes, but lightly — rose. You catch it when you first mist, and it fades to something faint rather than following you round the day. Two of the twenty-two people who rated our manufacturer's listing tagged it “no fragrance”, so treat it as barely-there. It won't fight anything you wear over it.</p>
     </details>
 

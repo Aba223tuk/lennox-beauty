@@ -170,6 +170,31 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      page: says what this actually is before asking for the sale. */
   .lead-note{font-size:.94rem;line-height:1.6;color:var(--ink-soft);margin:0 0 1.3rem}
   .lead-note b{color:var(--ink);font-weight:600}
+  /* The reason to buy, above the fold and scannable. Someone off an ad has about a
+     second to find out why this is worth the money, and a spec line is not an answer. */
+  .value-props{list-style:none;margin:.9rem 0 1.1rem;padding:0;display:flex;
+    flex-direction:column;gap:.4rem}
+  .value-props li{position:relative;padding-left:1.35rem;font-size:.96rem;line-height:1.45}
+  .value-props li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+
+  /* Savings had to be hunted for in grey micro-copy the same size as everything else.
+     It is the entire reason the multi-packs exist, so it reads as a filled badge now,
+     with the undiscounted price struck out beside the real one. */
+  .save-pill{
+    display:inline-block;margin-top:.4rem;
+    background:var(--accent);color:#fff;
+    font-size:.7rem;font-weight:700;line-height:1.35;
+    border-radius:999px;padding:.22rem .62rem;
+  }
+  .o-price s{display:block;font-weight:400;font-size:.8rem;color:var(--ink-faint);
+    text-decoration-thickness:1px;margin-bottom:.05rem}
+
+  /* Reassurance at the point of decision, directly under the button. */
+  .buy-trust{list-style:none;margin:1rem 0 .9rem;padding:0;display:grid;
+    grid-template-columns:1fr 1fr;gap:.35rem .9rem}
+  .buy-trust li{position:relative;padding-left:1.15rem;font-size:.78rem;color:var(--ink-soft)}
+  .buy-trust li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+
   .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;
     color:var(--ink-soft);text-decoration:none}
   .rating:hover span:last-child{text-decoration:underline}
@@ -414,6 +439,30 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lennoxbeauty.com/#org",
+      "name": "Lennox Beauty",
+      "url": "https://lennoxbeauty.com/",
+      "logo": "https://lennoxbeauty.com/favicon.svg",
+      "image": "https://lennoxbeauty.com/img/og.png",
+      "telephone": "+1-929-670-9555",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-929-670-9555",
+        "email": "Lennoxsupport@gmail.com",
+        "contactType": "customer service",
+        "areaServed": "US",
+        "availableLanguage": "English"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "Product",
   "name": "Batana Oil — Scalp and Hair Treatment (120g)",
   "description": "A thick, unrefined batana oil treatment for dry, coarse, coiled and heat-damaged hair. 120g jar.",
@@ -427,6 +476,36 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     "price": "29.99",
     "availability": "https://schema.org/InStock",
     "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@id": "https://lennoxbeauty.com/#org"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "USD"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 7,
+          "maxValue": 13,
+          "unitCode": "DAY"
+        }
+      }
+    },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
       "applicableCountry": "US",
@@ -435,6 +514,74 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "returnFees": "https://schema.org/FreeReturn"
     }
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://lennoxbeauty.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Batana Oil",
+      "item": "https://lennoxbeauty.com/batana.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will this regrow my hair?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — and we would rather say so than sell you on it. Batana oil conditions, softens and protects the hair you have, and less breakage can look like growth over months. It is not a treatment for hair loss. If you are losing hair, see a doctor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ingredients",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elaeis oleifera (batana) nut oil. That is the whole list. Unrefined means nothing was stripped out and nothing was added — no fragrance, no preservative, no carrier oil bulking it out. It sets solid below about 24&deg;C and melts in your hands, which is the oil behaving normally rather than a fault."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Shipping & delivery",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. US shipping is free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our 30-day guarantee",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use it for 30 days. If it isn't for you, text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund every cent — no returns to mail, no forms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Questions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Text or call (929) 670-9555 , or email Lennoxsupport@gmail.com . Either way it is a person, not a ticket queue."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -485,6 +632,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <h1>Batana Oil</h1>
     <p class="sub">Scalp and hair treatment · 120g jar</p>
 
+    <!-- The reason to buy, before anything else. Someone arriving from an ad has about a
+         second to find out why this is worth $29.99, and "scalp and hair treatment ·
+         120g jar" is a spec line, not an answer. -->
+    <ul class="value-props">
+      <li>One weekly mask for hair that is dry, coarse, coiled or heat-damaged.</li>
+      <li>Unrefined and single-ingredient — batana oil, and nothing else in the jar.</li>
+    </ul>
+
     <!-- The number is the manufacturer's, and the line says so in the same breath, because
          a bare "4.5 · 257 reviews" up here would read as ours. Still no Lennox average:
          this product has no customers yet, and an invented one is exactly the tell the
@@ -507,10 +662,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </label>
 
       <label class="opt">
-        <span class="flag">Save $14.99</span>
+        <span class="flag">Best value</span>
         <input type="radio" name="jars" value="2" onchange="selectJars(2)">
-        <span class="o-main">2 jars<small>Second jar half price</small></span>
-        <span class="o-price">$44.99<small>$15.00 for the 2nd</small></span>
+        <span class="o-main">2 jars<small>about 6 months · $22.50 each</small>
+          <b class="save-pill">Save $14.99 &middot; 25% off</b></span>
+        <span class="o-price"><s>$59.98</s>$44.99</span>
       </label>
     </fieldset>
 
@@ -524,7 +680,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $29.99</button>
     <p class="err" id="err" role="status"></p>
 
-    <p class="under">Free US shipping · Arrives in about 7–13 days<br>
+    <!-- The reassurances were all further down the page. They belong at the point where
+         someone is deciding whether to hand over money. -->
+    <ul class="buy-trust">
+      <li>Free US shipping</li>
+      <li>Tracked delivery</li>
+      <li>30-day money-back guarantee</li>
+      <li>Secure checkout</li>
+    </ul>
+
+    <p class="under">Arrives in about 7–13 days.<br>
       <b>30 days to change your mind</b> — if it isn't for you, we refund every cent.
       No returns to mail, no forms.</p>
     <p class="pay">Secure checkout by Shopify · Visa · Mastercard · Amex · Shop Pay</p>
@@ -629,6 +794,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <p>No — and we would rather say so than sell you on it. Batana oil conditions,
         softens and protects the hair you have, and less breakage can look like growth over
         months. It is not a treatment for hair loss. If you are losing hair, see a doctor.</p>
+    </details>
+
+    <details>
+      <summary><h3>Ingredients</h3></summary>
+      <p class="ing">Elaeis oleifera (batana) nut oil.</p>
+      <p>That is the whole list. Unrefined means nothing was stripped out and nothing was
+        added — no fragrance, no preservative, no carrier oil bulking it out. It sets solid
+        below about 24&deg;C and melts in your hands, which is the oil behaving normally
+        rather than a fault.</p>
     </details>
 
     <details>
