@@ -116,8 +116,14 @@
         if (!c) throw new Error('cart failed');
         cart = c; setId(c.id);
         busy = false; paint(); open();
-        try { fbq('track', 'AddToCart', { value: +c.cost.subtotalAmount.amount, currency: 'USD' }); } catch (e) {}
-        try { gtag('event', 'add_to_cart', { currency: 'USD', value: +c.cost.subtotalAmount.amount }); } catch (e) {}
+        /* No AddToCart fires here. It used to, and every add was therefore counted
+           twice: once by the product page before it calls Cart.add, and again here.
+           Worse, this one reported cost.subtotalAmount — the whole cart, not the line
+           just added — with no content_ids, so a visitor with anything already in
+           their cart sent an inflated value for an unidentifiable product.
+           The product pages own this event: only they know the sku, the quantity and
+           the price of what was actually added. InitiateCheckout stays in this file
+           because it genuinely is cart-level and fires from the drawer. */
       })
       .catch(function () { busy = false; paint(true); });
   }
