@@ -348,6 +348,42 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     .sticky-cta{display:none}
     .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
   }
+  /* ---------- home: hero band ---------- */
+  /* Full-bleed centred opener. .hero-band breaks the wrap so the tint runs edge to
+     edge; .hero-inner puts the gutter back on the text. */
+  .hero-band{background:var(--bg-soft);border-bottom:1px solid var(--line);padding:3.5rem 0 3rem}
+  .hero-inner{text-align:center}
+  .hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent-dark);margin-bottom:1.4rem}
+  .hero-band h1{font-size:clamp(2.5rem,10vw,4.4rem);margin-bottom:1.2rem}
+  .hero-lead{font-size:1.08rem;color:var(--ink);max-width:34rem;margin:0 auto .7rem}
+  .hero-sub{font-size:.96rem;color:var(--ink-soft);max-width:32rem;margin:0 auto}
+  .hero-cta{justify-content:center;margin-top:2rem}
+  .hero-trio{display:flex;align-items:flex-end;justify-content:center;gap:4%;
+    margin:2.8rem auto 0;max-width:440px}
+  /* Percentage widths, not fixed heights: all three shots are square, so sizing by
+     width keeps them inside the band at every viewport. */
+  .hero-trio img{height:auto}
+  .hero-trio img:nth-child(1){width:38%}
+  .hero-trio img:nth-child(2){width:31%}
+  .hero-trio img:nth-child(3){width:25%}
+
+  /* ---------- home: about ---------- */
+  .about-band{text-align:center;max-width:1060px}
+  .about-band p{color:var(--ink-soft);max-width:44rem;margin:0 auto 2rem;font-size:1.02rem}
+  .about-band .kicker{margin-bottom:.9rem}
+
+  /* ---------- home: trust row ---------- */
+  .trust-band{background:var(--ink);color:#fff;padding:3.5rem 0}
+  .trust-row{display:grid;grid-template-columns:1fr;gap:2.2rem;text-align:center}
+  .trust-item svg{width:30px;height:30px;margin:0 auto .9rem;color:#d9cbb2}
+  .trust-item h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin-bottom:.35rem}
+  .trust-item p{font-size:.88rem;color:#cfcfcf;max-width:22rem;margin:0 auto}
+
+  @media(min-width:760px){
+    .hero-band{padding:5rem 0 4rem}
+    .trust-row{grid-template-columns:repeat(4,1fr);gap:2rem}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -460,190 +496,87 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </nav>
 
 <!-- ================= HERO ================= -->
-<!-- Brand-level, not product-level. This page used to open as a Silk Serum landing
-     page, which meant every visitor who wanted anything else had to scroll past a
-     pitch for one bottle. The serum keeps its own PDP; the home page's job is to
-     say who we are and hand people the catalogue. -->
-<section class="hero wrap">
-  <div>
-    <div class="kicker">Lennox Beauty</div>
-    <h1>Small things, done properly.</h1>
-    <p class="lead">A short list of products for hair and body. Each one exists because
-      something ordinary was quietly broken — and each is described without the usual nonsense.</p>
-    <div class="cta-row">
-      <a class="btn accent" href="#collection">Shop the collection</a>
-      <a class="btn ghost" href="about.html">Our story</a>
+<!-- Centred, full-bleed band rather than the old split hero. The reference site opens
+     on a brand statement over a full-width field with two CTAs and no products; the
+     catalogue lives on its own page. Same shape here, minus the invented star rating
+     that sat above their headline. -->
+<section class="hero-band">
+  <div class="wrap hero-inner">
+    <p class="hero-eyebrow">Free US shipping · 30-day money-back guarantee</p>
+    <h1>Small things,<br>done properly.</h1>
+    <p class="hero-lead">Hair and body essentials built to do one job well — and described
+      without the usual nonsense.</p>
+    <p class="hero-sub">A short list of products, each one here because something ordinary was
+      quietly broken for somebody.</p>
+    <div class="cta-row hero-cta">
+      <a class="btn accent" href="catalog.html">Shop now</a>
+      <a class="btn ghost" href="about.html">Explore more</a>
     </div>
-    <p class="sub">From $24.99 · free US shipping · 30-day money-back guarantee</p>
-  </div>
 
-  <div class="visual" aria-hidden="true">
-    <!-- The whole range rather than one hero bottle. Real product shots, the same
-         files the collection cards and PDPs use, so nothing here is a mock-up. -->
-    <!-- Percentage widths, not fixed heights: all three shots are square, so sizing by
-         width keeps them inside the panel at every viewport. Fixed heights with auto
-         width overflowed the card and clipped the tape roll. -->
-    <div style="display:flex;align-items:flex-end;justify-content:center;gap:3%;width:100%;padding:0 1.25rem">
-      <img src="img/silk/silk-09.webp" width="1065" height="1065" alt="" decoding="async" style="width:38%;height:auto">
-      <img src="img/batana/jar.webp" width="1000" height="1000" alt="" decoding="async" style="width:31%;height:auto">
-      <img src="img/bodytape/roll-beige.webp" width="800" height="800" alt="" decoding="async" style="width:25%;height:auto">
-    </div>
-  </div>
-
-  <div class="hero-strip">
-    <div>Three products, not thirty</div>
-    <div>No subscriptions, ever</div>
-    <div>30 days to change your mind</div>
-  </div>
-</section>
-
-<!-- ================= BRAND ================= -->
-<section class="problem">
-  <div class="wrap problem-grid">
-    <div>
-      <div class="kicker">About Lennox</div>
-      <h2>We'd rather<br>sell you less.</h2>
-    </div>
-    <div>
-      <p>Most beauty brands launch forty products a year and hope one sticks. We have three. Each one is here because something everybody owns only worked properly for some people — a serum that left hair greasy, a treatment that suited one hair type, a body tape that matched one skin tone.</p>
-      <p><b>We don't invent reviews, run countdown timers, or claim things we can't show you.</b> Where we don't know something yet, the page says so. If a product isn't right for you, we would honestly rather you didn't buy it than send it back.</p>
+    <div class="hero-trio" aria-hidden="true">
+      <img src="img/silk/silk-09.webp" width="1065" height="1065" alt="" decoding="async">
+      <img src="img/batana/jar.webp" width="1000" height="1000" alt="" decoding="async">
+      <img src="img/bodytape/roll-beige.webp" width="800" height="800" alt="" decoding="async">
     </div>
   </div>
 </section>
 
-<!-- ================= CATALOG ================= -->
-<!-- Moved above the offer and trust bands: on a brand home page the catalogue is the
-     path, not a footnote after a single product's pitch. -->
-<section class="collection-band" id="collection">
-<div class="wrap">
-  <div class="head">
-    <div class="kicker">The collection</div>
-    <h2>Four for hair. One for everything else.</h2>
-    <p class="muted">Every Lennox product exists for the same reason: it does one job properly and tells you the truth about it. The Silk Serum is the daily one, Batana Oil the weekly one — and Body Tape is the one that has nothing to do with hair at all.</p>
-  </div>
+<!-- ================= ABOUT OUR BRAND ================= -->
+<section class="wrap about-band">
+  <div class="kicker">About our brand</div>
+  <h2>We'd rather sell you less.</h2>
+  <p>Most beauty brands launch forty products a year and hope one sticks. We have three. Each one
+    is here because something everybody owns only worked properly for some people — a serum that
+    left hair greasy, a treatment that suited one hair type, a body tape that matched one skin tone.
+    We don't invent reviews, run countdown timers, or claim things we can't show you. Where we don't
+    know something yet, the page says so. If a product isn't right for you, we would honestly rather
+    you didn't buy it than send it back.</p>
+  <a class="btn ghost" href="about.html">Learn more</a>
+</section>
 
-  <div class="catalog">
-
-    <div class="card" onclick="location.href='product.html'" style="cursor:pointer">
-      <img src="img/silk/silk-09.webp" alt="" width="1065" height="1065" loading="lazy" decoding="async" style="height:92px;width:auto;margin-bottom:.8rem" aria-hidden="true">
-      <h3>The Silk Serum</h3>
-      <p class="desc">Smooths flyaways &amp; kills static in 60 seconds.</p>
-      <p class="price">From $24.99</p>
-      <a class="badge live" href="product.html">Shop now</a>
-    </div>
-
-    <!-- Batana fills the deep-treatment step this card used to promise as "The Repair
-         Mask": a weekly rinse-out mask for damage and dullness. Same job, real product. -->
-    <div class="card" onclick="location.href='batana.html'" style="cursor:pointer">
-      <img src="img/batana/jar.webp" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="height:92px;width:auto;margin-bottom:.8rem" aria-hidden="true">
-      <h3>Batana Oil</h3>
-      <p class="desc">Weekly deep treatment for dry, coarse &amp; damaged hair.</p>
-      <p class="price">From $29.99</p>
-      <a class="badge live" href="batana.html">Shop now</a>
-    </div>
-
-    <!-- Body Tape is the first product that isn't hair care. It sits in the collection
-         because it answers the same kind of complaint the serum does — a thing everyone
-         owns that only works properly on one type of person. -->
-    <div class="card" onclick="location.href='bodytape.html'" style="cursor:pointer">
-      <img src="img/bodytape/roll-beige.webp" alt="" width="800" height="800" loading="lazy" decoding="async" style="height:92px;width:auto;margin-bottom:.8rem" aria-hidden="true">
-      <h3>Body Tape</h3>
-      <p class="desc">Three shades, three widths &mdash; for everything a bra ruins.</p>
-      <p class="price">From $24.99</p>
-      <a class="badge live" href="bodytape.html">Shop now</a>
-    </div>
-
-    <div class="card">
-      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="20" y="30" width="20" height="74" rx="6" stroke="#141414" stroke-width="2"/>
-        <path d="M24 30 C24 20 28 14 30 12 C32 14 36 20 36 30 Z" fill="#eee9e2" stroke="#141414" stroke-width="2"/>
-        <line x1="24" y1="60" x2="36" y2="60" stroke="#8a7357" stroke-width="1.4"/>
+<!-- ================= TRUST ================= -->
+<!-- The reference site's icon row, with every claim swapped for one that is actually
+     true of this shop: no worldwide shipping, no 24/7 desk. -->
+<section class="trust-band">
+  <div class="wrap trust-row">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M1 3h13v13H1zM14 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/>
       </svg>
-      <h3>The Sleek Stick</h3>
-      <p class="desc">Pocket-size wax stick that tames flyaways on the go.</p>
-      <p class="price">Coming soon</p>
-      <span class="badge soon">In development</span>
-    </div>
-
-    <div class="card">
-      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M26 8 L38 8 L36 20 L28 20 Z" stroke="#141414" stroke-width="2"/>
-        <rect x="24" y="20" width="16" height="10" rx="2" stroke="#141414" stroke-width="2"/>
-        <path d="M18 38 C18 33 23 30 32 30 C41 30 46 33 46 38 L44 102 C44 109 39 113 32 113 C25 113 20 109 20 102 Z" stroke="#141414" stroke-width="2"/>
-        <path d="M21 66 L43 66 L42 102 C42 107 38 110 32 110 C26 110 22 107 22 102 Z" fill="#eee9e2"/>
-      </svg>
-      <h3>The Heat Shield</h3>
-      <p class="desc">Pre-styling primer that shields hair from heat damage.</p>
-      <p class="price">Coming soon</p>
-      <span class="badge soon">In development</span>
-    </div>
-
-  </div>
-</div>
-</section>
-
-<!-- ================= WHAT YOU GET ================= -->
-<!-- Keeps the #how-it-works id: the site menu on five pages links to it, and the band
-     still answers "how does buying from you work", just at brand level now. -->
-<section class="wrap" id="how-it-works">
-  <div class="kicker">What you get</div>
-  <h2>The same deal on everything.</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="num">1</div>
       <h3>Free US shipping</h3>
-      <p>On every order, no minimum. Dispatched in 1–2 business days and tracked the whole way.</p>
+      <p>On every order, no minimum and no threshold to hit.</p>
     </div>
-    <div class="step">
-      <div class="num">2</div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+      </svg>
+      <h3>Dispatched in 1–2 days</h3>
+      <p>Tracked the whole way. Most orders land within 7–13 days.</p>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
+      </svg>
       <h3>30 days to change your mind</h3>
-      <p>Use it properly. If it isn't for you we refund every cent — and you keep it. No returns to mail.</p>
+      <p>We refund every cent and you keep it. No returns to mail.</p>
     </div>
-    <div class="step">
-      <div class="num">3</div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 5h6l2 5-3 2a11 11 0 005 5l2-3 5 2v6a15 15 0 01-17-17z"/>
+      </svg>
       <h3>A person, not a queue</h3>
-      <p>Text or call the number at the bottom of this page. It reaches someone who can actually fix it.</p>
+      <p>Text or call (929) 670-9555 and reach someone who can fix it.</p>
     </div>
   </div>
-</section>
-
-<!-- ================= OFFER ================= -->
-<section class="wrap" id="offer">
-  <div class="offer">
-    <div class="offer-inner">
-      <div class="kicker">The promise</div>
-      <h2>Love it,<br>or it's free.</h2>
-      <p class="price-note">Everything starts at $24.99, and every product gets cheaper per unit when
-        you take more than one. No tiers, no membership, nothing that renews without asking you.</p>
-      <ul>
-        <li>Free US shipping on every order</li>
-        <li>Dispatched in 1–2 business days — most orders arrive in 7–13 days</li>
-        <li>30-day money-back guarantee on everything we sell</li>
-        <li>No subscription. No fine print.</li>
-      </ul>
-      <p class="founder-note">You've never heard of us — a fair reason to be careful. So try anything
-        here for <b>30 days</b>: if it isn't what we said it was, text or call
-        <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we'll refund every cent. You keep the product —
-        no returns to mail, no forms.</p>
-      <a class="btn accent" href="#collection">Shop the collection</a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TALK TO US ================= -->
-<section class="wrap guarantee">
-  <div class="kicker">Questions</div>
-  <h2>Talk to a person.</h2>
-  <p>Not sure which shade, whether something suits your hair, or where your order is? Text or call <a href="tel:+19296709555">(929) 670-9555</a>, or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>. You'll get a human being who knows the products.</p>
 </section>
 
 <!-- ================= FAQ ================= -->
 <section class="wrap" id="faq">
   <div class="kicker">Questions</div>
-  <h2>Asked &amp; answered.</h2>
+  <h2>FAQs</h2>
   <details>
     <summary>What does Lennox actually make?</summary>
-    <p>Three things today: the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early.</p>
+    <p>Three things today: the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early. Everything is on the <a href="catalog.html">catalog</a>.</p>
   </details>
   <details>
     <summary>When will my order arrive?</summary>
@@ -663,10 +596,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </details>
   <details>
     <summary>Why are there only three products?</summary>
-    <p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. Each one started with something ordinary that only worked properly for some people. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p>
+    <p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p>
   </details>
 </section>
-
 <footer>
   <div data-lb-signup></div>
   <div class="logo">Lennox <span>Beauty</span></div>
