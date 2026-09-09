@@ -195,7 +195,30 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   /* ---------- buy ---------- */
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.95rem,7vw,2.7rem);line-height:1.08;margin-bottom:.35rem}
   .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:.9rem}
-  .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;color:var(--ink-soft)}
+  .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;
+    color:var(--ink-soft);text-decoration:none}
+  .rating:hover span:last-child{text-decoration:underline}
+
+  /* The two lines that answer "why would I buy this" before anything else does. */
+  .value-props{list-style:none;margin:.9rem 0 1.1rem;padding:0;display:flex;
+    flex-direction:column;gap:.4rem}
+  .value-props li{position:relative;padding-left:1.35rem;font-size:.96rem;line-height:1.45}
+  .value-props li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+
+  /* Savings should be findable at a glance, not buried in the same grey as the rest of
+     the sub-line — it is the whole reason the multi-packs exist. */
+  .save-amt{color:var(--accent-dark);font-weight:700}
+
+  /* Reassurance at the point of decision, directly under the button. */
+  .buy-trust{list-style:none;margin:1rem 0 .9rem;padding:0;display:grid;
+    grid-template-columns:1fr 1fr;gap:.35rem .9rem}
+  .buy-trust li{position:relative;padding-left:1.15rem;font-size:.78rem;color:var(--ink-soft)}
+  .buy-trust li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+
+  /* Says plainly what this person is, next to their name rather than in small print. */
+  .tester-tag{display:inline-block;font-size:.64rem;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--line);
+    border-radius:999px;padding:.15rem .5rem;vertical-align:middle;margin-left:.35rem}
   .rating .stars{color:var(--accent);font-size:.86rem;letter-spacing:.1em;line-height:1}
 
   /* Size ladder. Radio inputs kept real and focusable — the visual state is drawn from
@@ -593,11 +616,21 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <h1>The Silk Serum</h1>
     <p class="sub">Anti-frizz leave-in mist · 100ml</p>
 
-    <!-- Stars only. The "1 review" count is cut from the fold — the review itself,
-         with its gifting disclosure, is still in the Reviews section below. -->
-    <div class="rating">
+    <!-- The reason to buy, before anything else. Someone arriving from an ad has about a
+         second to find out why this is worth $24.99, and "anti-frizz leave-in mist ·
+         100ml" is a spec line, not an answer. -->
+    <ul class="value-props">
+      <li>Smooths flyaways and reduces the look of frizz in about 60 seconds.</li>
+      <li>Light enough for every day — dries soft, not greasy.</li>
+    </ul>
+
+    <!-- Labelled, not decorative. The only rating this product has comes from one person
+         who was given a bottle, and five bare stars next to a price implies a body of
+         customer reviews that does not exist yet. -->
+    <a class="rating" href="#review">
       <span class="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
-    </div>
+      <span>1 tester review</span>
+    </a>
 
     <fieldset class="opts">
       <legend class="sr-only">Choose how many bottles</legend>
@@ -611,13 +644,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <label class="opt">
         <span class="flag">Most popular</span>
         <input type="radio" name="pack" value="3" onchange="selectPack(3)">
-        <span class="o-main">3 bottles<small>Save $35.98 · about 7 months</small></span>
+        <span class="o-main">3 bottles<small><b class="save-amt">Save $35.98</b> · about 7 months</small></span>
         <span class="o-price">$38.99<small>$13.00 each</small></span>
       </label>
 
       <label class="opt">
         <input type="radio" name="pack" value="5" onchange="selectPack(5)">
-        <span class="o-main">5 bottles<small>Save $69.96 · about a year</small></span>
+        <span class="o-main">5 bottles<small><b class="save-amt">Save $69.96</b> · about a year</small></span>
         <span class="o-price">$54.99<small>$11.00 each</small></span>
       </label>
     </fieldset>
@@ -633,7 +666,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $24.99</button>
     <p class="err" id="err" role="status"></p>
 
-    <p class="under">Free US shipping · Arrives in about 7–13 days<br>
+    <!-- The reassurances were all further down the page. They belong at the point where
+         someone is deciding whether to hand over money. -->
+    <ul class="buy-trust">
+      <li>Free US shipping</li>
+      <li>Tracked delivery</li>
+      <li>30-day money-back guarantee</li>
+      <li>Secure checkout</li>
+    </ul>
+
+    <p class="under">Arrives in about 7–13 days.
       <b>30 days to change your mind</b> — if your hair isn't noticeably smoother, we refund
       every cent. No returns to mail, no forms.</p>
     <p class="pay">Secure checkout by Shopify · Visa · Mastercard · Amex · Shop Pay</p>
@@ -643,20 +685,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <!-- ========== 4. DESCRIPTION  →  5. REVIEWS  →  6. HOW TO USE  →  7. THE REST ========== -->
 <div class="wrap p-info">
 
-  <section>
-    <h2>What it is</h2>
-    <p>Most products either coat your hair in buildup or strip it dry. This does neither:
-      it is a featherweight leave-in mist that lays the hair cuticle flat — cutting flyaways
-      and static, adding shine, and leaving a soft scent that lasts through the day. It is a
-      spray, not an oil, so it finishes dry to the touch instead of greasy.</p>
-    <p>The nozzle throws a roughly 54-micron mist, finer than a human hair, so it spreads
-      evenly rather than landing in wet patches. Most people notice smoother hair from the
-      first application, with the full stay-smooth effect building over two to four weeks.
-      Safe for curly, textured and colour-treated hair.</p>
-  </section>
-
+  <!-- Proof before explanation. The before/after argues harder than any paragraph on this
+       page, so it now runs first and "What it is" follows it. -->
   <section id="review">
-    <h2>Reviews</h2>
+    <h2>One use. The next morning.</h2>
 
     <!-- openLightbox(0), not (1): the before/after is now the gallery's first slide. -->
     <button type="button" class="ba" onclick="openLightbox(0)" aria-label="Enlarge the before and after photo">
@@ -666,13 +698,29 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <p class="ba-cap">Left: our own hair on waking. Right: the next day, after one use.
       Unretouched — tap to enlarge.</p>
 
+    <!-- Labelled a tester, not a customer. He was given the bottle; calling that a verified
+         review is the exact thing the about page promises we don't do. It gets replaced the
+         day a paying customer writes one. -->
     <figure class="review">
       <div class="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</div>
       <blockquote>“I really liked this silk serum! It made my hair feel softer, smoother, and much easier to manage. It also helped with frizz and gave my hair a nice shine without making it feel too heavy or greasy. Overall, I'm really happy with it and would definitely recommend it!”</blockquote>
-      <figcaption><b>Rolandi J.</b>
-        <span class="disc">We gave him a bottle to try. His words, unedited.</span>
+      <figcaption><b>Rolandi J.</b> <span class="tester-tag">Product tester</span>
+        <span class="disc">We gave him a bottle to try, unpaid. His words, unedited — and the
+          only review we have, because we won't write ourselves any others.</span>
       </figcaption>
     </figure>
+  </section>
+
+  <section>
+    <h2>What it is</h2>
+    <p>Most products either coat your hair in buildup or strip it dry. This does neither:
+      it is a featherweight leave-in mist that lays the hair cuticle flat — cutting flyaways
+      and static, adding shine, and leaving a soft scent that lasts through the day. It is a
+      spray, not an oil, so it finishes dry to the touch instead of greasy.</p>
+    <p>The spray is fine enough to spread evenly through the hair instead of landing in heavy
+      wet patches, which is why a couple of pumps covers a whole head. Most people notice
+      smoother hair from the first application, with the full stay-smooth effect building over
+      two to four weeks. Safe for curly, textured and colour-treated hair.</p>
   </section>
 
   <section>
