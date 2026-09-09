@@ -29,7 +29,7 @@ document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','2111917956205326');
 fbq('track','PageView');
 fbq('track','ViewContent',{content_name:'Body Tape',content_type:'product',
-  content_ids:['LB-TAPE'],value:24.99,currency:'USD'});
+  content_ids:['LB-TAPE-BEIGE-M'],value:24.99,currency:'USD'});
 </script>
 <script>window.GA_ID = 'G-RVCCLVESX7';</script>
 <script>
@@ -842,7 +842,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      why the button never changes its number. Gallery, lightbox, menu, launcher fix
      and Scroll50 below are copied verbatim from batana.html so they cannot drift. */
   const PRICE = 24.99;
-  const SKU   = 'LB-TAPE';
+  /* Variant-level, matching the SKUs on the Shopify variants. A flat 'LB-TAPE' here
+     against 'LB-TAPE-BEIGE-M' at checkout is two identities for one product, and Meta
+     cannot join an add-to-cart to the sale that follows it. */
+  function sku(){ return 'LB-TAPE-' + shade.toUpperCase() + '-' + width; }
 
   /* Shopify variant ids, read off the Storefront API rather than typed out of the
      admin. Keyed shade-width to match the option values on the product exactly. */
@@ -919,14 +922,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     }
     const lines = [{merchandiseId: id, quantity: 1}];
     if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
-    const ids = addSerum ? [SKU, SERUM.sku] : [SKU];
+    const ids = addSerum ? [sku(), SERUM.sku] : [sku()];
     const value = total();
 
     try {
       fbq('track','AddToCart',{content_type:'product', content_ids:ids,
         num_items:addSerum ? 2 : 1, value:value, currency:'USD'});
       gtag('event','add_to_cart',{currency:'USD', value:value,
-        items:[{item_id:SKU, item_name:'Body Tape', item_variant: shade + ' ' + width,
+        items:[{item_id:sku(), item_name:'Body Tape', item_variant: shade + ' ' + width,
                 price:PRICE, quantity:1}]});
     } catch (e) {}
 
