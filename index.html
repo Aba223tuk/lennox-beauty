@@ -370,7 +370,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   /* ---------- home: about ---------- */
   .about-band{text-align:center;max-width:1060px}
-  .about-band p{color:var(--ink-soft);max-width:44rem;margin:0 auto 2rem;font-size:1.02rem}
+  .about-band p{color:var(--ink-soft);max-width:34rem;margin:0 auto 1rem;font-size:1.02rem}
+  /* The one line worth remembering, set in the brand's own voice rather than as
+     another grey paragraph. */
+  .about-band .about-kicker-line{color:var(--ink);font-family:var(--serif);
+    font-size:clamp(1.15rem,4.5vw,1.4rem);line-height:1.3;max-width:26rem;margin-bottom:2rem}
   .about-band .kicker{margin-bottom:.9rem}
 
   /* ---------- home: trust row ---------- */
@@ -525,12 +529,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <section class="wrap about-band">
   <div class="kicker">About our brand</div>
   <h2>We'd rather sell you less.</h2>
-  <p>Most beauty brands launch forty products a year and hope one sticks. We have three. Each one
-    is here because something everybody owns only worked properly for some people — a serum that
-    left hair greasy, a treatment that suited one hair type, a body tape that matched one skin tone.
-    We don't invent reviews, run countdown timers, or claim things we can't show you. Where we don't
-    know something yet, the page says so. If a product isn't right for you, we would honestly rather
-    you didn't buy it than send it back.</p>
+  <!-- Deliberately short. This block is a hook, not the story — the full version lives
+       on about.html, which is exactly what the Learn more button is for. At the length
+       this ran before, it was six centred lines on a phone and nobody read any of them. -->
+  <p>Most brands launch forty products a year and hope one sticks. We have three — each because
+    something everybody owns only worked properly for some people.</p>
+  <p class="about-kicker-line">If one isn't right for you, we'd rather you didn't buy it.</p>
   <a class="btn ghost" href="about.html">Learn more</a>
 </section>
 
