@@ -388,6 +388,33 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     .hero-band{padding:5rem 0 4rem}
     .trust-row{grid-template-columns:repeat(4,1fr);gap:2rem}
   }
+  /* ---------- home: micro trust under the hero CTA ---------- */
+  /* The guarantee and shipping terms were only in the dark band further down. These
+     sit where the decision is actually made, next to the button. */
+  .micro-trust{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+    gap:.5rem 1.5rem;margin:2rem auto 0;max-width:32rem}
+  .micro-trust li{font-size:.8rem;color:var(--ink-soft);display:flex;align-items:center;gap:.4rem}
+  .micro-trust li::before{content:"✓";color:var(--accent);font-weight:700}
+
+  /* ---------- home: shop-all link ---------- */
+  .shop-all{text-align:center;margin-top:2rem;font-size:.92rem}
+  .shop-all a{color:var(--accent-dark);font-weight:600;text-decoration:none}
+  .shop-all a:hover{text-decoration:underline}
+
+  /* ---------- home: closing cta ---------- */
+  .closing-cta{background:var(--bg-soft);border-top:1px solid var(--line);
+    padding:4rem 0;text-align:center}
+  .closing-cta p{color:var(--ink-soft);margin:0 auto 1.8rem;max-width:26rem}
+
+  /* ---------- home: reviews (markup is commented out until real ones exist) ---------- */
+  .reviews{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:2.2rem}
+  .review{background:var(--bg-soft);border-radius:var(--radius);padding:1.6rem 1.5rem;margin:0}
+  .review blockquote{font-family:var(--serif);font-size:1.12rem;line-height:1.4;margin-bottom:.9rem}
+  .review figcaption{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+
+  @media(min-width:760px){
+    .reviews{grid-template-columns:repeat(3,1fr)}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -494,53 +521,78 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
 <nav class="site-menu" id="siteMenu" aria-hidden="true">
   <a href="index.html" onclick="closeMenu()">Home</a>
-  <a href="catalog.html" onclick="closeMenu()">Catalog</a>
+  <a href="catalog.html" onclick="closeMenu()">Shop</a>
   <a href="contact.html" onclick="closeMenu()">Contact</a>
   <a href="about.html" onclick="closeMenu()">About Our Brand</a>
 </nav>
 
 <!-- ================= HERO ================= -->
-<!-- Centred, full-bleed band rather than the old split hero. The reference site opens
-     on a brand statement over a full-width field with two CTAs and no products; the
-     catalogue lives on its own page. Same shape here, minus the invented star rating
-     that sat above their headline. -->
+<!-- Says what this shop is in the first line. "Small things, done properly" is a good
+     brand line but it doesn't tell a first-time visitor from an ad what we sell, so it
+     drops to the eyebrow and the headline does the explaining. -->
 <section class="hero-band">
   <div class="wrap hero-inner">
-    <p class="hero-eyebrow">Free US shipping · 30-day money-back guarantee</p>
-    <h1>Small things,<br>done properly.</h1>
-    <p class="hero-lead">Hair and body essentials built to do one job well — and described
-      without the usual nonsense.</p>
-    <p class="hero-sub">A short list of products, each one here because something ordinary was
-      quietly broken for somebody.</p>
+    <p class="hero-eyebrow">Small things, done properly</p>
+    <h1>Beauty, made simpler.</h1>
+    <p class="hero-lead">Hair and body essentials for your everyday routine — each one built to do
+      a single job well, and priced like an everyday thing.</p>
     <div class="cta-row hero-cta">
-      <a class="btn accent" href="catalog.html">Shop now</a>
-      <a class="btn ghost" href="about.html">Explore more</a>
+      <a class="btn accent" href="#shop">Shop now</a>
+      <a class="btn ghost" href="about.html">Our story</a>
     </div>
 
-    <div class="hero-trio" aria-hidden="true">
-      <img src="img/silk/silk-09.webp" width="1065" height="1065" alt="" decoding="async">
-      <img src="img/batana/jar.webp" width="1000" height="1000" alt="" decoding="async">
-      <img src="img/bodytape/roll-beige.webp" width="800" height="800" alt="" decoding="async">
-    </div>
+    <ul class="micro-trust">
+      <li>30-day guarantee</li>
+      <li>Free US shipping</li>
+      <li>Tracked delivery</li>
+      <li>Secure checkout</li>
+    </ul>
   </div>
 </section>
 
-<!-- ================= ABOUT OUR BRAND ================= -->
-<section class="wrap about-band">
-  <div class="kicker">About our brand</div>
-  <h2>We'd rather sell you less.</h2>
-  <!-- Deliberately short. This block is a hook, not the story — the full version lives
-       on about.html, which is exactly what the Learn more button is for. At the length
-       this ran before, it was six centred lines on a phone and nobody read any of them. -->
-  <p>Most brands launch forty products a year and hope one sticks. We have three — each because
-    something everybody owns only worked properly for some people.</p>
-  <p class="about-kicker-line">If one isn't right for you, we'd rather you didn't buy it.</p>
-  <a class="btn ghost" href="about.html">Learn more</a>
+<!-- ================= FEATURED PRODUCTS ================= -->
+<!-- Moved above the brand story. A visitor arriving from an ad should see something they
+     can buy without scrolling through who we are first. -->
+<section class="wrap" id="shop">
+  <div class="head" style="text-align:center">
+    <div class="kicker">Shop</div>
+    <h2>What we make.</h2>
+    <p class="muted" style="max-width:34rem;margin:0 auto">Three products available today. Two more
+      are in development — when something isn't ready, we say so.</p>
+  </div>
+
+  <div class="catalog" style="margin-top:2.6rem">
+
+    <div class="card" onclick="location.href='product.html'" style="cursor:pointer">
+      <img src="img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem">
+      <h3>The Silk Serum</h3>
+      <p class="desc">Smooths flyaways and kills static in about sixty seconds.</p>
+      <p class="price">From $24.99</p>
+      <a class="badge live" href="product.html">Shop now</a>
+    </div>
+
+    <div class="card" onclick="location.href='batana.html'" style="cursor:pointer">
+      <img src="img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem">
+      <h3>Batana Oil</h3>
+      <p class="desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
+      <p class="price">$29.99</p>
+      <a class="badge live" href="batana.html">Shop now</a>
+    </div>
+
+    <div class="card" onclick="location.href='bodytape.html'" style="cursor:pointer">
+      <img src="img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem">
+      <h3>Body Tape</h3>
+      <p class="desc">Three shades, three widths &mdash; for everything a bra ruins.</p>
+      <p class="price">$24.99</p>
+      <a class="badge live" href="bodytape.html">Shop now</a>
+    </div>
+
+  </div>
+
+  <p class="shop-all"><a href="catalog.html">See everything, including what's coming &rarr;</a></p>
 </section>
 
-<!-- ================= TRUST ================= -->
-<!-- The reference site's icon row, with every claim swapped for one that is actually
-     true of this shop: no worldwide shipping, no 24/7 desk. -->
+<!-- ================= WHY LENNOX ================= -->
 <section class="trust-band">
   <div class="wrap trust-row">
     <div class="trust-item">
@@ -574,6 +626,35 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </div>
 </section>
 
+<!-- ================= REVIEWS ================= -->
+<!-- Intentionally not here yet. A reviews block is the single biggest thing this page is
+     missing for cold Meta traffic — but the shop has one real customer, so there is
+     nothing truthful to put in it. The markup below is ready: drop real quotes in, delete
+     the comment wrapper, and it renders. Do not fill it with anything invented; this
+     brand's whole pitch is that we don't.
+
+<section class="wrap reviews-band">
+  <div class="kicker">Reviews</div>
+  <h2>What customers say.</h2>
+  <div class="reviews">
+    <figure class="review">
+      <blockquote>REAL QUOTE HERE.</blockquote>
+      <figcaption>Name, verified purchase — Product</figcaption>
+    </figure>
+  </div>
+</section>
+-->
+
+<!-- ================= BRAND STORY ================= -->
+<section class="wrap about-band">
+  <div class="kicker">Our story</div>
+  <h2>We'd rather sell you less.</h2>
+  <p>Most brands launch forty products a year and hope one sticks. We have three — each because
+    something everybody owns only worked properly for some people.</p>
+  <p class="about-kicker-line">If one isn't right for you, we'd rather you didn't buy it.</p>
+  <a class="btn ghost" href="about.html">Learn more</a>
+</section>
+
 <!-- ================= FAQ ================= -->
 <section class="wrap" id="faq">
   <div class="kicker">Questions</div>
@@ -602,6 +683,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <summary>Why are there only three products?</summary>
     <p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p>
   </details>
+</section>
+
+<!-- ================= CLOSING CTA ================= -->
+<section class="closing-cta">
+  <div class="wrap">
+    <h2>Start with one.</h2>
+    <p>Free US shipping, and 30 days to change your mind on any of it.</p>
+    <a class="btn accent" href="catalog.html">Shop the collection</a>
+  </div>
 </section>
 <footer>
   <div data-lb-signup></div>
