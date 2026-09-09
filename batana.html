@@ -68,7 +68,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  /* The nav is sticky, so a bare anchor jump parks the target heading under it. */
+  html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
   body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
   a{color:inherit}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -169,9 +170,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      page: says what this actually is before asking for the sale. */
   .lead-note{font-size:.94rem;line-height:1.6;color:var(--ink-soft);margin:0 0 1.3rem}
   .lead-note b{color:var(--ink);font-weight:600}
-  .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;color:var(--ink-soft)}
+  .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;
+    color:var(--ink-soft);text-decoration:none}
+  .rating:hover span:last-child{text-decoration:underline}
   .rating .stars{color:var(--accent);font-size:.86rem;letter-spacing:.1em;line-height:1}
-  .rating a{color:var(--ink-soft);text-decoration:underline;text-underline-offset:2px}
+  .rating u{text-decoration:none;color:var(--ink-faint)}
 
   /* Size ladder. Radio inputs kept real and focusable — the visual state is drawn from
      :checked/:focus-visible on the input, so keyboard and screen readers get it free. */
@@ -254,6 +257,46 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .review figcaption{margin-top:.8rem;font-size:.83rem;color:var(--ink-soft)}
   .review figcaption b{color:var(--ink);font-weight:600}
   .review .disc{display:block;margin-top:.22rem;font-size:.76rem;color:var(--ink-faint)}
+
+  /* ---------- ratings imported from the manufacturer's listing ----------
+     Deliberately a different object to .review above: no filled surface, a data
+     header instead of a pull-quote, and a hard label. These are somebody else's
+     buyers writing about the same goods, and nothing here may be allowed to read
+     as a Lennox customer review. */
+  .src{margin-top:1.5rem;border:1px solid var(--line);border-radius:12px;padding:1.15rem 1.2rem}
+  .src-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:.45rem .7rem;
+           padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+  .src-score{font-family:var(--serif);font-size:1.85rem;line-height:1;font-weight:600;
+             font-variant-numeric:tabular-nums}
+  .src-top .stars{color:var(--accent);font-size:.84rem;letter-spacing:.12em;line-height:1}
+  .src-n{font-size:.82rem;color:var(--ink-soft)}
+  .src-label{margin-left:auto;font-size:.62rem;font-weight:600;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--ink-faint);
+             border:1px solid var(--line);border-radius:99px;padding:.28rem .55rem;white-space:nowrap}
+  .src-note{margin:.95rem 0 0!important;font-size:.81rem!important;line-height:1.62;
+            color:var(--ink-faint)!important}
+  .src-note b{color:var(--ink-soft);font-weight:600}
+  .src-qs{display:grid;gap:1rem;margin-top:1.15rem}
+  .src-q{border-left:2px solid var(--line);padding-left:.9rem}
+  .src-q blockquote{margin:0;font-size:.9rem;line-height:1.62;color:var(--ink)}
+  .src-q figcaption{margin-top:.42rem;font-size:.77rem;color:var(--ink-faint)}
+  .src-bars{display:grid;gap:.6rem;margin-top:1.15rem}
+  .src-bar{display:grid;grid-template-columns:11rem 1fr 2.6rem;align-items:center;
+           gap:.7rem;font-size:.79rem;color:var(--ink-soft)}
+  .src-bar i{font-style:normal}
+  .src-bar u{text-decoration:none;color:var(--ink-faint)}
+  .src-bar span{height:5px;border-radius:99px;background:var(--line);overflow:hidden}
+  .src-bar span b{display:block;height:100%;background:var(--accent);border-radius:99px}
+  .src-bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
+  .src-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.15rem}
+  .src-chips b{font-weight:500;font-size:.75rem;color:var(--ink-soft);
+               border:1px solid var(--line);border-radius:99px;padding:.3rem .6rem}
+  .src-chips b.neg{color:var(--ink);border-color:var(--ink-faint)}
+  @media(max-width:520px){
+    .src-label{margin-left:0;order:9}
+    .src-bar{grid-template-columns:1fr 2.6rem}
+    .src-bar span{grid-column:1/-1;order:3}
+  }
 
   .ba{display:block;width:100%;border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:0;background:none;cursor:zoom-in;margin-bottom:.55rem}
   .ba img{width:100%;height:auto;display:block}
@@ -442,9 +485,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <h1>Batana Oil</h1>
     <p class="sub">Scalp and hair treatment · 120g jar</p>
 
-    <!-- Deliberately no star rating and no review block: this product has no customers
-         yet, and an invented average is exactly the tell the serum launch spent a week
-         removing. Both go in the day a real review exists. -->
+    <!-- The number is the manufacturer's, and the line says so in the same breath, because
+         a bare "4.5 · 257 reviews" up here would read as ours. Still no Lennox average:
+         this product has no customers yet, and an invented one is exactly the tell the
+         serum launch spent a week removing. -->
+    <a class="rating" href="#reviews">
+      <span class="stars" role="img" aria-label="Rated 4.5 out of 5">★★★★☆</span>
+      <span>4.5 from 257 reviews <u>on our manufacturer's listing</u></span>
+    </a>
     <p class="lead-note">A thick, unrefined oil pressed from the nut of the American palm,
       used for generations in Honduras. Heavy — a weekly mask, not a styling oil.
       For hair that breaks faster than it grows.</p>
@@ -485,6 +533,69 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
 <!-- ========== 4. DESCRIPTION → 5. HOW TO USE → 6. THE REST ========== -->
 <div class="wrap p-info">
+
+  <!-- Reviews of the oil we source, lifted off the manufacturer's own listing and labelled
+       as exactly that three times over: in the heading, in the pill, and in the note. The
+       about page promises we won't buy or write reviews — quietly re-badging another
+       seller's buyers as ours would break that promise just as thoroughly as inventing
+       them. The nine "disappointing" tags stay in for the same reason: a tag row that
+       carries only the flattering words is an advert, not evidence. -->
+  <section id="reviews">
+    <h2>What buyers of this oil say</h2>
+
+    <div class="src">
+      <div class="src-top">
+        <div class="src-score">4.5</div>
+        <div class="stars" role="img" aria-label="Rated 4.5 out of 5">★★★★☆</div>
+        <div class="src-n">257 reviews · 2,000+ jars sold</div>
+        <div class="src-label">Manufacturer's listing</div>
+      </div>
+
+      <p class="src-note">These are not Lennox reviews. They were written by people who bought
+        this same unrefined batana oil <b>direct from the manufacturer we source it from</b>,
+        on their listing, long before our name went on the jar. We haven't sold enough jars to
+        have reviews of our own yet, and <b>we won't write ourselves any</b> — so this is the
+        honest version of the evidence until a customer writes the real thing.</p>
+
+      <div class="src-qs">
+        <figure class="src-q">
+          <blockquote>&ldquo;I've been using batana oil for a while now, and I'm genuinely impressed
+            with the results. From the first use, my hair felt softer, more hydrated, and
+            noticeably healthier. Over time, I've seen less breakage, improved shine, and
+            stronger hair overall&hellip; A little goes a long way.&rdquo;</blockquote>
+          <figcaption>Buyer · 22 Dec 2025 · 9 people found this helpful</figcaption>
+        </figure>
+
+        <figure class="src-q">
+          <blockquote>&ldquo;I used this product and it made my hair so silky and soft that I will
+            repurchase it.&rdquo;</blockquote>
+          <figcaption>Y***s · 24 Jan 2026</figcaption>
+        </figure>
+
+        <figure class="src-q">
+          <blockquote>&ldquo;Love the batana products. My hair is a lot fuller and healthier looking.
+            Thank you so much!&rdquo;</blockquote>
+          <figcaption>L***p</figcaption>
+        </figure>
+      </div>
+
+      <p class="src-note">And the words those 257 buyers reached for most often, in their own
+        order — including the one we would rather leave out:</p>
+
+      <div class="src-chips">
+        <b>Liked very much (18)</b>
+        <b>Pleasant scent (14)</b>
+        <b class="neg">Disappointing (9)</b>
+        <b>Softens hair (8)</b>
+        <b>Fast shipping (8)</b>
+        <b>Strengthens hair (5)</b>
+      </div>
+
+      <p class="src-note">Nine in 257 is not nothing. Read our first section below before you
+        buy: batana is a heavy, rinse-out mask, and most of the people it disappoints were
+        expecting a light styling oil or hair regrowth. It is neither.</p>
+    </div>
+  </section>
 
   <section>
     <h2>What it is</h2>

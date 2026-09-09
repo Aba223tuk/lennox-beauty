@@ -93,7 +93,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  /* The nav is sticky, so a bare anchor jump parks the target heading under it. */
+  html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
   body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
   a{color:inherit}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -312,6 +313,46 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .review figcaption{margin-top:.8rem;font-size:.83rem;color:var(--ink-soft)}
   .review figcaption b{color:var(--ink);font-weight:600}
   .review .disc{display:block;margin-top:.22rem;font-size:.76rem;color:var(--ink-faint)}
+
+  /* ---------- ratings imported from the manufacturer's listing ----------
+     Deliberately a different object to .review above: no filled surface, a data
+     header instead of a pull-quote, and a hard label. These are somebody else's
+     buyers writing about the same goods, and nothing here may be allowed to read
+     as a Lennox customer review. */
+  .src{margin-top:1.5rem;border:1px solid var(--line);border-radius:12px;padding:1.15rem 1.2rem}
+  .src-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:.45rem .7rem;
+           padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+  .src-score{font-family:var(--serif);font-size:1.85rem;line-height:1;font-weight:600;
+             font-variant-numeric:tabular-nums}
+  .src-top .stars{color:var(--accent);font-size:.84rem;letter-spacing:.12em;line-height:1}
+  .src-n{font-size:.82rem;color:var(--ink-soft)}
+  .src-label{margin-left:auto;font-size:.62rem;font-weight:600;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--ink-faint);
+             border:1px solid var(--line);border-radius:99px;padding:.28rem .55rem;white-space:nowrap}
+  .src-note{margin:.95rem 0 0!important;font-size:.81rem!important;line-height:1.62;
+            color:var(--ink-faint)!important}
+  .src-note b{color:var(--ink-soft);font-weight:600}
+  .src-qs{display:grid;gap:1rem;margin-top:1.15rem}
+  .src-q{border-left:2px solid var(--line);padding-left:.9rem}
+  .src-q blockquote{margin:0;font-size:.9rem;line-height:1.62;color:var(--ink)}
+  .src-q figcaption{margin-top:.42rem;font-size:.77rem;color:var(--ink-faint)}
+  .src-bars{display:grid;gap:.6rem;margin-top:1.15rem}
+  .src-bar{display:grid;grid-template-columns:11rem 1fr 2.6rem;align-items:center;
+           gap:.7rem;font-size:.79rem;color:var(--ink-soft)}
+  .src-bar i{font-style:normal}
+  .src-bar u{text-decoration:none;color:var(--ink-faint)}
+  .src-bar span{height:5px;border-radius:99px;background:var(--line);overflow:hidden}
+  .src-bar span b{display:block;height:100%;background:var(--accent);border-radius:99px}
+  .src-bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
+  .src-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.15rem}
+  .src-chips b{font-weight:500;font-size:.75rem;color:var(--ink-soft);
+               border:1px solid var(--line);border-radius:99px;padding:.3rem .6rem}
+  .src-chips b.neg{color:var(--ink);border-color:var(--ink-faint)}
+  @media(max-width:520px){
+    .src-label{margin-left:0;order:9}
+    .src-bar{grid-template-columns:1fr 2.6rem}
+    .src-bar span{grid-column:1/-1;order:3}
+  }
 
   .ba{display:block;width:100%;border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:0;background:none;cursor:zoom-in;margin-bottom:.55rem}
   .ba img{width:100%;height:auto;display:block}
@@ -558,7 +599,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     {
       "@type": "Question",
       "name": "Does it have a scent?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — a soft, warm fragrance that settles into your hair rather than sitting on top of it. It's noticeable when you first mist, then softens into something people catch when you move. It won't fight your perfume." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, but lightly — rose. You catch it when you first mist, and it fades to something faint rather than following you round the day. Two of the twenty-two people who rated our manufacturer's listing tagged it “no fragrance”, so treat it as barely-there. It won't fight anything you wear over it." }
     }
   ]
 }
@@ -721,13 +762,53 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           only review we have, because we won't write ourselves any others.</span>
       </figcaption>
     </figure>
+
+    <!-- Imported from the manufacturer's listing for this exact serum. Twenty-two people
+         rated it and not one wrote a sentence, so there is nothing to quote and this is a
+         score, not testimonials — dressing 22 silent stars up as reviews would be the
+         invention the about page rules out. Two of the tags contradicted what this page
+         claimed about scent; the copy moved, not the tags. -->
+    <div class="src">
+      <div class="src-top">
+        <div class="src-score">4.7</div>
+        <div class="stars" role="img" aria-label="Rated 4.7 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <div class="src-n">22 ratings &middot; 247 bottles sold</div>
+        <div class="src-label">Manufacturer's listing</div>
+      </div>
+
+      <p class="src-note">Not our reviews either. Our manufacturer's listing for this exact
+        serum carries 22 ratings averaging 4.7 &mdash; but <b>not one of those buyers wrote a
+        word</b>, so there is nothing for us to quote and we won't pretend otherwise. What
+        follows is the whole of what exists: the score, the listing's own breakdown, and every
+        tag buyers picked, in both directions.</p>
+
+      <div class="src-bars">
+        <div class="src-bar"><i>Ease of use <u>&middot; Good</u></i><span><b style="width:78%"></b></span><em>78%</em></div>
+        <div class="src-bar"><i>Functionality <u>&middot; Fits ok</u></i><span><b style="width:67%"></b></span><em>67%</em></div>
+        <div class="src-bar"><i>Quality of material <u>&middot; Fits ok</u></i><span><b style="width:56%"></b></span><em>56%</em></div>
+      </div>
+
+      <div class="src-chips">
+        <b class="neg">No fragrance (2)</b>
+        <b>Fast delivery (1)</b>
+        <b>Pleasant fragrance (1)</b>
+        <b>Well packaged (1)</b>
+        <b class="neg">Slightly oily (1)</b>
+      </div>
+
+      <p class="src-note">Two of those argue with what this page used to say, so we changed the
+        page rather than the tags. We now call the rose scent <b>light</b>, not long-lasting.
+        On &ldquo;slightly oily&rdquo; &mdash; one rater in twenty-two &mdash; our own tester said
+        the opposite in the review above, and with one voice on each side you should have both
+        rather than only the flattering one.</p>
+    </div>
   </section>
 
   <section>
     <h2>What it is</h2>
     <p>Most products either coat your hair in buildup or strip it dry. This does neither:
       it is a featherweight leave-in mist that lays the hair cuticle flat — cutting flyaways
-      and static, adding shine, and leaving a soft scent that lasts through the day. It is a
+      and static, adding shine, and leaving a light rose scent behind it. It is a
       spray, not an oil, so it finishes dry to the touch instead of greasy.</p>
     <p>The spray is fine enough to spread evenly through the hair instead of landing in heavy
       wet patches, which is why a couple of pumps covers a whole head. Most people notice
@@ -769,7 +850,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
     <details>
       <summary>Does it have a scent?</summary>
-      <p>Yes — a soft, warm fragrance that settles into your hair rather than sitting on top of it. It's noticeable when you first mist, then softens into something people catch when you move. It won't fight your perfume.</p>
+      <p>Yes, but lightly — rose. You catch it when you first mist, and it fades to something faint rather than following you round the day. Two of the twenty-two people who rated our manufacturer's listing tagged it “no fragrance”, so treat it as barely-there. It won't fight anything you wear over it.</p>
     </details>
 
     <details>
