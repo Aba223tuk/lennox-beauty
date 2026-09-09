@@ -199,6 +199,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:.82rem;
     color:var(--ink-soft);text-decoration:none}
   .rating:hover span:last-child{text-decoration:underline}
+  .rating u{text-decoration:none;color:var(--ink-faint)}
 
   /* The two lines that answer "why would I buy this" before anything else does. */
   .lead-note{font-size:.94rem;line-height:1.6;color:var(--ink-soft);margin:0 0 1.3rem}
@@ -720,12 +721,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <li>Light enough for every day — dries soft, not greasy.</li>
     </ul>
 
-    <!-- Labelled, not decorative. The only rating this product has comes from one person
-         who was given a bottle, and five bare stars next to a price implies a body of
-         customer reviews that does not exist yet. -->
+    <!-- Was "1 tester review" with five stars: the weaker of the two things we have,
+         leading the page. Five bare stars next to a price implies a body of customer
+         reviews that does not exist, and the honest number underneath it was one person
+         we gave a free bottle to. The manufacturer's 22 ratings are real, larger, and
+         already disclosed further down, so they lead instead — same treatment Batana
+         carries, and the qualifier sits in the same breath as the number so it can
+         never read as ours. The tester review is still there, at the other end of
+         this link. -->
     <a class="rating" href="#review">
-      <span class="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
-      <span>1 tester review</span>
+      <span class="stars" role="img" aria-label="Rated 4.7 out of 5">★★★★☆</span>
+      <span>4.7 from 22 ratings <u>on our manufacturer's listing</u></span>
     </a>
 
     <p class="lead-note">A featherweight leave-in mist for hair that goes frizzy the moment
