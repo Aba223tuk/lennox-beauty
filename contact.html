@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Talk to a Person | Lennox Beauty</title>
+<meta name="description" content="Text or call (929) 670-9555, or email Lennoxsupport@gmail.com. A real person answers, usually the same day.">
+<link rel="canonical" href="https://lennoxbeauty.com/contact.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#8a7357">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lennox Beauty">
+<meta property="og:url" content="https://lennoxbeauty.com/contact.html">
+<meta property="og:title" content="Contact — Talk to a Person | Lennox Beauty">
+<meta property="og:description" content="Text or call (929) 670-9555, or email Lennoxsupport@gmail.com. A real person answers, usually the same day.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2111917956205326');
+fbq('track','PageView');
+</script>
+<script>window.GA_ID = 'G-RVCCLVESX7';</script>
+<script>
+(function(){
+  var ok = /^G-[A-Z0-9]{8,}$/.test(window.GA_ID || '');
+  if (!ok) { window.gtag = function(){}; return; }
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  var s = document.createElement('script');
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  document.head.appendChild(s);
+  gtag('js', new Date()); gtag('config', window.GA_ID);
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></noscript>
+<style>
+  :root{
+    --ink:#141414;
+    --ink-soft:#5c5c5c;
+    --ink-faint:#6b655c;
+    --line:#ececec;
+    --accent:#8a7357;
+    --accent-dark:#6f5c42;
+    --bg:#ffffff;
+    --bg-soft:#faf9f7;
+    /* One gutter for the whole page edge. clamp so a phone gets 24px of breathing
+       room instead of 20px and a desktop gets 36px, without a media query per
+       component. Everything that touches the viewport edge uses it. */
+    --gutter:clamp(1.75rem, 5vw, 2.5rem);
+
+    --radius:14px;
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;display:block}
+  a{color:inherit}
+
+  /* ---------- announcement ---------- */
+  .bar{
+    padding:.55rem var(--gutter);
+    background:var(--ink);
+    color:#fff;
+    text-align:center;
+    font-size:.78rem;
+    letter-spacing:.04em;
+    font-weight:500;
+  }
+  .bar b{color:#d9cbb2;font-weight:600}
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.1rem var(--gutter);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);z-index:50;
+  }
+  .logo{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    font-weight:500;
+    /* Header is a nowrap flex row, but its TEXT children could still wrap inside
+         themselves once flex shrank them below content width — at 390px that broke
+         the logo and the back link onto two lines each. Keep them intrinsic. */
+    white-space:nowrap;flex:none;
+  }
+  .logo span{color:var(--accent)}
+
+  /* ---------- burger menu ---------- */
+  .burger{
+    width:40px;height:40px;flex:none;border:none;background:none;cursor:pointer;padding:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  }
+  .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .site-menu{
+    position:fixed;inset:0;background:#fff;z-index:40;
+    display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
+    padding:2rem var(--gutter);transform:translateY(-100%);transition:transform .3s ease;
+  }
+  .site-menu.open{transform:translateY(0)}
+  .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
+  .site-menu a.btn{font-family:var(--sans);font-size:1rem;font-weight:600;width:fit-content;margin-top:.5rem}
+  body.menu-open{overflow:hidden}
+
+  /* ---------- layout helpers ---------- */
+  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--gutter)}
+  section{padding:4rem 0}
+  .kicker{
+    font-size:.72rem;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent-dark);
+    margin-bottom:1rem;
+  }
+  h1,h2{font-family:var(--serif);font-weight:600;line-height:1.05;letter-spacing:0}
+  h1{font-size:clamp(2.6rem,11vw,4.6rem)}
+  h2{font-size:clamp(1.9rem,7vw,2.9rem);margin-bottom:1rem}
+  .muted{color:var(--ink-soft)}
+
+  /* ---------- hero ---------- */
+  /* var(--gutter), not 0 — .hero also carries .wrap and the shorthand would
+     reset its horizontal padding, putting the headline against the screen edge. */
+  .hero{padding:4.5rem var(--gutter) 3.5rem;text-align:left}
+  .hero p.lead{
+    font-size:1.06rem;color:var(--ink-soft);
+    margin:1.4rem 0 2rem;max-width:34rem;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--ink);color:#fff;
+    font-weight:600;font-size:.95rem;
+    padding:1rem 1.9rem;border-radius:999px;
+    text-decoration:none;border:none;cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{background:#000;transform:translateY(-1px)}
+  .btn.accent{background:var(--accent)}
+  .btn.accent:hover{background:var(--accent-dark)}
+  .btn.ghost{background:none;color:var(--ink);border:1.5px solid var(--ink);padding:calc(1rem - 1.5px) 1.9rem}
+  .btn.ghost:hover{background:var(--ink);color:#fff}
+  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+  .hero .sub{font-size:.8rem;color:var(--ink-soft);margin-top:.9rem}
+
+  .hero-strip{
+    display:grid;grid-template-columns:1fr;gap:.6rem;
+    margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line);
+    font-size:.9rem;font-weight:500;
+  }
+  .hero-strip div::before{content:"— ";color:var(--accent)}
+
+  /* ---------- bottle visual ---------- */
+  .visual{
+    margin:3rem auto 0;
+    display:flex;justify-content:center;
+    background:var(--bg-soft);
+    border-radius:var(--radius);
+    padding:3rem 0;
+  }
+  /* The hero holds a video now rather than a still. Softened corners so it sits in
+     the card the way the photograph did instead of reading as a video player. */
+  .visual video{display:block;border-radius:10px}
+
+  /* ---------- problem ---------- */
+  .problem{background:var(--ink);color:#fff;border-radius:0}
+  .problem .kicker{color:#d9cbb2}
+  .problem p{color:#cfcfcf;max-width:38rem;margin-bottom:1rem}
+  .problem p b{color:#fff}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2.5rem}
+  .step{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.6rem;
+  }
+  .step .num{
+    font-family:var(--serif);font-size:2rem;color:var(--accent);
+    line-height:1;margin-bottom:.7rem;
+  }
+  .step h3{font-size:1rem;margin-bottom:.35rem}
+  .step p{font-size:.92rem;color:var(--ink-soft)}
+
+  /* ---------- offer ---------- */
+  .offer{background:var(--bg-soft);border-radius:var(--radius)}
+  .offer-inner{padding:3.5rem 1.5rem;text-align:center;max-width:34rem;margin:0 auto}
+  .price-row{
+    display:flex;justify-content:center;align-items:baseline;gap:.8rem;
+    margin:1.5rem 0 .4rem;flex-wrap:wrap;
+  }
+  .price-old{color:var(--ink-soft);text-decoration:line-through;font-size:1.1rem}
+  .price-new{font-family:var(--serif);font-size:2.6rem;font-weight:600}
+  .price-note{font-size:.85rem;color:var(--ink-soft);margin-bottom:1.8rem}
+  .offer ul{
+    list-style:none;text-align:left;margin:0 auto 2rem;max-width:22rem;
+    font-size:.93rem;
+  }
+  .offer li{padding:.45rem 0;border-bottom:1px solid var(--line)}
+  .offer li::before{content:"✓  ";color:var(--accent);font-weight:600}
+  /* The guarantee stated plainly, sitting right above the offer CTA. */
+  .founder-note{
+    text-align:left;max-width:22rem;margin:0 auto 2rem;
+    border-left:2px solid var(--accent);padding:.1rem 0 .1rem .9rem;
+    font-size:.88rem;line-height:1.55;color:var(--ink-soft);
+  }
+  .founder-note b{color:var(--ink);font-weight:600}
+  .founder-note a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+  /* ---------- catalog ---------- */
+  .collection-band{
+    background:var(--bg-soft);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .collection-band .head{text-align:center;max-width:36rem;margin:0 auto}
+  .collection-band .head::after{
+    content:"";display:block;width:44px;height:2px;
+    background:var(--accent);margin:1.6rem auto 0;
+  }
+  .catalog{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:3rem}
+  .card{
+    background:#fff;
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:2.2rem 1.5rem 1.8rem;text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:.4rem;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    border-color:#e0dcd5;
+    box-shadow:0 18px 40px -18px rgba(20,20,20,.18);
+  }
+  .card svg{height:92px;margin-bottom:.8rem}
+  .card h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.1}
+  .card .desc{font-size:.85rem;color:var(--ink-soft);max-width:15rem}
+  .card .price{font-weight:600;font-size:.95rem;margin-top:.5rem}
+  .card .price s{color:var(--ink-soft);font-weight:400;margin-right:.4rem}
+  .badge{
+    font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    padding:.3rem .7rem;border-radius:999px;margin-top:.6rem;
+  }
+  .badge.live{background:var(--ink);color:#fff}
+  .badge.soon{border:1px solid var(--line);color:var(--ink-soft)}
+  .card a.badge.live{text-decoration:none}
+  @media(min-width:760px){
+    /* Three across, not four. The collection is five cards now, and a 4-column rule
+       stranded the fifth alone on a second row. At three, the split falls where the
+       meaning is: the three products you can buy today on the first row, the two still
+       in development on the second. */
+    .catalog{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  }
+
+  /* ---------- guarantee ---------- */
+  .guarantee{text-align:center}
+  .guarantee p{max-width:30rem;margin:0 auto;color:var(--ink-soft)}
+
+  /* ---------- faq ---------- */
+  details{
+    border-bottom:1px solid var(--line);
+    padding:1.1rem 0;
+  }
+  summary{
+    cursor:pointer;font-weight:600;font-size:.97rem;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--serif);font-size:1.3rem;color:var(--accent)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:.7rem;font-size:.93rem;color:var(--ink-soft);max-width:40rem}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:3rem var(--gutter) 7rem;
+    text-align:center;font-size:.85rem;color:var(--ink-soft);
+  }
+  footer a{color:var(--accent-dark);font-weight:600}
+  footer .logo{margin-bottom:1rem}
+
+  /* ---------- sticky mobile cta ---------- */
+  .sticky-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);
+    padding:.7rem var(--gutter);
+    display:flex;gap:.9rem;align-items:center;justify-content:space-between;
+  }
+  .sticky-cta .p{font-size:.85rem;font-weight:600}
+  .sticky-cta .p small{display:block;font-weight:400;color:var(--ink-soft);font-size:.72rem}
+  .sticky-cta .btn{padding:.75rem 1.3rem;font-size:.85rem;white-space:nowrap}
+
+  /* ---------- modal ---------- */
+  .modal-back{
+    position:fixed;inset:0;background:rgba(20,20,20,.45);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:var(--gutter);
+  }
+  .modal-back.open{display:flex}
+  .modal{
+    background:#fff;border-radius:var(--radius);
+    padding:2.2rem 1.8rem;max-width:24rem;text-align:center;
+  }
+  .modal h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:.6rem}
+  .modal p{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.4rem}
+
+  /* ---------- desktop ---------- */
+  @media(min-width:760px){
+    section{padding:5.5rem 0}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+    .hero .visual{margin:0}
+    .hero-strip{grid-template-columns:repeat(3,auto);gap:2.5rem;grid-column:1/-1}
+    .steps{grid-template-columns:repeat(3,1fr)}
+    .sticky-cta{display:none}
+    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  }
+</style><style>
+  /* Sub-page shells. The home page opens on a hero; Catalog and Contact open on a
+     plain title block instead, so they read as sections of a site rather than five
+     competing landing pages. */
+  .page-head{padding-bottom:1.5rem}
+  .page-head h1{font-size:clamp(2.3rem,8vw,3.6rem);margin-bottom:.9rem}
+  .page-head .muted{max-width:36rem;font-size:1.02rem}
+  .page-head .count{margin-top:1.2rem;font-size:.78rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr;gap:2.5rem}
+  .contact-direct h2,.contact-form h2{font-size:clamp(1.5rem,5vw,1.9rem);margin-bottom:.5rem}
+  .contact-line{
+    display:flex;flex-direction:column;gap:.15rem;text-decoration:none;
+    padding:.95rem 0;border-bottom:1px solid var(--line);
+  }
+  .contact-line:first-of-type{border-top:1px solid var(--line)}
+  .cl-label{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+  .cl-value{font-size:1.05rem;font-weight:500}
+  a.contact-line:hover .cl-value{color:var(--accent-dark)}
+
+  .contact-form{background:var(--bg-soft);border-radius:var(--radius);padding:2rem 1.5rem}
+  .contact-form label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);margin:1.1rem 0 .4rem}
+  .contact-form label:first-of-type{margin-top:.6rem}
+  .contact-form input,.contact-form textarea{
+    width:100%;font:inherit;font-size:.98rem;color:var(--ink);background:#fff;
+    border:1px solid var(--line);border-radius:10px;padding:.8rem .9rem;
+  }
+  .contact-form textarea{resize:vertical;min-height:120px}
+  .contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .contact-form .btn{margin-top:1.4rem;width:100%;text-align:center}
+  .form-note{font-size:.82rem;color:var(--ink-soft);margin-top:.9rem;line-height:1.5}
+  .form-note.err{color:#a3341f}
+
+  @media(min-width:760px){
+    .contact-grid{grid-template-columns:.85fr 1.15fr;gap:3.5rem;align-items:start}
+    .contact-form{padding:2.4rem 2.2rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">Free US shipping on every order · <b>30-day money-back guarantee</b></div>
+
+<header>
+  <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="logo"><a href="index.html" style="text-decoration:none">Lennox <span>Beauty</span></a></div>
+  <span style="width:40px" aria-hidden="true"></span>
+</header>
+
+<nav class="site-menu" id="siteMenu" aria-hidden="true">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="catalog.html" onclick="closeMenu()">Catalog</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
+  <a href="about.html" onclick="closeMenu()">About Our Brand</a>
+</nav>
+
+<section class="wrap page-head">
+  <div class="kicker">Contact</div>
+  <h1>Get in touch.</h1>
+  <p class="muted">A real person reads these. Not a ticket queue, not a bot — the same people who
+    pack the orders.</p>
+</section>
+
+<section class="wrap contact-grid" style="padding-top:0">
+
+  <div class="contact-direct">
+    <h2>Faster ways</h2>
+    <p class="muted" style="margin-bottom:1.6rem">If it's about an order that's already placed, texting is quickest.</p>
+
+    <a class="contact-line" href="tel:+19296709555">
+      <span class="cl-label">Text or call</span>
+      <span class="cl-value">(929) 670-9555</span>
+    </a>
+    <a class="contact-line" href="mailto:Lennoxsupport@gmail.com">
+      <span class="cl-label">Email</span>
+      <span class="cl-value">Lennoxsupport@gmail.com</span>
+    </a>
+    <div class="contact-line" style="cursor:default">
+      <span class="cl-label">Replies</span>
+      <span class="cl-value">Same day, most days</span>
+    </div>
+
+    <p class="muted" style="font-size:.88rem;margin-top:1.6rem">Common questions — shade matching,
+      whether something suits your hair, where an order is — are usually answered faster on the
+      <a href="index.html#faq">FAQ</a> than by waiting on a reply.</p>
+  </div>
+
+  <div class="contact-form">
+    <h2>Send a message</h2>
+    <form id="contactForm" novalidate>
+      <label for="cf-name">Name</label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name">
+
+      <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+
+      <label for="cf-phone">Phone number</label>
+      <input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="Optional">
+
+      <label for="cf-comment">Comment</label>
+      <textarea id="cf-comment" name="comment" rows="5" placeholder="What can we help with?"></textarea>
+
+      <button class="btn accent" type="submit">Send</button>
+      <p class="form-note" id="cfNote" role="status">This opens your email app with the message
+        ready to send, so you keep a copy of what you sent us.</p>
+    </form>
+  </div>
+
+</section>
+
+<footer>
+  <div data-lb-signup></div>
+  <div class="logo">Lennox <span>Beauty</span></div>
+  <p>© 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>30-day money-back guarantee</p>
+</footer>
+
+<script>
+  /* No form backend on a static site, so rather than a Send button that silently
+     posts nowhere, this composes the message into the visitor's own mail client.
+     They get a copy in their sent folder, which is also the honest version: nothing
+     is captured that they didn't send themselves. Swap for Formspree/Klaviyo the day
+     there's an endpoint to post to. */
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const note  = document.getElementById('cfNote');
+    const email = document.getElementById('cf-email').value.trim();
+    if (!email || email.indexOf('@') < 1) {
+      note.textContent = 'Please add an email address so we can reply to you.';
+      note.classList.add('err');
+      document.getElementById('cf-email').focus();
+      return;
+    }
+    note.classList.remove('err');
+    const name    = document.getElementById('cf-name').value.trim();
+    const phone   = document.getElementById('cf-phone').value.trim();
+    const comment = document.getElementById('cf-comment').value.trim();
+    const body = [
+      name    ? 'Name: '  + name  : '',
+      'Email: ' + email,
+      phone   ? 'Phone: ' + phone : '',
+      '',
+      comment
+    ].filter(Boolean).join('\n');
+    window.location.href = 'mailto:Lennoxsupport@gmail.com'
+      + '?subject=' + encodeURIComponent('Message from ' + (name || 'the Lennox site'))
+      + '&body='    + encodeURIComponent(body);
+    note.textContent = 'Opening your email app… if nothing happens, email us at Lennoxsupport@gmail.com.';
+  });
+</script>
+<script>
+  function toggleMenu(){
+    const open = document.getElementById('siteMenu').classList.toggle('open');
+    document.getElementById('burgerBtn').classList.toggle('open', open);
+    document.getElementById('burgerBtn').setAttribute('aria-expanded', open);
+    document.getElementById('siteMenu').setAttribute('aria-hidden', !open);
+    document.body.classList.toggle('menu-open', open);
+  }
+  function closeMenu(){
+    document.getElementById('siteMenu').classList.remove('open');
+    document.getElementById('burgerBtn').classList.remove('open');
+    document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
+    document.getElementById('siteMenu').setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+
+<script src="cart.js" defer></script>
+<script src="signup.js" defer></script>
+<script src="chatbot.js" defer></script>
+
+</body>
+</html>

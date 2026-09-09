@@ -3,26 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lennox Beauty — Hair &amp; Body, Made Properly</title>
-<meta name="description" content="A short list of hair and body products, each built to do one job well. From $24.99, free US shipping, 30-day money-back guarantee on everything.">
-<link rel="canonical" href="https://lennoxbeauty.com/">
+<title>Catalog — Everything We Make | Lennox Beauty</title>
+<meta name="description" content="Every Lennox product in one place: the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
+<link rel="canonical" href="https://lennoxbeauty.com/catalog.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#8a7357">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lennox Beauty">
-<meta property="og:locale" content="en_US">
-<meta property="og:url" content="https://lennoxbeauty.com/">
-<meta property="og:title" content="Lennox Beauty — Hair &amp; Body, Made Properly">
-<meta property="og:description" content="A short list of hair and body products, each built to do one job well. From $24.99, free US shipping, 30-day money-back guarantee on everything.">
-<meta property="og:image" content="https://lennoxbeauty.com/img/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lennox Beauty — small things, done properly.">
+<meta property="og:url" content="https://lennoxbeauty.com/catalog.html">
+<meta property="og:title" content="Catalog — Everything We Make | Lennox Beauty">
+<meta property="og:description" content="Every Lennox product in one place: the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lennox Beauty — Hair &amp; Body, Made Properly">
-<meta name="twitter:description" content="A short list of hair and body products, each built to do one job well. From $24.99, free US shipping, 30-day money-back guarantee on everything.">
-<meta name="twitter:image" content="https://lennoxbeauty.com/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -36,12 +28,7 @@ document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','2111917956205326');
 fbq('track','PageView');
 </script>
-
-<!-- Google Analytics 4 — see product.html for why traffic is measured here and not in
-     Shopify. Keep GA_ID identical across both pages or sessions will split. -->
-<script>
-  window.GA_ID = 'G-RVCCLVESX7';
-</script>
+<script>window.GA_ID = 'G-RVCCLVESX7';</script>
 <script>
 (function(){
   var ok = /^G-[A-Z0-9]{8,}$/.test(window.GA_ID || '');
@@ -49,11 +36,9 @@ fbq('track','PageView');
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ dataLayer.push(arguments); };
   var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
   document.head.appendChild(s);
-  gtag('js', new Date());
-  gtag('config', window.GA_ID);
+  gtag('js', new Date()); gtag('config', window.GA_ID);
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
@@ -348,97 +333,47 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     .sticky-cta{display:none}
     .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
   }
+</style><style>
+  /* Sub-page shells. The home page opens on a hero; Catalog and Contact open on a
+     plain title block instead, so they read as sections of a site rather than five
+     competing landing pages. */
+  .page-head{padding-bottom:1.5rem}
+  .page-head h1{font-size:clamp(2.3rem,8vw,3.6rem);margin-bottom:.9rem}
+  .page-head .muted{max-width:36rem;font-size:1.02rem}
+  .page-head .count{margin-top:1.2rem;font-size:.78rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr;gap:2.5rem}
+  .contact-direct h2,.contact-form h2{font-size:clamp(1.5rem,5vw,1.9rem);margin-bottom:.5rem}
+  .contact-line{
+    display:flex;flex-direction:column;gap:.15rem;text-decoration:none;
+    padding:.95rem 0;border-bottom:1px solid var(--line);
+  }
+  .contact-line:first-of-type{border-top:1px solid var(--line)}
+  .cl-label{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+  .cl-value{font-size:1.05rem;font-weight:500}
+  a.contact-line:hover .cl-value{color:var(--accent-dark)}
+
+  .contact-form{background:var(--bg-soft);border-radius:var(--radius);padding:2rem 1.5rem}
+  .contact-form label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);margin:1.1rem 0 .4rem}
+  .contact-form label:first-of-type{margin-top:.6rem}
+  .contact-form input,.contact-form textarea{
+    width:100%;font:inherit;font-size:.98rem;color:var(--ink);background:#fff;
+    border:1px solid var(--line);border-radius:10px;padding:.8rem .9rem;
+  }
+  .contact-form textarea{resize:vertical;min-height:120px}
+  .contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .contact-form .btn{margin-top:1.4rem;width:100%;text-align:center}
+  .form-note{font-size:.82rem;color:var(--ink-soft);margin-top:.9rem;line-height:1.5}
+  .form-note.err{color:#a3341f}
+
+  @media(min-width:760px){
+    .contact-grid{grid-template-columns:.85fr 1.15fr;gap:3.5rem;align-items:start}
+    .contact-form{padding:2.4rem 2.2rem}
+  }
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://lennoxbeauty.com/#org",
-      "name": "Lennox Beauty",
-      "url": "https://lennoxbeauty.com/",
-      "logo": "https://lennoxbeauty.com/favicon.svg",
-      "image": "https://lennoxbeauty.com/img/og.png",
-      "telephone": "+1-929-670-9555",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-929-670-9555",
-        "email": "Lennoxsupport@gmail.com",
-        "contactType": "customer service",
-        "areaServed": "US",
-        "availableLanguage": "English"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://lennoxbeauty.com/#website",
-      "url": "https://lennoxbeauty.com/",
-      "name": "Lennox Beauty",
-      "publisher": {
-        "@id": "https://lennoxbeauty.com/#org"
-      },
-      "inLanguage": "en-US"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Will this make my hair greasy?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does it work on curly, textured, or color-treated hair?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long until I see results?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When will I get it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Orders are dispatched within 1–2 business days and typically arrive 7–13 days later, tracked the whole way. You'll get the tracking number by email the moment it ships."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What if it doesn't work for me?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "30-day money-back guarantee. Text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund you — you don't even ship the bottle back."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does it have a scent?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — a soft, warm fragrance that settles into your hair rather than sitting on top of it. It's noticeable when you first mist, then softens into something people catch when you move. It won't fight your perfume."
-      }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -448,7 +383,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
-  <div class="logo">Lennox <span>Beauty</span></div>
+  <div class="logo"><a href="index.html" style="text-decoration:none">Lennox <span>Beauty</span></a></div>
   <span style="width:40px" aria-hidden="true"></span>
 </header>
 
@@ -459,212 +394,73 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <a href="about.html" onclick="closeMenu()">About Our Brand</a>
 </nav>
 
-<!-- ================= HERO ================= -->
-<!-- Brand-level, not product-level. This page used to open as a Silk Serum landing
-     page, which meant every visitor who wanted anything else had to scroll past a
-     pitch for one bottle. The serum keeps its own PDP; the home page's job is to
-     say who we are and hand people the catalogue. -->
-<section class="hero wrap">
-  <div>
-    <div class="kicker">Lennox Beauty</div>
-    <h1>Small things, done properly.</h1>
-    <p class="lead">A short list of products for hair and body. Each one exists because
-      something ordinary was quietly broken — and each is described without the usual nonsense.</p>
-    <div class="cta-row">
-      <a class="btn accent" href="#collection">Shop the collection</a>
-      <a class="btn ghost" href="about.html">Our story</a>
-    </div>
-    <p class="sub">From $24.99 · free US shipping · 30-day money-back guarantee</p>
-  </div>
-
-  <div class="visual" aria-hidden="true">
-    <!-- The whole range rather than one hero bottle. Real product shots, the same
-         files the collection cards and PDPs use, so nothing here is a mock-up. -->
-    <!-- Percentage widths, not fixed heights: all three shots are square, so sizing by
-         width keeps them inside the panel at every viewport. Fixed heights with auto
-         width overflowed the card and clipped the tape roll. -->
-    <div style="display:flex;align-items:flex-end;justify-content:center;gap:3%;width:100%;padding:0 1.25rem">
-      <img src="img/silk/silk-09.webp" width="1065" height="1065" alt="" decoding="async" style="width:38%;height:auto">
-      <img src="img/batana/jar.webp" width="1000" height="1000" alt="" decoding="async" style="width:31%;height:auto">
-      <img src="img/bodytape/roll-beige.webp" width="800" height="800" alt="" decoding="async" style="width:25%;height:auto">
-    </div>
-  </div>
-
-  <div class="hero-strip">
-    <div>Three products, not thirty</div>
-    <div>No subscriptions, ever</div>
-    <div>30 days to change your mind</div>
-  </div>
+<section class="wrap page-head">
+  <div class="kicker">Catalog</div>
+  <h1>Everything we make.</h1>
+  <p class="muted">Three products you can buy today and two still in development. When something
+    isn't ready, it says so — we'd rather show it late than sell it early.</p>
+  <p class="count">5 products · 3 available now</p>
 </section>
 
-<!-- ================= BRAND ================= -->
-<section class="problem">
-  <div class="wrap problem-grid">
-    <div>
-      <div class="kicker">About Lennox</div>
-      <h2>We'd rather<br>sell you less.</h2>
-    </div>
-    <div>
-      <p>Most beauty brands launch forty products a year and hope one sticks. We have three. Each one is here because something everybody owns only worked properly for some people — a serum that left hair greasy, a treatment that suited one hair type, a body tape that matched one skin tone.</p>
-      <p><b>We don't invent reviews, run countdown timers, or claim things we can't show you.</b> Where we don't know something yet, the page says so. If a product isn't right for you, we would honestly rather you didn't buy it than send it back.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CATALOG ================= -->
-<!-- Moved above the offer and trust bands: on a brand home page the catalogue is the
-     path, not a footnote after a single product's pitch. -->
-<section class="collection-band" id="collection">
-<div class="wrap">
-  <div class="head">
-    <div class="kicker">The collection</div>
-    <h2>Four for hair. One for everything else.</h2>
-    <p class="muted">Every Lennox product exists for the same reason: it does one job properly and tells you the truth about it. The Silk Serum is the daily one, Batana Oil the weekly one — and Body Tape is the one that has nothing to do with hair at all.</p>
-  </div>
-
+<section class="wrap" style="padding-top:0">
   <div class="catalog">
 
     <div class="card" onclick="location.href='product.html'" style="cursor:pointer">
-      <img src="img/silk/silk-09.webp" alt="" width="1065" height="1065" loading="lazy" decoding="async" style="height:92px;width:auto;margin-bottom:.8rem" aria-hidden="true">
+      <img src="img/silk/silk-09.webp" alt="The Silk Serum, a leave-in anti-frizz mist" width="1065" height="1065" loading="lazy" decoding="async" style="height:120px;width:auto;margin-bottom:.8rem">
       <h3>The Silk Serum</h3>
-      <p class="desc">Smooths flyaways &amp; kills static in 60 seconds.</p>
+      <p class="desc">A daily leave-in mist that smooths flyaways and kills static in about sixty seconds.</p>
       <p class="price">From $24.99</p>
-      <a class="badge live" href="product.html">Shop now</a>
+      <a class="badge live" href="product.html">Choose options</a>
     </div>
 
-    <!-- Batana fills the deep-treatment step this card used to promise as "The Repair
-         Mask": a weekly rinse-out mask for damage and dullness. Same job, real product. -->
     <div class="card" onclick="location.href='batana.html'" style="cursor:pointer">
-      <img src="img/batana/jar.webp" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="height:92px;width:auto;margin-bottom:.8rem" aria-hidden="true">
+      <img src="img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" loading="lazy" decoding="async" style="height:120px;width:auto;margin-bottom:.8rem">
       <h3>Batana Oil</h3>
-      <p class="desc">Weekly deep treatment for dry, coarse &amp; damaged hair.</p>
-      <p class="price">From $29.99</p>
+      <p class="desc">A weekly rinse-out treatment for dry, coarse, coiled and heat-damaged hair. 120g jar.</p>
+      <p class="price">$29.99</p>
       <a class="badge live" href="batana.html">Shop now</a>
     </div>
 
-    <!-- Body Tape is the first product that isn't hair care. It sits in the collection
-         because it answers the same kind of complaint the serum does — a thing everyone
-         owns that only works properly on one type of person. -->
     <div class="card" onclick="location.href='bodytape.html'" style="cursor:pointer">
-      <img src="img/bodytape/roll-beige.webp" alt="" width="800" height="800" loading="lazy" decoding="async" style="height:92px;width:auto;margin-bottom:.8rem" aria-hidden="true">
+      <img src="img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" loading="lazy" decoding="async" style="height:120px;width:auto;margin-bottom:.8rem">
       <h3>Body Tape</h3>
-      <p class="desc">Three shades, three widths &mdash; for everything a bra ruins.</p>
-      <p class="price">From $24.99</p>
-      <a class="badge live" href="bodytape.html">Shop now</a>
+      <p class="desc">Beige, Brown and Black across three roll widths &mdash; for everything a bra ruins.</p>
+      <p class="price">$24.99</p>
+      <a class="badge live" href="bodytape.html">Choose options</a>
     </div>
 
     <div class="card">
-      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height:120px;margin-bottom:.8rem">
         <rect x="20" y="30" width="20" height="74" rx="6" stroke="#141414" stroke-width="2"/>
         <path d="M24 30 C24 20 28 14 30 12 C32 14 36 20 36 30 Z" fill="#eee9e2" stroke="#141414" stroke-width="2"/>
         <line x1="24" y1="60" x2="36" y2="60" stroke="#8a7357" stroke-width="1.4"/>
       </svg>
       <h3>The Sleek Stick</h3>
-      <p class="desc">Pocket-size wax stick that tames flyaways on the go.</p>
+      <p class="desc">A pocket-size wax stick for taming flyaways away from a mirror.</p>
       <p class="price">Coming soon</p>
       <span class="badge soon">In development</span>
     </div>
 
     <div class="card">
-      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height:120px;margin-bottom:.8rem">
         <path d="M26 8 L38 8 L36 20 L28 20 Z" stroke="#141414" stroke-width="2"/>
         <rect x="24" y="20" width="16" height="10" rx="2" stroke="#141414" stroke-width="2"/>
         <path d="M18 38 C18 33 23 30 32 30 C41 30 46 33 46 38 L44 102 C44 109 39 113 32 113 C25 113 20 109 20 102 Z" stroke="#141414" stroke-width="2"/>
         <path d="M21 66 L43 66 L42 102 C42 107 38 110 32 110 C26 110 22 107 22 102 Z" fill="#eee9e2"/>
       </svg>
       <h3>The Heat Shield</h3>
-      <p class="desc">Pre-styling primer that shields hair from heat damage.</p>
+      <p class="desc">A pre-styling primer that puts something between your hair and 200°C.</p>
       <p class="price">Coming soon</p>
       <span class="badge soon">In development</span>
     </div>
 
   </div>
-</div>
 </section>
 
-<!-- ================= WHAT YOU GET ================= -->
-<!-- Keeps the #how-it-works id: the site menu on five pages links to it, and the band
-     still answers "how does buying from you work", just at brand level now. -->
-<section class="wrap" id="how-it-works">
-  <div class="kicker">What you get</div>
-  <h2>The same deal on everything.</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="num">1</div>
-      <h3>Free US shipping</h3>
-      <p>On every order, no minimum. Dispatched in 1–2 business days and tracked the whole way.</p>
-    </div>
-    <div class="step">
-      <div class="num">2</div>
-      <h3>30 days to change your mind</h3>
-      <p>Use it properly. If it isn't for you we refund every cent — and you keep it. No returns to mail.</p>
-    </div>
-    <div class="step">
-      <div class="num">3</div>
-      <h3>A person, not a queue</h3>
-      <p>Text or call the number at the bottom of this page. It reaches someone who can actually fix it.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= OFFER ================= -->
-<section class="wrap" id="offer">
-  <div class="offer">
-    <div class="offer-inner">
-      <div class="kicker">The promise</div>
-      <h2>Love it,<br>or it's free.</h2>
-      <p class="price-note">Everything starts at $24.99, and every product gets cheaper per unit when
-        you take more than one. No tiers, no membership, nothing that renews without asking you.</p>
-      <ul>
-        <li>Free US shipping on every order</li>
-        <li>Dispatched in 1–2 business days — most orders arrive in 7–13 days</li>
-        <li>30-day money-back guarantee on everything we sell</li>
-        <li>No subscription. No fine print.</li>
-      </ul>
-      <p class="founder-note">You've never heard of us — a fair reason to be careful. So try anything
-        here for <b>30 days</b>: if it isn't what we said it was, text or call
-        <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we'll refund every cent. You keep the product —
-        no returns to mail, no forms.</p>
-      <a class="btn accent" href="#collection">Shop the collection</a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TALK TO US ================= -->
 <section class="wrap guarantee">
-  <div class="kicker">Questions</div>
-  <h2>Talk to a person.</h2>
-  <p>Not sure which shade, whether something suits your hair, or where your order is? Text or call <a href="tel:+19296709555">(929) 670-9555</a>, or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>. You'll get a human being who knows the products.</p>
-</section>
-
-<!-- ================= FAQ ================= -->
-<section class="wrap" id="faq">
-  <div class="kicker">Questions</div>
-  <h2>Asked &amp; answered.</h2>
-  <details>
-    <summary>What does Lennox actually make?</summary>
-    <p>Three things today: the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early.</p>
-  </details>
-  <details>
-    <summary>When will my order arrive?</summary>
-    <p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. Body Tape ships from a different warehouse and usually takes 9–13 days. You get the tracking number by email the moment it ships.</p>
-  </details>
-  <details>
-    <summary>What's the guarantee?</summary>
-    <p>30 days on everything. If it isn't for you, text or call <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — you don't ship anything back, and there's no form to fill in.</p>
-  </details>
-  <details>
-    <summary>Is there a subscription?</summary>
-    <p>No. Nothing here renews, and nothing is cheaper only if you sign up for something. Multi-packs cost less per unit because you bought more, not because you joined anything.</p>
-  </details>
-  <details>
-    <summary>Do you ship outside the US?</summary>
-    <p>Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door.</p>
-  </details>
-  <details>
-    <summary>Why are there only three products?</summary>
-    <p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. Each one started with something ordinary that only worked properly for some people. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p>
-  </details>
+  <div class="kicker">Every order</div>
+  <h2>The same deal on everything.</h2>
+  <p>Free US shipping, dispatched in 1–2 business days, and 30 days to change your mind on anything here — we refund every cent and you keep the product. Questions before you buy? Text or call <a href="tel:+19296709555">(929) 670-9555</a>.</p>
 </section>
 
 <footer>
@@ -672,13 +468,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <div class="logo">Lennox <span>Beauty</span></div>
   <p>© 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>30-day money-back guarantee</p>
 </footer>
-
-<!-- sticky mobile CTA -->
-<div class="sticky-cta">
-  <div class="p">From $24.99<small>Free shipping · 30-day guarantee</small></div>
-  <a class="btn accent" href="product.html">Shop now</a>
-</div>
-
 <script>
   function toggleMenu(){
     const open = document.getElementById('siteMenu').classList.toggle('open');
