@@ -207,7 +207,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   /* Savings should be findable at a glance, not buried in the same grey as the rest of
      the sub-line — it is the whole reason the multi-packs exist. */
-  .save-amt{color:var(--accent-dark);font-weight:700}
+  /* Savings had to be hunted for in grey micro-copy the same size as everything
+     else. It is the entire reason the multi-packs exist, so it reads as a filled
+     badge now, with the undiscounted price struck out beside the real one. */
+  .save-pill{
+    display:inline-block;margin-top:.4rem;
+    background:var(--accent);color:#fff;
+    font-size:.7rem;font-weight:700;line-height:1.35;
+    border-radius:999px;padding:.22rem .62rem;
+  }
+  .o-price s{display:block;font-weight:400;font-size:.8rem;color:var(--ink-faint);
+    text-decoration-thickness:1px;margin-bottom:.05rem}
 
   /* Reassurance at the point of decision, directly under the button. */
   .buy-trust{list-style:none;margin:1rem 0 .9rem;padding:0;display:grid;
@@ -644,14 +654,16 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <label class="opt">
         <span class="flag">Most popular</span>
         <input type="radio" name="pack" value="3" onchange="selectPack(3)">
-        <span class="o-main">3 bottles<small><b class="save-amt">Save $35.98</b> · about 7 months</small></span>
-        <span class="o-price">$38.99<small>$13.00 each</small></span>
+        <span class="o-main">3 bottles<small>about 7 months · $13.00 each</small>
+          <b class="save-pill">Save $35.98 &middot; 48% off</b></span>
+        <span class="o-price"><s>$74.97</s>$38.99</span>
       </label>
 
       <label class="opt">
         <input type="radio" name="pack" value="5" onchange="selectPack(5)">
-        <span class="o-main">5 bottles<small><b class="save-amt">Save $69.96</b> · about a year</small></span>
-        <span class="o-price">$54.99<small>$11.00 each</small></span>
+        <span class="o-main">5 bottles<small>about a year · $11.00 each</small>
+          <b class="save-pill">Save $69.96 &middot; 56% off</b></span>
+        <span class="o-price"><s>$124.95</s>$54.99</span>
       </label>
     </fieldset>
 
@@ -810,9 +822,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const PACKS = {
     1: {price:24.99, bottles:1, sku:'LB-SILK-1', label:'1 bottle',
         variant:'gid://shopify/ProductVariant/52304320856280'},
-    3: {price:38.99, bottles:3, sku:'LB-SILK-3PK', label:'3 bottles',
+    3: {price:38.99, bottles:3, saves:35.98, sku:'LB-SILK-3PK', label:'3 bottles',
         variant:'gid://shopify/ProductVariant/52304320921816'},
-    5: {price:54.99, bottles:5, sku:'LB-SILK-5PK', label:'5 bottles',
+    5: {price:54.99, bottles:5, saves:69.96, sku:'LB-SILK-5PK', label:'5 bottles',
         variant:'gid://shopify/ProductVariant/52304320889048'}
   };
   let pack = 1;
@@ -822,8 +834,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     const p = PACKS[pack], t = total();
     document.getElementById('cta').textContent = 'Add to cart — $' + t.toFixed(2);
     document.getElementById('bb-total').textContent = '$' + t.toFixed(2);
+    /* The saving follows the selection onto the mobile bar — that bar is the only
+       thing on screen when someone actually taps buy. */
     document.getElementById('bb-sub').textContent =
-      p.label + (addBatana ? ' + batana' : '') + ' · free shipping';
+      p.label + (addBatana ? ' + batana' : '')
+      + (p.saves ? ' · save $' + p.saves.toFixed(2) : ' · free shipping');
     document.getElementById('err').textContent = '';
     renderBump();
   }
