@@ -177,17 +177,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .value-props li{position:relative;padding-left:1.35rem;font-size:.96rem;line-height:1.45}
   .value-props li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
 
-  /* Savings had to be hunted for in grey micro-copy the same size as everything else.
-     It is the entire reason the multi-packs exist, so it reads as a filled badge now,
-     with the undiscounted price struck out beside the real one. */
+  /* Savings had to be hunted for in grey micro-copy the same size as everything
+     else. It is the entire reason the multi-packs exist, so the per-unit price
+     reads as a filled badge. No struck-out total and no percentage: one bottle
+     at full price sits directly above, so the arithmetic is already on screen,
+     and "48% off" against a price nobody ever pays is the dropshipping pattern. */
   .save-pill{
     display:inline-block;margin-top:.4rem;
     background:var(--accent);color:#fff;
     font-size:.7rem;font-weight:700;line-height:1.35;
     border-radius:999px;padding:.22rem .62rem;
   }
-  .o-price s{display:block;font-weight:400;font-size:.8rem;color:var(--ink-faint);
-    text-decoration-thickness:1px;margin-bottom:.05rem}
 
   /* Reassurance at the point of decision, directly under the button. */
   .buy-trust{list-style:none;margin:1rem 0 .9rem;padding:0;display:grid;
