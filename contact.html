@@ -264,11 +264,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .badge.soon{border:1px solid var(--line);color:var(--ink-soft)}
   .card a.badge.live{text-decoration:none}
   @media(min-width:760px){
-    /* Three across, not four. The collection is five cards now, and a 4-column rule
-       stranded the fifth alone on a second row. At three, the split falls where the
-       meaning is: the three products you can buy today on the first row, the two still
-       in development on the second. */
-    .catalog{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    /* 225px, not 240. Four cards at 240 need 1018px inside a 980px wrap, so the grid
+       silently dropped to three across and left the fourth product stranded alone on
+       a second row. At 225 four fit, and the split lands back where the meaning is:
+       on the home page all four you can buy sit on one row, and on the catalog the
+       second row is exactly the two still in development. */
+    .catalog{grid-template-columns:repeat(auto-fit,minmax(225px,1fr))}
   }
 
   /* ---------- guarantee ---------- */

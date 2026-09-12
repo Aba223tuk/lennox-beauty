@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catalog — Everything We Make | Lennox Beauty</title>
-<meta name="description" content="Every Lennox product in one place: the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
+<meta name="description" content="Every Lennox product in one place: the Scalp Ritual, the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
 <link rel="canonical" href="https://lennoxbeauty.com/catalog.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#8a7357">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Lennox Beauty">
 <meta property="og:url" content="https://lennoxbeauty.com/catalog.html">
 <meta property="og:title" content="Catalog — Everything We Make | Lennox Beauty">
-<meta property="og:description" content="Every Lennox product in one place: the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
+<meta property="og:description" content="Every Lennox product in one place: the Scalp Ritual, the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -264,11 +264,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .badge.soon{border:1px solid var(--line);color:var(--ink-soft)}
   .card a.badge.live{text-decoration:none}
   @media(min-width:760px){
-    /* Three across, not four. The collection is five cards now, and a 4-column rule
-       stranded the fifth alone on a second row. At three, the split falls where the
-       meaning is: the three products you can buy today on the first row, the two still
-       in development on the second. */
-    .catalog{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    /* 225px, not 240. Four cards at 240 need 1018px inside a 980px wrap, so the grid
+       silently dropped to three across and left the fourth product stranded alone on
+       a second row. At 225 four fit, and the split lands back where the meaning is:
+       on the home page all four you can buy sit on one row, and on the catalog the
+       second row is exactly the two still in development. */
+    .catalog{grid-template-columns:repeat(auto-fit,minmax(225px,1fr))}
   }
 
   /* ---------- guarantee ---------- */
@@ -397,13 +398,21 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <section class="wrap page-head">
   <div class="kicker">Catalog</div>
   <h1>Everything we make.</h1>
-  <p class="muted">Three products you can buy today and two still in development. When something
+  <p class="muted">Four products you can buy today and two still in development. When something
     isn't ready, it says so — we'd rather show it late than sell it early.</p>
-  <p class="count">5 products · 3 available now</p>
+  <p class="count">6 products · 4 available now</p>
 </section>
 
 <section class="wrap" style="padding-top:0">
   <div class="catalog">
+
+    <div class="card" onclick="location.href='scalp.html'" style="cursor:pointer">
+      <img src="img/scalp/kit2.webp" alt="The Scalp Ritual: nine sealed blue ampoules and a micro-infusion head in a white box" width="1600" height="1600" loading="lazy" decoding="async" style="height:120px;width:auto;margin-bottom:.8rem">
+      <h3>The Scalp Ritual</h3>
+      <p class="desc">A nine-session copper peptide course for the scalp &mdash; nine sealed ampoules and a 0.2&nbsp;mm infusion head.</p>
+      <p class="price">From $149</p>
+      <a class="badge live" href="scalp.html">Choose options</a>
+    </div>
 
     <div class="card" onclick="location.href='product.html'" style="cursor:pointer">
       <img src="img/silk/silk-09.webp" alt="The Silk Serum, a leave-in anti-frizz mist" width="1065" height="1065" loading="lazy" decoding="async" style="height:120px;width:auto;margin-bottom:.8rem">

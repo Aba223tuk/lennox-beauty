@@ -279,11 +279,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .badge.soon{border:1px solid var(--line);color:var(--ink-soft)}
   .card a.badge.live{text-decoration:none}
   @media(min-width:760px){
-    /* Three across, not four. The collection is five cards now, and a 4-column rule
-       stranded the fifth alone on a second row. At three, the split falls where the
-       meaning is: the three products you can buy today on the first row, the two still
-       in development on the second. */
-    .catalog{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    /* 225px, not 240. Four cards at 240 need 1018px inside a 980px wrap, so the grid
+       silently dropped to three across and left the fourth product stranded alone on
+       a second row. At 225 four fit, and the split lands back where the meaning is:
+       on the home page all four you can buy sit on one row, and on the catalog the
+       second row is exactly the two still in development. */
+    .catalog{grid-template-columns:repeat(auto-fit,minmax(225px,1fr))}
   }
 
   /* ---------- guarantee ---------- */
@@ -570,11 +571,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <div class="head" style="text-align:center">
     <div class="kicker">Shop</div>
     <h2>What we make.</h2>
-    <p class="muted" style="max-width:34rem;margin:0 auto">Three products available today. Two more
+    <p class="muted" style="max-width:34rem;margin:0 auto">Four products available today. Two more
       are in development — when something isn't ready, we say so.</p>
   </div>
 
   <div class="catalog" style="margin-top:2.6rem">
+
+    <div class="card" onclick="location.href='scalp.html'" style="cursor:pointer">
+      <img src="img/scalp/kit2.webp" alt="The Scalp Ritual: nine sealed blue ampoules and a micro-infusion head in a white box" width="1600" height="1600" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem">
+      <h3>The Scalp Ritual</h3>
+      <p class="desc">Nine sealed copper peptide ampoules and a 0.2&nbsp;mm infusion head.</p>
+      <p class="price">From $149</p>
+      <a class="badge live" href="scalp.html">Shop now</a>
+    </div>
 
     <div class="card" onclick="location.href='product.html'" style="cursor:pointer">
       <img src="img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem">
@@ -678,7 +687,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <h2>FAQs</h2>
   <details>
     <summary>What does Lennox actually make?</summary>
-    <p>Three things today: the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early. Everything is on the <a href="catalog.html">catalog</a>.</p>
+    <p>Four things today: the Scalp Ritual, a nine-session copper peptide course for the scalp; the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early. Everything is on the <a href="catalog.html">catalog</a>.</p>
   </details>
   <details>
     <summary>When will my order arrive?</summary>
@@ -697,7 +706,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <p>Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door.</p>
   </details>
   <details>
-    <summary>Why are there only three products?</summary>
+    <summary>Why are there only four products?</summary>
     <p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p>
   </details>
 </section>
