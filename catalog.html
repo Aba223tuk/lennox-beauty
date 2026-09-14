@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catalog — Everything We Make | Lennox Beauty</title>
-<meta name="description" content="Every Lennox product in one place: the Scalp Ritual, the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
+<meta name="description" content="Every Lennox product in one place — the Scalp Ritual, Silk Serum, Batana Oil and Body Tape. Free US shipping and a 30-day money-back guarantee on all of it.">
 <link rel="canonical" href="https://lennoxbeauty.com/catalog.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#8a7357">
@@ -12,9 +12,16 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lennox Beauty">
 <meta property="og:url" content="https://lennoxbeauty.com/catalog.html">
+<meta property="og:image" content="https://lennoxbeauty.com/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lennox Beauty — small things, done properly.">
 <meta property="og:title" content="Catalog — Everything We Make | Lennox Beauty">
-<meta property="og:description" content="Every Lennox product in one place: the Scalp Ritual, the Silk Serum, Batana Oil and Body Tape, plus what is still in development. Free US shipping, 30-day money-back guarantee.">
+<meta property="og:description" content="Every Lennox product in one place — the Scalp Ritual, Silk Serum, Batana Oil and Body Tape. Free US shipping and a 30-day money-back guarantee on all of it.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Catalog — Everything We Make | Lennox Beauty">
+<meta name="twitter:description" content="Every Lennox product in one place — the Scalp Ritual, Silk Serum, Batana Oil and Body Tape. Free US shipping and a 30-day money-back guarantee on all of it.">
+<meta name="twitter:image" content="https://lennoxbeauty.com/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -374,7 +381,72 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     .contact-grid{grid-template-columns:.85fr 1.15fr;gap:3.5rem;align-items:start}
     .contact-form{padding:2.4rem 2.2rem}
   }
+
+  /* Present to the document outline and to screen readers, absent from the layout.
+     Not display:none — that would hide it from assistive tech too, which defeats the point. */
+  .sr-only{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lennoxbeauty.com/#org",
+      "name": "Lennox Beauty",
+      "url": "https://lennoxbeauty.com/",
+      "logo": "https://lennoxbeauty.com/favicon.svg",
+      "image": "https://lennoxbeauty.com/img/og.png",
+      "telephone": "+1-929-670-9555",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-929-670-9555",
+        "email": "Lennoxsupport@gmail.com",
+        "contactType": "customer service",
+        "areaServed": "US",
+        "availableLanguage": "English"
+      }
+    }
+  ]
+}
+</script>
+<!-- CollectionPage + ItemList so the catalog is understood as a product index rather than
+     a page that happens to mention four products. Only the four that can actually be bought
+     are listed: the Sleek Stick and Heat Shield are in development and listing an unbuyable
+     product in structured data is the same lie as listing it with a price. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://lennoxbeauty.com/catalog.html",
+  "name": "Catalog \u2014 Everything We Make",
+  "url": "https://lennoxbeauty.com/catalog.html",
+  "isPartOf": {"@id": "https://lennoxbeauty.com/#org"},
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "The Scalp Ritual", "url": "https://lennoxbeauty.com/scalp.html"},
+      {"@type": "ListItem", "position": 2, "name": "The Silk Serum", "url": "https://lennoxbeauty.com/product.html"},
+      {"@type": "ListItem", "position": 3, "name": "Batana Oil", "url": "https://lennoxbeauty.com/batana.html"},
+      {"@type": "ListItem", "position": 4, "name": "Body Tape", "url": "https://lennoxbeauty.com/bodytape.html"}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://lennoxbeauty.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Catalog", "item": "https://lennoxbeauty.com/catalog.html"}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -404,6 +476,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </section>
 
 <section class="wrap" style="padding-top:0">
+  <!-- The card titles are h3, so without this the page ran h1 straight to h3 and then back
+       up to an h2 further down — a broken outline for anything parsing the document, screen
+       readers included. The heading is real, it just isn't drawn: the grid already announces
+       itself visually and a printed "Products" above it would be noise. -->
+  <h2 class="sr-only">Products</h2>
   <div class="catalog">
 
     <div class="card" onclick="location.href='scalp.html'" style="cursor:pointer">
