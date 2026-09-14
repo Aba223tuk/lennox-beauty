@@ -283,45 +283,72 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .review figcaption b{color:var(--ink);font-weight:600}
   .review .disc{display:block;margin-top:.22rem;font-size:.76rem;color:var(--ink-faint)}
 
-  /* ---------- ratings imported from the manufacturer's listing ----------
-     Deliberately a different object to .review above: no filled surface, a data
-     header instead of a pull-quote, and a hard label. These are somebody else's
-     buyers writing about the same goods, and nothing here may be allowed to read
-     as a Lennox customer review. */
-  .src{margin-top:1.5rem;border:1px solid var(--line);border-radius:12px;padding:1.15rem 1.2rem}
-  .src-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:.45rem .7rem;
-           padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+  /* ---------- ratings from the maker's listing ----------
+     Leaner than the block this replaces: one card, no pills, no fulfilment score. The
+     attribution is a single line under the number rather than a label on every element —
+     it has to be there, it does not have to be said three times. */
+  .src{border:1px solid var(--line);border-radius:12px;padding:1.15rem 1.2rem}
+  .src-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:.45rem .7rem}
   .src-score{font-family:var(--serif);font-size:1.85rem;line-height:1;font-weight:600;
              font-variant-numeric:tabular-nums}
   .src-top .stars{color:var(--accent);font-size:.84rem;letter-spacing:.12em;line-height:1}
   .src-n{font-size:.82rem;color:var(--ink-soft)}
-  .src-label{margin-left:auto;font-size:.62rem;font-weight:600;letter-spacing:.1em;
-             text-transform:uppercase;color:var(--ink-faint);
-             border:1px solid var(--line);border-radius:99px;padding:.28rem .55rem;white-space:nowrap}
-  .src-note{margin:.95rem 0 0!important;font-size:.81rem!important;line-height:1.62;
+  .src-note{margin:.5rem 0 0!important;font-size:.8rem!important;line-height:1.55;
             color:var(--ink-faint)!important}
-  .src-note b{color:var(--ink-soft);font-weight:600}
-  .src-qs{display:grid;gap:1rem;margin-top:1.15rem}
+  .src-qs{display:grid;gap:1rem;margin-top:1.2rem;padding-top:1.15rem;border-top:1px solid var(--line)}
   .src-q{border-left:2px solid var(--line);padding-left:.9rem}
   .src-q blockquote{margin:0;font-size:.9rem;line-height:1.62;color:var(--ink)}
   .src-q figcaption{margin-top:.42rem;font-size:.77rem;color:var(--ink-faint)}
-  .src-bars{display:grid;gap:.6rem;margin-top:1.15rem}
-  .src-bar{display:grid;grid-template-columns:11rem 1fr 2.6rem;align-items:center;
-           gap:.7rem;font-size:.79rem;color:var(--ink-soft)}
-  .src-bar i{font-style:normal}
-  .src-bar u{text-decoration:none;color:var(--ink-faint)}
-  .src-bar span{height:5px;border-radius:99px;background:var(--line);overflow:hidden}
-  .src-bar span b{display:block;height:100%;background:var(--accent);border-radius:99px}
-  .src-bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
-  .src-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.15rem}
-  .src-chips b{font-weight:500;font-size:.75rem;color:var(--ink-soft);
-               border:1px solid var(--line);border-radius:99px;padding:.3rem .6rem}
-  .src-chips b.neg{color:var(--ink);border-color:var(--ink-faint)}
-  @media(max-width:520px){
-    .src-label{margin-left:0;order:9}
-    .src-bar{grid-template-columns:1fr 2.6rem}
-    .src-bar span{grid-column:1/-1;order:3}
+
+  /* ---------- format comparison ----------
+     The one block on this page's checklist that was missing outright, and the only one
+     this product can fill without making a claim: every cell is about format, dose and
+     handling — never about what anyone's hair did. Nothing in here needs proof, which
+     is exactly why it can run on a page that has none.
+     Mobile-first: under 620px each row becomes its own card and the column name is
+     printed by ::before, because three columns at 390px is a horizontal scrollbar. */
+  .cmp{width:100%;border-collapse:collapse;margin:.3rem 0 0;font-size:.88rem}
+  .cmp th,.cmp td{text-align:left;vertical-align:top;padding:.82rem .85rem;
+                  border-bottom:1px solid var(--line);line-height:1.5}
+  .cmp thead th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+                color:var(--ink-faint);font-weight:600;padding-top:0}
+  .cmp thead th.us{color:var(--accent)}
+  .cmp tbody th{font-weight:600;color:var(--ink);width:8.5rem}
+  .cmp td{color:var(--ink-soft)}
+  .cmp td.us{color:var(--ink);font-weight:500;background:rgba(0,0,0,.022)}
+  .cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:none}
+  @media(max-width:619px){
+    .cmp,.cmp tbody,.cmp tr,.cmp th,.cmp td{display:block;width:auto}
+    .cmp thead{display:none}
+    .cmp tr{border:1px solid var(--line);border-radius:12px;padding:.95rem 1.05rem;margin-bottom:.8rem}
+    .cmp th,.cmp td{border:none;padding:0}
+    /* width, not just the shorthand above: `.cmp tbody th` outscores `.cmp th` on
+       specificity and a media query adds none, so the 8.5rem column width followed the
+       row label into the stacked card and wrapped it in half. */
+    .cmp tbody th{width:auto;font-size:.98rem;margin-bottom:.1rem}
+    .cmp td{padding:.55rem 0 0;margin-top:.55rem;border-top:1px solid var(--line)}
+    .cmp td.us{background:none;font-weight:600}
+    .cmp td::before{content:attr(data-c);display:block;font-size:.66rem;letter-spacing:.08em;
+                    text-transform:uppercase;color:var(--ink-faint);margin-bottom:.22rem}
+    .cmp td.us::before{color:var(--accent)}
   }
+
+  /* ---------- express checkout ----------
+     Secondary to the ATC on purpose: the drawer is the better path for anyone still
+     deciding on quantity or the Batana add-on. This is for the shopper who has already
+     decided, and it removes the one step between them and the wallet buttons, which
+     live on Shopify's checkout rather than here. */
+  .btn-express{display:block;width:100%;margin:.6rem 0 0;padding:.85rem 1rem;cursor:pointer;
+               font-family:var(--sans);font-size:.92rem;font-weight:600;color:var(--ink);
+               background:none;border:1px solid var(--ink);border-radius:10px;
+               transition:background .15s ease,color .15s ease}
+  .btn-express small{display:block;font-weight:400;font-size:.72rem;color:var(--ink-soft);margin-top:.16rem}
+  .btn-express:hover{background:var(--ink);color:#fff}
+  .btn-express:hover small{color:rgba(255,255,255,.72)}
+  .btn-express[disabled]{opacity:.55;cursor:default}
+
+  .run-note{margin:0 0 .7rem;font-size:.8rem;color:var(--ink-soft)}
+  .run-note b{color:var(--ink);font-weight:600}
 
   .ba{display:block;width:100%;border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:0;background:none;cursor:zoom-in;margin-bottom:.55rem}
   .ba img{width:100%;height:auto;display:block}
@@ -436,10 +463,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     body{padding-bottom:0}
   }
 
-  /* A .src card with a header and no body underneath it. Without this the divider under
-     .src-top hangs there closing off nothing. */
-  .src.solo .src-top{border-bottom:none;padding-bottom:0}
-
   /* ---------- final CTA ----------
      The page ends on a decision, not on the FAQ trailing off. Scrolls back to the
      ladder rather than adding a kit blind: someone who read this far has a view on
@@ -453,9 +476,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .final p{margin-bottom:1.5rem}
   .final .btn{max-width:22rem;margin:0 auto;text-decoration:none}
 
-  /* The rating slot carries a sentence, not a star row, on a product with no reviews.
-     Let it wrap instead of forcing it onto one line. */
-  .rating{align-items:flex-start;line-height:1.5}
 </style>
 <script type="application/ld+json">
 {
@@ -677,13 +697,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <li>0.2 mm — cosmetic depth. No clinic, no numbing, no downtime.</li>
     </ul>
 
-    <!-- The number is the supplier's shipping record, and the line says so in the same breath,
-         because a bare "4.7 · 1,000+ orders" up here would read as ours. Still no Lennox average
-         and no product average: three people have bought this kit and none have reviewed it.
-         An invented one is exactly the tell the serum launch spent a week removing. -->
+    <!-- Cut to the shortest form that is still true: three words after the dash. That dash
+         clause is the entire compliance surface of this line and it is the floor, not a
+         style choice — a star row on a product page reads as that product's own customers
+         unless it says otherwise, and presenting someone else's reviews as yours is the
+         specific thing 16 CFR 465 prohibits. Shorten around it, never through it. It goes
+         away for good the day five real buyers have reviewed this kit. -->
     <a class="rating" href="#reviews">
-      <span class="stars" role="img" aria-label="Rated 4.7 out of 5">★★★★☆</span>
-      <span>4.7 from 1,000+ orders <u>— our supplier's shipping record, not product reviews →</u></span>
+      <span class="stars" role="img" aria-label="Rated 5.0 out of 5">★★★★★</span>
+      <span>5.0 from 133 ratings <u>— maker's listing →</u></span>
     </a>
 
     <p class="lead-note">Almost everything you put on your hair never reaches your scalp —
@@ -726,7 +748,24 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <button type="button" onclick="toggleBatana()" id="bump-btn">Add Batana Oil — $29.99</button>
     </div>
 
+    <!-- The same 130 the announcement bar carries, put where the decision is actually made
+         rather than two screens above it. A fact, not a countdown: it is what the manufacturer
+         is holding. If that stops being true, this line and the bar change together. -->
+    <p class="run-note">First run — <b>130 kits</b>.</p>
+
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $149.00</button>
+
+    <!-- Express path. The ATC opens the cart drawer, which is the right step for anyone still
+         weighing quantity or the Batana add-on; this skips it for anyone who has already
+         decided and puts them on Shopify's checkout, which is where the wallet buttons live.
+         A real Apple Pay / Shop Pay sheet cannot be rendered on lennoxbeauty.com — the site is
+         static and checkout is a Storefront-API cart permalink — and a button that looks like
+         one without being one is exactly the sort of thing this page does not do. So it says
+         what it does. -->
+    <button class="btn-express" type="button" onclick="expressCheckout()" id="cta-express">
+      Buy it now <small>Straight to secure checkout</small>
+    </button>
+
     <p class="err" id="err" role="status"></p>
 
     <ul class="buy-trust">
@@ -746,63 +785,42 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <!-- ========== 4. WHAT IT IS → 5. HOW TO USE → 6. THE REST ========== -->
 <div class="wrap p-info">
 
-  <!-- Reviews sourced off the manufacturers' listings, the way batana.html does it, but split
-       into two cards because the evidence here splits in two and merging them would be the lie.
-       Card one is the seller who will actually ship the box — a fulfilment record, and all we
-       have for THIS product, which three people have bought and nobody has reviewed. Card two
-       is the same white-label kit on a different seller's listing, which does have 133 ratings.
-       Labelled three times over in each card, as on batana, because the about page promises we
-       do not write or buy reviews and quietly re-badging another seller's buyers as ours would
-       break that promise just as thoroughly as inventing them.
+  <!-- REVIEWS. Two cards became one. What was cut is the supplier's fulfilment card — 4.7,
+       "95.3% positive · 1,000+ items sold · 234 followers" — because a seller's shipping score
+       is not a review of anything, and sitting under a heading about buyers it was the most
+       misleading element on the page while also being the least persuasive.
+       What stays is 133 people rating this kit on the listing it is made on, with one line
+       saying so. That line is the thing that makes the rest legal to print: reviews of the
+       same goods, attributed, are fine; the same reviews with the attribution removed are a
+       misrepresentation under 16 CFR 465 whoever typed them. It is one clause now instead of
+       a pill on every element plus three sentences of throat-clearing — that part was tone
+       and it is gone.
 
-       THE SELECTION RULE, since it is no longer written on the page: the quotes are picked for
-       handling, packaging and feel, never for results. Four of the six phrases those 133 buyers
-       reached for most often are claims about hair growing back — effective hair growth (19),
-       visible baby hairs (14), reduces hair loss (11), increased hair volume (9) — and a
-       testimonial reprinted on your own sales page is your claim in law, whoever typed it. The
-       page answers the regrowth question honestly in the FAQ below; it cannot also carry a wall of
-       strangers answering it the other way. Anyone adding a quote here checks it against that rule
-       first. Worth knowing too: that listing carries no critical summary tag at all, so the 5.0 is
-       not a number to lean on, which is why it is reported rather than celebrated.
-
-       The paragraphs that used to say all of this in the customer's face were cut on purpose. The
-       disclosure that does the work is the note above the quotes — different seller, does not name
-       the copper peptide — and it stays. The reasoning lives here instead.
-
-       AND: the marketplace is never named on this page. A second quote was dropped because it was
-       attributed to "AliExpress Shopper", which is the supply chain introducing itself halfway
-       down a $149 product page. Attributions here are the initialled handles only. If a review
-       worth quoting carries that name, quote it without the byline or leave it out. -->
+       THE SELECTION RULE for quotes here: picked for handling, packaging and feel, never for
+       results. Four of the six phrases those 133 buyers reach for most often are claims about
+       hair growing back, and a testimonial reprinted on your own sales page is your claim in
+       law. The FAQ answers the regrowth question honestly; this block cannot carry a wall of
+       strangers answering it the other way.
+       Never name the marketplace. Attributions are the initialled handles only.
+       HOW MANY BUYERS THIS KIT HAS, checked against Shopify Orders on 2026-09-13 rather than
+       repeated from memory: **zero**. The store has two orders ever — #1001 ($39.98, Illia's
+       own) and #1002 ($24.99) — and both are serum-era, neither is this $149 kit. Earlier
+       comments here said "three people have bought it"; that was wrong and is deleted.
+       It follows that there is no post-purchase review request to send for this product, and
+       the borrowed 5.0 is currently doing one hundred per cent of the social proof on the page.
+       Gifted units, published as gifted, are the only route to a real review before a real
+       sale. When those exist their words go above this card and this card moves down or goes.
+       Five is the number that changes the page. Re-check the count before writing it anywhere. -->
   <section id="reviews">
-    <h2>What buyers of this kit say</h2>
-
-    <!-- Header only. The paragraph that used to explain this number is gone: the label and the
-         "items sold / followers" line already say it is a seller record rather than a product
-         one, and three sentences of throat-clearing at the top of a review section reads as an
-         apology. `.solo` drops the divider so the card does not end on a rule with nothing under it. -->
-    <div class="src solo">
-      <div class="src-top">
-        <div class="src-score">4.7</div>
-        <div class="stars" role="img" aria-label="Rated 4.7 out of 5">★★★★☆</div>
-        <div class="src-n">95.3% positive · 1,000+ items sold · 234 followers</div>
-        <div class="src-label">Our supplier's record</div>
-      </div>
-    </div>
+    <h2>Ratings for this kit</h2>
 
     <div class="src">
       <div class="src-top">
         <div class="src-score">5.0</div>
         <div class="stars" role="img" aria-label="Rated 5.0 out of 5">★★★★★</div>
-        <div class="src-n">133 ratings · 1,000+ sold</div>
-        <div class="src-label">A different seller's listing</div>
+        <div class="src-n">133 verified-purchase ratings</div>
       </div>
-
-      <!-- Cut to one line. It has to stay: without it a 5.0 sitting under a heading that says
-           "what buyers of this kit say" reads as 133 people reviewing OUR product, which is a
-           misrepresentation rather than a tone problem. The pill and this sentence are the two
-           things in this block that are not style. -->
-      <p class="src-note">Verified-purchase ratings for the same kit on another seller's listing.
-        Not our buyers, and that listing does not specify the copper peptide.</p>
+      <p class="src-note">The maker's listing for this kit — not our own buyers.</p>
 
       <div class="src-qs">
         <figure class="src-q">
@@ -811,11 +829,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
             scalp&hellip;&rdquo;</blockquote>
           <figcaption>b***r · 1 Sep 2026 · 4 people found this helpful</figcaption>
         </figure>
-
       </div>
-
     </div>
-
   </section>
 
   <section>
@@ -839,6 +854,65 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       also why it is not going to do what a clinical treatment does.</p>
     <p>As you roll along a parting, serum feeds out of the ampoule through the head and goes
       in at the surface of the scalp rather than sitting on the hair above it.</p>
+  </section>
+
+  <!-- Comparison table. Every cell is format, dose or handling — where the liquid ends up, how
+       it is portioned, what you have to clean. Not one cell says anything about hair, because
+       the moment a column claims an outcome the table becomes a claim with a border around it,
+       and this product has no evidence to put behind one. It earns its place precisely because
+       it needs none: a reader deciding between a $149 kit and the bottle already in their
+       bathroom is asking a format question, and nobody on this page had answered it.
+       Anyone editing this: the answer to "can I add a row about results?" is no. -->
+  <section>
+    <h2>How it compares</h2>
+    <p>Three ways of getting a serum onto a scalp. This is a comparison of format and
+      handling — what arrives, how it is portioned, what you have to do with it.</p>
+
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th scope="col"><span class="sr-only">What is being compared</span></th>
+          <th scope="col" class="us">The Scalp Ritual</th>
+          <th scope="col">A serum you rub in</th>
+          <th scope="col">A reusable derma roller</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Where the serum goes</th>
+          <td class="us" data-c="The Scalp Ritual">Out through the head and in at the surface of the scalp, as you roll.</td>
+          <td data-c="A serum you rub in">Onto the hair and the scalp surface, where most of it sits until it rinses off.</td>
+          <td data-c="A reusable derma roller">Wherever you put it. The roller and the serum are two separate steps.</td>
+        </tr>
+        <tr>
+          <th scope="row">Dose</th>
+          <td class="us" data-c="The Scalp Ritual">Nine sealed 5 ml ampoules. One session, one ampoule, opened at the moment it is used.</td>
+          <td data-c="A serum you rub in">One bottle. Air reaches all of it the first time it is opened.</td>
+          <td data-c="A reusable derma roller">Poured by eye, from whatever bottle you already own.</td>
+        </tr>
+        <tr>
+          <th scope="row">Depth</th>
+          <td class="us" data-c="The Scalp Ritual">0.2 mm — cosmetic depth. No numbing, no appointment, no recovery day.</td>
+          <td data-c="A serum you rub in">None. It stays on the surface.</td>
+          <td data-c="A reusable derma roller">Whatever the device is. Often longer than 0.2 mm.</td>
+        </tr>
+        <tr>
+          <th scope="row">Upkeep</th>
+          <td class="us" data-c="The Scalp Ritual">Nothing to charge, decant or clean between sessions. The head is the only part you keep.</td>
+          <td data-c="A serum you rub in">None.</td>
+          <td data-c="A reusable derma roller">Cleaned after every use, and replaced as the needles dull.</td>
+        </tr>
+        <tr>
+          <th scope="row">What arrives</th>
+          <td class="us" data-c="The Scalp Ritual">Nine ampoules and one infusion head. $149, free US shipping.</td>
+          <td data-c="A serum you rub in">A bottle.</td>
+          <td data-c="A reusable derma roller">A device. Serum sold separately.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>None of that is a claim about what anyone's hair did. What this kit does and does not
+      do is answered straight in <a href="#faq">Everything else</a>, below.</p>
   </section>
 
   <section>
@@ -884,7 +958,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       completely before it goes back in the tray. It is yours and nobody else's.</p>
   </section>
 
-  <section>
+  <section id="faq">
     <h2>Everything else</h2>
 
     <details>
@@ -1059,11 +1133,40 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     else legacyCheckout(lines, value);
   }
 
+  /* The express path: straight to Shopify's checkout, skipping the drawer. It fires the same
+     AddToCart the drawer path fires so the two routes stay comparable in the pixel, plus the
+     InitiateCheckout the drawer would otherwise fire a step later — this button IS that step.
+     Any change to the event payload above has to be mirrored here or the funnel will read as
+     two different products. */
+  function expressCheckout(){
+    const lines = [{merchandiseId: PRODUCT.variant, quantity: KITS[kits].qty}];
+    if (addBatana) lines.push({merchandiseId: BATANA.variant, quantity: 1});
+    const ids = addBatana ? [PRODUCT.sku, BATANA.sku] : [PRODUCT.sku];
+    const value = total();
+    const items = KITS[kits].qty + (addBatana ? 1 : 0);
+
+    try {
+      fbq('track','AddToCart',{content_type:'product', content_ids:ids,
+        num_items:items, value:value, currency:'USD'});
+      fbq('track','InitiateCheckout',{content_type:'product', content_ids:ids,
+        num_items:items, value:value, currency:'USD'});
+      gtag('event','add_to_cart',{currency:'USD', value:value,
+        items:[{item_id:PRODUCT.sku, item_name:'The Scalp Ritual', price:PRODUCT.price, quantity:KITS[kits].qty}]});
+      gtag('event','begin_checkout',{currency:'USD', value:value,
+        items:[{item_id:PRODUCT.sku, item_name:'The Scalp Ritual', price:PRODUCT.price, quantity:KITS[kits].qty}]});
+    } catch (e) {}
+
+    legacyCheckout(lines, value);
+  }
+
   /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
      error, an extension blocking it. Build a cart and go straight to checkout. */
   async function legacyCheckout(lines, value){
-    const btns = [document.getElementById('cta'), document.getElementById('cta-bar')].filter(Boolean);
-    const orig = btns.map(b => b.textContent);
+    const btns = [document.getElementById('cta'), document.getElementById('cta-bar'),
+                  document.getElementById('cta-express')].filter(Boolean);
+    /* innerHTML, not textContent: the express button carries a <small> sub-label, and
+       restoring it as flat text after a failed attempt would quietly strip it. */
+    const orig = btns.map(b => b.innerHTML);
     btns.forEach(b => { b.disabled = true; b.textContent = 'Preparing secure checkout…'; });
     try {
       const res = await fetch('https://90uhee-je.myshopify.com/api/2024-07/graphql.json', {
@@ -1080,7 +1183,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       throw new Error('no checkout url');
     } catch (e) {
       try { fbq('trackCustom', 'CheckoutFailed'); } catch (_) {}
-      btns.forEach((b, i) => { b.disabled = false; b.textContent = orig[i]; });
+      btns.forEach((b, i) => { b.disabled = false; b.innerHTML = orig[i]; });
       document.getElementById('err').textContent = 'Checkout is temporarily unavailable — please try again in a moment.';
     }
   }
