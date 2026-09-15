@@ -266,7 +266,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     border-color:#e0dcd5;
     box-shadow:0 18px 40px -18px rgba(20,20,20,.18);
   }
-  .card svg{height:92px;margin-bottom:.8rem}
+  /* One box for every card image, so a bottle, a jar, a tape roll and a boxed kit all land
+     at the same size. Was a per-image inline height of 118px, which let the one photo shot
+     on a beige set read as a stamp beside three white-background cutouts. */
+  .card img,.card svg{height:158px;width:auto;max-width:100%;object-fit:contain;margin-bottom:.9rem}
+  /* One card per row on a phone, so the image gets the width to match. */
+  @media(max-width:759px){.card img,.card svg{height:200px}}
   .card h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.1}
   .card .desc{font-size:.85rem;color:var(--ink-soft);max-width:15rem}
   .card .price{font-weight:600;font-size:.95rem;margin-top:.5rem}
@@ -578,7 +583,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <div class="catalog" style="margin-top:2.6rem">
 
     <div class="card" onclick="location.href='scalp-ritual'" style="cursor:pointer">
-      <img src="img/scalp/ampoule.webp" alt="The Scalp Ritual: a blue 5ml ampoule with the clear micro-infusion head screwed onto its top" width="1024" height="1024" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem" loading="lazy">
+      <img src="img/scalp/card.webp" alt="The Scalp Ritual tray: nine sealed blue 5ml ampoules and the clear micro-infusion head" width="1200" height="1200" decoding="async" loading="lazy">
       <h3>The Scalp Ritual</h3>
       <p class="desc">Nine sealed copper peptide ampoules and a 0.2&nbsp;mm infusion head.</p>
       <p class="price">From $149</p>
@@ -586,7 +591,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
 
     <div class="card" onclick="location.href='silk-serum'" style="cursor:pointer">
-      <img src="img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem" loading="lazy">
+      <img src="img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" decoding="async" loading="lazy">
       <h3>The Silk Serum</h3>
       <p class="desc">Smooths flyaways and kills static in about sixty seconds.</p>
       <p class="price">From $24.99</p>
@@ -594,7 +599,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
 
     <div class="card" onclick="location.href='batana-oil'" style="cursor:pointer">
-      <img src="img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem" loading="lazy">
+      <img src="img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" decoding="async" loading="lazy">
       <h3>Batana Oil</h3>
       <p class="desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
       <p class="price">$29.99</p>
@@ -602,7 +607,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
 
     <div class="card" onclick="location.href='body-tape'" style="cursor:pointer">
-      <img src="img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" decoding="async" style="height:118px;width:auto;margin-bottom:.8rem" loading="lazy">
+      <img src="img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" decoding="async" loading="lazy">
       <h3>Body Tape</h3>
       <p class="desc">Three shades, three widths &mdash; for everything a bra ruins.</p>
       <p class="price">$24.99</p>
