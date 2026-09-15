@@ -1,6 +1,6 @@
 /* Lennox Beauty chat widget — self-contained, no dependencies, no API keys.
    Scripted brain (intent matching + guided chips). Every answer is traceable to
-   copy already published on index.html / product.html — do not add claims here
+   copy already published on the homepage and the Silk Serum page — do not add claims here
    that the site doesn't make.
    Drop-in: <script src="chatbot.js" defer></script> */
 (function () {
@@ -9,7 +9,7 @@
   var PHONE_DISPLAY = '(929) 670-9555';
   var PHONE_TEL = '+19296709555';
   var PHONE_LINK = '<a href="tel:' + PHONE_TEL + '">' + PHONE_DISPLAY + '</a>';
-  var SHOP_URL = 'product.html';
+  var SHOP_URL = '/silk-serum';
 
   /* ---------- styles (brand tokens mirrored from the site) ---------- */
   var css = [
