@@ -271,9 +271,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     border:1.5px solid var(--accent);border-radius:12px;
     background:#f7f2ea;padding:.75rem .9rem;margin-bottom:1rem;
   }
+  /* contain, not cover: the serum is a tall bottle on white, and a square cover-crop
+     takes the middle third and reads as an orange smear at this size. */
   .gift img{
-    width:54px;height:54px;flex:none;object-fit:cover;
-    border-radius:8px;background:#fff;
+    width:54px;height:54px;flex:none;object-fit:contain;
+    border-radius:8px;background:#fff;padding:3px;
   }
   .gift .g-pill{
     display:inline-block;background:var(--accent);color:#fff;
@@ -799,7 +801,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
          with the tier (2 kits = 2 serums) from render(), because a static "a free serum"
          under a 3-kit selection would be understating what they actually get. -->
     <div class="gift">
-      <img src="/img/silk/silk-01.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
+      <img src="/img/silk/silk-07.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
       <div>
         <span class="g-pill">Included free</span>
         <div class="g-t" id="gift-t">The Silk Serum — free with your kit</div>
