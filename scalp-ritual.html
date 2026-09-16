@@ -261,6 +261,29 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .bump.taken{background:#efe7db;border-color:var(--accent-dark)}
   .bump.taken button{background:var(--accent);color:#fff;border-color:var(--accent)}
 
+  /* THE GIFT CARD. The serum was mentioned in five places and obvious in none of them —
+     a bullet, some grey sub-labels and a shipping clause. This sits directly above the
+     Add-to-cart button, which is where the decision is made, and it is the only filled
+     accent block on the page so it cannot be skimmed past. Image included on purpose:
+     "a free serum" is an abstraction, a picture of a bottle is a thing you get. */
+  .gift{
+    display:flex;align-items:center;gap:.85rem;
+    border:1.5px solid var(--accent);border-radius:12px;
+    background:#f7f2ea;padding:.75rem .9rem;margin-bottom:1rem;
+  }
+  .gift img{
+    width:54px;height:54px;flex:none;object-fit:cover;
+    border-radius:8px;background:#fff;
+  }
+  .gift .g-pill{
+    display:inline-block;background:var(--accent);color:#fff;
+    font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:.2rem .5rem;border-radius:999px;margin-bottom:.35rem;
+  }
+  .gift .g-t{font-size:.92rem;font-weight:600;line-height:1.3}
+  .gift .g-s{font-size:.78rem;color:var(--ink-soft);margin-top:.2rem;line-height:1.4}
+  .gift .g-s s{color:var(--ink-faint)}
+
   .btn{
     display:block;width:100%;text-align:center;
     background:var(--accent);color:#fff;font-weight:600;font-size:1rem;
@@ -627,7 +650,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <!-- Launch line is a statement of fact, not a countdown: the first run really is 130
      kits, because that is what the manufacturer is holding. If that stops being true,
      change the line. -->
-<div class="bar">First run — <b>130 kits</b> · free US shipping · 30-day money-back guarantee</div>
+<!-- The gift leads the bar now. "First run — 130 kits" moved out rather than being squeezed
+     in beside it: on a phone this line wraps to three, and the run count already sits at the
+     decision point in .run-note, which is where it does its work. -->
+<div class="bar"><b>Free Silk Serum</b> with every kit · free US shipping · 30-day money-back guarantee</div>
 
 <header>
   <a class="back" href="/">← Back</a>
@@ -710,8 +736,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <li><b>It reaches your scalp.</b> The serum feeds in at the surface as you roll, instead of
         coating the hair above it and rinsing off.</li>
       <li><b>At home, before bed.</b> No clinic, no numbing, no downtime.</li>
-      <li><b>A fresh, sealed dose every session.</b> Nothing to charge, decant or clean.</li>
       <li><b>A free Silk Serum with every kit.</b> $24.99 each, and it ships on its own.</li>
+      <li><b>A fresh, sealed dose every session.</b> Nothing to charge, decant or clean.</li>
     </ul>
 
     <!-- Cut to the shortest form that is still true: three words after the dash. That dash
@@ -768,6 +794,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
          is holding. If that stops being true, this line and the bar change together. -->
     <p class="run-note">First run — <b>130 kits</b>.</p>
 
+    <!-- Not an upsell and not a decision — it is already in the cart the moment a kit is.
+         So no button, no toggle: a statement of what comes in the box. The count updates
+         with the tier (2 kits = 2 serums) from render(), because a static "a free serum"
+         under a 3-kit selection would be understating what they actually get. -->
+    <div class="gift">
+      <img src="/img/silk/silk-01.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
+      <div>
+        <span class="g-pill">Included free</span>
+        <div class="g-t" id="gift-t">The Silk Serum — free with your kit</div>
+        <div class="g-s"><s>$24.99</s> — added to your cart automatically, ships separately</div>
+      </div>
+    </div>
+
     <button class="btn" onclick="goToCheckout()" id="cta">Add to cart — $149.00</button>
 
     <!-- Express path. The ATC opens the cart drawer, which is the right step for anyone still
@@ -784,6 +823,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <p class="err" id="err" role="status"></p>
 
     <ul class="buy-trust">
+      <li>Free Silk Serum included</li>
       <li>Free US shipping</li>
       <li>Tracked delivery</li>
       <li>30-day money-back guarantee</li>
@@ -1161,6 +1201,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('bb-total').textContent = money(t);
     document.getElementById('bb-sub').textContent =
       KITS[kits].sub + (addBatana ? ' + batana' : '') + ' · free shipping';
+    document.getElementById('gift-t').textContent = KITS[kits].qty === 1
+      ? 'The Silk Serum — free with your kit'
+      : KITS[kits].qty + ' × The Silk Serum — free with your kits';
     document.getElementById('bump').classList.toggle('taken', addBatana);
     document.getElementById('bump-btn').textContent =
       addBatana ? 'Added — remove Batana Oil' : 'Add Batana Oil — ' + money(BATANA.price);
