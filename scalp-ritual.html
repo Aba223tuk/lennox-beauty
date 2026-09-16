@@ -805,7 +805,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <div>
         <span class="g-pill">Included free</span>
         <div class="g-t" id="gift-t">The Silk Serum — free with your kit</div>
-        <div class="g-s"><s>$24.99</s> — added to your cart automatically, ships separately</div>
+        <div class="g-s"><s id="gift-v">$24.99</s> — added to your cart automatically, ships separately</div>
       </div>
     </div>
 
@@ -1181,7 +1181,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      scoped to this one variant, and a 5-pack line would arrive at full price.
      It is deliberately absent from `total()` and from the pixel `value` — it is worth
      $0 at checkout, and reporting it as revenue would overstate every AddToCart. */
-  const GIFT = {sku:'LB-SILK-1', label:'The Silk Serum',
+  const GIFT = {price:24.99, sku:'LB-SILK-1', label:'The Silk Serum',
                 variant:'gid://shopify/ProductVariant/52304320856280'};
 
   /* Quantity ladder. `price` is what checkout must total for that quantity once the
@@ -1203,9 +1203,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('bb-total').textContent = money(t);
     document.getElementById('bb-sub').textContent =
       KITS[kits].sub + (addBatana ? ' + batana' : '') + ' · free shipping';
+    /* Both halves scale with the tier. "2 ×" beside a flat $24.99 reads as though only
+       one of them is free, which is the opposite of the point. */
     document.getElementById('gift-t').textContent = KITS[kits].qty === 1
       ? 'The Silk Serum — free with your kit'
       : KITS[kits].qty + ' × The Silk Serum — free with your kits';
+    document.getElementById('gift-v').textContent = money(GIFT.price * KITS[kits].qty);
     document.getElementById('bump').classList.toggle('taken', addBatana);
     document.getElementById('bump-btn').textContent =
       addBatana ? 'Added — remove Batana Oil' : 'Add Batana Oil — ' + money(BATANA.price);
