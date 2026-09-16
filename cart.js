@@ -185,6 +185,8 @@
     '.lbc-foot{flex:none;border-top:1px solid #ececec;padding:1.1rem 1.25rem;font-family:Inter,system-ui,sans-serif}',
     '.lbc-sub{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.2rem}',
     '.lbc-sub b{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.5rem;font-weight:700}',
+    '.lbc-pre{display:flex;justify-content:space-between;font-size:.82rem;color:#6b655c;margin-bottom:.15rem}',
+    '.lbc-pre.save{color:#6f5c42;font-weight:600}',
     '.lbc-note{font-size:.76rem;color:#6b655c;margin:0 0 .85rem}',
     '.lbc-go{display:block;width:100%;text-align:center;background:#8a7357;color:#fff;font-weight:600;font-size:.97rem;',
     '  padding:.95rem;border-radius:999px;border:none;cursor:pointer;font-family:Inter,system-ui,sans-serif;text-decoration:none}',
@@ -278,16 +280,35 @@
       });
     });
 
-    var sub = cart.cost.subtotalAmount.amount;
+    /* subtotalAmount is the figure BEFORE order-level discounts. That used to be
+       harmless: every discount this store ran was Amount-off-products, which comes off
+       the lines, so the subtotal already had it. On 2026-09-15 the kit quantity tiers
+       became Amount-off-ORDER discounts — they had to, or they fought the free-serum
+       gift for the kit line — and from that moment a 3-kit cart printed $447 here while
+       checkout charged $329. The drawer disagreed with the button and with the receipt.
+       totalAmount is what Shopify actually charges, so that is the number to show.
+       Both values come from Shopify; the gap between them is the only arithmetic here,
+       and it is exact because neither side is computed locally. */
+    var gross = Number(cart.cost.subtotalAmount.amount);
+    var due = Number(cart.cost.totalAmount.amount);
+    var saved = gross - due;
+    var discounted = saved > 0.005;
+
     foot.innerHTML =
-      '<div class="lbc-sub"><span>Subtotal</span><b>' + money(sub) + '</b></div>' +
+      (discounted
+        ? '<div class="lbc-pre"><span>Before discounts</span><span>' + money(gross) + '</span></div>' +
+          '<div class="lbc-pre save"><span>You save</span><span>&minus;' + money(saved) + '</span></div>'
+        : '') +
+      '<div class="lbc-sub"><span>' + (discounted ? 'Total' : 'Subtotal') + '</span><b>' + money(due) + '</b></div>' +
       '<p class="lbc-note">Free US shipping · 30-day money-back guarantee</p>' +
       '<a class="lbc-go" href="' + cart.checkoutUrl + '">Checkout</a>' +
       (failed ? '<p class="lbc-err">Something went wrong. Please try again.</p>' : '');
 
     foot.querySelector('.lbc-go').addEventListener('click', function () {
-      try { fbq('track', 'InitiateCheckout', { value: +sub, currency: 'USD', num_items: cart.totalQuantity }); } catch (e) {}
-      try { gtag('event', 'begin_checkout', { currency: 'USD', value: +sub }); } catch (e) {}
+      /* Report what is actually being paid. Sending the pre-discount subtotal here
+         overstated every InitiateCheckout by the value of the discount. */
+      try { fbq('track', 'InitiateCheckout', { value: due, currency: 'USD', num_items: cart.totalQuantity }); } catch (e) {}
+      try { gtag('event', 'begin_checkout', { currency: 'USD', value: due }); } catch (e) {}
     });
   }
 
