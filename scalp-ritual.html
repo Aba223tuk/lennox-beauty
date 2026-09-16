@@ -711,6 +711,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         coating the hair above it and rinsing off.</li>
       <li><b>At home, before bed.</b> No clinic, no numbing, no downtime.</li>
       <li><b>A fresh, sealed dose every session.</b> Nothing to charge, decant or clean.</li>
+      <li><b>A free Silk Serum with every kit.</b> $24.99 each, and it ships on its own.</li>
     </ul>
 
     <!-- Cut to the shortest form that is still true: three words after the dash. That dash
@@ -733,14 +734,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
       <label class="opt">
         <input type="radio" name="kits" value="1" checked onchange="selectKits(1)">
-        <span class="o-main">1 kit<small>Nine ampoules + one infusion head</small></span>
+        <span class="o-main">1 kit<small>Nine ampoules, one head + 1 free Silk Serum</small></span>
         <span class="o-price">$149</span>
       </label>
 
       <label class="opt">
         <span class="flag">Best value</span>
         <input type="radio" name="kits" value="2" onchange="selectKits(2)">
-        <span class="o-main">2 kits<small>18 ampoules · $124.50 each</small>
+        <span class="o-main">2 kits<small>18 ampoules · $124.50 each · 2 free Silk Serums</small>
           <b class="save-pill">Save $49 &middot; 16% off</b></span>
         <span class="o-price"><s>$298</s>$249</span>
       </label>
@@ -748,7 +749,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <label class="opt">
         <span class="flag">Best price each</span>
         <input type="radio" name="kits" value="3" onchange="selectKits(3)">
-        <span class="o-main">3 kits<small>27 ampoules · $109.67 each</small>
+        <span class="o-main">3 kits<small>27 ampoules · $109.67 each · 3 free Silk Serums</small>
           <b class="save-pill">Save $118 &middot; 26% off</b></span>
         <span class="o-price"><s>$447</s>$329</span>
       </label>
@@ -789,7 +790,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <li>Secure checkout</li>
     </ul>
 
-    <p class="under">Arrives in about 7–13 days.<br>
+    <!-- The gift comes from a different supplier, so it is a second parcel on its own
+         timeline. Saying that here is not a disclaimer, it is the thing that stops a
+         "where is my free serum" email on every order. Do not quietly drop it. -->
+    <p class="under">Arrives in about 7–13 days. <b>The free Silk Serum ships separately</b>
+      and can land a few days apart.<br>
       <b>30 days to change your mind</b> — if it isn't for you, we refund every cent.
       No returns to mail, no forms.</p>
     <p class="pay">Secure checkout by Shopify · Visa · Mastercard · Amex · Shop Pay</p>
@@ -1068,8 +1073,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <!-- ========== FINAL CTA ========== -->
   <section class="final">
     <h2>For hair that looks fuller where you part it.</h2>
-    <p>Nine ampoules, one head, $149. Free US shipping, and thirty days to decide it was not
-      for you.</p>
+    <p>Nine ampoules, one head and a free Silk Serum — $149. Free US shipping, and thirty days
+      to decide it was not for you.</p>
     <a class="btn" href="#top" onclick="jumpToBuy(event)">Choose your kit</a>
   </section>
 </div>
@@ -1084,7 +1089,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
 <!-- Sticky mobile buy bar -->
 <div class="sticky-cta">
-  <div class="p"><span id="bb-total">$149.00</span><small id="bb-sub">9 ampoules · free shipping</small></div>
+  <div class="p"><span id="bb-total">$149.00</span><small id="bb-sub">9 ampoules + free serum · free shipping</small></div>
   <button class="btn" onclick="goToCheckout()" id="cta-bar">Add to cart</button>
 </div>
 
@@ -1125,13 +1130,25 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
                   variant:'gid://shopify/ProductVariant/52368268034264'};
   let addBatana = false;
 
+  /* THE GIFT — one Silk Serum free per kit, added 2026-09-15.
+     Shopify's automatic "Free Silk Serum with every kit" (Buy X get Y) only zeroes this
+     line IF IT IS ALREADY IN THE CART — the admin form says so outright. It will not add
+     it. So every path that builds `lines` has to push the serum itself, at the same
+     quantity as the kits, or the customer pays $149 and receives no gift.
+     The variant is the $24.99 SINGLE. Do not widen it to the product: the discount is
+     scoped to this one variant, and a 5-pack line would arrive at full price.
+     It is deliberately absent from `total()` and from the pixel `value` — it is worth
+     $0 at checkout, and reporting it as revenue would overstate every AddToCart. */
+  const GIFT = {sku:'LB-SILK-1', label:'The Silk Serum',
+                variant:'gid://shopify/ProductVariant/52304320856280'};
+
   /* Quantity ladder. `price` is what checkout must total for that quantity once the
      automatic discounts above exist — not what this file works out. If you change a
      tier here, change the Shopify discount in the same sitting. */
   const KITS = {
-    1: {qty:1, price:149.00, sub:'9 ampoules'},
-    2: {qty:2, price:249.00, sub:'2 kits · 18 ampoules', saves:49.00},
-    3: {qty:3, price:329.00, sub:'3 kits · 27 ampoules', saves:118.00}
+    1: {qty:1, price:149.00, sub:'9 ampoules + free serum'},
+    2: {qty:2, price:249.00, sub:'18 ampoules + 2 free serums', saves:49.00},
+    3: {qty:3, price:329.00, sub:'27 ampoules + 3 free serums', saves:118.00}
   };
   let kits = 1;
 
@@ -1170,6 +1187,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
   function goToCheckout(){
     const lines = [{merchandiseId: PRODUCT.variant, quantity: KITS[kits].qty}];
+    lines.push({merchandiseId: GIFT.variant, quantity: KITS[kits].qty});
     if (addBatana) lines.push({merchandiseId: BATANA.variant, quantity: 1});
     const ids = addBatana ? [PRODUCT.sku, BATANA.sku] : [PRODUCT.sku];
     const value = total();
@@ -1192,6 +1210,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      two different products. */
   function expressCheckout(){
     const lines = [{merchandiseId: PRODUCT.variant, quantity: KITS[kits].qty}];
+    lines.push({merchandiseId: GIFT.variant, quantity: KITS[kits].qty});
     if (addBatana) lines.push({merchandiseId: BATANA.variant, quantity: 1});
     const ids = addBatana ? [PRODUCT.sku, BATANA.sku] : [PRODUCT.sku];
     const value = total();
