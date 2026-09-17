@@ -386,6 +386,19 @@ body.drawer-open{overflow:hidden}
   padding:.25rem .5rem;border-radius:6px;
 }
 .product__tagline{font-size:1rem;color:var(--ink);margin-bottom:.9rem}
+
+/* icon_with_text: the one authority mark in the buy column, above the price.
+   Wording rules live in the HTML comment beside it in scalp-ritual.html. */
+.peptide-note{
+  display:flex;align-items:flex-start;gap:.55rem;
+  background:var(--accent-tint);border-radius:10px;
+  padding:.65rem .75rem;margin-bottom:.9rem;color:var(--ink);
+}
+.peptide-note svg{width:18px;height:18px;flex:none;color:var(--accent-dark);margin-top:.05rem}
+.peptide-note span{font-size:.82rem;line-height:1.4}
+.peptide-note span b{display:inline-block;margin-bottom:.15rem}
+.peptide-note__go{color:var(--accent-dark);font-weight:600;white-space:nowrap}
+
 .price-row{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:.9rem}
 .price-row__now{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
 .price-row__was{color:var(--ink-faint);text-decoration:line-through;font-size:1rem}
