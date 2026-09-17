@@ -12,76 +12,125 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css">
 <style>
-  :root{
-    --ink:#141414; --ink-soft:#5c5c5c; --line:#ececec;
-    --accent:#8a7357; --accent-dark:#6f5c42;
-    --bg:#ffffff; --bg-soft:#faf9f7;
-    --gutter:clamp(1.75rem, 5vw, 2.5rem);
-    --radius:14px;
-    --serif:"Cormorant Garamond",Georgia,serif;
-    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;
-       display:flex;flex-direction:column;min-height:100vh}
-  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.8rem;padding:.6rem var(--gutter)}
-  header{display:flex;justify-content:center;align-items:center;padding:1.1rem var(--gutter);
-         border-bottom:1px solid var(--line)}
-  .logo{font-family:var(--serif);font-size:1.15rem;letter-spacing:.22em;text-transform:uppercase}
-  .logo a{color:var(--ink);text-decoration:none}
-  .logo span{color:var(--accent)}
-  main{flex:1;display:flex;align-items:center;justify-content:center;
-       padding:4rem var(--gutter);text-align:center}
-  .inner{max-width:34rem}
   .code{font-family:var(--serif);font-size:clamp(3.5rem,14vw,5.5rem);line-height:1;color:var(--accent)}
-  h1{font-family:var(--serif);font-size:clamp(1.7rem,6vw,2.4rem);font-weight:600;
-     line-height:1.15;margin:.6rem 0 .9rem}
-  .muted{color:var(--ink-soft);font-size:1rem;margin-bottom:2rem}
-  .links{display:grid;gap:.7rem}
-  .btn{display:block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;
-       padding:.95rem 1.4rem;border-radius:10px;font-size:.95rem}
-  .btn:hover{background:var(--accent-dark)}
-  .alt{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:center;margin-top:.4rem}
-  .alt a{color:var(--ink-soft);font-size:.9rem;text-decoration:none;border-bottom:1px solid var(--line)}
-  .alt a:hover{color:var(--ink)}
-  footer{border-top:1px solid var(--line);padding:2rem var(--gutter);text-align:center;
-         font-size:.85rem;color:var(--ink-soft)}
-  footer a{color:var(--accent-dark);font-weight:600}
 </style>
 </head>
 <body>
 
-<div class="bar">Free US shipping on every order · <b>30-day money-back guarantee</b></div>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span>Free US shipping</span><span>30-day money-back guarantee</span>
+      <span>Tracked delivery</span><span>Text or call (929) 670-9555</span>
+    </div>
+    <div class="ticker__group">
+      <span>Free US shipping</span><span>30-day money-back guarantee</span>
+      <span>Tracked delivery</span><span>Text or call (929) 670-9555</span>
+    </div>
+  </div>
+</div>
 
-<header>
-  <div class="logo"><a href="/">Lennox <span>Beauty</span></a></div>
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-header__left">
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteDrawer">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/">Home</a>
+        <a href="/catalog">Shop</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+    <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
+    <div class="site-header__right"><span id="cart-slot"></span></div>
+  </div>
 </header>
 
-<main>
-  <div class="inner">
-    <div class="code">404</div>
-    <h1>That page isn't here.</h1>
-    <p class="muted">Either it moved or the link was wrong. Nothing is lost — there are only a
-      few things on this site, and they are all one tap away.</p>
+<nav class="site-drawer" id="siteDrawer" aria-hidden="true" aria-label="Menu">
+  <a href="/">Home</a>
+  <a href="/catalog">Shop</a>
+  <a href="/about">About our brand</a>
+  <a href="/contact">Contact</a>
+  <div class="drawer-foot">Questions? <a href="tel:+19296709555">(929) 670-9555</a></div>
+</nav>
 
-    <div class="links">
-      <a class="btn" href="/catalog">See everything we make</a>
-      <div class="alt">
-        <a href="/scalp-ritual">The Scalp Ritual</a>
-        <a href="/silk-serum">The Silk Serum</a>
-        <a href="/batana-oil">Batana Oil</a>
-        <a href="/body-tape">Body Tape</a>
-      </div>
+<main class="section">
+  <div class="content-width" style="text-align:center">
+    <div class="code">404</div>
+    <h1 style="margin:.4rem 0 .8rem">That page isn't here.</h1>
+    <p class="muted" style="max-width:32rem;margin:0 auto 2rem">Either it moved or the link was
+      wrong. Nothing is lost — there are only a few things on this site, and they are all one
+      tap away.</p>
+    <div class="btn-row btn-row--center">
+      <a class="btn btn--accent btn--lg" href="/catalog">See everything we make</a>
     </div>
   </div>
 </main>
 
-<footer>
-  © 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a>
-  or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>
+<section class="section section--tight">
+  <div class="page-width">
+    <div class="product-grid">
+      <a class="product-card" href="/scalp-ritual">
+        <div class="product-card__media"><img src="/img/scalp/card.webp" alt="The Scalp Ritual tray of nine sealed ampoules and the infusion head" width="1200" height="1200" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <h2 class="product-card__title">The Scalp Ritual</h2>
+          <p class="product-card__price">From $149</p>
+        </div>
+      </a>
+      <a class="product-card" href="/silk-serum">
+        <div class="product-card__media"><img src="/img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <h2 class="product-card__title">The Silk Serum</h2>
+          <p class="product-card__price">From $24.99</p>
+        </div>
+      </a>
+      <a class="product-card" href="/batana-oil">
+        <div class="product-card__media"><img src="/img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <h2 class="product-card__title">Batana Oil</h2>
+          <p class="product-card__price">$29.99</p>
+        </div>
+      </a>
+      <a class="product-card" href="/body-tape">
+        <div class="product-card__media"><img src="/img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <h2 class="product-card__title">Body Tape</h2>
+          <p class="product-card__price">$24.99</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"></path></svg>
+</div>
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__bottom" style="margin-top:0;border-top:none;padding-top:0">
+      <p>© 2026 Lennox Beauty · Questions? Text or call
+        <a href="tel:+19296709555">(929) 670-9555</a> or email
+        <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a></p>
+      <div class="footer-pay" aria-label="Accepted payment methods">
+        <img src="/img/pay/visa.svg" alt="Visa" width="38" height="24" loading="lazy">
+        <img src="/img/pay/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy">
+        <img src="/img/pay/amex.svg" alt="American Express" width="38" height="24" loading="lazy">
+        <img src="/img/pay/discover.svg" alt="Discover" width="38" height="24" loading="lazy">
+        <img src="/img/pay/apple-pay.svg" alt="Apple Pay" width="38" height="24" loading="lazy">
+        <img src="/img/pay/google-pay.svg" alt="Google Pay" width="38" height="24" loading="lazy">
+        <img src="/img/pay/shop-pay.svg" alt="Shop Pay" width="38" height="24" loading="lazy">
+      </div>
+    </div>
+  </div>
 </footer>
+
+<script src="/theme.js" defer></script>
+<script src="/cart.js" defer></script>
 
 </body>
 </html>

@@ -1,0 +1,931 @@
+/* Lennox Beauty — shared theme layer.
+
+   The layout is a port of the Shopify theme Illia supplied (Dawn fork, "MIKEY ECOM"
+   export, 23 Jan 2026): its section order, its component set and its proportions —
+   ticker → sticky header → banner → icon bar → product grid → image-with-text →
+   reviews → FAQ → feature cards → wave divider → dark footer. The product template
+   is ported block for block: gallery + sticky buy column, bundle & save picker,
+   payment badges, shipping checkpoints, sticky add-to-cart.
+
+   What did NOT come across: the theme's palette (#dd1d1d / #6d388b), Poppins, and
+   every placeholder it ships with — the invented ratings, the "XXXXX+ customers"
+   line, the cart timer and the free-shipping progress bar. Colours, type and copy
+   stay Lennox's. Numbers on this site are ones we can stand behind.
+
+   Theme constants kept, because they are what makes it look like that theme:
+   page width 1400, button radius 6 with a 2px border and uppercase label,
+   card radius 12 with a soft drop shadow, media radius 12, 40px grid gutters.
+
+   Mobile-first throughout: every block is written for the phone and widened at
+   760px / 990px, never the reverse. */
+
+/* ============================================================ tokens */
+:root{
+  --ink:#141414;
+  --ink-soft:#5c5c5c;
+  --ink-faint:#6b655c;
+  --line:#ececec;
+  --line-soft:#f4f2ef;
+  --accent:#8a7357;
+  --accent-dark:#6f5c42;
+  --accent-tint:#f3efe8;
+  --bg:#ffffff;
+  --bg-soft:#faf9f7;
+  --bg-2:#f2efea;
+  --ok:#3f7d58;
+
+  --page-width:1400px;
+  --content-width:1120px;
+  --prose-width:44rem;
+  --gutter:clamp(1.25rem,4vw,2.5rem);
+  --grid-gap:clamp(1rem,2.5vw,40px);
+  --section-pad:clamp(2.25rem,5vw,3.5rem);
+
+  --btn-radius:6px;
+  --card-radius:12px;
+  --media-radius:12px;
+  --pill-radius:999px;
+  --card-shadow:0 6px 15px rgba(20,20,20,.10);
+  --card-shadow-lift:0 14px 30px -12px rgba(20,20,20,.22);
+
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  --header-h:64px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.6;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.08;letter-spacing:0}
+h1{font-size:clamp(2.1rem,8.5vw,3.6rem)}
+h2{font-size:clamp(1.75rem,6vw,2.6rem)}
+h3{font-size:clamp(1.15rem,4vw,1.45rem)}
+p{overflow-wrap:break-word}
+
+/* ============================================================ layout */
+.page-width{width:100%;max-width:var(--page-width);margin:0 auto;padding:0 var(--gutter)}
+.content-width{width:100%;max-width:var(--content-width);margin:0 auto;padding:0 var(--gutter)}
+.prose-width{width:100%;max-width:var(--prose-width);margin:0 auto}
+.section{padding:var(--section-pad) 0}
+.section--tight{padding:calc(var(--section-pad) * .6) 0}
+.section--soft{background:var(--bg-soft)}
+.section--dark{background:var(--ink);color:#fff}
+.section--dark p{color:#cfcfcf}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hide{display:none !important}
+@media(max-width:759px){.desktop-only{display:none !important}}
+@media(min-width:760px){.mobile-only{display:none !important}}
+
+/* Section heading — the theme centres these and keeps a small kicker above. */
+.section-head{text-align:center;max-width:40rem;margin:0 auto clamp(1.5rem,4vw,2.4rem)}
+.section-head--left{text-align:left;margin-left:0}
+.kicker{
+  font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent-dark);margin-bottom:.7rem;
+}
+.section--dark .kicker{color:#d9cbb2}
+.section-head p{color:var(--ink-soft);margin-top:.7rem}
+.section--dark .section-head p{color:#cfcfcf}
+.muted{color:var(--ink-soft)}
+
+/* ============================================================ buttons
+   Theme spec: 2px border, 6px radius, uppercase label, no shadow. */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--sans);font-weight:600;font-size:.86rem;
+  letter-spacing:.09em;text-transform:uppercase;
+  padding:1rem 1.6rem;border-radius:var(--btn-radius);
+  border:2px solid var(--ink);background:var(--ink);color:#fff;
+  cursor:pointer;text-align:center;line-height:1.2;
+  transition:background .16s ease,color .16s ease,border-color .16s ease,transform .16s ease;
+}
+.btn:hover{background:#000;border-color:#000}
+.btn--accent{background:var(--accent);border-color:var(--accent)}
+.btn--accent:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn--outline{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn--outline:hover{background:var(--ink);color:#fff}
+.btn--light{background:#fff;border-color:#fff;color:var(--ink)}
+.btn--light:hover{background:#f0ece5;border-color:#f0ece5}
+.btn--ghost-light{background:transparent;color:#fff;border-color:#fff}
+.btn--ghost-light:hover{background:#fff;color:var(--ink)}
+.btn--full{width:100%}
+.btn--lg{padding:1.15rem 2rem;font-size:.92rem}
+.btn[disabled],.btn[aria-disabled=true]{opacity:.5;pointer-events:none}
+.btn-row{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn-row--center{justify-content:center}
+.link-arrow{
+  font-weight:600;font-size:.9rem;color:var(--accent-dark);
+  display:inline-flex;align-items:center;gap:.4rem;
+}
+.link-arrow::after{content:"→";transition:transform .16s ease}
+.link-arrow:hover::after{transform:translateX(4px)}
+
+/* ============================================================ ticker
+   header-group block 1: a marquee of the current offer, accent background,
+   uppercase and bold, scrolling at a fixed speed. */
+.ticker{
+  background:var(--accent);color:#fff;
+  overflow:hidden;position:relative;
+  padding:.6rem 0;
+}
+.ticker__track{
+  display:flex;width:max-content;
+  animation:ticker-scroll 32s linear infinite;
+}
+.ticker__group{
+  display:flex;align-items:center;gap:clamp(40px,8vw,100px);
+  padding-right:clamp(40px,8vw,100px);
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  white-space:nowrap;
+}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){
+  .ticker__track{animation:none;justify-content:center;width:100%}
+  .ticker__group:nth-child(2){display:none}
+}
+
+/* ============================================================ header
+   Sticky "on scroll up": the bar hides as you read down and returns the moment
+   you scroll back, which is what the theme does. Logo centred, menu left,
+   cart right — cart.js injects its button into #cart-slot. */
+.site-header{
+  position:sticky;top:0;z-index:60;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  transition:transform .3s ease;
+}
+.site-header.is-hidden{transform:translateY(-100%)}
+.site-header__inner{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:.5rem;padding:.75rem var(--gutter);
+  max-width:var(--page-width);margin:0 auto;
+}
+.site-header__left{display:flex;align-items:center;gap:.25rem;justify-self:start}
+.site-header__right{display:flex;align-items:center;gap:.25rem;justify-self:end}
+.site-logo{
+  font-family:var(--serif);font-size:clamp(1.05rem,3.6vw,1.3rem);
+  letter-spacing:.24em;text-transform:uppercase;font-weight:500;
+  white-space:nowrap;justify-self:center;
+}
+.site-logo span{color:var(--accent)}
+.burger{
+  width:40px;height:40px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:5px;
+}
+.burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
+.burger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.is-open span:nth-child(2){opacity:0}
+.burger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Desktop nav — the theme's dropdown menu row, centred under nothing, inline left. */
+.site-nav{display:none}
+@media(min-width:990px){
+  .burger{display:none}
+  .site-nav{display:flex;align-items:center;gap:1.6rem}
+  .site-nav a{
+    font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    padding:.4rem 0;border-bottom:2px solid transparent;
+  }
+  .site-nav a:hover,.site-nav a[aria-current=page]{border-bottom-color:var(--accent)}
+}
+
+/* Mobile drawer */
+.site-drawer{
+  position:fixed;inset:0;background:#fff;z-index:59;
+  display:flex;flex-direction:column;gap:1.4rem;
+  padding:6rem var(--gutter) 2rem;
+  transform:translateY(-100%);transition:transform .3s ease;
+  overflow-y:auto;
+}
+.site-drawer.is-open{transform:translateY(0)}
+.site-drawer a{font-family:var(--serif);font-size:1.7rem;font-weight:600}
+.site-drawer .drawer-foot{margin-top:auto;padding-top:2rem;font-size:.85rem;color:var(--ink-soft)}
+.site-drawer .drawer-foot a{font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--accent-dark)}
+body.drawer-open{overflow:hidden}
+
+/* ============================================================ image banner (hero)
+   Theme: medium height, image with a 40% overlay, content middle-centre,
+   heading + one button. */
+.banner{
+  position:relative;isolation:isolate;
+  min-height:clamp(380px,62vh,560px);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;color:#fff;
+  background:var(--ink) center/cover no-repeat;
+}
+.banner::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(18,18,18,.42),rgba(18,18,18,.5));
+}
+.banner__inner{padding:clamp(3rem,10vw,5rem) var(--gutter);max-width:46rem}
+.banner__eyebrow{
+  font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:#e6dccb;margin-bottom:1rem;
+}
+.banner h1{color:#fff;margin-bottom:1rem;text-wrap:balance}
+.banner p{color:#f0ece6;font-size:1.03rem;max-width:34rem;margin:0 auto 1.8rem}
+.banner .btn-row{justify-content:center}
+.banner--light{color:var(--ink)}
+.banner--light::before{background:linear-gradient(180deg,rgba(250,249,247,.84),rgba(250,249,247,.9))}
+.banner--light h1{color:var(--ink)}
+.banner--light p{color:var(--ink-soft)}
+.banner--light .banner__eyebrow{color:var(--accent-dark)}
+.banner--short{min-height:auto}
+.banner--short .banner__inner{padding:clamp(2.5rem,7vw,3.5rem) var(--gutter)}
+
+/* ============================================================ icon bar
+   "Try Us Risk-Free" — three cards, icon above label, soft card background. */
+.icon-bar__grid{
+  display:grid;grid-template-columns:1fr;gap:.8rem;
+}
+@media(min-width:760px){.icon-bar__grid{grid-template-columns:repeat(3,1fr);gap:var(--grid-gap)}}
+.icon-bar__item{
+  background:var(--bg-soft);border-radius:var(--card-radius);
+  padding:1.4rem 1.2rem;text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:.75rem;
+}
+@media(min-width:760px){
+  .icon-bar__item{flex-direction:column;padding:2rem 1.4rem;gap:.6rem}
+}
+.icon-bar__item svg{width:28px;height:28px;color:var(--accent);flex:none}
+.icon-bar__item span{font-weight:600;font-size:.95rem}
+
+/* ============================================================ product cards */
+.product-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;
+}
+@media(min-width:760px){.product-grid{grid-template-columns:repeat(4,1fr);gap:var(--grid-gap)}}
+.product-grid--3{grid-template-columns:repeat(2,1fr)}
+@media(min-width:760px){.product-grid--3{grid-template-columns:repeat(3,1fr)}}
+.product-card{
+  position:relative;display:flex;flex-direction:column;
+  background:#fff;border-radius:var(--card-radius);
+  box-shadow:var(--card-shadow);overflow:hidden;
+  text-align:center;height:100%;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--card-shadow-lift)}
+.product-card__media{position:relative;background:var(--bg-soft);aspect-ratio:1/1;overflow:hidden}
+.product-card__media img{width:100%;height:100%;object-fit:contain;padding:8%}
+.product-card__badge{
+  position:absolute;left:10px;bottom:10px;z-index:2;
+  background:var(--accent);color:#fff;
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.32rem .55rem;border-radius:6px;
+}
+.product-card__badge--quiet{background:#fff;color:var(--ink-faint);box-shadow:0 0 0 1px var(--line)}
+.product-card__body{padding:1rem .9rem 1.2rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+@media(min-width:760px){.product-card__body{padding:1.2rem 1.1rem 1.4rem}}
+.product-card__title{font-size:clamp(1.05rem,3.6vw,1.25rem)}
+.product-card__desc{font-size:.82rem;color:var(--ink-soft);line-height:1.5}
+.product-card__price{margin-top:auto;padding-top:.6rem;font-weight:600;font-size:.95rem}
+.product-card__price s{color:var(--ink-faint);font-weight:400;margin-right:.35rem}
+.product-card__cta{
+  margin-top:.75rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-dark);
+}
+.product-card--soon{opacity:.92}
+.product-card--soon .product-card__media img{opacity:.75}
+
+/* ============================================================ product page
+   main-product: media left, sticky info right, thumbnails under the gallery. */
+.product{padding:1rem 0 var(--section-pad)}
+.product__layout{
+  display:grid;grid-template-columns:1fr;gap:1.5rem;
+  max-width:var(--page-width);margin:0 auto;padding:0 var(--gutter);
+}
+@media(min-width:990px){
+  .product__layout{grid-template-columns:minmax(0,1fr) minmax(0,480px);gap:clamp(2rem,4vw,3.5rem);align-items:start}
+  /* The buy column is always the taller of the two, so the GALLERY is the one that
+     sticks — pinning the info column instead leaves a screen-high hole where the
+     photographs used to be, and pinning both fights itself. */
+  .product__media{position:sticky;top:calc(var(--header-h) + 1rem)}
+}
+
+/* ---- gallery */
+.gallery__stage{
+  position:relative;background:var(--bg-soft);border-radius:var(--media-radius);
+  overflow:hidden;
+}
+.gallery__slides{
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.gallery__slides::-webkit-scrollbar{display:none}
+.gallery__slide{
+  flex:0 0 100%;scroll-snap-align:center;
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+}
+.gallery__slide img,.gallery__slide video{width:100%;height:100%;object-fit:contain}
+.gallery__arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:38px;height:38px;border-radius:var(--pill-radius);
+  background:rgba(255,255,255,.88);box-shadow:0 2px 8px rgba(20,20,20,.14);
+  display:flex;align-items:center;justify-content:center;color:var(--ink);
+}
+.gallery__arrow[hidden]{display:none}
+.gallery__arrow--prev{left:10px}
+.gallery__arrow--next{right:10px}
+.gallery__arrow svg{width:16px;height:16px}
+@media(min-width:990px){.gallery__arrow{display:none}}
+.gallery__dots{
+  position:absolute;left:0;right:0;bottom:12px;z-index:3;
+  display:flex;justify-content:center;gap:6px;
+}
+@media(min-width:990px){.gallery__dots{display:none}}
+.gallery__dot{width:7px;height:7px;border-radius:50%;background:rgba(20,20,20,.22)}
+.gallery__dot.is-active{background:var(--ink)}
+.gallery__badge{
+  position:absolute;top:12px;right:12px;z-index:3;
+  background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(20,20,20,.12);
+  border-radius:8px;padding:.4rem .6rem;
+  font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.35rem;
+}
+.gallery__badge svg{width:14px;height:14px;color:var(--accent)}
+.gallery__thumbs{display:none}
+@media(min-width:990px){
+  .gallery__thumbs{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px;
+  }
+  .gallery__thumb{
+    aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:var(--bg-soft);
+    box-shadow:inset 0 0 0 1px var(--line);
+  }
+  .gallery__thumb img{width:100%;height:100%;object-fit:contain;padding:6%}
+  .gallery__thumb.is-active{box-shadow:inset 0 0 0 2px var(--accent)}
+}
+
+/* ---- buy column blocks, in the theme's order */
+.product__title{margin-bottom:.25rem;font-size:clamp(1.9rem,7vw,2.6rem)}
+.rating-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.stars{display:inline-flex;gap:2px;color:var(--accent);flex:none}
+.stars svg{width:15px;height:15px}
+.stars--green{color:#00b67a}
+.rating-row__label{font-size:.82rem;font-weight:600}
+.rating-row__note{font-size:.76rem;color:var(--ink-faint)}
+.rating-row__pill{
+  font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  background:var(--accent-tint);color:var(--accent-dark);
+  padding:.25rem .5rem;border-radius:6px;
+}
+.product__tagline{font-size:1rem;color:var(--ink);margin-bottom:.9rem}
+.price-row{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:.9rem}
+.price-row__now{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
+.price-row__was{color:var(--ink-faint);text-decoration:line-through;font-size:1rem}
+.price-row__badge{
+  background:var(--accent);color:#fff;border-radius:6px;
+  font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .55rem;
+}
+.price-row__note{width:100%;font-size:.8rem;color:var(--ink-faint)}
+
+/* icon_with_text: three short benefit labels under the price */
+.benefit-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
+  margin:1rem 0;padding:.9rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.benefit-row__item{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
+.benefit-row__item svg{width:22px;height:22px;color:var(--accent)}
+.benefit-row__item span{font-size:.76rem;font-weight:600;line-height:1.25}
+@media(min-width:760px){
+  .benefit-row__item{flex-direction:row;justify-content:center}
+  .benefit-row__item span{font-size:.82rem}
+}
+
+/* ---- bundle & save (quantity breaks) */
+.breaks{margin:1.2rem 0}
+.breaks__title{
+  display:flex;align-items:center;gap:.7rem;
+  font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:.9rem;
+}
+.breaks__title::before,.breaks__title::after{content:"";height:1px;background:var(--line);flex:1}
+.breaks__list{display:flex;flex-direction:column;gap:.6rem}
+.break{
+  position:relative;display:block;cursor:pointer;
+  border:2px solid var(--line);border-radius:10px;
+  padding:.85rem .9rem;background:#fff;
+  transition:border-color .16s ease,background .16s ease;
+}
+.break:hover{border-color:#ddd6ca}
+.break input{position:absolute;opacity:0;width:0;height:0}
+.break.is-selected{border-color:var(--accent);background:var(--accent-tint)}
+.break__badge{
+  position:absolute;top:-10px;right:12px;
+  background:var(--accent);color:#fff;border-radius:6px;
+  font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.24rem .5rem;
+}
+.break__row{display:flex;align-items:center;gap:.75rem}
+/* Once the caption wraps to two lines — which it does on a phone — a vertically
+   centred price reads as though it belongs to the second line. Pin it to the top
+   so the price sits beside the label it prices. */
+@media(max-width:520px){
+  .break__row{align-items:flex-start}
+  .break__mark,.break__img{margin-top:.1rem}
+  .break__right{padding-top:.05rem}
+}
+.break__mark{
+  flex:none;width:18px;height:18px;border-radius:50%;
+  border:2px solid #cfc7b9;position:relative;
+}
+.break.is-selected .break__mark{border-color:var(--accent)}
+.break.is-selected .break__mark::after{
+  content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent);
+}
+.break__img{flex:none;width:54px;height:54px;border-radius:8px;background:var(--bg-soft);overflow:hidden}
+.break__img img{width:100%;height:100%;object-fit:contain;padding:6%}
+.break__left{flex:1;min-width:0}
+.break__label{font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+.break__benefit{
+  font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-dark);border:1px solid var(--accent);border-radius:4px;
+  padding:.12rem .35rem;
+}
+.break__caption{font-size:.78rem;color:var(--ink-faint);margin-top:.15rem}
+.break__right{text-align:right;flex:none}
+.break__price{font-weight:700;font-size:1rem;display:block}
+.break__compare{font-size:.78rem;color:var(--ink-faint);text-decoration:line-through}
+
+/* ---- payment badges */
+.pay-badges{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.9rem 0}
+.pay-badges img,.pay-badges svg{height:24px;width:auto;border-radius:4px}
+.pay-badges__note{width:100%;font-size:.76rem;color:var(--ink-faint);display:flex;align-items:center;gap:.35rem}
+.pay-badges__note svg{height:13px;width:13px;color:var(--ink-faint)}
+
+/* ---- shipping checkpoints */
+.checkpoints{
+  background:var(--ink);color:#fff;border-radius:var(--card-radius);
+  padding:1.1rem .9rem;margin:1.2rem 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;position:relative;
+}
+.checkpoints__step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.3rem;position:relative}
+.checkpoints__step svg{width:22px;height:22px;color:#d9cbb2}
+.checkpoints__top{font-size:.76rem;font-weight:700}
+.checkpoints__bottom{font-size:.7rem;color:#bdb8b0;letter-spacing:.04em;text-transform:uppercase}
+.checkpoints__step::after{
+  content:"";position:absolute;top:11px;left:calc(50% + 20px);right:calc(-50% + 20px);
+  height:1px;background:rgba(255,255,255,.25);
+}
+.checkpoints__step:last-child::after{display:none}
+
+/* ---- sticky add to cart */
+.sticky-atc{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);
+  padding:.65rem var(--gutter);
+  display:flex;align-items:center;gap:.9rem;
+  transform:translateY(110%);transition:transform .25s ease;
+  padding-bottom:calc(.65rem + env(safe-area-inset-bottom));
+}
+.sticky-atc.is-visible{transform:translateY(0)}
+.sticky-atc__img{width:42px;height:42px;border-radius:8px;background:var(--bg-soft);object-fit:contain;padding:3px;flex:none}
+.sticky-atc__info{flex:1;min-width:0}
+.sticky-atc__title{font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sticky-atc__price{font-size:.8rem;color:var(--ink-faint)}
+.sticky-atc__price s{margin-right:.3rem}
+.sticky-atc .btn{padding:.8rem 1.2rem;font-size:.78rem;white-space:nowrap}
+@media(min-width:990px){.sticky-atc__img{width:48px;height:48px}}
+
+/* ============================================================ collapsible content */
+.accordion{border-top:1px solid var(--line)}
+.accordion details{border-bottom:1px solid var(--line)}
+.accordion summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.05rem 0;font-weight:600;font-size:.97rem;
+}
+.accordion summary::-webkit-details-marker{display:none}
+.accordion summary::after{
+  content:"";flex:none;width:11px;height:11px;
+  border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
+  transform:rotate(45deg) translateY(-2px);transition:transform .2s ease;
+}
+.accordion details[open] summary::after{transform:rotate(225deg) translateY(-2px)}
+.accordion__body{padding:0 0 1.1rem;color:var(--ink-soft);font-size:.93rem}
+.accordion__body > * + *{margin-top:.7rem}
+.accordion__body ul{padding-left:1.1rem}
+.accordion__body li{margin-top:.3rem}
+.accordion__body a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.accordion__body strong{color:var(--ink)}
+
+/* ============================================================ image with text
+   Theme: media one side, a dark content panel the other, no overlap, stacks on
+   mobile with the image first. */
+.image-text__grid{display:grid;grid-template-columns:1fr;gap:0;border-radius:var(--card-radius);overflow:hidden}
+@media(min-width:760px){
+  .image-text__grid{grid-template-columns:1fr 1fr}
+  .image-text--reverse .image-text__media{order:2}
+}
+.image-text__media{background:var(--bg-soft);min-height:240px}
+.image-text__media img,.image-text__media video{width:100%;height:100%;object-fit:cover;min-height:240px}
+.image-text__content{
+  background:var(--ink);color:#fff;
+  padding:clamp(1.8rem,5vw,3rem);
+  display:flex;flex-direction:column;justify-content:center;gap:.9rem;
+}
+.image-text__content h2{color:#fff}
+.image-text__content p{color:#cfcfcf}
+.image-text__content .btn-row{margin-top:.6rem}
+.image-text--soft .image-text__content{background:var(--bg-soft);color:var(--ink)}
+.image-text--soft .image-text__content h2{color:var(--ink)}
+.image-text--soft .image-text__content p{color:var(--ink-soft)}
+
+/* ============================================================ reviews
+   Theme ships a Trustpilot-style carousel. Same shape, real quotes only —
+   every review block on this site carries its source. */
+.reviews__meta{
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;margin-bottom:1.4rem;text-align:center;
+}
+.reviews__score{display:flex;align-items:center;gap:.5rem;font-size:.95rem}
+.reviews__score b{font-weight:700}
+.reviews__source{font-size:.78rem;color:var(--ink-faint);max-width:32rem}
+.reviews__rail{
+  display:flex;gap:.8rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:.5rem;scrollbar-width:none;
+}
+.reviews__rail::-webkit-scrollbar{display:none}
+@media(min-width:990px){
+  .reviews__rail{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gap);overflow:visible}
+}
+.review-card{
+  flex:0 0 82%;scroll-snap-align:center;
+  background:var(--bg-soft);border-radius:16px;padding:1.3rem 1.2rem;
+  display:flex;flex-direction:column;gap:.6rem;text-align:center;align-items:center;
+}
+@media(min-width:990px){.review-card{flex:auto}}
+.review-card__title{font-family:var(--sans);font-weight:700;font-size:.9rem}
+.review-card p{font-size:.9rem;color:var(--ink-soft);line-height:1.55}
+.review-card__author{font-size:.78rem;font-weight:600;color:var(--ink-faint);margin-top:auto}
+.reviews__dots{display:flex;justify-content:center;gap:6px;margin-top:.9rem}
+@media(min-width:990px){.reviews__dots{display:none}}
+.reviews__dot{width:7px;height:7px;border-radius:50%;background:#d8d3cb}
+.reviews__dot.is-active{background:var(--accent)}
+
+/* ============================================================ feature cards (ss-feature-1)
+   Three small cards, icon on top, shadowed, full width strip. */
+.features__grid{display:grid;grid-template-columns:1fr;gap:.9rem}
+@media(min-width:760px){.features__grid{grid-template-columns:repeat(3,1fr);gap:clamp(1rem,3vw,52px)}}
+.feature-card{
+  background:#fff;border-radius:16px;box-shadow:var(--card-shadow);
+  padding:1.5rem 1.4rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+}
+.feature-card svg{width:38px;height:38px;color:var(--accent)}
+.feature-card h3{
+  font-family:var(--sans);font-size:.82rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;line-height:1.3;
+}
+.feature-card p{font-size:.85rem;color:var(--ink-soft);line-height:1.5}
+
+/* ============================================================ comparison table */
+.compare-table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff;border-radius:var(--card-radius);overflow:hidden;box-shadow:var(--card-shadow)}
+.compare-table th,.compare-table td{padding:.75rem .7rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.compare-table thead th{background:var(--ink);color:#fff;font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.compare-table tbody th{font-family:var(--sans);font-weight:600;font-size:.85rem}
+.compare-table tr:last-child td,.compare-table tr:last-child th{border-bottom:none}
+.compare-table .yes{color:var(--ok);font-weight:700}
+.compare-table .no{color:var(--ink-faint)}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ============================================================ rich text / prose */
+.prose > * + *{margin-top:1rem}
+.prose p{color:var(--ink-soft);line-height:1.7}
+.prose h2{margin-top:2.2rem}
+.prose h3{margin-top:1.6rem;font-size:1.15rem}
+.prose ul,.prose ol{padding-left:1.2rem;color:var(--ink-soft)}
+.prose li{margin-top:.4rem}
+.prose strong{color:var(--ink)}
+.prose a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.prose blockquote{
+  border-left:2px solid var(--accent);padding-left:1rem;
+  font-family:var(--serif);font-size:1.25rem;line-height:1.35;color:var(--ink);
+}
+
+/* card used for "what's in the box", ingredient lists, etc. */
+.panel{background:var(--bg-soft);border-radius:var(--card-radius);padding:clamp(1.2rem,4vw,1.8rem)}
+.panel + .panel{margin-top:.8rem}
+.panel h3{margin-bottom:.5rem}
+.panel-grid{display:grid;grid-template-columns:1fr;gap:.8rem}
+@media(min-width:760px){.panel-grid--2{grid-template-columns:1fr 1fr}.panel-grid--3{grid-template-columns:repeat(3,1fr)}}
+
+/* numbered steps (how to use) */
+.steps{display:grid;grid-template-columns:1fr;gap:.8rem}
+@media(min-width:760px){.steps--3{grid-template-columns:repeat(3,1fr)}.steps--4{grid-template-columns:repeat(4,1fr)}}
+.step{background:#fff;border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:1.3rem 1.2rem}
+.step__num{font-family:var(--serif);font-size:1.9rem;color:var(--accent);line-height:1;margin-bottom:.5rem}
+.step h3{font-family:var(--sans);font-size:.95rem;font-weight:700;margin-bottom:.3rem}
+.step p{font-size:.87rem;color:var(--ink-soft)}
+
+/* ============================================================ forms */
+.field{margin-bottom:.9rem}
+.field label{display:block;font-size:.8rem;font-weight:600;margin-bottom:.35rem}
+.field input,.field textarea,.field select{
+  width:100%;padding:.85rem .9rem;border:1px solid rgba(20,20,20,.28);
+  border-radius:var(--btn-radius);background:#fff;
+}
+.field textarea{min-height:150px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field-row{display:grid;grid-template-columns:1fr;gap:.9rem}
+@media(min-width:760px){.field-row{grid-template-columns:1fr 1fr}}
+.form-note{font-size:.78rem;color:var(--ink-faint);margin-top:.7rem}
+
+/* ============================================================ wave divider + footer */
+.divider-wave{display:block;line-height:0;background:var(--bg)}
+.divider-wave svg{display:block;width:100%;height:clamp(38px,7vw,70px)}
+.divider-wave path{fill:var(--ink)}
+.site-footer{background:var(--ink);color:#fff;padding:2.4rem 0 2rem}
+.site-footer__grid{
+  display:grid;grid-template-columns:1fr;gap:1.8rem;
+}
+@media(min-width:760px){
+  .site-footer__grid{grid-template-columns:1.2fr 1.4fr 1.4fr .9fr;gap:2.2rem}
+}
+.site-footer .site-logo{justify-self:start;color:#fff;margin-bottom:.6rem;display:block}
+.site-footer .site-logo span{color:#d9cbb2}
+.site-footer h3{
+  font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#d9cbb2;margin-bottom:.7rem;
+}
+.site-footer p,.site-footer li{font-size:.85rem;color:#bdb8b0;line-height:1.6}
+.site-footer a{color:#e8e4dd}
+.site-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.site-footer ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.footer-signup{display:flex;gap:.4rem;margin-top:.7rem}
+.footer-signup input{
+  flex:1;min-width:0;padding:.7rem .8rem;border-radius:var(--btn-radius);
+  border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);color:#fff;
+}
+.footer-signup input::placeholder{color:#8f8a83}
+.footer-signup button{
+  padding:.7rem 1rem;border-radius:var(--btn-radius);background:#fff;color:var(--ink);
+  font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+}
+/* signup.js injects its own markup and reads these variables with fallbacks, so the
+   dark footer only has to redeclare them in that scope. Its default block styling
+   (top rule, big top margin, centred) belongs to the old single-column footer and
+   is switched off here. */
+.site-footer .lbs{border-top:none;margin-top:0;padding:0;text-align:left;
+  --ink:#ffffff;--ink-soft:#bdb8b0;--ink-faint:#8f8a83;--line:rgba(255,255,255,.28);--serif:var(--serif)}
+.site-footer .lbs .lbs-h{font-size:1.15rem;color:#fff}
+.site-footer .lbs .lbs-p,.site-footer .lbs .lbs-fine{margin-left:0;color:#bdb8b0}
+.site-footer .lbs .lbs-form{justify-content:flex-start;margin-left:0}
+.site-footer .lbs .lbs-msg.ok{color:#fff}
+
+.site-footer__bottom{
+  margin-top:2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.14);
+  display:flex;flex-direction:column;gap:.9rem;align-items:center;text-align:center;
+}
+@media(min-width:760px){
+  .site-footer__bottom{flex-direction:row;justify-content:space-between;text-align:left}
+}
+.site-footer__bottom p{font-size:.78rem;color:#8f8a83}
+.footer-pay{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:center}
+.footer-pay svg,.footer-pay img{height:22px;width:auto;border-radius:3px}
+
+/* ============================================================ misc */
+.callout{
+  border-left:2px solid var(--accent);padding:.2rem 0 .2rem 1rem;
+  font-size:.9rem;color:var(--ink-soft);
+}
+.callout strong{color:var(--ink)}
+.tag-pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:var(--accent-tint);color:var(--accent-dark);
+  font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .6rem;border-radius:var(--pill-radius);
+}
+.checks{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.checks li{display:flex;gap:.55rem;font-size:.9rem;color:var(--ink-soft)}
+.checks li::before{content:"✓";color:var(--accent);font-weight:700;flex:none}
+
+/* page bottom clearance so the sticky bar never covers the last line */
+body.has-sticky-atc{padding-bottom:76px}
+@media(min-width:990px){body.has-sticky-atc{padding-bottom:84px}}
+
+/* scroll-reveal, matching the theme's load animations */
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.is-in{opacity:1;transform:none}
+}
+
+/* ============================================================ product page extras
+   Blocks that belong to Lennox rather than to the ported theme — the free-gift
+   card, the cross-sell bump, the express checkout button and the image lightbox.
+   They were per-page CSS before; they are shared here because every product page
+   now has the same shape. */
+
+/* benefit bullets in the buy column */
+.value-props{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:0 0 1.1rem}
+.value-props li{position:relative;padding-left:1.4rem;font-size:.9rem;color:var(--ink-soft);line-height:1.5}
+.value-props li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.value-props b{color:var(--ink);font-weight:600}
+.value-props a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+/* free gift card */
+.gift{
+  display:flex;align-items:center;gap:.85rem;
+  border:1.5px solid var(--accent);border-radius:10px;
+  background:var(--accent-tint);padding:.75rem .9rem;margin-bottom:1rem;
+}
+.gift img{width:54px;height:54px;flex:none;object-fit:contain;border-radius:8px;background:#fff;padding:3px}
+.gift .g-pill{
+  display:inline-block;background:var(--accent);color:#fff;
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.2rem .5rem;border-radius:4px;margin-bottom:.35rem;
+}
+.gift .g-t{font-size:.92rem;font-weight:600;line-height:1.3}
+.gift .g-s{font-size:.78rem;color:var(--ink-soft);margin-top:.2rem;line-height:1.4}
+
+/* cross-sell bump */
+.bump{border:1px solid var(--accent);border-radius:10px;background:var(--accent-tint);padding:.9rem 1rem;margin-bottom:1rem}
+.bump p{font-size:.88rem;line-height:1.5;color:var(--ink-soft);margin:0 0 .7rem}
+.bump b{color:var(--ink);font-weight:600}
+.bump .save{
+  display:inline-block;background:var(--accent);color:#fff;
+  font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.22rem .55rem;border-radius:4px;margin-bottom:.5rem;
+}
+.bump button{
+  display:block;width:100%;border:1.5px solid var(--accent);color:var(--accent-dark);
+  font-weight:600;font-size:.88rem;padding:.7rem;border-radius:var(--btn-radius);
+  transition:background .15s ease,color .15s ease;
+}
+.bump button:hover{background:var(--accent);color:#fff}
+.bump.taken{background:#efe7db;border-color:var(--accent-dark)}
+
+/* express checkout — says what it is, because a real wallet sheet cannot render here */
+.btn-express{
+  display:block;width:100%;margin:.6rem 0 0;padding:.85rem 1rem;
+  font-size:.86rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+  border:2px solid var(--ink);border-radius:var(--btn-radius);
+  transition:background .15s ease,color .15s ease;
+}
+.btn-express small{display:block;font-weight:400;font-size:.68rem;letter-spacing:.02em;text-transform:none;color:var(--ink-soft);margin-top:.18rem}
+.btn-express:hover{background:var(--ink);color:#fff}
+.btn-express:hover small{color:rgba(255,255,255,.72)}
+.btn-express[disabled]{opacity:.55;cursor:default}
+
+.buy-trust{list-style:none;display:flex;flex-wrap:wrap;gap:.35rem .9rem;margin:.9rem 0 .6rem}
+.buy-trust li{font-size:.78rem;color:var(--ink-faint);display:flex;align-items:center;gap:.3rem}
+.buy-trust li::before{content:"✓";color:var(--accent);font-weight:700}
+.run-note{margin:0 0 .7rem;font-size:.8rem;color:var(--ink-soft)}
+.run-note b{color:var(--ink);font-weight:600}
+.under{font-size:.8rem;color:var(--ink-soft);line-height:1.55}
+.under b{color:var(--ink);font-weight:600}
+.err{color:#a4372f;font-size:.85rem;margin:.6rem 0 0;min-height:1.1em}
+.ing{font-size:.86rem;font-style:italic}
+
+/* sourced ratings card — the attribution line is load-bearing, never drop it */
+.src{background:var(--bg-soft);border-radius:var(--card-radius);padding:1.3rem 1.2rem}
+.src-top{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.src-score{font-family:var(--serif);font-size:2.1rem;font-weight:600;line-height:1}
+.src .stars{color:var(--accent);letter-spacing:.06em}
+.src-n{font-size:.84rem;color:var(--ink-soft)}
+.src-note{font-size:.78rem;color:var(--ink-faint);margin-top:.5rem}
+.src-q{margin-top:1rem;border-left:2px solid var(--accent);padding-left:.9rem}
+.src-q blockquote{font-size:.92rem;line-height:1.6;color:var(--ink-soft)}
+.src-q figcaption{font-size:.76rem;color:var(--ink-faint);margin-top:.4rem}
+
+/* numbered steps used for "how to use" */
+.steps-list{list-style:none;counter-reset:s;display:grid;gap:.9rem;margin:0}
+.steps-list li{position:relative;padding-left:2.2rem;font-size:.92rem;color:var(--ink-soft);line-height:1.55}
+.steps-list li::before{
+  counter-increment:s;content:counter(s);
+  position:absolute;left:0;top:.05rem;width:1.5rem;height:1.5rem;border-radius:50%;
+  background:#fff;box-shadow:inset 0 0 0 1px var(--line);color:var(--accent);
+  font-size:.76rem;font-weight:600;display:flex;align-items:center;justify-content:center;
+}
+.steps-list b{color:var(--ink);font-weight:600}
+
+/* comparison table — stacks into cards on a phone */
+.cmp{width:100%;border-collapse:collapse;font-size:.88rem}
+.cmp th,.cmp td{text-align:left;vertical-align:top;padding:.82rem .85rem;border-bottom:1px solid var(--line);line-height:1.5}
+.cmp thead th{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-family:var(--sans);font-weight:700;padding-top:0}
+.cmp thead th.us{color:var(--accent)}
+.cmp tbody th{font-family:var(--sans);font-weight:600;color:var(--ink);width:8.5rem;font-size:.88rem}
+.cmp td{color:var(--ink-soft)}
+.cmp td.us{color:var(--ink);font-weight:500;background:rgba(0,0,0,.022)}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:none}
+@media(max-width:619px){
+  .cmp,.cmp tbody,.cmp tr,.cmp th,.cmp td{display:block;width:auto}
+  .cmp thead{display:none}
+  .cmp tr{border:1px solid var(--line);border-radius:12px;padding:.95rem 1.05rem;margin-bottom:.8rem}
+  .cmp th,.cmp td{border:none;padding:0}
+  .cmp tbody th{width:auto;font-size:.98rem;margin-bottom:.1rem}
+  .cmp td{padding:.55rem 0 0;margin-top:.55rem;border-top:1px solid var(--line)}
+  .cmp td.us{background:none;font-weight:600}
+  .cmp td::before{content:attr(data-c);display:block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.22rem}
+  .cmp td.us::before{color:var(--accent)}
+}
+
+/* lightbox */
+.lb-back{position:fixed;inset:0;z-index:200;display:none;background:rgba(16,16,16,.95)}
+.lb-back.open{display:block}
+body.lb-open{overflow:hidden}
+.lb-stage{position:absolute;inset:0;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;align-items:center;justify-content:center;padding:3.5rem .7rem 4.2rem}
+.lb-stage img{max-width:calc(100vw - 1.4rem);max-height:calc(100vh - 7.7rem);width:auto;height:auto;object-fit:contain;display:block;background:#fff;border-radius:8px;cursor:zoom-in}
+@supports (height:100dvh){.lb-stage img{max-height:calc(100dvh - 7.7rem)}}
+.lb-back.zoomed .lb-stage{align-items:flex-start;justify-content:flex-start}
+.lb-back.zoomed .lb-stage img{max-width:none!important;max-height:none!important;width:min(190%,1600px);cursor:zoom-out}
+.lb-btn{position:absolute;z-index:2;background:rgba(255,255,255,.14);color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;line-height:1}
+.lb-btn:hover{background:rgba(255,255,255,.26)}
+.lb-close{top:.8rem;right:.8rem;font-size:1.35rem}
+.lb-prev{left:.8rem;top:50%;transform:translateY(-50%)}
+.lb-next{right:.8rem;top:50%;transform:translateY(-50%)}
+.lb-count{position:absolute;left:0;right:0;bottom:1.15rem;z-index:2;text-align:center;color:rgba(255,255,255,.75);font-size:.78rem;letter-spacing:.12em}
+.lb-count b{display:block;font-weight:400;font-size:.7rem;letter-spacing:.06em;color:rgba(255,255,255,.5);margin-top:.3rem}
+
+/* sourced-listing detail: the score bars and tag chips the serum page carries.
+   Same rule as the ratings card above them — the label saying whose listing it is
+   travels with the numbers, always. */
+.src-label{
+  font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  background:var(--accent-tint);color:var(--accent-dark);padding:.25rem .5rem;border-radius:4px;
+}
+.src-bars{display:grid;gap:.6rem;margin-top:1.15rem}
+.src-bar{display:grid;grid-template-columns:11rem 1fr 2.6rem;align-items:center;gap:.7rem;font-size:.79rem;color:var(--ink-soft)}
+.src-bar i{font-style:normal}
+.src-bar u{text-decoration:none;color:var(--ink-faint)}
+.src-bar span{height:5px;border-radius:99px;background:var(--line);overflow:hidden}
+.src-bar span b{display:block;height:100%;background:var(--accent);border-radius:99px}
+.src-bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
+@media(max-width:519px){.src-bar{grid-template-columns:8.5rem 1fr 2.4rem;font-size:.75rem}}
+.src-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.15rem}
+.src-chips b{font-weight:500;font-size:.75rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:99px;padding:.3rem .6rem}
+.src-chips b.neg{color:var(--ink);border-color:var(--ink-faint)}
+
+/* a single named review — tester or customer, and the tag says which */
+.review{padding:1.15rem 1.2rem;background:#fff;border-radius:var(--card-radius);box-shadow:var(--card-shadow)}
+.review .stars{color:var(--accent);font-size:.92rem;letter-spacing:.14em;line-height:1}
+.review blockquote{margin:.7rem 0 0;font-size:.93rem;line-height:1.62;color:var(--ink)}
+.review figcaption{margin-top:.8rem;font-size:.83rem;color:var(--ink-soft)}
+.review figcaption b{color:var(--ink);font-weight:600}
+.review .disc{display:block;margin-top:.22rem;font-size:.76rem;color:var(--ink-faint)}
+.tester-tag{
+  display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--accent-tint);color:var(--accent-dark);padding:.2rem .45rem;border-radius:4px;margin-left:.35rem;
+}
+
+/* before/after figure — a button because it opens the lightbox */
+.ba{display:block;width:100%;border-radius:var(--media-radius);overflow:hidden;padding:0;cursor:zoom-in;box-shadow:var(--card-shadow)}
+.ba img{width:100%;height:auto;display:block}
+.ba-cap{font-size:.78rem;color:var(--ink-faint);margin-top:.55rem}
+
+
+/* ============================================================ variant picker
+   The theme's picker_types are "dropdown, swatches": round colour swatches with a
+   selected ring, and pill-shaped option buttons (radius 40, 1px border). Body tape
+   is the only product with real options, so this is its shape. */
+.picker{margin:1.1rem 0}
+.picker__head{display:flex;align-items:baseline;gap:.45rem;margin-bottom:.55rem}
+.picker__label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.picker__value{font-size:.9rem;font-weight:600}
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.sw{
+  display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center;
+  border:1px solid rgba(20,20,20,.2);border-radius:10px;padding:.7rem .4rem;background:#fff;
+  transition:border-color .16s ease,background .16s ease;
+}
+.sw i{width:26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.sw b{font-size:.82rem;font-weight:600}
+.sw span{font-size:.68rem;color:var(--ink-faint);line-height:1.3}
+.sw[aria-pressed=true]{border-color:var(--accent);background:var(--accent-tint);box-shadow:0 0 0 1px var(--accent)}
+.widths{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.wd{
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  border:1px solid rgba(20,20,20,.35);border-radius:40px;padding:.55rem .4rem;background:#fff;
+  transition:border-color .16s ease,background .16s ease,color .16s ease;
+}
+.wd b{font-size:.92rem;font-weight:700}
+.wd span{font-size:.68rem;color:var(--ink-faint)}
+.wd[aria-pressed=true]{border-color:var(--accent);background:var(--accent);color:#fff}
+.wd[aria-pressed=true] span{color:rgba(255,255,255,.8)}
+
+/* California Proposition 65 — a legal notice, styled as one: quiet, findable, never
+   dressed up as a feature. */
+.p65{
+  border:1px solid var(--line);border-radius:var(--card-radius);
+  padding:1rem 1.1rem;margin-top:1.4rem;
+  font-size:.78rem;line-height:1.55;color:var(--ink-faint);
+}
+.p65 b{display:block;color:var(--ink);font-size:.8rem;margin-bottom:.3rem}
+.p65 a{color:var(--accent-dark);text-decoration:underline;text-underline-offset:2px}

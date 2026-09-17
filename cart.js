@@ -224,8 +224,14 @@
       b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/>' +
                     '<path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="lbc-count"></span>';
       b.addEventListener('click', open);
+      /* The theme header puts the cart on the right and the menu on the left, so
+         it offers an explicit slot. Older pages have neither and fall back to
+         sitting beside the burger. */
+      var slot = header.querySelector('#cart-slot');
       var burger = header.querySelector('.burger');
-      burger ? header.insertBefore(b, burger) : header.appendChild(b);
+      if (slot) slot.appendChild(b);
+      else if (burger) header.insertBefore(b, burger);
+      else header.appendChild(b);
       badge = b.querySelector('.lbc-count');
     }
   }

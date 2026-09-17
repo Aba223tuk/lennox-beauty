@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://lennoxbeauty.com/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Meta Pixel -->
 <script>
@@ -37,11 +37,7 @@ document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','2111917956205326');
 fbq('track','PageView');
 </script>
-
-<!-- Google Analytics 4 — GA_ID must stay identical across all pages or sessions split. -->
-<script>
-  window.GA_ID = 'G-RVCCLVESX7';
-</script>
+<script>window.GA_ID = 'G-RVCCLVESX7';</script>
 <script>
 (function(){
   var ok = /^G-[A-Z0-9]{8,}$/.test(window.GA_ID || '');
@@ -49,211 +45,219 @@ fbq('track','PageView');
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ dataLayer.push(arguments); };
   var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
   document.head.appendChild(s);
-  gtag('js', new Date());
-  gtag('config', window.GA_ID);
+  gtag('js', new Date()); gtag('config', window.GA_ID);
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></noscript>
-<style>
-  :root{
-    --ink:#141414;
-    --ink-soft:#5c5c5c;
-    --ink-faint:#6b655c;
-    --line:#ececec;
-    --accent:#8a7357;
-    --accent-dark:#6f5c42;
-    --bg:#ffffff;
-    --bg-soft:#faf9f7;
-    /* One gutter for the whole page edge. clamp so a phone gets 24px of breathing
-       room instead of 20px and a desktop gets 36px, without a media query per
-       component. Everything that touches the viewport edge uses it. */
-    --gutter:clamp(1.75rem, 5vw, 2.5rem);
 
-    --radius:14px;
-    --serif:"Cormorant Garamond",Georgia,serif;
-    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:var(--sans);color:var(--ink);background:var(--bg);
-    line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;
-  }
-  img,svg{max-width:100%;display:block}
-  a{color:inherit}
-
-  .bar{
-    background:var(--ink);color:#fff;text-align:center;
-    font-size:.78rem;letter-spacing:.04em;padding:.55rem var(--gutter);font-weight:500;
-  }
-  .bar b{color:#d9cbb2;font-weight:600}
-
-  header{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:1.1rem var(--gutter);border-bottom:1px solid var(--line);
-    position:sticky;top:0;background:rgba(255,255,255,.92);
-    backdrop-filter:blur(8px);z-index:50;
-  }
-  .logo{
-    font-family:var(--serif);font-size:1.15rem;letter-spacing:.24em;
-    text-transform:uppercase;font-weight:500;text-decoration:none;
-    /* Header is a nowrap flex row, but its TEXT children could still wrap inside
-         themselves once flex shrank them below content width — at 390px that broke
-         the logo and the back link onto two lines each. Keep them intrinsic. */
-    white-space:nowrap;flex:none;
-  }
-  .logo span{color:var(--accent)}
-
-  .burger{
-    width:40px;height:40px;flex:none;border:none;background:none;cursor:pointer;padding:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  }
-  .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
-  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .burger.open span:nth-child(2){opacity:0}
-  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .site-menu{
-    position:fixed;inset:0;background:#fff;z-index:40;
-    display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
-    padding:2rem var(--gutter);transform:translateY(-100%);transition:transform .3s ease;
-  }
-  .site-menu.open{transform:translateY(0)}
-  .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
-  .site-menu a.btn{font-family:var(--sans);font-size:1rem;font-weight:600;width:fit-content;margin-top:.5rem}
-  body.menu-open{overflow:hidden}
-
-  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--gutter)}
-  .kicker{
-    font-size:.72rem;font-weight:600;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--accent-dark);margin-bottom:.8rem;
-  }
-  .btn{
-    display:inline-block;background:var(--ink);color:#fff;
-    font-weight:600;font-size:.95rem;padding:1rem 1.9rem;border-radius:999px;
-    text-decoration:none;border:none;cursor:pointer;
-    transition:transform .15s ease, background .15s ease;
-  }
-  .btn:hover{background:#000;transform:translateY(-1px)}
-  .btn.accent{background:var(--accent)}
-  .btn.accent:hover{background:var(--accent-dark)}
-
-  /* ---------- about page ---------- */
-  /* Mobile first: one column, generous measure, nothing that needs a wide screen. */
-  /* Horizontal value is var(--gutter), not 0: this element also carries .wrap,
-     and the shorthand would otherwise reset the gutter .wrap set. */
-  .about{max-width:38rem;margin:0 auto;padding:3rem var(--gutter) 4.5rem}
-  .about h1{
-    font-family:var(--serif);font-weight:600;
-    font-size:clamp(2.1rem,8vw,3rem);line-height:1.06;margin-bottom:1rem;
-  }
-  .about .lead{font-size:1.02rem;color:var(--ink-soft);margin-bottom:2.6rem}
-  .about h2{
-    font-family:var(--serif);font-weight:600;
-    font-size:clamp(1.45rem,5.5vw,1.8rem);line-height:1.15;
-    margin:2.6rem 0 .7rem;
-  }
-  .about p{margin-bottom:1rem;color:var(--ink-soft)}
-  .about p b{color:var(--ink);font-weight:600}
-  .about a.inline{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px;padding:.35rem 0}
-
-  .end-cta{margin-top:3rem;padding-top:2.2rem;border-top:1px solid var(--line);text-align:center}
-  .end-cta .note{font-size:.83rem;color:var(--ink-soft);margin-top:.9rem}
-
-  footer{
-    border-top:1px solid var(--line);padding:3rem var(--gutter) 4rem;
-    text-align:center;font-size:.85rem;color:var(--ink-soft);
-  }
-  footer .logo{margin-bottom:1rem;display:block}
-  footer a{color:var(--accent-dark);font-weight:600}
-</style>
+<link rel="stylesheet" href="/theme.css">
 </head>
 <body>
 
-<div class="bar">Free US shipping on every order · <b>30-day money-back guarantee</b></div>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span>Free US shipping</span><span>30-day money-back guarantee</span>
+      <span>Tracked delivery</span><span>No bought reviews, ever</span>
+    </div>
+    <div class="ticker__group">
+      <span>Free US shipping</span><span>30-day money-back guarantee</span>
+      <span>Tracked delivery</span><span>No bought reviews, ever</span>
+    </div>
+  </div>
+</div>
+<p class="sr-only">Free US shipping and a 30-day money-back guarantee on every order.</p>
 
-<header>
-  <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-  <a class="logo" href="/">Lennox <span>Beauty</span></a>
-  <span style="width:40px" aria-hidden="true"></span>
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-header__left">
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteDrawer">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/">Home</a>
+        <a href="/catalog">Shop</a>
+        <a href="/about" aria-current="page">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+    <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
+    <div class="site-header__right"><span id="cart-slot"></span></div>
+  </div>
 </header>
 
-<nav class="site-menu" id="siteMenu" aria-hidden="true">
-  <a href="/" onclick="closeMenu()">Home</a>
-  <a href="/catalog" onclick="closeMenu()">Shop</a>
-  <a href="/contact" onclick="closeMenu()">Contact</a>
-  <a href="/about" onclick="closeMenu()">About Our Brand</a>
+<nav class="site-drawer" id="siteDrawer" aria-hidden="true" aria-label="Menu">
+  <a href="/">Home</a>
+  <a href="/catalog">Shop</a>
+  <a href="/about">About our brand</a>
+  <a href="/contact">Contact</a>
+  <div class="drawer-foot">Questions? <a href="tel:+19296709555">(929) 670-9555</a></div>
 </nav>
 
-<main class="wrap about">
-  <div class="kicker">About</div>
-  <h1>Beauty shouldn't have to cost a fortune.</h1>
-  <p class="lead">A beauty brand for people who got tired of paying a lot for very little — and
-    I'd rather earn that slowly than sell you a shelf of things that don't work.</p>
+<!-- ============ banner ============ -->
+<section class="banner" style="background-image:url('/img/brand/hero-alt.webp')">
+  <div class="banner__inner">
+    <p class="banner__eyebrow">About</p>
+    <h1>Beauty shouldn't have to cost a fortune.</h1>
+    <p>A beauty brand for people who got tired of paying a lot for very little — and I'd rather
+      earn that slowly than sell you a shelf of things that don't work.</p>
+  </div>
+</section>
 
-  <!-- First person, and the founder's own account. The previous version said much the same
-       things in a corporate "we", which read like a brand describing itself rather than a
-       person explaining why they bothered starting one. -->
-  <h2>Why I started it</h2>
-  <p>I started Lennox because I genuinely love beauty. Not the packaging — the effect. The way
-    the right product changes how someone carries themselves for the rest of the day. That's a
-    small thing, and it also isn't a small thing at all.</p>
-  <p>What I couldn't get past was the cost. I watched how quickly a simple routine turns into
-    hundreds of dollars of products you barely use — a single bottle running you the price of a
-    night out and still not doing what the label promised. Women absorb that, over and over, on
-    products that were never going to work in the first place.</p>
-  <p>So I wanted a brand built around products that actually earn a place in your routine,
-    without making you buy ten things to solve one problem. Not cheap — I'm not interested in
-    cheap. Honest about what something costs to make, and about what it's genuinely worth to you.</p>
+<!-- ============ rich text ============ -->
+<main class="section">
+  <div class="content-width">
+    <div class="prose prose-width">
+      <!-- First person, and the founder's own account. An earlier version said much the same
+           things in a corporate "we", which read like a brand describing itself rather than a
+           person explaining why they bothered starting one. -->
+      <h2>Why I started it</h2>
+      <p>I started Lennox because I genuinely love beauty. Not the packaging — the effect. The way
+        the right product changes how someone carries themselves for the rest of the day. That's a
+        small thing, and it also isn't a small thing at all.</p>
+      <p>What I couldn't get past was the cost. I watched how quickly a simple routine turns into
+        hundreds of dollars of products you barely use — a single bottle running you the price of a
+        night out and still not doing what the label promised. Women absorb that, over and over, on
+        products that were never going to work in the first place.</p>
+      <p>So I wanted a brand built around products that actually earn a place in your routine,
+        without making you buy ten things to solve one problem. Not cheap — I'm not interested in
+        cheap. Honest about what something costs to make, and about what it's genuinely worth to you.</p>
 
-  <h2>How we decide what to make</h2>
-  <p>Walk down any beauty aisle and a lot of what's on it is the same formula behind a new
-    label and a bigger promise. Shelves of it. We're not interested in adding to that pile
-    just to have more things to sell.</p>
-  <p>So everything we put our name on has to clear the same bar before it goes up: does it
-    genuinely do what we say it does, and is it priced so that trying it doesn't feel like a
-    gamble? If something can't clear both, it doesn't ship — however much easier it would be
-    to launch it anyway.</p>
-
-  <h2>What we won't do</h2>
-  <p>We won't buy reviews, and we won't put a follower count on a page as though it were
-    proof. We won't invent a heritage — we're new, and saying so plainly is cheaper than
-    pretending otherwise. And we won't show you a before-and-after of two different people's
-    hair, which is most of what you'll find in beauty once you start looking.</p>
-  <p>Everything we claim here is either something you can check yourself or something we'll
-    refund you for. That's the entire standard, and we'd rather be held to it than admired
-    for a story.</p>
-
-  <h2>The promise</h2>
-  <p>Try anything we make for <b>30 days</b>. If it doesn't do what we said it would, we
-    refund every cent and you keep what you were sent — nothing to mail back, no forms, no
-    restocking fee. We'd rather lose the money than have you feel had.</p>
-  <p>And if you'd rather speak to someone,
-    <a class="inline" href="tel:+19296709555">(929) 670-9555</a> is a direct line. Text it or
-    call it, or email <a class="inline" href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>. A person answers — it isn't a ticket queue.</p>
-
-  <h2>What comes next</h2>
-  <p>More. We're building this range out properly rather than all at once, and every addition
-    has to clear the same bar as everything already here. We'd rather sell you three things
-    you genuinely run out of and reorder than thirty you tried once and forgot.</p>
-  <p>What we add gets decided by what people actually ask us for — not by whatever a supplier
-    has sitting in a warehouse. If there's something you wish existed at a price that isn't
-    insulting, tell us. That's a real invitation, and the number below reaches a person.</p>
-
-  <div class="end-cta">
-    <a class="btn accent" href="/silk-serum">See what we made</a>
-    <p class="note">Judge us on the bottle, not the page.</p>
+      <h2>How we decide what to make</h2>
+      <p>Walk down any beauty aisle and a lot of what's on it is the same formula behind a new
+        label and a bigger promise. Shelves of it. We're not interested in adding to that pile
+        just to have more things to sell.</p>
+      <p>So everything we put our name on has to clear the same bar before it goes up: does it
+        genuinely do what we say it does, and is it priced so that trying it doesn't feel like a
+        gamble? If something can't clear both, it doesn't ship — however much easier it would be
+        to launch it anyway.</p>
+    </div>
   </div>
 </main>
 
-<footer>
-  <a class="logo" href="/">Lennox <span>Beauty</span></a>
-  <p>© 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>30-day money-back guarantee</p>
+<!-- ============ image with text: what we won't do ============ -->
+<section class="section section--tight">
+  <div class="page-width">
+    <div class="image-text__grid image-text--reverse reveal">
+      <div class="image-text__media">
+        <img src="/img/brand/hero.webp" alt="Lennox Beauty products photographed on a warm neutral set" width="1600" height="893" loading="lazy" decoding="async">
+      </div>
+      <div class="image-text__content">
+        <div class="kicker">What we won't do</div>
+        <h2>Checkable, or refundable.</h2>
+        <p>We won't buy reviews, and we won't put a follower count on a page as though it were
+          proof. We won't invent a heritage — we're new, and saying so plainly is cheaper than
+          pretending otherwise. And we won't show you a before-and-after of two different people's
+          hair, which is most of what you'll find in beauty once you start looking.</p>
+        <p>Everything we claim here is either something you can check yourself or something we'll
+          refund you for. That's the entire standard, and we'd rather be held to it than admired
+          for a story.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="content-width">
+    <div class="prose prose-width">
+      <h2>The promise</h2>
+      <p>Try anything we make for <strong>30 days</strong>. If it doesn't do what we said it would,
+        we refund every cent and you keep what you were sent — nothing to mail back, no forms, no
+        restocking fee. We'd rather lose the money than have you feel had.</p>
+      <p>And if you'd rather speak to someone, <a href="tel:+19296709555">(929) 670-9555</a> is a
+        direct line. Text it or call it, or email
+        <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>. A person answers —
+        it isn't a ticket queue.</p>
+
+      <h2>What comes next</h2>
+      <p>More. We're building this range out properly rather than all at once, and every addition
+        has to clear the same bar as everything already here. We'd rather sell you three things
+        you genuinely run out of and reorder than thirty you tried once and forgot.</p>
+      <p>What we add gets decided by what people actually ask us for — not by whatever a supplier
+        has sitting in a warehouse. If there's something you wish existed at a price that isn't
+        insulting, tell us. That's a real invitation, and the number above reaches a person.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ feature cards ============ -->
+<section class="section section--soft">
+  <div class="page-width">
+    <div class="features__grid">
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <h3>30 days, no forms</h3>
+        <p>We refund every cent and you keep what you were sent.</p>
+      </div>
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M4 6l8 7 8-7"/></svg>
+        <h3>No bought reviews</h3>
+        <p>Where a rating isn't ours, the page says whose it is.</p>
+      </div>
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6l2 5-3 2a11 11 0 005 5l2-3 5 2v6a15 15 0 01-17-17z"/></svg>
+        <h3>A direct line</h3>
+        <p>(929) 670-9555 reaches a person, not a ticket queue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-width" style="text-align:center">
+    <h2>Judge us on the bottle, not the page.</h2>
+    <div class="btn-row btn-row--center" style="margin-top:1.4rem">
+      <a class="btn btn--accent btn--lg" href="/catalog">See what we made</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"></path></svg>
+</div>
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__grid">
+      <div>
+        <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
+        <p>Hair and body essentials, each built to do one job well.</p>
+      </div>
+      <div><div data-lb-signup></div></div>
+      <div>
+        <h3>Support</h3>
+        <p>Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>
+          Email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>
+          Mon–Sat, 9am–7pm ET.</p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/catalog">All products</a></li>
+          <li><a href="/scalp-ritual">The Scalp Ritual</a></li>
+          <li><a href="/silk-serum">The Silk Serum</a></li>
+          <li><a href="/batana-oil">Batana Oil</a></li>
+          <li><a href="/body-tape">Body Tape</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Lennox Beauty · Free US shipping · 30-day money-back guarantee</p>
+      <div class="footer-pay" aria-label="Accepted payment methods">
+        <img src="/img/pay/visa.svg" alt="Visa" width="38" height="24" loading="lazy">
+        <img src="/img/pay/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy">
+        <img src="/img/pay/amex.svg" alt="American Express" width="38" height="24" loading="lazy">
+        <img src="/img/pay/discover.svg" alt="Discover" width="38" height="24" loading="lazy">
+        <img src="/img/pay/apple-pay.svg" alt="Apple Pay" width="38" height="24" loading="lazy">
+        <img src="/img/pay/google-pay.svg" alt="Google Pay" width="38" height="24" loading="lazy">
+        <img src="/img/pay/shop-pay.svg" alt="Shop Pay" width="38" height="24" loading="lazy">
+      </div>
+    </div>
+  </div>
 </footer>
 
 <script type="application/ld+json">
@@ -291,25 +295,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 }
 </script>
 
-<script>
-  function toggleMenu(){
-    const open = document.getElementById('siteMenu').classList.toggle('open');
-    document.getElementById('burgerBtn').classList.toggle('open', open);
-    document.getElementById('burgerBtn').setAttribute('aria-expanded', open);
-    document.getElementById('siteMenu').setAttribute('aria-hidden', !open);
-    document.body.classList.toggle('menu-open', open);
-  }
-  function closeMenu(){
-    document.getElementById('siteMenu').classList.remove('open');
-    document.getElementById('burgerBtn').classList.remove('open');
-    document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
-    document.getElementById('siteMenu').setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('menu-open');
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-</script>
-
-<script src="cart.js" defer></script>
+<script src="/theme.js" defer></script>
+<script src="/cart.js" defer></script>
+<script src="/signup.js" defer></script>
+<script src="/chatbot.js" defer></script>
 
 </body>
 </html>

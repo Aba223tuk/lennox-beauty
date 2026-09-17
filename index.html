@@ -25,7 +25,9 @@
 <meta name="twitter:image" content="https://lennoxbeauty.com/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/brand/hero-sm.webp" media="(max-width: 759px)">
+<link rel="preload" as="image" href="/img/brand/hero.webp" media="(min-width: 760px)">
 <!-- Meta Pixel -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -58,383 +60,338 @@ fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></noscript>
+
+<link rel="stylesheet" href="/theme.css">
 <style>
-  :root{
-    --ink:#141414;
-    --ink-soft:#5c5c5c;
-    --ink-faint:#6b655c;
-    --line:#ececec;
-    --accent:#8a7357;
-    --accent-dark:#6f5c42;
-    --bg:#ffffff;
-    --bg-soft:#faf9f7;
-    /* One gutter for the whole page edge. clamp so a phone gets 24px of breathing
-       room instead of 20px and a desktop gets 36px, without a media query per
-       component. Everything that touches the viewport edge uses it. */
-    --gutter:clamp(1.75rem, 5vw, 2.5rem);
-
-    --radius:14px;
-    --serif:"Cormorant Garamond",Georgia,serif;
-    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:var(--sans);
-    color:var(--ink);
-    background:var(--bg);
-    line-height:1.6;
-    font-size:16px;
-    -webkit-font-smoothing:antialiased;
-  }
-  img,svg{max-width:100%;display:block}
-  a{color:inherit}
-
-  /* ---------- announcement ---------- */
-  .bar{
-    padding:.55rem var(--gutter);
-    background:var(--ink);
-    color:#fff;
-    text-align:center;
-    font-size:.78rem;
-    letter-spacing:.04em;
-    font-weight:500;
-  }
-  .bar b{color:#d9cbb2;font-weight:600}
-
-  /* ---------- header ---------- */
-  header{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:1.1rem var(--gutter);
-    border-bottom:1px solid var(--line);
-    position:sticky;top:0;background:rgba(255,255,255,.92);
-    backdrop-filter:blur(8px);z-index:50;
-  }
-  .logo{
-    font-family:var(--serif);
-    font-size:1.15rem;
-    letter-spacing:.24em;
-    text-transform:uppercase;
-    font-weight:500;
-    /* Header is a nowrap flex row, but its TEXT children could still wrap inside
-         themselves once flex shrank them below content width — at 390px that broke
-         the logo and the back link onto two lines each. Keep them intrinsic. */
-    white-space:nowrap;flex:none;
-  }
-  .logo span{color:var(--accent)}
-
-  /* ---------- burger menu ---------- */
-  .burger{
-    width:40px;height:40px;flex:none;border:none;background:none;cursor:pointer;padding:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  }
-  .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
-  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .burger.open span:nth-child(2){opacity:0}
-  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .site-menu{
-    position:fixed;inset:0;background:#fff;z-index:40;
-    display:flex;flex-direction:column;justify-content:center;gap:1.7rem;
-    padding:2rem var(--gutter);transform:translateY(-100%);transition:transform .3s ease;
-  }
-  .site-menu.open{transform:translateY(0)}
-  .site-menu a{font-family:var(--serif);font-size:1.7rem;font-weight:600;text-decoration:none;color:var(--ink)}
-  .site-menu a.btn{font-family:var(--sans);font-size:1rem;font-weight:600;width:fit-content;margin-top:.5rem}
-  body.menu-open{overflow:hidden}
-
-  /* ---------- layout helpers ---------- */
-  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--gutter)}
-  section{padding:4rem 0}
-  .kicker{
-    font-size:.72rem;font-weight:600;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--accent-dark);
-    margin-bottom:1rem;
-  }
-  h1,h2{font-family:var(--serif);font-weight:600;line-height:1.05;letter-spacing:0}
-  h1{font-size:clamp(2.6rem,11vw,4.6rem)}
-  h2{font-size:clamp(1.9rem,7vw,2.9rem);margin-bottom:1rem}
-  .muted{color:var(--ink-soft)}
-
-  /* ---------- hero ---------- */
-  /* var(--gutter), not 0 — .hero also carries .wrap and the shorthand would
-     reset its horizontal padding, putting the headline against the screen edge. */
-  .hero{padding:4.5rem var(--gutter) 3.5rem;text-align:left}
-  .hero p.lead{
-    font-size:1.06rem;color:var(--ink-soft);
-    margin:1.4rem 0 2rem;max-width:34rem;
-  }
-  .btn{
-    display:inline-block;
-    background:var(--ink);color:#fff;
-    font-weight:600;font-size:.95rem;
-    padding:1rem 1.9rem;border-radius:999px;
-    text-decoration:none;border:none;cursor:pointer;
-    transition:transform .15s ease, background .15s ease;
-  }
-  .btn:hover{background:#000;transform:translateY(-1px)}
-  .btn.accent{background:var(--accent)}
-  .btn.accent:hover{background:var(--accent-dark)}
-  .btn.ghost{background:none;color:var(--ink);border:1.5px solid var(--ink);padding:calc(1rem - 1.5px) 1.9rem}
-  .btn.ghost:hover{background:var(--ink);color:#fff}
-  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
-  .hero .sub{font-size:.8rem;color:var(--ink-soft);margin-top:.9rem}
-
-  .hero-strip{
-    display:grid;grid-template-columns:1fr;gap:.6rem;
-    margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line);
-    font-size:.9rem;font-weight:500;
-  }
-  .hero-strip div::before{content:"— ";color:var(--accent)}
-
-  /* ---------- bottle visual ---------- */
-  .visual{
-    margin:3rem auto 0;
-    display:flex;justify-content:center;
-    background:var(--bg-soft);
-    border-radius:var(--radius);
-    padding:3rem 0;
-  }
-  /* The hero holds a video now rather than a still. Softened corners so it sits in
-     the card the way the photograph did instead of reading as a video player. */
-  .visual video{display:block;border-radius:10px}
-
-  /* ---------- problem ---------- */
-  .problem{background:var(--ink);color:#fff;border-radius:0}
-  .problem .kicker{color:#d9cbb2}
-  .problem p{color:#cfcfcf;max-width:38rem;margin-bottom:1rem}
-  .problem p b{color:#fff}
-
-  /* ---------- steps ---------- */
-  .steps{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2.5rem}
-  .step{
-    border:1px solid var(--line);border-radius:var(--radius);
-    padding:1.6rem;
-  }
-  .step .num{
-    font-family:var(--serif);font-size:2rem;color:var(--accent);
-    line-height:1;margin-bottom:.7rem;
-  }
-  .step h3{font-size:1rem;margin-bottom:.35rem}
-  .step p{font-size:.92rem;color:var(--ink-soft)}
-
-  /* ---------- offer ---------- */
-  .offer{background:var(--bg-soft);border-radius:var(--radius)}
-  .offer-inner{padding:3.5rem 1.5rem;text-align:center;max-width:34rem;margin:0 auto}
-  .price-row{
-    display:flex;justify-content:center;align-items:baseline;gap:.8rem;
-    margin:1.5rem 0 .4rem;flex-wrap:wrap;
-  }
-  .price-old{color:var(--ink-soft);text-decoration:line-through;font-size:1.1rem}
-  .price-new{font-family:var(--serif);font-size:2.6rem;font-weight:600}
-  .price-note{font-size:.85rem;color:var(--ink-soft);margin-bottom:1.8rem}
-  .offer ul{
-    list-style:none;text-align:left;margin:0 auto 2rem;max-width:22rem;
-    font-size:.93rem;
-  }
-  .offer li{padding:.45rem 0;border-bottom:1px solid var(--line)}
-  .offer li::before{content:"✓  ";color:var(--accent);font-weight:600}
-  /* The guarantee stated plainly, sitting right above the offer CTA. */
-  .founder-note{
-    text-align:left;max-width:22rem;margin:0 auto 2rem;
-    border-left:2px solid var(--accent);padding:.1rem 0 .1rem .9rem;
-    font-size:.88rem;line-height:1.55;color:var(--ink-soft);
-  }
-  .founder-note b{color:var(--ink);font-weight:600}
-  .founder-note a{color:var(--accent-dark);font-weight:600;text-decoration:underline;text-underline-offset:2px}
-
-  /* ---------- catalog ---------- */
-  .collection-band{
-    background:var(--bg-soft);
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-  }
-  .collection-band .head{text-align:center;max-width:36rem;margin:0 auto}
-  .collection-band .head::after{
-    content:"";display:block;width:44px;height:2px;
-    background:var(--accent);margin:1.6rem auto 0;
-  }
-  .catalog{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:3rem}
-  .card{
-    background:#fff;
-    border:1px solid var(--line);border-radius:var(--radius);
-    padding:2.2rem 1.5rem 1.8rem;text-align:center;
-    display:flex;flex-direction:column;align-items:center;gap:.4rem;
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .card:hover{
-    transform:translateY(-5px);
-    border-color:#e0dcd5;
-    box-shadow:0 18px 40px -18px rgba(20,20,20,.18);
-  }
-  /* One box for every card image, so a bottle, a jar, a tape roll and a boxed kit all land
-     at the same size. Was a per-image inline height of 118px, which let the one photo shot
-     on a beige set read as a stamp beside three white-background cutouts. */
-  .card img,.card svg{height:158px;width:auto;max-width:100%;object-fit:contain;margin-bottom:.9rem}
-  /* One card per row on a phone, so the image gets the width to match. */
-  @media(max-width:759px){.card img,.card svg{height:200px}}
-  .card h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.1}
-  .card .desc{font-size:.85rem;color:var(--ink-soft);max-width:15rem}
-  .card .price{font-weight:600;font-size:.95rem;margin-top:.5rem}
-  .card .price s{color:var(--ink-soft);font-weight:400;margin-right:.4rem}
-  .badge{
-    font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-    padding:.3rem .7rem;border-radius:999px;margin-top:.6rem;
-  }
-  .badge.live{background:var(--ink);color:#fff}
-  .badge.soon{border:1px solid var(--line);color:var(--ink-soft)}
-  .card a.badge.live{text-decoration:none}
-  @media(min-width:760px){
-    /* 225px, not 240. Four cards at 240 need 1018px inside a 980px wrap, so the grid
-       silently dropped to three across and left the fourth product stranded alone on
-       a second row. At 225 four fit, and the split lands back where the meaning is:
-       on the home page all four you can buy sit on one row, and on the catalog the
-       second row is exactly the two still in development. */
-    .catalog{grid-template-columns:repeat(auto-fit,minmax(225px,1fr))}
-  }
-
-  /* ---------- guarantee ---------- */
-  .guarantee{text-align:center}
-  .guarantee p{max-width:30rem;margin:0 auto;color:var(--ink-soft)}
-
-  /* ---------- faq ---------- */
-  details{
-    border-bottom:1px solid var(--line);
-    padding:1.1rem 0;
-  }
-  summary{
-    cursor:pointer;font-weight:600;font-size:.97rem;
-    list-style:none;display:flex;justify-content:space-between;align-items:center;
-  }
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";font-family:var(--serif);font-size:1.3rem;color:var(--accent)}
-  details[open] summary::after{content:"–"}
-  details p{margin-top:.7rem;font-size:.93rem;color:var(--ink-soft);max-width:40rem}
-
-  /* ---------- footer ---------- */
-  footer{
-    border-top:1px solid var(--line);
-    padding:3rem var(--gutter) 7rem;
-    text-align:center;font-size:.85rem;color:var(--ink-soft);
-  }
-  footer a{color:var(--accent-dark);font-weight:600}
-  footer .logo{margin-bottom:1rem}
-
-  /* ---------- sticky mobile cta ---------- */
-  .sticky-cta{
-    position:fixed;bottom:0;left:0;right:0;z-index:60;
-    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
-    border-top:1px solid var(--line);
-    padding:.7rem var(--gutter);
-    display:flex;gap:.9rem;align-items:center;justify-content:space-between;
-  }
-  .sticky-cta .p{font-size:.85rem;font-weight:600}
-  .sticky-cta .p small{display:block;font-weight:400;color:var(--ink-soft);font-size:.72rem}
-  .sticky-cta .btn{padding:.75rem 1.3rem;font-size:.85rem;white-space:nowrap}
-
-  /* ---------- modal ---------- */
-  .modal-back{
-    position:fixed;inset:0;background:rgba(20,20,20,.45);
-    display:none;align-items:center;justify-content:center;z-index:100;padding:var(--gutter);
-  }
-  .modal-back.open{display:flex}
-  .modal{
-    background:#fff;border-radius:var(--radius);
-    padding:2.2rem 1.8rem;max-width:24rem;text-align:center;
-  }
-  .modal h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:.6rem}
-  .modal p{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.4rem}
-
-  /* ---------- desktop ---------- */
-  @media(min-width:760px){
-    section{padding:5.5rem 0}
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
-    .hero .visual{margin:0}
-    .hero-strip{grid-template-columns:repeat(3,auto);gap:2.5rem;grid-column:1/-1}
-    .steps{grid-template-columns:repeat(3,1fr)}
-    .sticky-cta{display:none}
-    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
-  }
-  /* ---------- home: hero band ---------- */
-  /* Full-bleed centred opener. .hero-band breaks the wrap so the tint runs edge to
-     edge; .hero-inner puts the gutter back on the text. */
-  /* Photograph behind the hero rather than a flat tint — the single biggest thing
-     making the page read as a supplier storefront was that it had no photography at
-     all. Small file first, the wide crop only once the viewport earns it. */
-  .hero-band{
-    position:relative;isolation:isolate;
-    background:var(--bg-soft) url('img/brand/hero-sm.webp') center/cover no-repeat;
-    border-bottom:1px solid var(--line);padding:4.5rem 0 4rem;
-  }
-  /* Scrim. The headline is near-black serif and has to stay readable over the lit
-     part of the frame, so this is a wash rather than a subtle veil. */
-  .hero-band::before{
-    content:"";position:absolute;inset:0;z-index:-1;
-    background:linear-gradient(180deg,rgba(250,249,247,.82) 0%,rgba(250,249,247,.72) 45%,rgba(250,249,247,.88) 100%);
-  }
-  .hero-inner{text-align:center}
-  .hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--accent-dark);margin-bottom:1.4rem}
-  .hero-band h1{font-size:clamp(2.5rem,10vw,4.4rem);margin-bottom:1.2rem}
-  .hero-lead{font-size:1.08rem;color:var(--ink);max-width:34rem;margin:0 auto .7rem}
-  .hero-sub{font-size:.96rem;color:var(--ink-soft);max-width:32rem;margin:0 auto}
-  .hero-cta{justify-content:center;margin-top:2rem}
-  .hero-trio{display:flex;align-items:flex-end;justify-content:center;gap:4%;
-    margin:2.8rem auto 0;max-width:440px}
-  /* Percentage widths, not fixed heights: all three shots are square, so sizing by
-     width keeps them inside the band at every viewport. */
-  .hero-trio img{height:auto}
-  .hero-trio img:nth-child(1){width:38%}
-  .hero-trio img:nth-child(2){width:31%}
-  .hero-trio img:nth-child(3){width:25%}
-
-  /* ---------- home: about ---------- */
-  .about-band{text-align:center;max-width:1060px}
-  .about-band p{color:var(--ink-soft);max-width:34rem;margin:0 auto 1rem;font-size:1.02rem}
-  /* The one line worth remembering, set in the brand's own voice rather than as
-     another grey paragraph. */
-  .about-band .about-kicker-line{color:var(--ink);font-family:var(--serif);
-    font-size:clamp(1.15rem,4.5vw,1.4rem);line-height:1.3;max-width:26rem;margin-bottom:2rem}
-  .about-band .kicker{margin-bottom:.9rem}
-
-  /* ---------- home: trust row ---------- */
-  .trust-band{background:var(--ink);color:#fff;padding:3.5rem 0}
-  .trust-row{display:grid;grid-template-columns:1fr;gap:2.2rem;text-align:center}
-  .trust-item svg{width:30px;height:30px;margin:0 auto .9rem;color:#d9cbb2}
-  .trust-item h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin-bottom:.35rem}
-  .trust-item p{font-size:.88rem;color:#cfcfcf;max-width:22rem;margin:0 auto}
-
-  @media(min-width:760px){
-    .hero-band{padding:6rem 0 5rem;background-image:url('img/brand/hero.webp')}
-    .trust-row{grid-template-columns:repeat(4,1fr);gap:2rem}
-  }
-  /* ---------- home: micro trust under the hero CTA ---------- */
-  /* The guarantee and shipping terms were only in the dark band further down. These
-     sit where the decision is actually made, next to the button. */
-  .micro-trust{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
-    gap:.5rem 1.5rem;margin:2rem auto 0;max-width:32rem}
-  .micro-trust li{font-size:.8rem;color:var(--ink-soft);display:flex;align-items:center;gap:.4rem}
-  .micro-trust li::before{content:"✓";color:var(--accent);font-weight:700}
-
-  /* ---------- home: shop-all link ---------- */
-  .shop-all{text-align:center;margin-top:2rem;font-size:.92rem}
-  .shop-all a{color:var(--accent-dark);font-weight:600;text-decoration:none}
-  .shop-all a:hover{text-decoration:underline}
-
-  /* ---------- home: closing cta ---------- */
-  .closing-cta{background:var(--bg-soft);border-top:1px solid var(--line);
-    padding:4rem 0;text-align:center}
-  .closing-cta p{color:var(--ink-soft);margin:0 auto 1.8rem;max-width:26rem}
-
-  /* ---------- home: reviews (markup is commented out until real ones exist) ---------- */
-  .reviews{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:2.2rem}
-  .review{background:var(--bg-soft);border-radius:var(--radius);padding:1.6rem 1.5rem;margin:0}
-  .review blockquote{font-family:var(--serif);font-size:1.12rem;line-height:1.4;margin-bottom:.9rem}
-  .review figcaption{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
-
-  @media(min-width:760px){
-    .reviews{grid-template-columns:repeat(3,1fr)}
-  }
+  /* Home only. The banner image is set here rather than in theme.css so the
+     phone never downloads the 1600px crop. */
+  .home-banner{background-image:url('/img/brand/hero-sm.webp')}
+  @media(min-width:760px){.home-banner{background-image:url('/img/brand/hero.webp')}}
+  .closing{text-align:center}
+  .closing p{color:var(--ink-soft);max-width:30rem;margin:.6rem auto 1.6rem}
 </style>
+</head>
+<body>
+
+<!-- ============ ticker (header group, block 1) ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span>Free US shipping</span><span>30-day money-back guarantee</span>
+      <span>Tracked delivery</span><span>Dispatched in 1–2 days</span>
+      <span>Text or call (929) 670-9555</span>
+    </div>
+    <div class="ticker__group">
+      <span>Free US shipping</span><span>30-day money-back guarantee</span>
+      <span>Tracked delivery</span><span>Dispatched in 1–2 days</span>
+      <span>Text or call (929) 670-9555</span>
+    </div>
+  </div>
+</div>
+<p class="sr-only">Free US shipping and a 30-day money-back guarantee on every order.</p>
+
+<!-- ============ header ============ -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-header__left">
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteDrawer">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/" aria-current="page">Home</a>
+        <a href="/catalog">Shop</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+    <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
+    <div class="site-header__right"><span id="cart-slot"></span></div>
+  </div>
+</header>
+
+<nav class="site-drawer" id="siteDrawer" aria-hidden="true" aria-label="Menu">
+  <a href="/">Home</a>
+  <a href="/catalog">Shop</a>
+  <a href="/about">About our brand</a>
+  <a href="/contact">Contact</a>
+  <div class="drawer-foot">
+    Questions? <a href="tel:+19296709555">(929) 670-9555</a>
+  </div>
+</nav>
+
+<!-- ============ image banner ============ -->
+<section class="banner home-banner">
+  <div class="banner__inner">
+    <p class="banner__eyebrow">Small things, done properly</p>
+    <h1>Beauty, made simpler.</h1>
+    <p>Hair and body essentials for your everyday routine — each one built to do a single job
+      well, and priced like an everyday thing.</p>
+    <div class="btn-row">
+      <a class="btn btn--accent btn--lg" href="#shop">Shop now</a>
+      <a class="btn btn--ghost-light btn--lg" href="/about">Our story</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ icon bar ============ -->
+<section class="section section--tight">
+  <div class="page-width">
+    <div class="icon-bar__grid">
+      <div class="icon-bar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/>
+        </svg>
+        <span>Secure checkout</span>
+      </div>
+      <div class="icon-bar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <span>30-day guarantee</span>
+      </div>
+      <div class="icon-bar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 5h6l2 5-3 2a11 11 0 005 5l2-3 5 2v6a15 15 0 01-17-17z"/>
+        </svg>
+        <span>A person on the phone</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ featured collection ============ -->
+<section class="section" id="shop">
+  <div class="page-width">
+    <div class="section-head reveal">
+      <div class="kicker">Shop</div>
+      <h2>What we make.</h2>
+      <p>Four products available today. Two more are in development — when something isn't
+        ready, we say so.</p>
+    </div>
+
+    <div class="product-grid">
+      <a class="product-card reveal" href="/scalp-ritual">
+        <div class="product-card__media">
+          <span class="product-card__badge">Free serum</span>
+          <img src="/img/scalp/card.webp" alt="The Scalp Ritual tray: nine sealed blue 5ml ampoules and the clear micro-infusion head" width="1200" height="1200" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">The Scalp Ritual</h3>
+          <p class="product-card__desc">Nine sealed copper peptide ampoules and a 0.2&nbsp;mm infusion head.</p>
+          <p class="product-card__price">From $149</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+
+      <a class="product-card reveal" href="/silk-serum">
+        <div class="product-card__media">
+          <img src="/img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">The Silk Serum</h3>
+          <p class="product-card__desc">Smooths flyaways and kills static in about sixty seconds.</p>
+          <p class="product-card__price">From $24.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+
+      <a class="product-card reveal" href="/batana-oil">
+        <div class="product-card__media">
+          <span class="product-card__badge">2nd jar half price</span>
+          <img src="/img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Batana Oil</h3>
+          <p class="product-card__desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
+          <p class="product-card__price">$29.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+
+      <a class="product-card reveal" href="/body-tape">
+        <div class="product-card__media">
+          <img src="/img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Body Tape</h3>
+          <p class="product-card__desc">Three shades, three widths — for everything a bra ruins.</p>
+          <p class="product-card__price">$24.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+    </div>
+
+    <p style="text-align:center;margin-top:1.6rem">
+      <a class="link-arrow" href="/catalog">See everything, including what's coming</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============ image with text (brand story) ============ -->
+<section class="section section--tight">
+  <div class="page-width">
+    <div class="image-text__grid reveal">
+      <div class="image-text__media">
+        <img src="/img/brand/hero-alt.webp" alt="Lennox Beauty products on a warm neutral set" width="1600" height="893" loading="lazy" decoding="async">
+      </div>
+      <div class="image-text__content">
+        <div class="kicker">Our story</div>
+        <h2>Beauty shouldn't have to cost a fortune.</h2>
+        <!-- Founder's own words, first person. Kept verbatim from the previous build:
+             the reason comes first and the philosophy lands as the conclusion. -->
+        <p>I started Lennox because I genuinely love beauty — and because I watched a simple
+          routine turn into hundreds of dollars of products you barely use. I wanted a brand
+          built on things that earn their place, without buying ten of them to solve one problem.</p>
+        <p style="font-family:var(--serif);font-size:1.35rem;line-height:1.3;color:#fff">Which is
+          why we'd rather sell you less.</p>
+        <div class="btn-row"><a class="btn btn--light" href="/about">Learn more</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ reviews ============ -->
+<!-- The ported theme puts a review carousel here. It stays empty on purpose: this shop
+     has one real customer, so there is nothing truthful to put in it, and inventing
+     quotes is the exact thing the brand says it doesn't do. The markup below is the
+     theme's card, ready for real ones — drop them in and delete the comment wrapper.
+
+<section class="section" data-rail>
+  <div class="page-width">
+    <div class="section-head"><div class="kicker">Reviews</div><h2>What customers say.</h2></div>
+    <div class="reviews__rail">
+      <figure class="review-card">
+        <div class="stars stars--green">…</div>
+        <p>REAL QUOTE HERE.</p>
+        <figcaption class="review-card__author">Name — verified purchase</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="content-width">
+    <div class="section-head reveal">
+      <div class="kicker">Questions</div>
+      <h2>FAQs</h2>
+    </div>
+    <div class="accordion">
+      <details>
+        <summary>What does Lennox actually make?</summary>
+        <div class="accordion__body"><p>Four things today: the Scalp Ritual, a nine-session copper peptide course for the scalp; the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early. Everything is on the <a href="/catalog">catalog</a>.</p></div>
+      </details>
+      <details>
+        <summary>When will my order arrive?</summary>
+        <div class="accordion__body"><p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. Body Tape ships from a different warehouse and usually takes 9–13 days. You get the tracking number by email the moment it ships.</p></div>
+      </details>
+      <details>
+        <summary>What's the guarantee?</summary>
+        <div class="accordion__body"><p>30 days on everything. If it isn't for you, text or call <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — you don't ship anything back, and there's no form to fill in.</p></div>
+      </details>
+      <details>
+        <summary>Is there a subscription?</summary>
+        <div class="accordion__body"><p>No. Nothing here renews, and nothing is cheaper only if you sign up for something. Multi-packs cost less per unit because you bought more, not because you joined anything.</p></div>
+      </details>
+      <details>
+        <summary>Do you ship outside the US?</summary>
+        <div class="accordion__body"><p>Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door.</p></div>
+      </details>
+      <details>
+        <summary>Why are there only four products?</summary>
+        <div class="accordion__body"><p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ feature cards ============ -->
+<section class="section section--soft">
+  <div class="page-width">
+    <div class="features__grid">
+      <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M1 3h13v13H1zM14 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/>
+        </svg>
+        <h3>Free tracked shipping</h3>
+        <p>On every order, no minimum. Dispatched in 1–2 days and tracked the whole way.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <h3>30 days to change your mind</h3>
+        <p>We refund every cent and you keep it. No returns to mail, no form to fill in.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 5h6l2 5-3 2a11 11 0 005 5l2-3 5 2v6a15 15 0 01-17-17z"/>
+        </svg>
+        <h3>A person, not a queue</h3>
+        <p>Text or call (929) 670-9555 and reach someone who can actually fix it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ closing ============ -->
+<section class="section closing">
+  <div class="content-width">
+    <h2>Start with one.</h2>
+    <p>Free US shipping, and 30 days to change your mind on any of it.</p>
+    <div class="btn-row btn-row--center"><a class="btn btn--accent btn--lg" href="/catalog">Shop the collection</a></div>
+  </div>
+</section>
+
+<!-- ============ footer ============ -->
+<div class="divider-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"></path></svg>
+</div>
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__grid">
+      <div>
+        <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
+        <p>Hair and body essentials, each built to do one job well.</p>
+      </div>
+      <div>
+        <div data-lb-signup></div>
+      </div>
+      <div>
+        <h3>Support</h3>
+        <p>Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>
+          Email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>
+          Mon–Sat, 9am–7pm ET.</p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/catalog">All products</a></li>
+          <li><a href="/scalp-ritual">The Scalp Ritual</a></li>
+          <li><a href="/silk-serum">The Silk Serum</a></li>
+          <li><a href="/batana-oil">Batana Oil</a></li>
+          <li><a href="/body-tape">Body Tape</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 Lennox Beauty · Free US shipping · 30-day money-back guarantee</p>
+      <div class="footer-pay" aria-label="Accepted payment methods">
+        <img src="/img/pay/visa.svg" alt="Visa" width="38" height="24" loading="lazy">
+        <img src="/img/pay/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy">
+        <img src="/img/pay/amex.svg" alt="American Express" width="38" height="24" loading="lazy">
+        <img src="/img/pay/discover.svg" alt="Discover" width="38" height="24" loading="lazy">
+        <img src="/img/pay/apple-pay.svg" alt="Apple Pay" width="38" height="24" loading="lazy">
+        <img src="/img/pay/google-pay.svg" alt="Google Pay" width="38" height="24" loading="lazy">
+        <img src="/img/pay/shop-pay.svg" alt="Shop Pay" width="38" height="24" loading="lazy">
+      </div>
+    </div>
+  </div>
+</footer>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -469,6 +426,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   ]
 }
 </script>
+<!-- FAQPage markup mirrors the six questions actually on this page. It used to carry
+     the Silk Serum's FAQ instead, which is a mismatch Google treats as ineligible. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -476,287 +435,60 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Will this make my hair greasy?",
+      "name": "What does Lennox actually make?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No — it's a weightless leave-in mist, not an oil you pour on. The fine spray lays down a very thin, even layer that dries silky instead of sitting on top of your hair. If coconut or castor oil burned you before, this feels completely different."
+        "text": "Four things today: the Scalp Ritual, a nine-session copper peptide course for the scalp; the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early."
       }
     },
     {
       "@type": "Question",
-      "name": "Does it work on curly, textured, or color-treated hair?",
+      "name": "When will my order arrive?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. It smooths the cuticle without relaxing your pattern — curls stay curls, minus the halo of frizz. Safe for color-treated hair."
+        "text": "Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. Body Tape ships from a different warehouse and usually takes 9–13 days. You get the tracking number by email the moment it ships."
       }
     },
     {
       "@type": "Question",
-      "name": "How long until I see results?",
+      "name": "What's the guarantee?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flyaways smooth immediately. The full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set."
+        "text": "30 days on everything. If it isn't for you, text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund every cent — you don't ship anything back, and there's no form to fill in."
       }
     },
     {
       "@type": "Question",
-      "name": "When will I get it?",
+      "name": "Is there a subscription?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Orders are dispatched within 1–2 business days and typically arrive 7–13 days later, tracked the whole way. You'll get the tracking number by email the moment it ships."
+        "text": "No. Nothing here renews, and nothing is cheaper only if you sign up for something. Multi-packs cost less per unit because you bought more, not because you joined anything."
       }
     },
     {
       "@type": "Question",
-      "name": "What if it doesn't work for me?",
+      "name": "Do you ship outside the US?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "30-day money-back guarantee. Text or call (929) 670-9555 or email Lennoxsupport@gmail.com and we refund you — you don't even ship the bottle back."
+        "text": "Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door."
       }
     },
     {
       "@type": "Question",
-      "name": "Does it have a scent?",
+      "name": "Why are there only four products?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, but lightly — rose. You catch it when you first mist, and it fades to something faint rather than following you round the day. Two of the twenty-two people who rated our manufacturer's listing tagged it “no fragrance”, so treat it as barely-there. It won't fight anything you wear over it."
+        "text": "Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says in development and stays that way until it's real."
       }
     }
   ]
 }
 </script>
-</head>
-<body>
 
-<div class="bar">Free US shipping on every order · <b>30-day money-back guarantee</b></div>
-
-<header>
-  <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="logo">Lennox <span>Beauty</span></div>
-  <span style="width:40px" aria-hidden="true"></span>
-</header>
-
-<nav class="site-menu" id="siteMenu" aria-hidden="true">
-  <a href="/" onclick="closeMenu()">Home</a>
-  <a href="/catalog" onclick="closeMenu()">Shop</a>
-  <a href="/contact" onclick="closeMenu()">Contact</a>
-  <a href="/about" onclick="closeMenu()">About Our Brand</a>
-</nav>
-
-<!-- ================= HERO ================= -->
-<!-- Says what this shop is in the first line. "Small things, done properly" is a good
-     brand line but it doesn't tell a first-time visitor from an ad what we sell, so it
-     drops to the eyebrow and the headline does the explaining. -->
-<section class="hero-band">
-  <div class="wrap hero-inner">
-    <p class="hero-eyebrow">Small things, done properly</p>
-    <h1>Beauty, made simpler.</h1>
-    <p class="hero-lead">Hair and body essentials for your everyday routine — each one built to do
-      a single job well, and priced like an everyday thing.</p>
-    <div class="cta-row hero-cta">
-      <a class="btn accent" href="#shop">Shop now</a>
-      <a class="btn ghost" href="/about">Our story</a>
-    </div>
-
-    <ul class="micro-trust">
-      <li>30-day guarantee</li>
-      <li>Free US shipping</li>
-      <li>Tracked delivery</li>
-      <li>Secure checkout</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ================= FEATURED PRODUCTS ================= -->
-<!-- Moved above the brand story. A visitor arriving from an ad should see something they
-     can buy without scrolling through who we are first. -->
-<section class="wrap" id="shop">
-  <div class="head" style="text-align:center">
-    <div class="kicker">Shop</div>
-    <h2>What we make.</h2>
-    <p class="muted" style="max-width:34rem;margin:0 auto">Four products available today. Two more
-      are in development — when something isn't ready, we say so.</p>
-  </div>
-
-  <div class="catalog" style="margin-top:2.6rem">
-
-    <div class="card" onclick="location.href='scalp-ritual'" style="cursor:pointer">
-      <img src="img/scalp/card.webp" alt="The Scalp Ritual tray: nine sealed blue 5ml ampoules and the clear micro-infusion head" width="1200" height="1200" decoding="async" loading="lazy">
-      <h3>The Scalp Ritual</h3>
-      <p class="desc">Nine sealed copper peptide ampoules and a 0.2&nbsp;mm infusion head.</p>
-      <p class="price">From $149</p>
-      <a class="badge live" href="/scalp-ritual">Shop now</a>
-    </div>
-
-    <div class="card" onclick="location.href='silk-serum'" style="cursor:pointer">
-      <img src="img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" decoding="async" loading="lazy">
-      <h3>The Silk Serum</h3>
-      <p class="desc">Smooths flyaways and kills static in about sixty seconds.</p>
-      <p class="price">From $24.99</p>
-      <a class="badge live" href="/silk-serum">Shop now</a>
-    </div>
-
-    <div class="card" onclick="location.href='batana-oil'" style="cursor:pointer">
-      <img src="img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" decoding="async" loading="lazy">
-      <h3>Batana Oil</h3>
-      <p class="desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
-      <p class="price">$29.99</p>
-      <a class="badge live" href="/batana-oil">Shop now</a>
-    </div>
-
-    <div class="card" onclick="location.href='body-tape'" style="cursor:pointer">
-      <img src="img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" decoding="async" loading="lazy">
-      <h3>Body Tape</h3>
-      <p class="desc">Three shades, three widths &mdash; for everything a bra ruins.</p>
-      <p class="price">$24.99</p>
-      <a class="badge live" href="/body-tape">Shop now</a>
-    </div>
-
-  </div>
-
-  <p class="shop-all"><a href="/catalog">See everything, including what's coming &rarr;</a></p>
-</section>
-
-<!-- ================= WHY LENNOX ================= -->
-<section class="trust-band">
-  <div class="wrap trust-row">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M1 3h13v13H1zM14 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/>
-      </svg>
-      <h3>Free US shipping</h3>
-      <p>On every order, no minimum and no threshold to hit.</p>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
-      </svg>
-      <h3>Dispatched in 1–2 days</h3>
-      <p>Tracked the whole way. Most orders land within 7–13 days.</p>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
-      </svg>
-      <h3>30 days to change your mind</h3>
-      <p>We refund every cent and you keep it. No returns to mail.</p>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M4 5h6l2 5-3 2a11 11 0 005 5l2-3 5 2v6a15 15 0 01-17-17z"/>
-      </svg>
-      <h3>A person, not a queue</h3>
-      <p>Text or call (929) 670-9555 and reach someone who can fix it.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= REVIEWS ================= -->
-<!-- Intentionally not here yet. A reviews block is the single biggest thing this page is
-     missing for cold Meta traffic — but the shop has one real customer, so there is
-     nothing truthful to put in it. The markup below is ready: drop real quotes in, delete
-     the comment wrapper, and it renders. Do not fill it with anything invented; this
-     brand's whole pitch is that we don't.
-
-<section class="wrap reviews-band">
-  <div class="kicker">Reviews</div>
-  <h2>What customers say.</h2>
-  <div class="reviews">
-    <figure class="review">
-      <blockquote>REAL QUOTE HERE.</blockquote>
-      <figcaption>Name, verified purchase — Product</figcaption>
-    </figure>
-  </div>
-</section>
--->
-
-<!-- ================= BRAND STORY ================= -->
-<section class="wrap about-band">
-  <div class="kicker">Our story</div>
-  <h2>Beauty shouldn't have to cost a fortune.</h2>
-  <!-- Founder's own words, first person. "We'd rather sell you less" was the philosophy
-       without the reason behind it; this is the reason, and the philosophy now lands as
-       the conclusion it actually is. -->
-  <p>I started Lennox because I genuinely love beauty — and because I watched a simple routine
-    turn into hundreds of dollars of products you barely use. I wanted a brand built on things
-    that earn their place, without buying ten of them to solve one problem.</p>
-  <p class="about-kicker-line">Which is why we'd rather sell you less.</p>
-  <a class="btn ghost" href="/about">Learn more</a>
-</section>
-
-<!-- ================= FAQ ================= -->
-<section class="wrap" id="faq">
-  <div class="kicker">Questions</div>
-  <h2>FAQs</h2>
-  <details>
-    <summary>What does Lennox actually make?</summary>
-    <p>Four things today: the Scalp Ritual, a nine-session copper peptide course for the scalp; the Silk Serum, a daily leave-in mist for frizz; Batana Oil, a weekly deep treatment for dry and damaged hair; and Body Tape, in three shades and three widths. Two more are in development and we'd rather show them late than early. Everything is on the <a href="/catalog">catalog</a>.</p>
-  </details>
-  <details>
-    <summary>When will my order arrive?</summary>
-    <p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. Body Tape ships from a different warehouse and usually takes 9–13 days. You get the tracking number by email the moment it ships.</p>
-  </details>
-  <details>
-    <summary>What's the guarantee?</summary>
-    <p>30 days on everything. If it isn't for you, text or call <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — you don't ship anything back, and there's no form to fill in.</p>
-  </details>
-  <details>
-    <summary>Is there a subscription?</summary>
-    <p>No. Nothing here renews, and nothing is cheaper only if you sign up for something. Multi-packs cost less per unit because you bought more, not because you joined anything.</p>
-  </details>
-  <details>
-    <summary>Do you ship outside the US?</summary>
-    <p>Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door.</p>
-  </details>
-  <details>
-    <summary>Why are there only four products?</summary>
-    <p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p>
-  </details>
-</section>
-
-<!-- ================= CLOSING CTA ================= -->
-<section class="closing-cta">
-  <div class="wrap">
-    <h2>Start with one.</h2>
-    <p>Free US shipping, and 30 days to change your mind on any of it.</p>
-    <a class="btn accent" href="/catalog">Shop the collection</a>
-  </div>
-</section>
-<footer>
-  <div data-lb-signup></div>
-  <div class="logo">Lennox <span>Beauty</span></div>
-  <p>© 2026 Lennox Beauty · Questions? Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>30-day money-back guarantee</p>
-</footer>
-
-<!-- sticky mobile CTA -->
-<div class="sticky-cta">
-  <div class="p">From $24.99<small>Free shipping · 30-day guarantee</small></div>
-  <a class="btn accent" href="/silk-serum">Shop now</a>
-</div>
-
-<script>
-  function toggleMenu(){
-    const open = document.getElementById('siteMenu').classList.toggle('open');
-    document.getElementById('burgerBtn').classList.toggle('open', open);
-    document.getElementById('burgerBtn').setAttribute('aria-expanded', open);
-    document.getElementById('siteMenu').setAttribute('aria-hidden', !open);
-    document.body.classList.toggle('menu-open', open);
-  }
-  function closeMenu(){
-    document.getElementById('siteMenu').classList.remove('open');
-    document.getElementById('burgerBtn').classList.remove('open');
-    document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
-    document.getElementById('siteMenu').setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('menu-open');
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-</script>
-
-<script src="cart.js" defer></script>
-<script src="signup.js" defer></script>
-<script src="chatbot.js" defer></script>
+<script src="/theme.js" defer></script>
+<script src="/cart.js" defer></script>
+<script src="/signup.js" defer></script>
+<script src="/chatbot.js" defer></script>
 
 </body>
 </html>
