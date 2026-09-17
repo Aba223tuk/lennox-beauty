@@ -230,19 +230,39 @@
     }
   }
 
-  /* index.html shows a fixed .sticky-cta buy bar below 760px — exactly where paid
-     traffic lands. Lift the widget above it so the launcher never covers the buy
-     button. Self-adjusting, so it's a no-op on pages without the bar. */
+  /* Product pages show a fixed buy bar along the bottom — exactly where paid traffic
+     lands, and exactly where this launcher sits. Lift the widget above it so it can
+     never cover the buy button. Self-adjusting, so it's a no-op on pages without one.
+
+     Measured off the bounding rect, not display/offsetHeight: the theme's .sticky-atc
+     is always rendered and slides in and out with a transform, so "is it showing" is a
+     question about where it is on screen, not whether it is in the layout. That is also
+     why this has to run on scroll — an earlier version only listened for resize and
+     never noticed a bar that appears halfway down the page.
+
+     This function owns --lcb-lift. Nothing else should set it: it is written on the
+     widget's own root, so a value set on documentElement loses to it and the two
+     silently disagree. That happened, and the launcher sat on top of Add to cart. */
   function applyLift() {
     var lift = 0;
-    var bars = document.querySelectorAll('.sticky-cta');
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var bars = document.querySelectorAll('.sticky-atc, .sticky-cta');
     for (var i = 0; i < bars.length; i++) {
       var b = bars[i], cs = getComputedStyle(b);
-      if (cs.display !== 'none' && cs.visibility !== 'hidden' && cs.position === 'fixed') {
-        lift = Math.max(lift, b.offsetHeight);
-      }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.position !== 'fixed') continue;
+      var r = b.getBoundingClientRect();
+      // How much of the bar is actually inside the viewport, from the bottom up.
+      var showing = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      if (showing > 1) lift = Math.max(lift, showing);
     }
-    root.style.setProperty('--lcb-lift', lift ? (lift + 8) + 'px' : '0px');
+    root.style.setProperty('--lcb-lift', lift ? Math.round(lift + 8) + 'px' : '0px');
+  }
+
+  var liftQueued = false;
+  function queueLift() {
+    if (liftQueued) return;
+    liftQueued = true;
+    requestAnimationFrame(function () { liftQueued = false; applyLift(); });
   }
 
   function build() {
@@ -272,8 +292,14 @@
       '</div>';
     document.body.appendChild(root);
     applyLift();
-    window.addEventListener('resize', applyLift);
-    window.addEventListener('orientationchange', applyLift);
+    window.addEventListener('resize', queueLift);
+    window.addEventListener('orientationchange', queueLift);
+    // The buy bar slides in partway down the page, so scroll is the event that matters.
+    window.addEventListener('scroll', queueLift, { passive: true });
+    // …and it slides rather than snaps, so catch the end of that transition too.
+    document.addEventListener('transitionend', function (e) {
+      if (e.target && e.target.classList && e.target.classList.contains('sticky-atc')) applyLift();
+    });
 
     msgs = root.querySelector('.lcb-msgs');
     input = root.querySelector('.lcb-in');

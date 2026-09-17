@@ -502,7 +502,10 @@ body.drawer-open{overflow:hidden}
 .sticky-atc__title{font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sticky-atc__price{font-size:.8rem;color:var(--ink-faint)}
 .sticky-atc__price s{margin-right:.3rem}
-.sticky-atc .btn{padding:.8rem 1.2rem;font-size:.78rem;white-space:nowrap}
+/* flex:none, or the flex row shrinks the button below its own label and the text is
+   clipped mid-word — "ADD TO C" — on a narrow phone. The title beside it is the
+   element that should give way, and it already truncates with an ellipsis. */
+.sticky-atc .btn{padding:.8rem 1.2rem;font-size:.78rem;white-space:nowrap;flex:none}
 @media(min-width:990px){.sticky-atc__img{width:48px;height:48px}}
 
 /* ============================================================ collapsible content */

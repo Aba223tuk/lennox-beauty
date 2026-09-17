@@ -150,21 +150,17 @@
     var anchor = $('[data-atc-anchor]') || $('.product__info');
     if (!anchor || !('IntersectionObserver' in window)) { bar.classList.add('is-visible'); return; }
 
+    /* Showing and hiding the bar is all this does. Getting the chatbot launcher out
+       of its way is chatbot.js's job — it owns --lcb-lift, sets it on its own root,
+       and measures the bar off its bounding rect. Writing that property from here too
+       looked like it worked and did not: the widget's own value wins, so the launcher
+       stayed sitting on top of Add to cart. */
     new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         var past = e.boundingClientRect.top < 0 && !e.isIntersecting;
         bar.classList.toggle('is-visible', past);
-        lift(past);
       });
     }, { threshold: 0 }).observe(anchor);
-
-    /* chatbot.js already reads --lcb-lift for its launcher offset, so raising the
-       launcher over the bar is one custom property rather than a second rule about
-       who sits in the bottom-right corner. Without it the launcher covers the
-       add-to-cart button. */
-    function lift(on) {
-      document.documentElement.style.setProperty('--lcb-lift', on ? bar.offsetHeight + 8 + 'px' : '0px');
-    }
   }
 
   /* ---------------------------------------------------------- review rail dots */
