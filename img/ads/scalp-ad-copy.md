@@ -148,3 +148,35 @@ Concept B is the **mechanism** ad, so its headline is now the mechanism:
 
 **The rule this leaves behind: read the headline against its own photograph.** Every claim of
 quantity in a composited headline has to survive being looked at next to the thing it counts.
+
+---
+
+## Ad-to-page match — 2026-09-19
+
+The page now states cadence, a per-session price and a clinic comparison. Two things follow.
+
+**Destination.** The line above still says `lennoxbeauty.com/scalp.html`. Live destinations were
+audited to **`https://lennoxbeauty.com/scalp-ritual`** on 09-15. Use the slug; `scalp.html` is a
+redirect stub and a hop that costs nothing to remove.
+
+**Concept C's "salon microneedling" framing has to go.** It promises the clinic, and the page
+spends a section and an FAQ answer explaining that this is *not* the clinic — 0.2 mm against
+0.5 mm and up, no PRP, no drug. An ad that sells the clinic to a page that disclaims it is the
+worst kind of message mismatch: it buys the click and then argues with the visitor.
+
+Rewrite it as the shallow end rather than the deep one:
+
+> **Headline:** The 0.2 mm end, done at home
+> **Primary text:** A clinic works at 0.5 mm and up, with a numbing cream and an appointment.
+> The Scalp Ritual is the shallow, cosmetic end of the same idea: a 0.2 mm head that screws onto
+> a sealed ampoule of copper peptide serum, twice a week, in your own bathroom.
+> Nine sessions. Free US shipping, 30 days to change your mind.
+
+**Still forbidden, and now for a second reason:** *"Fuller-looking in 30 days, or refunded"* was
+swapped off LNX-SC-05 on 09-15. It stays off. The page prints a schedule — two a week, nine
+ampoules, session nine around day 29 — and a schedule is not a promise about what will be there
+at the end of it. An ad that converts the schedule into a timed result re-opens exactly the claim
+the page is built to avoid.
+
+**And the 5.0 / 133 never goes in an ad.** On the page that number carries a label saying whose
+buyers it belongs to. An ad has nowhere to put that label.

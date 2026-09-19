@@ -297,6 +297,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <!-- ========== buy column ========== -->
     <div class="product__info" data-atc-anchor>
       <h1 class="product__title">The Scalp Ritual</h1>
+      <!-- The hook is the same sentence Concept B's creative carries, word for word, so the ad
+           and the first screen say one thing rather than two. Change one, change the other. -->
+      <p class="product__hook">Into the scalp. Not onto the hair.</p>
 
       <!-- The dash clause is the entire compliance surface of this row and it is the
            floor, not a style choice — a star row on a product page reads as that
@@ -315,15 +318,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <span class="rating-row__note">— maker's listing →</span>
       </a>
 
-      <p class="product__tagline">Copper peptide micro-infusion · 9 × 5 ml ampoules + infusion head</p>
+      <!-- The three-second answer: what it is, what it does, why 0.2 mm, what's in the box.
+           Everything in this line is a fact about the goods — no claim to keep in step. -->
+      <p class="product__tagline">A nine-session copper peptide course you do at home. Nine sealed
+        5&nbsp;ml ampoules and one 0.2&nbsp;mm infusion head — cosmetic depth, the shallow end that
+        belongs in a bathroom rather than a clinic. Twice a week, about a month.</p>
 
       <!-- AUTHORITY MARK — read this before editing the block below.
-           Line one is a REAL, SPECIFIC endorsement: Illia's own physician recommended this kit
+           Line one is a REAL, SPECIFIC endorsement: the founder's own physician recommended this kit
            to him (stated 2026-09-17). It is printed as exactly that, and the founder connection
            is visible on purpose — FTC 16 CFR 255.5 wants a material connection disclosed, not
            buried, and "his physician" is what makes the sentence true rather than a badge.
            What does NOT go here is the PLURAL: "doctor recommended", "doctors recommend",
-           "dermatologist tested", "clinically proven". Illia's own phrase for the plural was
+           "dermatologist tested", "clinically proven". The founder's own phrase for the plural was
            "safe to assume" — and one endorsement presented as typical when it hasn't been
            shown to be is the specific thing 16 CFR 255.2 prohibits. One doctor is a fact and
            prints. Many doctors is an inference and does not.
@@ -346,7 +353,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
              the price so the two can never disagree, and it is the honest way to read a $149
              line item on a nine-session kit. -->
         <span class="price-row__per" id="price-per">$16.56 a session</span>
-        <span class="price-row__note">Free US shipping · free Silk Serum included</span>
+        <span class="price-row__note">Free US shipping</span>
+        <!-- CLINIC ANCHOR. Two rules, both load-bearing.
+             1. It carries NO per-session figure of its own. That number lives in #price-per and
+                is derived from the selected tier; a second copy here would go stale the moment
+                somebody picks 2 kits.
+             2. The depth difference sits in the same sentence as the clinic price. A per-session
+                price beside a clinic price with no depth stated reads as "the same treatment,
+                cheaper" — which is the exact claim the FAQ below spends a paragraph refusing.
+                Never publish half of this sentence. -->
+        <p class="price-anchor">The 0.2&nbsp;mm end, done by you at home. A clinic works at
+          0.5&nbsp;mm and up, from $200 a session.</p>
       </div>
 
       <div class="benefit-row">
@@ -388,13 +405,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            what will be there. Do not let it drift into one. -->
       <ul class="value-props">
         <li><b>Hair that looks fuller where you part it.</b></li>
-        <li><b>Twice a week, at home, before bed.</b> Nine ampoules, so a kit is about a month.
-          No clinic, no numbing, no downtime.</li>
         <li><b>It reaches your scalp.</b> The serum feeds in at the surface as you roll, instead
           of coating the hair above it and rinsing off.</li>
-        <li><b>Judge it at session nine</b> — around day 29, inside the 30-day guarantee. Give it
-          the whole course first.</li>
-        <li><b>A free Silk Serum with every kit.</b> $24.99 each, and it ships on its own.</li>
+        <li><b>Twice a week, at home, before bed.</b> Nine ampoules, so a kit is about a month.
+          No clinic, no numbing, no downtime.</li>
+        <li><b>The whole course fits inside the guarantee.</b> Session nine lands around day 29,
+          with a day still in hand.</li>
         <li><b>A fresh, sealed dose every session.</b> Nothing to charge, decant or clean.</li>
       </ul>
 
@@ -418,7 +434,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           </label>
 
           <label class="break" data-qty="2">
-            <span class="break__badge">Most popular</span>
+            <!-- Was "Most popular". Nothing has been sold yet, so that was a sales figure we do
+                 not have — the same offence as a review we did not earn. The per-session figure
+                 is derived from the tier ($249 ÷ 18) and is true the day it goes up. -->
+            <span class="break__badge">$13.83 a session</span>
             <input type="radio" name="kits" value="2">
             <span class="break__row">
               <span class="break__mark" aria-hidden="true"></span>
@@ -477,6 +496,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            being true, this line and the ticker change together. -->
       <p class="run-note">First run — <b>130 kits</b>.</p>
 
+      <!-- FEAR, ANSWERED BEFORE THE BUTTON. One line, deliberately. This page is mobile-first and
+           every block placed above the CTA pushes the CTA off the first screen, so the reassurance
+           goes here and the full module sits directly below the buy box at #feels. -->
+      <p class="feels-strip">A prickle and a cool spread of serum. No numbing, no downtime.
+        <a href="#feels">What the first session is like →</a></p>
+
       <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout()" id="cta">Add to cart — $149.00</button>
 
       <!-- Express path. The ATC opens the cart drawer, which is right for anyone still
@@ -525,22 +550,116 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </div>
 
       <ul class="buy-trust">
-        <li>Free Silk Serum included</li>
         <li>Free US shipping</li>
         <li>Tracked delivery</li>
         <li>30-day money-back guarantee</li>
       </ul>
 
-      <!-- The gift comes from a different supplier, so it is a second parcel on its own
-           timeline. Saying so here is not a disclaimer, it is the thing that stops a
-           "where is my free serum" email on every order. Do not quietly drop it. -->
-      <p class="under">Arrives in about 7–13 days. <b>The free Silk Serum ships separately</b>
-        and can land a few days apart.<br>
-        <b>30 days to change your mind</b> — if it isn't for you, we refund every cent.
+      <!-- SHIPPING, LED BY WHAT ARRIVES rather than by the wait — and the lead sentence is the
+           true one: the serum is a second parcel on its own timeline and usually gets there
+           first, so something from us is in their hands while the kit is in transit.
+           That second-parcel fact is what stops a "where is my free serum" email on every
+           order. It is now stated twice on this page, not five times — here and in the gift
+           block above. Do not drop it from both.
+           "The 30 days start when it arrives" must match returns.html, which says *use it for
+           30 days from the day it arrives*. Change one, change the other. -->
+      <p class="under"><b>Your free Silk Serum ships on its own and usually lands first.</b> The
+        kit follows, tracked, in about 7–13 days.<br>
+        The 30 days start when it arrives — <b>if it isn't for you we refund every cent</b>.
         No returns to mail, no forms.</p>
     </div>
   </div>
 </div>
+
+<!-- ============ what it feels like ============ -->
+<!-- Sits directly below the buy box because the one-line version is already above the button.
+     Everything here is a description of the sensation and the handling — no outcome, no timing
+     claim. "Pinkness settles in an hour or two" is ordinary cosmetic-device guidance and stays
+     phrased as what is normal, never as proof that something is working. -->
+<section class="section section--tight" id="feels">
+  <div class="content-width">
+    <div class="section-head">
+      <div class="kicker">Before you start</div>
+      <h2>What it actually feels like</h2>
+    </div>
+    <!-- Drop `feels--nomedia` when the video is uncommented below — it collapses the two-column
+         layout to one so the copy is not sitting in a half-width column beside nothing. -->
+    <div class="feels feels--nomedia">
+      <!-- THE VIDEO IS NOT SHOT YET, so the player is commented out rather than left pointing at
+           a file that isn't there — an empty <video> frame on the fear-reduction module does the
+           opposite of reassuring anyone. Uncomment the moment both files exist.
+           Brief, 25s, silent-first with captions because most of it plays muted:
+             0–3s   hand lifts a sealed ampoule from the tray, screws the head on — keep the click
+             3–8s   macro of the head at 45°, needles against a fingertip for scale, no skin
+             8–18s  over-shoulder, real parting, three slow passes, serum visible as a thin sheen
+             18–23s head set down, wiped with an alcohol pad, left to air-dry
+             23–25s card: 0.2 mm · twice a week · nine sessions · $149
+           No faces, and no scalp close-up that could read as thinning — Meta's personal-attributes
+           policy bites on the creative as hard as it does on the copy.
+      <video class="feels__video" controls playsinline preload="none"
+             poster="/img/scalp/feels-poster.webp" width="1080" height="1350">
+        <source src="/img/scalp/first-session.mp4" type="video/mp4">
+        A 25-second demonstration of the infusion head being used along a part line.
+      </video>
+      -->
+      <div class="feels__copy">
+        <p><b>A prickle, and a cool spread of serum.</b> A 0.2&nbsp;mm head is the shallow end of
+          micro-needling — most people describe pressure and cold rather than pain. No numbing
+          cream, no bleeding, no downtime.</p>
+        <p><b>A little pink along the part line is normal</b> and settles within an hour or two.</p>
+        <p><b>Let the weight of the head do the work.</b> If it stings, you're pressing — ease off
+          and it stops.</p>
+        <p><b>First time?</b> Do one parting, not your whole head. Then decide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ your first month ============ -->
+<!-- THE TIMELINE, AND THE RULE THAT KEEPS IT HONEST: the two columns are what YOU do and what
+     the KIT does. Neither one says what your hair does. There is no trial, no customer and no
+     observation behind a "by session three you'll see…" row, and inventing one is the same
+     offence as inventing a review — it also walks straight through the settled line that
+     "judge it at session nine" is a direction about WHEN TO LOOK, not a promise about what will
+     be there. If real reviews ever supply an observed pattern, it belongs in the reviews block
+     as their words, not in this table as ours.
+     The three numbers here must match the hero bullets, "What's in the box" and "How to use it":
+     two sessions a week · nine ampoules · ninth session about day 29. -->
+<section class="section section--soft">
+  <div class="content-width">
+    <div class="section-head">
+      <div class="kicker">The course</div>
+      <h2>Your first month</h2>
+    </div>
+    <table class="compare-table month">
+      <thead>
+        <tr><th></th><th>What you do</th><th>What the kit does</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><b>Sessions 1–3</b><span>weeks 1–2</span></th>
+          <td data-label="What you do">Two a week, one ampoule, before bed.</td>
+          <td data-label="What the kit does">The head opens the surface and the serum goes in at
+            the part line, instead of sitting on the strand.</td>
+        </tr>
+        <tr>
+          <th scope="row"><b>Sessions 4–6</b><span>week 3</span></th>
+          <td data-label="What you do">Same rhythm. It takes minutes.</td>
+          <td data-label="What the kit does">Six sealed doses used, each opened fresh — nothing
+            decanted, nothing going flat on a shelf.</td>
+        </tr>
+        <tr>
+          <th scope="row"><b>Session 9</b><span>about day 29</span></th>
+          <td data-label="What you do">Judge it.</td>
+          <td data-label="What the kit does">The course is finished, and you're still inside the
+            30-day guarantee.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="month__note">That's a schedule, not a promise. What you see at session nine is yours
+      to judge — and if it wasn't for you, that's what the guarantee is for.</p>
+  </div>
+</section>
 
 <!-- ============ collapsible content ============ -->
 <section class="section section--tight">
@@ -563,7 +682,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </details>
       <details>
         <summary>Shipping &amp; delivery</summary>
-        <div class="accordion__body"><p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. US shipping is free. The free Silk Serum ships separately and can land a few days apart.</p></div>
+        <div class="accordion__body"><p>Free US shipping, tracked the whole way. Dispatched within
+          1–2 business days and typically with you 7–13 days later. Your free Silk Serum travels on
+          its own and usually arrives first.</p>
+          <p>The kit is a month-long course rather than a same-day fix, and the 30 days don't start
+          until it's in your hands. <a href="/shipping">Shipping details →</a></p></div>
       </details>
       <details>
         <summary>Our 30-day guarantee</summary>
@@ -573,44 +696,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </div>
 </section>
 
-<!-- ============ related products ============ -->
-<section class="section section--tight">
-  <div class="page-width">
-    <div class="section-head"><h2>You may also like</h2></div>
-    <div class="product-grid product-grid--3">
-      <a class="product-card" href="/silk-serum">
-        <div class="product-card__media"><img src="/img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" loading="lazy" decoding="async"></div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">The Silk Serum</h3>
-          <p class="product-card__desc">Smooths flyaways and kills static in about sixty seconds.</p>
-          <p class="product-card__price">From $24.99</p>
-        </div>
-      </a>
-      <a class="product-card" href="/batana-oil">
-        <div class="product-card__media">
-          <span class="product-card__badge">2nd jar half price</span>
-          <img src="/img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" loading="lazy" decoding="async">
-        </div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">Batana Oil</h3>
-          <p class="product-card__desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
-          <p class="product-card__price">$29.99</p>
-        </div>
-      </a>
-      <a class="product-card" href="/body-tape">
-        <div class="product-card__media"><img src="/img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" loading="lazy" decoding="async"></div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">Body Tape</h3>
-          <p class="product-card__desc">Three shades, three widths — for everything a bra ruins.</p>
-          <p class="product-card__price">$24.99</p>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ============ image with text: the problem ============ -->
-<!-- PROBLEM → SOLUTION, cut to the bone on 2026-09-15 on Illia's instruction: the page
+<!-- PROBLEM → SOLUTION, cut to the bone on 2026-09-15 on the founder's instruction: the page
      was too many words. Four paragraphs became these two short blocks. The 0.2 mm
      cuts-both-ways argument stays because the second half of it is the honest half —
      but it is one line, not a paragraph. Anything longer gets cut again. -->
@@ -777,23 +864,82 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      2026-09-13. Five real reviews is the number that changes this block. -->
 <section class="section" id="reviews">
   <div class="content-width">
+    <!-- PROOF, LED BY WHAT WE HAVE. The heading used to read "Ratings for this kit" above a
+         number that belongs to the maker's buyers, which let a borrowed 5.0 read as ours.
+         Two things are now fixed and neither is cosmetic:
+         1. The three true things come FIRST, so the section opens on what is ours.
+         2. The borrowed number keeps its label. It is one of exactly two permitted relay
+            exceptions on this page — deleting the label while keeping the 5.0 is passing
+            somebody else's ratings off as ours, which is misrepresentation rather than tone.
+         The whole block is replaced by real reviews the day buyers have finished a course. -->
     <div class="section-head">
-      <div class="kicker">Ratings</div>
-      <h2>Ratings for this kit</h2>
+      <div class="kicker">Proof</div>
+      <h2>What we can show you today</h2>
     </div>
+    <ul class="proof">
+      <li><b>Recommended to our founder by his physician.</b></li>
+      <li><b>GHK-Cu has been studied in skin research since 1973.</b>
+        <a href="#ghk">The research →</a></li>
+      <li><b>Thirty days, every cent back, and the kit stays yours.</b> No returns to mail, no
+        forms to fill in.</li>
+    </ul>
     <div class="src">
       <div class="src-top">
         <div class="src-score">5.0</div>
         <div class="stars" role="img" aria-label="Rated 5.0 out of 5">★★★★★</div>
         <div class="src-n">133 verified-purchase ratings</div>
       </div>
-      <p class="src-note">The maker's listing for this kit — not our own buyers.</p>
+      <p class="src-note">Our supplier's record for this kit — their buyers, not ours. Lennox
+        reviews, with first names and dates, go here as soon as buyers have finished a course.</p>
       <figure class="src-q">
         <blockquote>&ldquo;It arrived early and was packaged very well. The microneedle design
           makes applications easy, and I really enjoy the filling sensation it provides on the
           scalp&hellip;&rdquo;</blockquote>
         <figcaption>b***r · 1 Sep 2026 · 4 people found this helpful</figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ founder ============ -->
+<!-- The phone number was already the strongest trust asset on this site and it was sitting in
+     an accordion four screens down. This section is where it belongs.
+     NO NAME ON THIS PAGE. Decided 2026-09-19: the founder is not named anywhere on the site,
+     so this block speaks as the brand — "one person", "our founder" — and never in a signed
+     first person. Do not reintroduce a name, a signature or an "I'm …" line.
+     WHAT IS FACT HERE AND WHAT IS NOT: the physician recommendation is the founder's own
+     statement, 2026-09-17, and prints as the singular. The PLURAL does not — no "doctors
+     recommend", no "dermatologist tested". The sentence marked TODO is the founder's to write
+     and nobody else's; a founder story invented for them is exactly what the rest of this page
+     refuses.
+     Photo: his to supply. If he would rather not show his face, hands-and-workspace plus the
+     signature does the same job. What it cannot be is a stock photo of somebody else. -->
+<section class="section section--tight" id="founder">
+  <div class="content-width">
+    <div class="founder">
+      <!-- Photo does not exist yet, so it is commented out rather than left as a broken frame on
+           the one section whose whole job is looking like a real person. A stock photo of
+           somebody else is not an option here. Hands and a workspace do the job if a face is
+           not wanted. Save it as /img/brand/founder.webp, square, and uncomment.
+      <img class="founder__photo" src="/img/brand/founder.webp" alt="The founder of Lennox Beauty"
+           width="320" height="320" loading="lazy" decoding="async">
+      -->
+      <div class="founder__copy">
+        <div class="kicker">The person behind this</div>
+        <h2>One person, and a phone number that rings.</h2>
+        <p>Lennox Beauty is one person. Not a team, not a queue — whoever picked this kit is the
+          same person who answers the phone.</p>
+        <p><b>Our founder's own physician recommended it.</b> That is why the kit is on this site
+          at all.
+          <!-- TODO: one true sentence from the founder — roughly when, and what the doctor
+               actually said. Nobody else writes it. Leave this comment here until it lands. -->
+        </p>
+        <p>What we'll do: print reviews we earned, name the research we lean on, and say on the
+          page that's selling you something exactly what it can't do. The FAQ below is where that
+          lives.</p>
+        <p class="founder__sign"><b>Text or call: <a href="tel:+19296709555">(929) 670-9555</a>.</b>
+          A person picks up.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -855,7 +1001,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </details>
       <details>
         <summary>Shipping &amp; delivery</summary>
-        <div class="accordion__body"><p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. US shipping is free.</p></div>
+        <div class="accordion__body"><p>Free US shipping, tracked the whole way. Dispatched within
+          1–2 business days and typically with you 7–13 days later. Your free Silk Serum travels on
+          its own and usually arrives first. <a href="/shipping">Shipping details →</a></p></div>
       </details>
       <details>
         <summary>Our 30-day guarantee</summary>
@@ -865,6 +1013,78 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <summary>Questions?</summary>
         <div class="accordion__body"><p>Text or call <a href="tel:+19296709555">(929) 670-9555</a>, or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a>. Either way it is a person, not a ticket queue.</p></div>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ capture ============ -->
+<!-- For the visitor who is interested and not spending $149 today. Not a discount — discounting a
+     $149 kit on its first run teaches people to wait, and the gift in the box is already the
+     concession.
+     THE OFFER IS THE NEXT-RUN NOTICE, and that is deliberate: it is true with nothing built.
+     The earlier draft promised a two-minute explainer email, which would have needed a Klaviyo
+     welcome flow on list SjUu7D to exist first — a page that promises an email nobody sends is
+     the same broken promise as a review we did not earn.
+     The explainer copy is written and sitting in the vault note. Build the flow, then swap
+     data-body / data-cta / data-thanks back to it — not before.
+     Plumbing is signup.js, shared with every other page; only the words are per-page. -->
+<section class="section section--tight">
+  <div class="content-width">
+    <div data-lb-signup
+         data-lead="scalp-next-run"
+         data-heading="The first run is 130 kits."
+         data-body="Leave your email and we'll tell you when the next run lands. That is the only thing we'll use it for — no sequence, no countdown."
+         data-cta="Keep me posted"
+         data-thanks="You're on the list. We'll tell you when the next run lands."
+         data-fine="A handful of emails a year. Unsubscribe in one click."></div>
+  </div>
+</section>
+
+<!-- Exit intent on desktop, 70% scroll on touch. signup.js suppresses it entirely once a cart
+     exists, so it never interrupts somebody who has already added the kit. Leads with the
+     guarantee because that is the objection at this price, and it is the one thing on this page
+     that is entirely ours to promise. Second paragraph is the next-run notice for the same
+     reason as the block above — it is true with nothing built. -->
+<div data-lb-exit hidden
+     data-lead="scalp-exit"
+     data-heading="Thirty days to change your mind."
+     data-body="If the kit isn't for you we refund every cent and you keep it — no returns to mail, no forms. The first run is 130 kits; leave your email and we'll tell you when the next one lands."
+     data-cta="Keep me posted"
+     data-thanks="You're on the list. Take your time."
+     data-fine="A handful of emails a year. Unsubscribe in one click."></div>
+
+<!-- ============ related products ============ -->
+<section class="section section--tight">
+  <div class="page-width">
+    <div class="section-head"><h2>You may also like</h2></div>
+    <div class="product-grid product-grid--3">
+      <a class="product-card" href="/silk-serum">
+        <div class="product-card__media"><img src="/img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">The Silk Serum</h3>
+          <p class="product-card__desc">Smooths flyaways and kills static in about sixty seconds.</p>
+          <p class="product-card__price">From $24.99</p>
+        </div>
+      </a>
+      <a class="product-card" href="/batana-oil">
+        <div class="product-card__media">
+          <span class="product-card__badge">2nd jar half price</span>
+          <img src="/img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Batana Oil</h3>
+          <p class="product-card__desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
+          <p class="product-card__price">$29.99</p>
+        </div>
+      </a>
+      <a class="product-card" href="/body-tape">
+        <div class="product-card__media"><img src="/img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Body Tape</h3>
+          <p class="product-card__desc">Three shades, three widths — for everything a bra ruins.</p>
+          <p class="product-card__price">$24.99</p>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -915,7 +1135,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
         <p>Hair and body essentials, each built to do one job well.</p>
       </div>
-      <div><div data-lb-signup></div></div>
+      <!-- The site-wide coming-soon signup is deliberately NOT here. This page carries its own
+           capture above the cross-sell band with an offer that matches what the visitor was
+           reading; two email forms on one page compete and the generic one wins nothing. -->
+      <div></div>
       <div>
         <h3>Support</h3>
         <p>Text or call <a href="tel:+19296709555">(929) 670-9555</a><br>
@@ -941,6 +1164,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <a href="/terms">Terms of Service</a>
         <a href="/privacy">Privacy Policy</a>
         <a href="/returns">Returns &amp; Refunds</a>
+        <a href="/shipping">Shipping</a>
       </nav>
       <div class="footer-pay" aria-label="Accepted payment methods">
         <img src="/img/pay/visa.svg" alt="Visa" width="38" height="24" loading="lazy">

@@ -119,13 +119,29 @@
     });
   }
 
+  /* Per-host copy. A page that wants its own offer sets data-heading / data-body /
+     data-cta / data-fine / data-lead on the host div; anything unset falls back to the
+     site-wide coming-soon copy below. Only the words are overridable — consent, the
+     honeypot, the Klaviyo list and the never-claim-a-success-we-cannot-verify rule are
+     shared and stay shared. */
+  function copy(host, name, fallback) {
+    var v = host.getAttribute('data-' + name);
+    return v === null || v === '' ? fallback : v;
+  }
+
+  var ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' };
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) { return ESCAPES[c]; });
+  }
+
   function mount(host) {
+    var lead = copy(host, 'lead', 'coming-soon-list');
     host.className = (host.className ? host.className + ' ' : '') + 'lbs';
     host.innerHTML =
-      '<h2 class="lbs-h">Two more products are coming.</h2>' +
-      '<p class="lbs-p">The Sleek Stick and the Heat Shield are in development. ' +
-        'Leave your email and we\'ll tell you the day they land — that\'s all we ' +
-        'use it for.</p>' +
+      '<h2 class="lbs-h">' + esc(copy(host, 'heading', 'Two more products are coming.')) + '</h2>' +
+      '<p class="lbs-p">' + esc(copy(host, 'body',
+        'The Sleek Stick and the Heat Shield are in development. Leave your email and ' +
+        'we\'ll tell you the day they land — that\'s all we use it for.')) + '</p>' +
       '<form class="lbs-form" novalidate>' +
         '<label class="lbs-hp" aria-hidden="true">' +
           'Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off">' +
@@ -133,10 +149,11 @@
         '<label class="lbs-hp" for="lbs-email">Email address</label>' +
         '<input id="lbs-email" type="email" name="email" required ' +
           'autocomplete="email" inputmode="email" placeholder="you@example.com">' +
-        '<button type="submit">Keep me posted</button>' +
+        '<button type="submit">' + esc(copy(host, 'cta', 'Keep me posted')) + '</button>' +
       '</form>' +
       '<p class="lbs-msg" role="status" aria-live="polite"></p>' +
-      '<p class="lbs-fine">No more than a handful of emails a year. Unsubscribe in one click.</p>';
+      '<p class="lbs-fine">' + esc(copy(host, 'fine',
+        'No more than a handful of emails a year. Unsubscribe in one click.')) + '</p>';
 
     var form = host.querySelector('form');
     var input = host.querySelector('#lbs-email');
@@ -164,9 +181,9 @@
           if (!r.ok && r.status !== 202) throw new Error('http ' + r.status);
           markDone();
           form.remove();
-          say('You\'re on the list. We\'ll be in touch when they land.', 'ok');
-          try { fbq('track', 'Lead', { content_name: 'coming-soon-list' }); } catch (_) {}
-          try { gtag('event', 'generate_lead', { method: 'coming_soon_list' }); } catch (_) {}
+          say(copy(host, 'thanks', 'You\'re on the list. We\'ll be in touch when they land.'), 'ok');
+          try { fbq('track', 'Lead', { content_name: lead }); } catch (_) {}
+          try { gtag('event', 'generate_lead', { method: lead }); } catch (_) {}
         })
         .catch(function () {
           btn.disabled = false;
@@ -177,16 +194,104 @@
     });
   }
 
+  /* ---------------------------------------------------------------------------
+     SECOND CHANCE — one modal, once per visitor, never shown to a buyer.
+
+     Desktop gets real exit intent: the pointer leaving through the top of the
+     window. Touch has no equivalent signal, and the usual mobile substitute —
+     firing on a fast upward flick — goes off when somebody reaches for the address
+     bar, which reads as a trap and is worse than showing nothing. Mobile gets depth
+     instead: 70% of the page, which at least means they read it.
+
+     Suppressed outright when a cart exists (cart.js writes lb_cart_id). Interrupting
+     somebody who has already added the kit can only cost the sale.
+     --------------------------------------------------------------------------- */
+  var SEEN = 'lb_exit_seen';
+  function seen() { try { return localStorage.getItem(SEEN) === '1'; } catch (e) { return false; } }
+  function markSeen() { try { localStorage.setItem(SEEN, '1'); } catch (e) {} }
+  function hasCart() { try { return !!localStorage.getItem('lb_cart_id'); } catch (e) { return false; } }
+
+  function modalCss() {
+    return '' +
+    '.lbx{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;' +
+      'padding:1.2rem;background:rgba(24,20,16,.55);opacity:0;transition:opacity .18s ease}' +
+    '.lbx.is-open{opacity:1}' +
+    '.lbx__box{position:relative;width:100%;max-width:30rem;background:var(--bg,#fbf8f3);' +
+      'border-radius:14px;padding:1.6rem 1.3rem 1.1rem;box-shadow:0 24px 60px rgba(0,0,0,.28);' +
+      'transform:translateY(8px);transition:transform .18s ease}' +
+    '.lbx.is-open .lbx__box{transform:none}' +
+    '.lbx__x{position:absolute;top:.45rem;right:.55rem;width:2rem;height:2rem;border:0;' +
+      'background:none;font-size:1.4rem;line-height:1;cursor:pointer;color:var(--ink-soft,#6b645a)}' +
+    '.lbx .lbs{border-top:0;margin-top:0;padding:0}' +
+    '@media (prefers-reduced-motion:reduce){.lbx,.lbx__box{transition:none}}';
+  }
+
+  function armExit(host) {
+    if (seen() || hasCart()) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'lbx';
+    wrap.setAttribute('role', 'dialog');
+    wrap.setAttribute('aria-modal', 'true');
+    wrap.setAttribute('aria-label', host.getAttribute('data-heading') || 'Before you go');
+    wrap.innerHTML = '<div class="lbx__box">' +
+      '<button class="lbx__x" type="button" aria-label="Close">&times;</button>' +
+      '<div class="lbx__body"></div></div>';
+
+    var opened = false, lastFocus = null;
+
+    function close() {
+      wrap.classList.remove('is-open');
+      document.removeEventListener('keydown', onKey);
+      setTimeout(function () { if (wrap.parentNode) wrap.parentNode.removeChild(wrap); }, 200);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+
+    function open() {
+      if (opened || done() || hasCart()) return;
+      opened = true;
+      markSeen();
+      lastFocus = document.activeElement;
+      host.hidden = false;
+      wrap.querySelector('.lbx__body').appendChild(host);
+      mount(host);
+      document.body.appendChild(wrap);
+      // Next frame, so the opacity transition has a start value to move from.
+      requestAnimationFrame(function () { wrap.classList.add('is-open'); });
+      var input = host.querySelector('input[type="email"]');
+      if (input) input.focus();
+      document.addEventListener('keydown', onKey);
+      wrap.querySelector('.lbx__x').addEventListener('click', close);
+      wrap.addEventListener('click', function (e) { if (e.target === wrap) close(); });
+    }
+
+    var fine = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if (fine) {
+      document.addEventListener('mouseout', function (e) {
+        if (!e.relatedTarget && e.clientY <= 0) open();
+      });
+    } else {
+      window.addEventListener('scroll', function () {
+        var h = document.documentElement;
+        var depth = (h.scrollTop + window.innerHeight) / h.scrollHeight;
+        if (depth >= 0.7) open();
+      }, { passive: true });
+    }
+  }
+
   function init() {
     var hosts = document.querySelectorAll('[data-lb-signup]');
-    if (!hosts.length) return;
+    var exit = document.querySelector('[data-lb-exit]');
+    if (!hosts.length && !exit) return;
     // Not configured, or already subscribed: render nothing at all.
     if (!ENDPOINT || !LIST_ID || done()) return;
 
     var s = document.createElement('style');
-    s.textContent = css();
+    s.textContent = css() + modalCss();
     document.head.appendChild(s);
     Array.prototype.forEach.call(hosts, mount);
+    if (exit) armExit(exit);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
