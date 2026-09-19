@@ -407,6 +407,11 @@ body.drawer-open{overflow:hidden}
   font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   padding:.3rem .55rem;
 }
+/* Unit price, sitting on the price line rather than under it — a $149 kit is nine
+   sessions and the per-session figure is what makes that price legible. The middot is
+   CSS so the JS that writes this element only ever writes the number. */
+.price-row__per{font-size:.85rem;color:var(--ink-soft);font-weight:500}
+.price-row__per::before{content:"·";margin-right:.5rem;color:var(--ink-faint)}
 .price-row__note{width:100%;font-size:.8rem;color:var(--ink-faint)}
 
 /* icon_with_text: three short benefit labels under the price */
@@ -714,6 +719,13 @@ body.drawer-open{overflow:hidden}
   .site-footer__bottom{flex-direction:row;justify-content:space-between;text-align:left}
 }
 .site-footer__bottom p{font-size:.78rem;color:#8f8a83}
+/* Legal row. Third flex child of __bottom, so it stacks on mobile and sits between the
+   copyright and the payment marks on desktop. These three links are a requirement for
+   ad-platform review on a health-adjacent product, not decoration — keep them on every
+   page's footer. */
+.footer-legal{display:flex;flex-wrap:wrap;gap:.2rem 1.1rem;justify-content:center}
+.footer-legal a{font-size:.78rem;color:#8f8a83}
+.footer-legal a:hover{color:#fff}
 .footer-pay{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:center}
 .footer-pay svg,.footer-pay img{height:22px;width:auto;border-radius:3px}
 

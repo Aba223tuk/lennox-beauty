@@ -24,3 +24,9 @@ _head_ref.html
 _part_*.txt
 _parts.py
 _wire_cart.py
+
+# Supplier research notes. These name the actual AliExpress stores and their
+# published wholesale cost tiers. This repo is public and serves the site, so
+# the supply chain and the landed cost do not belong in it. Same rule as the
+# untouched supplier images above.
+sourcing/
