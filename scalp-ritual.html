@@ -140,7 +140,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "name": "Will this regrow my hair?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We can't promise that. The clinical work on microneedling for hair used depths of 0.5mm and above, and nearly all of it paired the needling with minoxidil — the approved drug doing the work. This kit is 0.2mm and there is no drug in it. What it does is condition the scalp and put a copper peptide serum into its surface. If you are losing hair, see a doctor: there are treatments approved for exactly that, and this is not one of them. On the copper peptide specifically: GHK-Cu has a real research record, but the weight of it is in skin — wound repair and collagen. The hair work is early, mostly cell culture rather than people, and nobody should sell it to you as settled. We are not going to."
+        "text": "Here is what it does. At 0.2mm it carries a copper peptide serum into the surface of the scalp as you roll, rather than leaving it on the hair above to rinse off. It conditions the scalp, and what it is sold for is hair that looks fuller where you part it. That is a cosmetic job, and it is the one we are selling. What it is not is a hair-growth treatment, and we can't promise you one. The clinical work on microneedling for hair used depths of 0.5mm and above, and nearly all of it paired the needling with minoxidil — the approved drug doing the work. This kit is 0.2mm and there is no drug in it. If you are losing hair, see a doctor: there are treatments approved for exactly that, and this is not one of them. On the copper peptide specifically: GHK-Cu has a real research record, but the weight of it is in skin — wound repair and collagen. The hair work is early, mostly cell culture rather than people, and nobody should sell it to you as settled. We are not going to."
       }
     },
     {
@@ -341,6 +341,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <span class="price-row__now" id="price-now">$149.00</span>
         <s class="price-row__was" id="price-was" hidden></s>
         <span class="price-row__badge" id="price-badge" hidden></span>
+        <!-- Per-session price is DERIVED, never typed: tier price ÷ (9 × kits). $149/9 = $16.56,
+             $249/18 = $13.83, $329/27 = $12.19. It is rendered by the same function that writes
+             the price so the two can never disagree, and it is the honest way to read a $149
+             line item on a nine-session kit. -->
+        <span class="price-row__per" id="price-per">$16.56 a session</span>
         <span class="price-row__note">Free US shipping · free Silk Serum included</span>
       </div>
 
@@ -368,11 +373,27 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            first is ours to make. The FAQ answers the growth question straight; nothing up
            here may contradict it. NO TIME CLAIM: "five minutes" and the like are not on the
            listing and inventing one is the same offence as inventing a review. -->
+      <!-- CADENCE AND TIMELINE — three numbers that move together, so change all three or none.
+           Two sessions a week · nine ampoules · the ninth lands about day 29. They appear here,
+           in "What's in the box" and in "How to use it".
+           The cadence is OURS, stated as a direction for use ("use it twice a week"), which is
+           a brand's to set. It is NOT the supply side's ampoule-yield answer — that question is
+           still unanswered and nothing here pretends otherwise. Two a week is the ordinary
+           direction for a cosmetic head at 0.2 mm.
+           Day 29 comes from a Mon/Thu rhythm: sessions on days 1, 4, 8, 11, 15, 18, 22, 25, 29.
+           That is the whole point of printing it — the full course finishes INSIDE the 30-day
+           guarantee, so nobody is asked to judge the kit before it is finished or after the
+           refund window shuts. If the cadence ever changes, re-check that arithmetic first.
+           "Judge it at session nine" is a direction about WHEN TO LOOK, not a promise about
+           what will be there. Do not let it drift into one. -->
       <ul class="value-props">
         <li><b>Hair that looks fuller where you part it.</b></li>
+        <li><b>Twice a week, at home, before bed.</b> Nine ampoules, so a kit is about a month.
+          No clinic, no numbing, no downtime.</li>
         <li><b>It reaches your scalp.</b> The serum feeds in at the surface as you roll, instead
           of coating the hair above it and rinsing off.</li>
-        <li><b>At home, before bed.</b> No clinic, no numbing, no downtime.</li>
+        <li><b>Judge it at session nine</b> — around day 29, inside the 30-day guarantee. Give it
+          the whole course first.</li>
         <li><b>A free Silk Serum with every kit.</b> $24.99 each, and it ships on its own.</li>
         <li><b>A fresh, sealed dose every session.</b> Nothing to charge, decant or clean.</li>
       </ul>
@@ -533,9 +554,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
             <li><strong>1 micro-infusion head</strong> — 0.2 mm, screws onto any ampoule in the tray.</li>
             <li><strong>1 Silk Serum</strong>, free, shipped separately.</li>
           </ul>
-          <!-- No session schedule stated anywhere: the ampoule yield is still an open
-               question with the supply side, and a cadence printed here would be a guess. -->
-          <p>One ampoule per session, so a box is nine sessions.</p>
+          <!-- The schedule is ours to state and it is stated here, in the hero bullets and in
+               "How to use it" — the same three numbers in all three places. It is a direction
+               for use, not the supply side's ampoule-yield answer, which is still open. -->
+          <p><b>Two sessions a week, one ampoule each time.</b> Nine sessions, so a kit lasts
+            about a month — the ninth falls around day 29, inside the 30-day guarantee.</p>
         </div>
       </details>
       <details>
@@ -714,15 +737,28 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </div>
       <div class="panel">
         <h3>How to use it</h3>
-        <p class="muted" style="margin-bottom:.8rem;font-size:.9rem">Four steps, once your scalp is clean and dry.</p>
+        <p class="muted" style="margin-bottom:.8rem;font-size:.9rem">Twice a week — Monday and Thursday, say. Five steps.</p>
+        <!-- HEAD HYGIENE — do not soften this back to "rinse it".
+             Hot water is not disinfection. This head has needles, it breaks skin, and it is
+             reused nine times; rinsing moves debris around and leaves whatever was on it.
+             70% isopropyl BEFORE and AFTER every session is the standard direction for any
+             reused needling device, and "let it air-dry" matters — wiping it dry re-contaminates
+             it and a wet head dilutes the next ampoule.
+             The one-head-one-person rule stays, here and in the FAQ. Both places or neither. -->
         <ol class="steps-list">
           <li><b>Start clean and dry.</b> Nothing else on the scalp.</li>
+          <li><b>Wipe the head with isopropyl alcohol.</b> 70% on a cotton pad, then let it
+            air-dry. Every session, before and after — water doesn't disinfect it.</li>
           <li><b>Screw the head onto one ampoule.</b> The bottle is now the handle.</li>
           <li><b>Roll slowly along a parting.</b> Two or three drops per section. Let the weight of the head do it — pressing harder just hurts.</li>
           <li><b>Massage it in and leave it.</b> No rinsing. Go to bed.</li>
         </ol>
-        <p class="muted" style="margin-top:.9rem;font-size:.86rem">Rinse the head under hot water
-          afterwards and let it dry. It's yours and nobody else's.</p>
+        <p class="muted" style="margin-top:.9rem;font-size:.86rem">Wipe the head with alcohol
+          again when you're done, let it air-dry, and keep it covered. One head, one person —
+          never share it.</p>
+        <p class="muted" style="margin-top:.6rem;font-size:.86rem">Nine sessions is about a
+          month. Give it the full course before you judge it — the ninth lands around day 29,
+          inside the 30-day guarantee.</p>
       </div>
     </div>
   </div>
@@ -777,13 +813,22 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
                gap, and the gap is depth and drug, not whether microneedling has a literature.
                The trials people cite (Dhurat 2013 onward) run 0.5mm and up and nearly all pair
                needling with minoxidil. Stating the limit is also what keeps the sentence
-               legal: a topical sold to grow hair is an unapproved new drug in the US. -->
-          <p>We can't promise that. The clinical work on microneedling for hair used depths of
-            0.5&nbsp;mm and above, and nearly all of it paired the needling with minoxidil — the
-            approved drug doing the work. This kit is 0.2&nbsp;mm and there is no drug in it. What
-            it does is condition the scalp and put a copper peptide serum into its surface. If you
-            are losing hair, see a doctor: there are treatments approved for exactly that, and this
-            is not one of them.</p>
+               legal: a topical sold to grow hair is an unapproved new drug in the US.
+               ORDER MATTERS AND IS DELIBERATE — what the kit does comes first, the caveats
+               after. Reordered 2026-09-18; every caveat that was here is still here, none
+               were traded for the friendlier opening. Do not reorder it back, and do not
+               shorten it by dropping the second paragraph. -->
+          <p><b>Here is what it does.</b> At 0.2&nbsp;mm it carries a copper peptide serum into
+            the surface of the scalp as you roll, rather than leaving it on the hair above to
+            rinse off. It conditions the scalp, and what it is sold for is hair that
+            <b>looks fuller where you part it</b>. That is a cosmetic job, and it is the one
+            we are selling.</p>
+          <p><b>What it is not</b> is a hair-growth treatment, and we can't promise you one. The
+            clinical work on microneedling for hair used depths of 0.5&nbsp;mm and above, and
+            nearly all of it paired the needling with minoxidil — the approved drug doing the
+            work. This kit is 0.2&nbsp;mm and there is no drug in it. If you are losing hair,
+            see a doctor: there are treatments approved for exactly that, and this is not one
+            of them.</p>
           <!-- The honest place — and the only place — to discuss growth on this page, because
                here the answer is a qualified no. Do not move this up the page: in the FAQ it is
                candour, in the buy block it becomes the claim it is describing. -->
@@ -892,6 +937,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     </div>
     <div class="site-footer__bottom">
       <p>© 2026 Lennox Beauty · Free US shipping · 30-day money-back guarantee</p>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="/terms">Terms of Service</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/returns">Returns &amp; Refunds</a>
+      </nav>
       <div class="footer-pay" aria-label="Accepted payment methods">
         <img src="/img/pay/visa.svg" alt="Visa" width="38" height="24" loading="lazy">
         <img src="/img/pay/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy">
@@ -991,6 +1041,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     /* The price row is the theme's price block: current price, struck compare price and
        a save badge, all driven by the selected tier rather than typed in twice. */
     document.getElementById('price-now').textContent = money(tier.price);
+    /* Nine sessions per kit. Derived from the tier so it cannot drift from the price
+       beside it, and it is the number a $149 line actually costs to use. */
+    document.getElementById('price-per').textContent =
+      money(tier.price / (9 * tier.qty)) + ' a session';
     const was = document.getElementById('price-was');
     const badge = document.getElementById('price-badge');
     if (tier.saves) {
