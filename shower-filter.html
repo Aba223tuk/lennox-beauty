@@ -415,78 +415,54 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <h2>What buyers say.</h2>
     </div>
 
-    <!-- It moves on its own. Two identical groups and a -50% translate, the same
-         idiom as the announcement ticker, so the loop has no visible seam. Pauses on
-         hover and on keyboard focus, and reduced-motion users get a plain scrollable
-         rail instead. The second group is aria-hidden so a screen reader hears the six
-         reviews once. -->
-    <div class="rev-marquee">
-      <div class="rev-marquee__track">
-        <div class="rev-marquee__group">
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Excellent faucet!!! Finally, there is a strong water flow in the shower.</blockquote>
-          <figcaption>Verified buyer · Aug 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Very easy to put on only , needs to be hand tight … Works great big difference , 3 different water setting</blockquote>
-          <figcaption>Verified buyer · Mar 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Very nice… 3 shower modes… simple and effective despite very questionable packaging, but still arrived intact…</blockquote>
-          <figcaption>A***i · Jan 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Good product, I have already bought several and everything has been perfect, fast shipping, I recommend it.</blockquote>
-          <figcaption>Verified buyer · Feb 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Wonderful value for the price!</blockquote>
-          <figcaption>Verified buyer · Mar 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>It works well and looks good.</blockquote>
-          <figcaption>Verified buyer · Apr 2026</figcaption>
-        </figure>
-        </div>
-        <div class="rev-marquee__group" aria-hidden="true">
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Excellent faucet!!! Finally, there is a strong water flow in the shower.</blockquote>
-          <figcaption>Verified buyer · Aug 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Very easy to put on only , needs to be hand tight … Works great big difference , 3 different water setting</blockquote>
-          <figcaption>Verified buyer · Mar 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Very nice… 3 shower modes… simple and effective despite very questionable packaging, but still arrived intact…</blockquote>
-          <figcaption>A***i · Jan 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Good product, I have already bought several and everything has been perfect, fast shipping, I recommend it.</blockquote>
-          <figcaption>Verified buyer · Feb 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>Wonderful value for the price!</blockquote>
-          <figcaption>Verified buyer · Mar 2026</figcaption>
-        </figure>
-        <figure class="rev">
-          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-          <blockquote>It works well and looks good.</blockquote>
-          <figcaption>Verified buyer · Apr 2026</figcaption>
-        </figure>
-        </div>
+    <!-- A real carousel, and deliberately not the ticker trick any more. The marquee
+         duplicated the six cards and slid the pair on one infinite transform. The loop
+         arithmetic was exact — 3552px track, two 1776px groups — but a long animated,
+         masked layer still ended up rendering blank after a while.
+         This owns ONE set of cards and moves the scroll position instead, so there is no
+         second copy to drift out of register and nothing that can go blank: if the script
+         never runs it is still a swipeable rail with six reviews in it. Autoplay stops on
+         hover, on focus, and the moment anyone touches or scrolls it. -->
+    <div class="rev-car" data-rev-car>
+      <button class="rev-car__arrow rev-car__arrow--prev" type="button" aria-label="Previous review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="rev-car__rail" id="revRail" role="group" aria-label="Customer reviews" tabindex="0">
+      <figure class="rev">
+        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Excellent faucet!!! Finally, there is a strong water flow in the shower.</blockquote>
+        <figcaption>Verified buyer · Aug 2026</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Very easy to put on only , needs to be hand tight … Works great big difference , 3 different water setting</blockquote>
+        <figcaption>Verified buyer · Mar 2026</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Very nice… 3 shower modes… simple and effective despite very questionable packaging, but still arrived intact…</blockquote>
+        <figcaption>A***i · Jan 2026</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Good product, I have already bought several and everything has been perfect, fast shipping, I recommend it.</blockquote>
+        <figcaption>Verified buyer · Feb 2026</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Wonderful value for the price!</blockquote>
+        <figcaption>Verified buyer · Mar 2026</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>It works well and looks good.</blockquote>
+        <figcaption>Verified buyer · Apr 2026</figcaption>
+      </figure>
       </div>
+      <button class="rev-car__arrow rev-car__arrow--next" type="button" aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <!-- Dots are built by the script, one per SNAP POSITION rather than one per
+           card: three cards are already on screen at desktop width, so six dots would
+           have left half of them unreachable. No script, no dots — the rail still
+           swipes. -->
+      <div class="rev-car__dots" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -710,6 +686,99 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         'Something went wrong opening checkout. Text or call (929) 670-9555 and we will sort it.';
     }
   }
+
+  /* ---- review carousel ----
+     scrollLeft is the single source of truth: the arrows, the dots and the autoplay
+     all just set it, and the active dot is read back off it. Nothing keeps its own
+     idea of where the rail is, so the three can never disagree.
+
+     Autoplay stops for good the first time a person touches, drags or keys the rail.
+     Something that keeps sliding under your finger after you have taken hold of it is
+     worse than one that never moved. */
+  (function(){
+    var car = document.querySelector('[data-rev-car]');
+    if (!car) return;
+    var rail  = car.querySelector('.rev-car__rail');
+    var dotWrap = car.querySelector('.rev-car__dots');
+    var dots  = [];
+    var cards = Array.prototype.slice.call(rail.querySelectorAll('.rev'));
+    if (cards.length < 2) return;
+
+    var timer = null, stopped = false;
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function step(){ return cards[1].offsetLeft - cards[0].offsetLeft; }
+    /* The last stop is clamped by the scroll extent, not by a multiple of the card
+       width — at desktop the rail runs out 150px short of stop 2 — so read the end
+       as the end rather than rounding it down to the stop before. */
+    function index(){
+      var max = rail.scrollWidth - rail.clientWidth;
+      if (max <= 0) return 0;
+      if (rail.scrollLeft >= max - 2) return maxIndex();
+      return Math.round(rail.scrollLeft / step());
+    }
+    function maxIndex(){
+      // The last snap position, not the last card: on a wide screen several cards are
+      // already on screen at the end, and scrolling past that just shows dead space.
+      return Math.max(0, Math.ceil((rail.scrollWidth - rail.clientWidth) / step()));
+    }
+    function go(i){
+      var last = maxIndex();
+      if (i < 0) i = last; else if (i > last) i = 0;
+      rail.scrollTo({ left: i * step(), behavior: still ? 'auto' : 'smooth' });
+    }
+    function paintDots(){
+      var i = index();
+      dots.forEach(function(d, n){ d.classList.toggle('is-active', n === i); });
+    }
+
+    /* One dot per reachable stop. Rebuilt on resize because the number of stops
+       changes with the width — three cards fit at desktop, one on a phone. */
+    function buildDots(){
+      var want = maxIndex() + 1;
+      if (dots.length === want) { paintDots(); return; }
+      dotWrap.textContent = '';
+      dots = [];
+      for (var n = 0; n < want; n++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'rev-car__dot';
+        b.setAttribute('aria-label', 'Reviews, position ' + (n + 1) + ' of ' + want);
+        (function(k){ b.addEventListener('click', function(){ stop(); go(k); }); })(n);
+        dotWrap.appendChild(b);
+        dots.push(b);
+      }
+      dotWrap.removeAttribute('aria-hidden');
+      paintDots();
+    }
+
+    function start(){ if (!stopped && !still && !timer) timer = setInterval(function(){ go(index() + 1); }, 4500); }
+    function pause(){ if (timer) { clearInterval(timer); timer = null; } }
+    function stop(){ stopped = true; pause(); }
+
+    car.querySelector('.rev-car__arrow--prev').addEventListener('click', function(){ stop(); go(index() - 1); });
+    car.querySelector('.rev-car__arrow--next').addEventListener('click', function(){ stop(); go(index() + 1); });
+
+    rail.addEventListener('scroll', paintDots, { passive: true });
+    ['pointerdown','touchstart','wheel','keydown'].forEach(function(ev){
+      rail.addEventListener(ev, stop, { passive: true });
+    });
+    car.addEventListener('mouseenter', pause);
+    car.addEventListener('mouseleave', start);
+    car.addEventListener('focusin', pause);
+    car.addEventListener('focusout', start);
+    // Nothing should be animating in a tab nobody is looking at.
+    document.addEventListener('visibilitychange', function(){ document.hidden ? pause() : start(); });
+
+    var rt;
+    window.addEventListener('resize', function(){
+      clearTimeout(rt);
+      rt = setTimeout(buildDots, 150);
+    });
+
+    buildDots();
+    start();
+  })();
 
   /* ---- lightbox ----
      Same implementation as the serum page. Every slide here is an image, so the
