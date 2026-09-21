@@ -49,8 +49,17 @@
      no featured image, an empty images collection — which renders the cart line as a
      bare grey box. Keyed by variant id and served from this site. The chain below
      prefers Shopify's own art whenever it exists, so a stale entry here is inert
-     rather than wrong. Empty while every live variant has its own image. */
-  var LOCAL_IMG = {};
+     rather than wrong.
+
+     The Shower Filter is in exactly that state: the Shopify product was created on
+     2026-09-21 with no media, so its line rendered as a grey box. Upload the product
+     images in Shopify admin and this entry stops being used on its own — it does not
+     need removing, but it can go once the media is there. Note that this only fixes
+     OUR drawer; Shopify's own checkout and Shop Pay pages read their thumbnail from
+     the product's media and will stay blank until it is uploaded. */
+  var LOCAL_IMG = {
+    'gid://shopify/ProductVariant/52517179031768': '/img/shower/card.webp'
+  };
 
   function lineImage(m) {
     return (m.image && m.image.url) ||
