@@ -1047,3 +1047,75 @@ body.lb-open{overflow:hidden}
 /* Until the founder photo exists the grid is one column, so the copy is not offset by an
    empty 200px gutter. Delete this rule when the <img> is uncommented. */
 @media (min-width:760px){ .founder:not(:has(.founder__photo)){grid-template-columns:minmax(0,1fr)} }
+
+/* ===========================================================================
+   The Shower Filter — 2026-09-21
+   Blocks this page introduced. All generic; reuse them on the next product.
+   =========================================================================== */
+
+/* ---- the clip ----
+   A muted looping video standing in for an animated GIF: same behaviour, about a
+   tenth of the bytes. Capped in height so it never eats a whole mobile screen. */
+.clip{max-width:34rem;margin:0 auto;text-align:center}
+.clip__video{
+  width:100%;height:auto;max-height:70vh;display:block;
+  border-radius:var(--card-radius);background:var(--bg-soft);
+  object-fit:cover;box-shadow:var(--card-shadow);
+}
+.clip__cap{
+  margin:.7rem 0 0;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);
+}
+
+/* ---- spec list ----
+   Label/value rows in the buy column. Two columns once there is room, stacked
+   below that, because a squeezed value column wraps into nonsense on a phone. */
+.spec-list{list-style:none;margin:1.1rem 0 1.3rem;padding:0;border-top:1px solid var(--line)}
+.spec-list li{
+  display:grid;grid-template-columns:1fr;gap:.1rem;
+  padding:.62rem 0;border-bottom:1px solid var(--line);font-size:.93rem;
+}
+@media(min-width:420px){
+  .spec-list li{grid-template-columns:8.2rem 1fr;gap:.9rem;align-items:baseline}
+}
+.spec-list b{font-weight:600;color:var(--ink-faint);font-size:.79rem;
+  letter-spacing:.1em;text-transform:uppercase}
+.spec-list span{color:var(--ink)}
+
+/* ---- tick list ----
+   Lives inside .image-text__content, which is dark, so it inherits white text and
+   only needs its own marker. */
+.tick-list{list-style:none;margin:.9rem 0 0;padding:0}
+.tick-list li{position:relative;padding:0 0 0 1.35rem;margin:0 0 .55rem;line-height:1.5}
+.tick-list li::before{
+  content:"";position:absolute;left:0;top:.52em;width:.42rem;height:.42rem;
+  border-radius:50%;background:currentColor;opacity:.55;
+}
+.tick-list b{font-weight:600}
+.fineprint{margin:1rem 0 0;font-size:.85rem;opacity:.72;line-height:1.5}
+
+/* ---- review rail ----
+   A scroll-snap rail rather than a JS carousel: it is a horizontal list, the
+   browser already does that well, and it keeps working with JS off. Cards are a
+   fixed width so the next one always peeks in and the rail reads as scrollable
+   without a "swipe" instruction doing that job. */
+.rev-rail{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(15.5rem,17rem);
+  gap:.85rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:.25rem .25rem 1rem;margin:0 -.25rem;
+  scrollbar-width:thin;overscroll-behavior-x:contain;
+}
+@media(min-width:760px){ .rev-rail{grid-auto-columns:minmax(17rem,19rem);gap:1rem} }
+.rev-rail:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:var(--card-radius)}
+.rev{
+  scroll-snap-align:start;margin:0;display:flex;flex-direction:column;gap:.5rem;
+  background:#fff;border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:1.1rem 1.15rem 1rem;
+}
+.rev__stars{color:var(--accent-dark);letter-spacing:.12em;font-size:.9rem}
+.rev blockquote{margin:0;font-size:.95rem;line-height:1.55;color:var(--ink)}
+.rev figcaption{margin-top:auto;padding-top:.5rem;font-size:.78rem;color:var(--ink-faint)}
+.rev-hint{
+  margin:.1rem 0 0;font-size:.78rem;color:var(--ink-faint);text-align:center;
+}
+@media(min-width:900px){ .rev-hint{display:none} }
