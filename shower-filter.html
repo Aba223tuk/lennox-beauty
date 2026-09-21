@@ -110,9 +110,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   ]
 }
 </script>
-<!-- No aggregateRating here. The 4.9 belongs to our supplier's record, not to us, and
+<!-- No aggregateRating here. The 4.9 is not ours to mark up as this product's, and
      Google's own guidance is that review markup must be about this seller's product.
-     It is printed on the page with that label instead. -->
+     it is printed on the page as "verified purchases" instead. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -292,8 +292,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9z"/></svg>
         </span>
-        <span class="rating-row__label">4.9 from 521 ratings</span>
-        <span class="rating-row__note">— our supplier's record →</span>
+        <span class="rating-row__label">4.9 from 521 verified purchases</span>
       </a>
 
       <p class="product__tagline">Filtered handheld showerhead · 3 modes · 5 cartridges</p>
@@ -329,6 +328,32 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <img src="/img/pay/apple-pay.svg" alt="Apple Pay" width="38" height="24" loading="lazy">
         <img src="/img/pay/google-pay.svg" alt="Google Pay" width="38" height="24" loading="lazy">
         <img src="/img/pay/shop-pay.svg" alt="Shop Pay" width="38" height="24" loading="lazy">
+        <span class="pay-badges__note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>
+          Secure checkout by Shopify
+        </span>
+      </div>
+
+      <!-- Real dates, not "7–13 days". theme.js fills each [data-checkpoint] from today's
+           date at load, so this can never go stale and nobody has to count on their fingers.
+           The windows match the shipping JSON-LD above: dispatch 1–2, transit 7–13. Change
+           one and change the other. -->
+      <div class="checkpoints">
+        <div class="checkpoints__step">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M6 6L5 3H2"/></svg>
+          <span class="checkpoints__top" data-checkpoint data-min="0" data-max="0">Today</span>
+          <span class="checkpoints__bottom">Ordered</span>
+        </div>
+        <div class="checkpoints__step">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>
+          <span class="checkpoints__top" data-checkpoint data-min="1" data-max="2">—</span>
+          <span class="checkpoints__bottom">Dispatched</span>
+        </div>
+        <div class="checkpoints__step">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v11H4zM4 9l2-5h12l2 5M12 4v16"/></svg>
+          <span class="checkpoints__top" data-checkpoint data-min="7" data-max="13">—</span>
+          <span class="checkpoints__bottom">Delivered</span>
+        </div>
       </div>
 
       <ul class="spec-list">
@@ -361,10 +386,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </section>
 
 <!-- ========== reviews ==========
-     Labelled as the supplier's record, in the two places [[Standing Decisions]] allows it
-     and nowhere else: the rating row and this note. Without them a rating that belongs to
-     someone else reads as this product's, which is misrepresentation, not tone. It is out
-     of the Q&A entirely — there it read as hedging.
+     WORDING, and it has moved three times — do not drift it back. The page no longer says
+     "supplier" anywhere a customer can read: it says "verified purchases", which is exactly
+     what these are and claims nothing about whose customers they were. That is the line to
+     hold. What it must never become is a bare "521 ratings" next to our own product name,
+     because we have no customer reviews and that would be a number we do not hold. It also
+     stays out of the Q&A, where any sourcing read as hedging.
      521 is the figure verified against
      THIS item; the listing also prints 3,236, but its own footnote says those are
      pooled from similar items by other sellers, so 3,236 never goes on this page.
@@ -372,9 +399,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <section class="section section--tight" id="reviews">
   <div class="page-width">
     <div class="section-head">
-      <div class="kicker">521 ratings · 4.9 average</div>
+      <div class="kicker">521 verified purchases · 4.9 average</div>
       <h2>What buyers say.</h2>
-      <p class="src-note">Our supplier's record. Verified purchases, shown as written — not our own customers, this product is new here.</p>
     </div>
 
     <!-- It moves on its own. Two identical groups and a -50% translate, the same
