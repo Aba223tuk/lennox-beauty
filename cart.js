@@ -51,12 +51,15 @@
      prefers Shopify's own art whenever it exists, so a stale entry here is inert
      rather than wrong.
 
-     The Shower Filter is in exactly that state: the Shopify product was created on
-     2026-09-21 with no media, so its line rendered as a grey box. Upload the product
-     images in Shopify admin and this entry stops being used on its own — it does not
-     need removing, but it can go once the media is there. Note that this only fixes
-     OUR drawer; Shopify's own checkout and Shop Pay pages read their thumbnail from
-     the product's media and will stay blank until it is uploaded. */
+     The Shower Filter needed this on 2026-09-21: the Shopify product was created with
+     no media at all, so its line rendered as a grey box. Its three images were then
+     uploaded in Shopify admin the same day, so the chain below now resolves from
+     Shopify and never reaches this map — the entry is kept only as a safety net if
+     that media is ever deleted, and it is free.
+
+     Uploading the media is the real fix, not this map: Shopify's own checkout and
+     Shop Pay pages read their thumbnail from the product's media, and nothing here
+     can reach them. A new product with no images needs both. */
   var LOCAL_IMG = {
     'gid://shopify/ProductVariant/52517179031768': '/img/shower/card.webp'
   };
