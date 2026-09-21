@@ -377,39 +377,79 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <p class="src-note">Our supplier's record. Verified purchases, shown as written — not our own customers, this product is new here.</p>
     </div>
 
-    <div class="rev-rail" role="region" aria-label="Verified purchase reviews" tabindex="0">
-      <figure class="rev">
-        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>Excellent faucet!!! Finally, there is a strong water flow in the shower.</blockquote>
-        <figcaption>Verified buyer · Aug 2026</figcaption>
-      </figure>
-      <figure class="rev">
-        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>Very easy to put on only , needs to be hand tight … Works great big difference , 3 different water setting</blockquote>
-        <figcaption>Verified buyer · Mar 2026</figcaption>
-      </figure>
-      <figure class="rev">
-        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>Very nice… 3 shower modes… simple and effective despite very questionable packaging, but still arrived intact…</blockquote>
-        <figcaption>A***i · Jan 2026</figcaption>
-      </figure>
-      <figure class="rev">
-        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>Good product, I have already bought several and everything has been perfect, fast shipping, I recommend it.</blockquote>
-        <figcaption>Verified buyer · Feb 2026</figcaption>
-      </figure>
-      <figure class="rev">
-        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>Wonderful value for the price!</blockquote>
-        <figcaption>Verified buyer · Mar 2026</figcaption>
-      </figure>
-      <figure class="rev">
-        <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>It works well and looks good.</blockquote>
-        <figcaption>Verified buyer · Apr 2026</figcaption>
-      </figure>
+    <!-- It moves on its own. Two identical groups and a -50% translate, the same
+         idiom as the announcement ticker, so the loop has no visible seam. Pauses on
+         hover and on keyboard focus, and reduced-motion users get a plain scrollable
+         rail instead. The second group is aria-hidden so a screen reader hears the six
+         reviews once. -->
+    <div class="rev-marquee">
+      <div class="rev-marquee__track">
+        <div class="rev-marquee__group">
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Excellent faucet!!! Finally, there is a strong water flow in the shower.</blockquote>
+          <figcaption>Verified buyer · Aug 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Very easy to put on only , needs to be hand tight … Works great big difference , 3 different water setting</blockquote>
+          <figcaption>Verified buyer · Mar 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Very nice… 3 shower modes… simple and effective despite very questionable packaging, but still arrived intact…</blockquote>
+          <figcaption>A***i · Jan 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Good product, I have already bought several and everything has been perfect, fast shipping, I recommend it.</blockquote>
+          <figcaption>Verified buyer · Feb 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Wonderful value for the price!</blockquote>
+          <figcaption>Verified buyer · Mar 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>It works well and looks good.</blockquote>
+          <figcaption>Verified buyer · Apr 2026</figcaption>
+        </figure>
+        </div>
+        <div class="rev-marquee__group" aria-hidden="true">
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Excellent faucet!!! Finally, there is a strong water flow in the shower.</blockquote>
+          <figcaption>Verified buyer · Aug 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Very easy to put on only , needs to be hand tight … Works great big difference , 3 different water setting</blockquote>
+          <figcaption>Verified buyer · Mar 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Very nice… 3 shower modes… simple and effective despite very questionable packaging, but still arrived intact…</blockquote>
+          <figcaption>A***i · Jan 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Good product, I have already bought several and everything has been perfect, fast shipping, I recommend it.</blockquote>
+          <figcaption>Verified buyer · Feb 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Wonderful value for the price!</blockquote>
+          <figcaption>Verified buyer · Mar 2026</figcaption>
+        </figure>
+        <figure class="rev">
+          <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>It works well and looks good.</blockquote>
+          <figcaption>Verified buyer · Apr 2026</figcaption>
+        </figure>
+        </div>
+      </div>
     </div>
-    <p class="rev-hint" aria-hidden="true">Swipe for more →</p>
   </div>
 </section>
 
