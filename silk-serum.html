@@ -463,14 +463,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </div>
       </div>
 
-      <div class="bump" id="bump">
-        <span class="save">Completes the routine</span>
-        <p>The Silk Serum is the daily leave-in that keeps hair smooth between washes.
-          <b>Batana Oil</b> is the weekly deep treatment you rinse out — for the dryness
-          and damage underneath. Different jobs, same hair.</p>
-        <button type="button" onclick="toggleBatana()" id="bump-btn">Add Batana Oil — $29.99</button>
-      </div>
-
       <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout()" id="cta">Add to cart — $24.99</button>
       <p class="err" id="err" role="status"></p>
 
@@ -542,45 +534,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <summary>Our 30-day guarantee</summary>
         <div class="accordion__body"><p>Use the Silk Serum for 30 days. If your hair isn't noticeably smoother, text or call <a href="tel:+19296709555">(929) 670-9555</a> or email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — no returns to mail, no forms to fill in. You keep the bottles.</p></div>
       </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ related products ============ -->
-<section class="section section--tight">
-  <div class="page-width">
-    <div class="section-head"><h2>You may also like</h2></div>
-    <div class="product-grid product-grid--3">
-      <a class="product-card" href="/scalp-ritual">
-        <div class="product-card__media">
-          <span class="product-card__badge">Free serum</span>
-          <img src="/img/scalp/card.webp" alt="The Scalp Ritual tray of nine sealed ampoules and the infusion head" width="1200" height="1200" loading="lazy" decoding="async">
-        </div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">The Scalp Ritual</h3>
-          <p class="product-card__desc">Nine sealed copper peptide ampoules and a 0.2&nbsp;mm infusion head.</p>
-          <p class="product-card__price">From $98.99</p>
-        </div>
-      </a>
-      <a class="product-card" href="/batana-oil">
-        <div class="product-card__media">
-          <span class="product-card__badge">2nd jar half price</span>
-          <img src="/img/batana/jar.webp" alt="A 120g jar of unrefined batana oil" width="1000" height="1000" loading="lazy" decoding="async">
-        </div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">Batana Oil</h3>
-          <p class="product-card__desc">A weekly deep treatment for dry, coarse and damaged hair.</p>
-          <p class="product-card__price">$29.99</p>
-        </div>
-      </a>
-      <a class="product-card" href="/body-tape">
-        <div class="product-card__media"><img src="/img/bodytape/roll-beige.webp" alt="A roll of Lennox body tape in beige" width="800" height="800" loading="lazy" decoding="async"></div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">Body Tape</h3>
-          <p class="product-card__desc">Three shades, three widths — for everything a bra ruins.</p>
-          <p class="product-card__price">$24.99</p>
-        </div>
-      </a>
     </div>
   </div>
 </section>
@@ -771,10 +724,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <h3>Shop</h3>
         <ul>
           <li><a href="/catalog">All products</a></li>
-          <li><a href="/scalp-ritual">The Scalp Ritual</a></li>
           <li><a href="/silk-serum">The Silk Serum</a></li>
-          <li><a href="/batana-oil">Batana Oil</a></li>
-          <li><a href="/body-tape">Body Tape</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -832,20 +782,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   };
   let pack = 1;
 
-  /* Cross-sell, not a volume discount. Adds a second cart line at batana's own list
-     price, so there is no discount to reconcile and the number on this page is
-     exactly what checkout charges — verified against a real Storefront cart:
-     1+batana $54.98, 3+batana $68.98, 5+batana $84.98, no discount allocated.
-     The one exception is a visitor who already has a jar in their stored cart:
-     quantity becomes 2, batana's buy-one-get-one-half-price fires, and the real
-     total lands $15 BELOW this estimate. The drawer reads totals back off the live
-     cart, so it corrects itself, and it errs in the customer's favour. */
-  const BATANA = {price:29.99, sku:'LB-BATANA', label:'Batana Oil',
-                  variant:'gid://shopify/ProductVariant/52368268034264'};
-  let addBatana = false;
-
   function money(n){ return '$' + n.toFixed(2); }
-  function total(){ return PACKS[pack].price + (addBatana ? BATANA.price : 0); }
+  function total(){ return PACKS[pack].price; }
 
   function selectPack(n){
     pack = n;
@@ -856,8 +794,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     /* The saving follows the selection onto the sticky bar — that bar is the only
        thing on screen when someone actually taps buy. */
     document.getElementById('bb-sub').textContent =
-      p.label + (addBatana ? ' + batana' : '')
-      + (p.saves ? ' · save ' + money(p.saves) : ' · free shipping');
+      p.label + (p.saves ? ' · save ' + money(p.saves) : ' · free shipping');
 
     document.getElementById('price-now').textContent = money(p.price);
     const was = document.getElementById('price-was');
@@ -870,7 +807,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     }
 
     document.getElementById('err').textContent = '';
-    renderBump();
   }
 
   /* The ported picker owns the selection and nothing else; the page hears about it
@@ -880,21 +816,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     if (PACKS[q]) selectPack(q);
   });
 
-  function renderBump(){
-    document.getElementById('bump').classList.toggle('taken', addBatana);
-    document.getElementById('bump-btn').textContent =
-      addBatana ? 'Added — remove Batana Oil' : 'Add Batana Oil — ' + money(BATANA.price);
-  }
-
-  function toggleBatana(){
-    addBatana = !addBatana;
-    selectPack(pack);
-    if (addBatana) {
-      try { fbq('trackCustom', 'BumpTaken', {to: BATANA.sku, value: BATANA.price, currency: 'USD'}); } catch (e) {}
-      try { gtag('event', 'bump_taken', {item_id: BATANA.sku, value: BATANA.price}); } catch (e) {}
-    }
-  }
-
   function jumpToBuy(e){
     e.preventDefault();
     document.querySelector('.product__info').scrollIntoView({behavior:'smooth', block:'start'});
@@ -903,18 +824,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   function goToCheckout(){
     const p = PACKS[pack], value = total();
     const lines = [{merchandiseId: p.variant, quantity: 1}];
-    if (addBatana) lines.push({merchandiseId: BATANA.variant, quantity: 1});
     // Intent still fires here: this is the moment someone commits to the product,
     // even though the checkout redirect now happens from the cart drawer.
     try {
       fbq('track','AddToCart',{content_type:'product',
-        content_ids: addBatana ? [p.sku, BATANA.sku] : [p.sku],
-        num_items:p.bottles + (addBatana ? 1 : 0), value:value, currency:'USD'});
+        content_ids: [p.sku],
+        num_items:p.bottles, value:value, currency:'USD'});
       gtag('event','add_to_cart',{currency:'USD', value:value,
         items:[{item_id:p.sku, item_name:'The Silk Serum', price:p.price, quantity:1}]});
     } catch (e) {}
-    // One call, so the pack and the cross-sold jar land together and the drawer
-    // opens once rather than twice.
     if (window.Cart) Cart.add(lines);
     else legacyCheckout(lines, value);
   }

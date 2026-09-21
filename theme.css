@@ -271,6 +271,10 @@ body.drawer-open{overflow:hidden}
   display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;
 }
 @media(min-width:760px){.product-grid{grid-template-columns:repeat(4,1fr);gap:var(--grid-gap)}}
+/* A grid holding one card would otherwise leave a half-width orphan on mobile and a
+   lonely card in column one on desktop. Centre it and give it a sane max width.
+   Added 2026-09-21, when the range came down to a single buyable product. */
+.product-grid:has(> :only-child){grid-template-columns:minmax(0,340px);justify-content:center}
 .product-grid--3{grid-template-columns:repeat(2,1fr)}
 @media(min-width:760px){.product-grid--3{grid-template-columns:repeat(3,1fr)}}
 .product-card{
@@ -388,7 +392,8 @@ body.drawer-open{overflow:hidden}
 .product__tagline{font-size:1rem;color:var(--ink);margin-bottom:.9rem}
 
 /* icon_with_text: the one authority mark in the buy column, above the price.
-   Wording rules live in the HTML comment beside it in scalp-ritual.html. */
+   Wording rules live in the HTML comment beside it on the product page using it.
+   (Its first use, scalp-ritual.html, was removed 2026-09-21; the component stays.) */
 .peptide-note{
   display:flex;align-items:flex-start;gap:.55rem;
   background:var(--accent-tint);border-radius:10px;
@@ -921,8 +926,9 @@ body.lb-open{overflow:hidden}
 
 /* ============================================================ variant picker
    The theme's picker_types are "dropdown, swatches": round colour swatches with a
-   selected ring, and pill-shaped option buttons (radius 40, 1px border). Body tape
-   is the only product with real options, so this is its shape. */
+   selected ring, and pill-shaped option buttons (radius 40, 1px border). Shaped for a
+   product with real colour/size options. (Body tape, its first use, was removed
+   2026-09-21; the component stays.) */
 .picker{margin:1.1rem 0}
 .picker__head{display:flex;align-items:baseline;gap:.45rem;margin-bottom:.55rem}
 .picker__label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
@@ -959,7 +965,8 @@ body.lb-open{overflow:hidden}
 .p65 a{color:var(--accent-dark);text-decoration:underline;text-underline-offset:2px}
 
 /* ===========================================================================
-   Scalp Ritual — CRO pass, 2026-09-19
+   CRO pass, 2026-09-19 — built for scalp-ritual.html, removed 2026-09-21.
+   Kept: these are generic product-page components the next product will reuse.
    =========================================================================== */
 
 /* The hook under the H1. Same sentence the mechanism creative carries, so it is

@@ -10,10 +10,10 @@
    this script tag and a call to Cart.add(variantId, qty). No per-page markup.
 
    The pricing shown here is whatever Shopify returns for the cart, never anything
-   this file works out. That matters: the batana buy-one-get-one-half-price is an
-   automatic Shopify discount, and 50% of $29.99 rounds to a $14.99 discount, not
-   $15.00 (two jars are $44.99, not $44.98). Reading totals back off the cart is
-   the only way the drawer and the checkout can't disagree. */
+   this file works out. That matters wherever an automatic Shopify discount is in
+   play: the rounding is Shopify's and it does not always match the arithmetic a
+   page would do. Reading totals back off the cart is the only way the drawer and
+   the checkout can't disagree. */
 (function () {
   'use strict';
 
@@ -45,15 +45,12 @@
     '    product{ title featuredImage{ url(transform:{maxWidth:160,maxHeight:160}) } } } } }}}'
   ].join(' ');
 
-  /* Last resort, for merchandise Shopify has no art for at all. Batana is currently
-     in exactly that state — no variant image, no featured image, an empty images
-     collection — so its line rendered as a bare grey box next to the serum's photo.
-     Keyed by variant id and served from this site. Delete an entry once the real
-     product image is uploaded in Shopify admin; the chain below prefers Shopify's
-     own art whenever it exists, so a stale entry here is inert rather than wrong. */
-  var LOCAL_IMG = {
-    'gid://shopify/ProductVariant/52368268034264': '/img/batana/jar.webp'
-  };
+  /* Last resort, for merchandise Shopify has no art for at all — no variant image,
+     no featured image, an empty images collection — which renders the cart line as a
+     bare grey box. Keyed by variant id and served from this site. The chain below
+     prefers Shopify's own art whenever it exists, so a stale entry here is inert
+     rather than wrong. Empty while every live variant has its own image. */
+  var LOCAL_IMG = {};
 
   function lineImage(m) {
     return (m.image && m.image.url) ||
@@ -91,8 +88,8 @@
   }
 
   /* Accepts either add(variantId, qty) or add([{merchandiseId, quantity}, ...]).
-     The batana page needs the second form: jars and the cross-sold serum have to
-     land in one round trip, or the drawer pops open twice. */
+     A page with an order bump needs the second form: both lines have to land in one
+     round trip, or the drawer pops open twice. */
   function add(variantId, qty) {
     if (busy) return Promise.resolve();
     busy = true; paint();
