@@ -317,6 +317,18 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </div>
       </div>
 
+      <!-- Order bump. The half price is a real Shopify automatic discount
+            ("Silk Serum half price with The Shower Filter", buy 1 get 1 at 50% off), not
+            arithmetic done here, and $12.50 was read back off a live Storefront cart before
+            it was written on the page: line 24.99, allocation 12.49, line total 12.50, cart
+            total 72.49. If the discount is ever switched off, this number becomes a lie —
+            change both together. -->
+      <div class="bump" id="bump">
+        <span class="save">Half price with this order</span>
+        <p><b>The Silk Serum</b> — the daily leave-in mist for frizz. <b>$12.50</b> instead of $24.99.</p>
+        <button type="button" onclick="toggleSerum()" id="bump-btn">Add for $12.50</button>
+      </div>
+
       <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout()" id="cta">Add to cart — $59.99</button>
       <p class="err" id="err" role="status"></p>
 
@@ -601,7 +613,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   <img class="sticky-atc__img" src="/img/shower/card.webp" alt="" width="48" height="48" loading="lazy">
   <div class="sticky-atc__info">
     <div class="sticky-atc__title">The Shower Filter</div>
-    <div class="sticky-atc__price"><span>$59.99</span> · <span>free shipping</span></div>
+    <div class="sticky-atc__price"><span id="bb-total">$59.99</span> · <span id="bb-sub">free shipping</span></div>
   </div>
   <button class="btn btn--accent" onclick="goToCheckout()" id="cta-bar">Add to cart</button>
 </div>
@@ -621,17 +633,56 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   const PRICE = 59.99;
   const VARIANT = 'gid://shopify/ProductVariant/52517179031768';
 
+  /* The cross-sell. 12.50 is what Shopify actually charges for the single bottle once the
+     automatic discount fires — read off a real cart, not halved here — so the number on this
+     page and the number at checkout are the same number. One exception, same as the old
+     batana bump: a visitor who already has a serum in their stored cart ends up with
+     quantity 2 and the discount still applies to one, so the real total lands ABOVE this
+     estimate by 12.49. The drawer reads totals back off the live cart, so it corrects itself. */
+  const SERUM = {price:12.50, was:24.99, sku:'LB-SILK-1', label:'The Silk Serum',
+                 variant:'gid://shopify/ProductVariant/52304320856280'};
+  let addSerum = false;
+
+  function money(n){ return '$' + n.toFixed(2); }
+  function total(){ return PRICE + (addSerum ? SERUM.price : 0); }
+
+  function renderBump(){
+    const t = total();
+    document.getElementById('bump').classList.toggle('taken', addSerum);
+    document.getElementById('bump-btn').textContent =
+      addSerum ? 'Added — remove' : 'Add for ' + money(SERUM.price);
+    document.getElementById('cta').textContent = 'Add to cart — ' + money(t);
+    document.getElementById('bb-total').textContent = money(t);
+    document.getElementById('bb-sub').textContent =
+      addSerum ? 'with the serum · free shipping' : 'free shipping';
+  }
+
+  function toggleSerum(){
+    addSerum = !addSerum;
+    renderBump();
+    if (addSerum) {
+      try { fbq('trackCustom','BumpTaken',{to: SERUM.sku, value: SERUM.price, currency:'USD'}); } catch (e) {}
+      try { gtag('event','bump_taken',{item_id: SERUM.sku, value: SERUM.price}); } catch (e) {}
+    }
+  }
+
   function goToCheckout(){
+    const value = total();
     const lines = [{merchandiseId: VARIANT, quantity: 1}];
+    if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
     try {
-      fbq('track','AddToCart',{content_type:'product', content_ids:[SKU],
-        num_items:1, value:PRICE, currency:'USD'});
-      gtag('event','add_to_cart',{currency:'USD', value:PRICE,
+      fbq('track','AddToCart',{content_type:'product',
+        content_ids: addSerum ? [SKU, SERUM.sku] : [SKU],
+        num_items: addSerum ? 2 : 1, value:value, currency:'USD'});
+      gtag('event','add_to_cart',{currency:'USD', value:value,
         items:[{item_id:SKU, item_name:'The Shower Filter', price:PRICE, quantity:1}]});
     } catch (e) {}
+    // One call, so both lines land together and the drawer opens once rather than twice.
     if (window.Cart) Cart.add(lines);
-    else legacyCheckout(lines, PRICE);
+    else legacyCheckout(lines, value);
   }
+
+  renderBump();
 
   /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
      error, an extension blocking it. Less good than the drawer, but never a dead button. */
