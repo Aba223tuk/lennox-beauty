@@ -1,15 +1,19 @@
 /* Lennox Beauty chat widget — self-contained, no dependencies, no API keys.
    Scripted brain (intent matching + guided chips). Every answer is traceable to
-   copy already published on the homepage and the Silk Serum page — do not add claims here
-   that the site doesn't make.
+   copy already published on the homepage, the Silk Serum page and the Nail Drill page —
+   do not add claims here that the site doesn't make.
+   Knows both products. On /nail-drill the generic answers (what is it, price, how to use,
+   guarantee, buy) are about the drill; everywhere else they are about the serum.
+   Contact is email only — the phone number came off the widget on 2026-09-23.
    Drop-in: <script src="chatbot.js" defer></script> */
 (function () {
   'use strict';
 
-  var PHONE_DISPLAY = '(929) 670-9555';
-  var PHONE_TEL = '+19296709555';
-  var PHONE_LINK = '<a href="tel:' + PHONE_TEL + '">' + PHONE_DISPLAY + '</a>';
-  var SHOP_URL = '/silk-serum';
+  var EMAIL = 'Lennoxsupport@gmail.com';
+  var EMAIL_LINK = '<a href="mailto:' + EMAIL + '">' + EMAIL + '</a>';
+  var ON_DRILL = /nail-drill/.test(location.pathname);
+  var SHOP_URL = ON_DRILL ? '/nail-drill' : '/silk-serum';
+  var PRODUCT = ON_DRILL ? 'The Nail Drill' : 'The Silk Serum';
 
   /* ---------- styles (brand tokens mirrored from the site) ---------- */
   var css = [
@@ -75,7 +79,7 @@
 
     shipping: "Orders are dispatched within 1–2 business days and typically arrive 7–13 days later, tracked the whole way.\n\nThe tracking number is emailed to you the moment it ships. US shipping is free on every order.",
 
-    ingredients: "Honest answer: we don't publish a full INCI list on the site yet — the complete ingredient list is printed on the bottle itself.\n\nIf you have a specific allergy or something you need to avoid, text or call " + PHONE_LINK + " before you order and we'll check the current batch for you. I'd rather you ask than guess.",
+    ingredients: "Honest answer: we don't publish a full INCI list on the site yet — the complete ingredient list is printed on the bottle itself.\n\nIf you have a specific allergy or something you need to avoid, email " + EMAIL_LINK + " before you order and we'll check the current batch for you. I'd rather you ask than guess.",
 
     howto: "Start with dry or towel-dried hair — no prep, no rinsing.\n\n1. Mist 2–3 sprays over mid-lengths and ends, about a hand's width away\n2. Comb it through\n3. Air dry or blow-dry as usual\n\nIt's a leave-in, so it stays put. Takes about a minute.",
 
@@ -85,7 +89,7 @@
 
     results: "Flyaways smooth immediately, from the first application.\n\nThe full effect — hair that stays smooth through humid days — builds over 2–4 weeks of regular use. That's why most people take the 3-bottle set.",
 
-    guarantee: "30 days, no risk.\n\nUse it for a month. If your hair isn't noticeably smoother, text or call " + PHONE_LINK + " and we refund every cent — you don't even ship the bottle back. No returns, no forms.",
+    guarantee: "30 days, no risk.\n\nUse it for a month. If your hair isn't noticeably smoother, email " + EMAIL_LINK + " and we refund every cent — you don't even ship the bottle back. No returns, no forms.",
 
     maker: "Straight answer: we don't make The Silk Serum ourselves — it's produced by a manufacturing partner, and the bottle that arrives carries their label rather than ours.\n\nWe'd rather tell you that up front than have it surprise you at the door.",
 
@@ -95,20 +99,62 @@
 
     nosub: "No subscription and no fine print. It's a one-time purchase — you buy it once, it ships once.",
 
-    collection: "One is live today:\n\n• <b>The Silk Serum</b> — the daily leave-in mist, from $24.99\n\nTwo more are in development: The Sleek Stick (pocket wax stick for flyaways) and The Heat Shield (pre-styling primer against heat damage).",
+    collection: "Two are live today:\n\n• <a href=\"/nail-drill\"><b>The Nail Drill</b></a> — cordless, up to 35,000 rpm, $49.99\n• <a href=\"/silk-serum\"><b>The Silk Serum</b></a> — the daily leave-in mist, from $24.99\n\nTwo more are in development: The Sleek Stick (pocket wax stick for flyaways) and The Heat Shield (pre-styling primer against heat damage).",
 
-    support: "A real person handles these — text or call:\n\n📱 " + PHONE_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Texting is usually fastest.",
+    support: "A real person handles these — email:\n\n✉️ " + EMAIL_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Put your order number in and it gets sorted faster.",
 
     buy: "You can start with a single bottle at $24.99, or take 3 or 5 and pay less per bottle.\n\n<a href=\"" + SHOP_URL + "\">See the sizes →</a>",
 
-    fallback: "I'll be honest — I'm a scripted assistant, so that one is outside what I know.\n\nA person can help: text or call " + PHONE_LINK + ". Or ask me about the offer, shipping, the scent, or how to use it.",
+    fallback: "I'll be honest — I'm a scripted assistant, so that one is outside what I know.\n\nA person can help: email " + EMAIL_LINK + ". Or ask me about the price, shipping, or how to use it.",
 
-    thanks: "Any time. Anything else about the serum?",
+    thanks: "Any time. Anything else about " + PRODUCT + "?",
 
-    hi: "Hi! Ask me anything about The Silk Serum — the offer, shipping, the scent, or how to use it."
+    hi: "Hi! Ask me anything about " + PRODUCT + " — the price, shipping, or how to use it.",
+
+    /* ---- The Nail Drill. Every line here is on nail-drill.html or the maker's own spec
+       sheet and video that page is built from. No nail-health claims. ---- */
+    drill: "The Nail Drill is a cordless electric nail drill for at-home manicures — held like a pen, with a speed display on the body.\n\nUp to 35,000 rpm, + / − to set the speed, and a forward/reverse button so it works left- or right-handed.",
+
+    d_pricing: "<b>The Nail Drill</b> is $49.99 — grey, pink or green, same price.\n\nFree US shipping. No subscription, no fine print.",
+
+    d_box: "<b>The Nail Drill</b> comes with:\n\n• The drill\n• A stainless steel bit set\n• A flame bit (the one for gel)\n• Sanding bands\n• A USB-C cable",
+
+    d_battery: "800 mAh battery. About 3 hours to charge over USB-C, then 5–6 hours of running — no cord while you work.",
+
+    d_gel: "Yes — it runs up to 35,000 rpm. Use the flame bit, start at a low speed and let the bit do the work.",
+
+    d_howto: "1. Hold the power button for 2 seconds to turn it on\n2. + / − to set the speed — start low\n3. F/R switches the spin direction\n4. A short press pauses it and shows the battery level\n5. Hold power for 2 seconds to turn it off",
+
+    d_colours: "Three: grey, pink and green. Same drill, same box, same price — pick on the page before you add to cart.",
+
+    d_guarantee: "30 days, no risk.\n\nIf it isn't for you, email " + EMAIL_LINK + " and we refund every cent — you keep it, no returns to mail, no forms.",
+
+    d_maker: "Straight answer: we don't build the drill ourselves — it's made by a manufacturing partner, and it may carry their markings rather than ours.\n\nWe'd rather tell you that up front than have it surprise you at the door.",
+
+    d_buy: "It's $49.99 in grey, pink or green, with free US shipping.\n\n<a href=\"/nail-drill\">Pick a colour →</a>"
   };
 
-  var CHIPS_MAIN = [
+  /* Asked by name, the serum answer is the serum answer on every page. */
+  T.what_serum = T.what;
+
+  /* On the drill page the generic questions are about the drill. */
+  if (ON_DRILL) {
+    T.greet = "Hi 👋 I'm the Lennox assistant.\nAsk me anything about The Nail Drill — speed, battery, what's in the box, or when it would arrive.\n\nWhat would you like to know?";
+    T.what = T.drill;
+    T.pricing = T.d_pricing;
+    T.howto = T.d_howto;
+    T.guarantee = T.d_guarantee;
+    T.maker = T.d_maker;
+    T.buy = T.d_buy;
+  }
+
+  var CHIPS_MAIN = ON_DRILL ? [
+    ['What is it?', 'what'],
+    ['Price', 'pricing'],
+    ["What's in the box?", 'd_box'],
+    ['Battery', 'd_battery'],
+    ['Shipping', 'shipping']
+  ] : [
     ['What is it?', 'what'],
     ['Price & offer', 'pricing'],
     ['Shipping', 'shipping'],
@@ -116,7 +162,7 @@
     ['How to use', 'howto']
   ];
   var CHIPS_AFTER = [
-    ['Claim the offer', 'buy'],
+    [ON_DRILL ? 'Buy it' : 'Claim the offer', 'buy'],
     ['Shipping', 'shipping'],
     ['Guarantee', 'guarantee'],
     ['Talk to a human', 'support']
@@ -127,6 +173,15 @@
     /* Problems with an existing order go to a human FIRST — before the shipping
        policy answer, which otherwise swallows "my order never arrived". */
     { k: /nev(er|ah) (arrived|came|showed)|not arrived|hasn'?t (arrived|come|shipped)|didn'?t (arrive|come|get)|still waiting|lost|missing|stolen|wrong (item|product|order|address)|damaged|broken|leak|empty bottle|refund my|cancel my|charged twice|double charged/i, r: 'support' },
+    /* Drill-only questions: specific enough to route correctly on any page. */
+    { k: /in the box|what (comes|do i get)|what'?s included|drill bits?|which bits|sanding|\bbands?\b|usb-?c cable/i, r: 'd_box' },
+    { k: /batter|recharg|charging|how long to charge|charge (it|time)|\bmah\b|cordless|how long (does it )?run/i, r: 'd_battery' },
+    { k: /\bgel\b|acrylic|polish|strong enough|powerful|\brpm\b|speed|how fast/i, r: 'd_gel' },
+    /* Not "colour-treated", which is the serum's hair-type question. */
+    { k: /colou?rs?\b(?![- ]?treat)|\bgr[ae]y\b|\bpink\b|\bgreen\b/i, r: 'd_colours' },
+    { k: /turn (it )?on|power button|f\/?r|reverse|direction|left[- ]handed/i, r: 'd_howto' },
+    { k: /nail drill|the drill|\bdrill\b|manicure|nail file|e-?file/i, r: 'drill' },
+    { k: /silk serum|serum|frizz|leave-?in|mist/i, r: 'what_serum' },
     { k: /eelhoe|ouzhini|who makes|who manufact|manufacturer|label on|different (brand|name)|not lennox|whose brand/i, r: 'maker' },
     { k: /greas|oily|heavy|weigh (it|my hair) down|residue|buildup|build-up|sticky/i, r: 'greasy' },
     { k: /curl|coil|textur|colou?r[- ]?treated|dyed|bleach|relax|perm|fine hair|thick hair|straight hair|hair type/i, r: 'hairtype' },
@@ -272,7 +327,7 @@
 
     root = el('div');
     root.innerHTML =
-      '<button class="lcb-launcher" type="button" aria-label="Chat about The Silk Serum" aria-expanded="false">' +
+      '<button class="lcb-launcher" type="button" aria-label="Chat about ' + PRODUCT + '" aria-expanded="false">' +
       '<span class="lcb-ring"></span>' +
       '<svg class="lcb-ico-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
       '<svg class="lcb-ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
@@ -285,10 +340,10 @@
       '</div>' +
       '<div class="lcb-msgs" aria-live="polite"></div>' +
       '<div class="lcb-foot">' +
-      '<input class="lcb-in" type="text" placeholder="Ask about the serum…" aria-label="Ask about the serum" maxlength="300">' +
+      '<input class="lcb-in" type="text" placeholder="Ask about the ' + (ON_DRILL ? 'drill' : 'serum') + '…" aria-label="Ask about ' + PRODUCT + '" maxlength="300">' +
       '<button class="lcb-send" type="button" aria-label="Send"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>' +
       '</div>' +
-      '<div class="lcb-brand">Automated assistant · <a href="tel:' + PHONE_TEL + '">text or call ' + PHONE_DISPLAY + '</a></div>' +
+      '<div class="lcb-brand">Automated assistant · <a href="mailto:' + EMAIL + '">' + EMAIL + '</a></div>' +
       '</div>';
     document.body.appendChild(root);
     applyLift();
