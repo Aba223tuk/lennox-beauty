@@ -329,7 +329,24 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </div>
       </div>
 
-      <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout()" id="cta">Add to cart — $49.99</button>
+      <!-- Every price below is a real Shopify automatic discount, read back off live
+           Storefront carts before it went on this page:
+             1 drill                        49.99
+             "Buy one Nail Drill, second half off" ($24.99 off once, 2+ drills)  2 drills 74.99
+             "Silk Serum half price with The Nail Drill"  1 drill + serum = 62.49
+           The serum half price does NOT stack with the two-drill offer — Shopify will not
+           discount the serum when the drills already carry a discount (2 drills + serum =
+           99.98). So the serum shows $12.50 next to one drill and $24.99 next to two, and the
+           buttons always show what checkout will charge. Switch a discount off and its number
+           here becomes a lie — change both together. -->
+      <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout(1)" id="cta">Add to cart — $49.99</button>
+      <button class="btn btn--outline btn--full btn--lg" onclick="goToCheckout(2)" id="cta2" style="margin-top:.6rem">Buy 2, second half off — $74.99</button>
+
+      <div class="bump" id="bump" style="margin-top:1rem">
+        <span class="save">Half price with one drill</span>
+        <p><b>Add The Silk Serum</b> — the daily leave-in mist for frizz. <b>$12.50</b> instead of $24.99 with a single drill.</p>
+        <button type="button" onclick="toggleSerum()" id="bump-btn">Add Silk Serum</button>
+      </div>
       <p class="err" id="err" role="status"></p>
 
       <div class="pay-badges" aria-label="Accepted payment methods">
@@ -625,17 +642,50 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     });
   });
 
-  function goToCheckout(){
-    const lines = [{merchandiseId: VARIANTS[colour], quantity: 1}];
-    try {
-      fbq('track','AddToCart',{content_type:'product', content_ids:[SKU],
-        num_items:1, value:PRICE, currency:'USD'});
-      gtag('event','add_to_cart',{currency:'USD', value:PRICE,
-        items:[{item_id:SKU, item_name:'The Nail Drill', item_variant:colour, price:PRICE, quantity:1}]});
-    } catch (e) {}
-    if (window.Cart) Cart.add(lines);
-    else legacyCheckout(lines, PRICE);
+  /* What Shopify actually charges, per the cart tests in the comment above the buttons. */
+  const PAIR = 74.99;
+  const SERUM = {sku:'LB-SILK-1', variant:'gid://shopify/ProductVariant/52304320856280',
+                 withOne:12.50, withTwo:24.99};
+  let addSerum = false;
+
+  function money(n){ return '$' + n.toFixed(2); }
+  function totalFor(qty){
+    return (qty === 2 ? PAIR : PRICE) + (addSerum ? (qty === 2 ? SERUM.withTwo : SERUM.withOne) : 0);
   }
+  function render(){
+    document.getElementById('bump').classList.toggle('taken', addSerum);
+    document.getElementById('bump-btn').textContent = addSerum ? 'Added — remove' : 'Add Silk Serum';
+    document.getElementById('cta').textContent = 'Add to cart — ' + money(totalFor(1));
+    document.getElementById('cta2').textContent = 'Buy 2, second half off — ' + money(totalFor(2));
+    document.getElementById('bb-total').textContent = money(totalFor(1));
+  }
+  function toggleSerum(){
+    addSerum = !addSerum;
+    render();
+    if (addSerum) {
+      try { fbq('trackCustom','BumpTaken',{to: SERUM.sku, value: SERUM.withOne, currency:'USD'}); } catch (e) {}
+      try { gtag('event','bump_taken',{item_id: SERUM.sku, value: SERUM.withOne}); } catch (e) {}
+    }
+  }
+
+  function goToCheckout(qty){
+    qty = qty === 2 ? 2 : 1;
+    const value = totalFor(qty);
+    const lines = [{merchandiseId: VARIANTS[colour], quantity: qty}];
+    if (addSerum) lines.push({merchandiseId: SERUM.variant, quantity: 1});
+    try {
+      fbq('track','AddToCart',{content_type:'product',
+        content_ids: addSerum ? [SKU, SERUM.sku] : [SKU],
+        num_items: qty + (addSerum ? 1 : 0), value:value, currency:'USD'});
+      gtag('event','add_to_cart',{currency:'USD', value:value,
+        items:[{item_id:SKU, item_name:'The Nail Drill', item_variant:colour, price:PRICE, quantity:qty}]});
+    } catch (e) {}
+    // One call, so every line lands together and the drawer opens once.
+    if (window.Cart) Cart.add(lines);
+    else legacyCheckout(lines, value);
+  }
+
+  render();
 
   /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
      error, an extension blocking it. Less good than the drawer, but never a dead button. */
