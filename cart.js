@@ -51,18 +51,10 @@
      prefers Shopify's own art whenever it exists, so a stale entry here is inert
      rather than wrong.
 
-     The Shower Filter needed this on 2026-09-21: the Shopify product was created with
-     no media at all, so its line rendered as a grey box. Its three images were then
-     uploaded in Shopify admin the same day, so the chain below now resolves from
-     Shopify and never reaches this map — the entry is kept only as a safety net if
-     that media is ever deleted, and it is free.
-
      Uploading the media is the real fix, not this map: Shopify's own checkout and
      Shop Pay pages read their thumbnail from the product's media, and nothing here
      can reach them. A new product with no images needs both. */
-  var LOCAL_IMG = {
-    'gid://shopify/ProductVariant/52517179031768': '/img/shower/card.webp'
-  };
+  var LOCAL_IMG = {};
 
   function lineImage(m) {
     return (m.image && m.image.url) ||
