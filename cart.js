@@ -116,6 +116,7 @@
       .then(function (c) {
         if (!c) throw new Error('cart failed');
         cart = c; setId(c.id);
+        justAdded = true;
         busy = false; paint(); open();
         /* No AddToCart fires here. It used to, and every add was therefore counted
            twice: once by the product page before it calls Cart.add, and again here.
@@ -194,8 +195,42 @@
     '.lbc-go:hover{background:#6f5c42}',
     '.lbc-go[aria-disabled=true]{opacity:.5;pointer-events:none}',
     '.lbc-err{color:#a4372f;font-size:.8rem;margin:.6rem 0 0;text-align:center}',
-    '.lbc-busy{opacity:.55;pointer-events:none}'
+    '.lbc-busy{opacity:.55;pointer-events:none}',
+    /* ---- conversion layer, 2026-10-02. Everything below states a fact the site
+       already promises elsewhere (ticker, footer, shipping checkpoints) — free US
+       shipping, the 30-day guarantee, tracked delivery, the same 7–13 day window.
+       No timer, no stock count, no "people are viewing": none of those are true. */
+    '.lbc-head h2 small{font-family:Inter,system-ui,sans-serif;font-size:.78rem;font-weight:500;color:#6b655c;margin-left:.45rem}',
+    '.lbc-added{display:none;align-items:center;gap:.5rem;margin:0 0 .6rem;padding:.6rem .8rem;border-radius:10px;background:#f4efe7;color:#6f5c42;font-size:.82rem;font-weight:600}',
+    '.lbc-added.on{display:flex}',
+    '.lbc-added svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}',
+    '.lbc-thumb{width:72px;height:72px}',
+    '.lbc-pill{display:inline-block;margin-top:.3rem;padding:.12rem .5rem;border-radius:999px;background:#f4efe7;color:#6f5c42;font-size:.7rem;font-weight:600}',
+    '.lbc-ship{display:flex;justify-content:space-between;font-size:.82rem;color:#6b655c;margin-bottom:.15rem}',
+    '.lbc-ship b{color:#6f5c42;font-weight:600}',
+    '.lbc-eta{display:flex;align-items:center;gap:.45rem;font-size:.8rem;color:#141414;margin:.55rem 0 .8rem;padding:.55rem .75rem;border:1px dashed #ddd7cd;border-radius:10px}',
+    '.lbc-eta svg{width:18px;height:18px;flex:none;stroke:#8a7357;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}',
+    '.lbc-go{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:1.05rem;font-size:1rem;box-shadow:0 6px 18px rgba(138,115,87,.28)}',
+    '.lbc-go svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}',
+    '.lbc-pay{display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem;margin:.75rem 0 .2rem}',
+    '.lbc-pay img{width:34px;height:22px}',
+    '.lbc-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:.8rem;text-align:center}',
+    '.lbc-trust div{font-size:.68rem;line-height:1.25;color:#6b655c}',
+    '.lbc-trust svg{display:block;margin:0 auto .25rem;width:20px;height:20px;stroke:#8a7357;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}',
+    '.lbc-more{display:block;width:100%;margin-top:.55rem;background:none;border:none;color:#5c5c5c;font:500 .8rem Inter,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}',
+    '.lbc-empty svg{display:block;margin:0 auto .9rem;width:42px;height:42px;stroke:#c9bfae;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}',
+    '.lbc-empty a{display:inline-block;margin-top:1.1rem;padding:.8rem 1.6rem;border-radius:999px;background:#8a7357;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none}'
   ].join('');
+
+  /* Same window the product pages print in their shipping checkpoints (today + 7 to
+     today + 13). Change one, change the other. */
+  function eta() {
+    var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function d(n) { var x = new Date(); x.setDate(x.getDate() + n); return MON[x.getMonth()] + ' ' + x.getDate(); }
+    return d(7) + ' – ' + d(13);
+  }
+  var PAY = ['visa','mastercard','amex','discover','apple-pay','google-pay','shop-pay'];
+  var justAdded = false;
 
   function money(a) { return '$' + Number(a).toFixed(2); }
 
@@ -246,14 +281,21 @@
     var lines = (cart && cart.lines && cart.lines.edges) || [];
     var n = (cart && cart.totalQuantity) || 0;
     if (badge) { badge.textContent = n; badge.classList.toggle('on', n > 0); }
+    root.querySelector('.lbc-head h2').innerHTML = 'Your cart' +
+      (n ? '<small>' + n + (n === 1 ? ' item' : ' items') + '</small>' : '');
 
     if (!lines.length) {
-      body.innerHTML = '<p class="lbc-empty">Your cart is empty.</p>';
+      body.innerHTML = '<div class="lbc-empty">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>' +
+        'Your cart is empty.<br><a href="/catalog">Shop all products</a></div>';
       foot.innerHTML = failed ? '<p class="lbc-err">Something went wrong. Please try again.</p>' : '';
       return;
     }
 
-    body.innerHTML = lines.map(function (e) {
+    var added = justAdded; justAdded = false;
+    body.innerHTML = '<div class="lbc-added' + (added ? ' on' : '') + '" role="status">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Added to your cart</div>' +
+      lines.map(function (e) {
       var l = e.node, m = l.merchandise;
       var full = Number(m.price.amount) * l.quantity;
       var paid = Number(l.cost.totalAmount.amount);
@@ -263,6 +305,7 @@
         '<div class="lbc-info">' +
           '<div class="lbc-name">' + m.product.title + '</div>' +
           (m.title && m.title !== 'Default Title' ? '<div class="lbc-var">' + m.title + '</div>' : '') +
+          (paid < full - 0.005 ? '<span class="lbc-pill">You save ' + money(full - paid) + '</span>' : '') +
           '<div class="lbc-row">' +
             '<div class="lbc-qty">' +
               '<button type="button" data-act="dec" data-id="' + l.id + '" aria-label="Decrease quantity"' + (l.quantity <= 1 ? ' disabled' : '') + '>&minus;</button>' +
@@ -306,10 +349,25 @@
         ? '<div class="lbc-pre"><span>Before discounts</span><span>' + money(gross) + '</span></div>' +
           '<div class="lbc-pre save"><span>You save</span><span>&minus;' + money(saved) + '</span></div>'
         : '') +
-      '<div class="lbc-sub"><span>' + (discounted ? 'Total' : 'Subtotal') + '</span><b>' + money(due) + '</b></div>' +
-      '<p class="lbc-note">Free US shipping · 30-day money-back guarantee</p>' +
-      '<a class="lbc-go" href="' + cart.checkoutUrl + '">Checkout</a>' +
+      '<div class="lbc-ship"><span>Shipping</span><b>Free</b></div>' +
+      '<div class="lbc-sub"><span>Total</span><b>' + money(due) + '</b></div>' +
+      '<div class="lbc-eta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>' +
+        '<span>Arrives <b>' + eta() + '</b> · tracked</span></div>' +
+      '<a class="lbc-go" href="' + cart.checkoutUrl + '">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>' +
+        'Secure checkout · ' + money(due) + '</a>' +
+      '<div class="lbc-pay" aria-label="Accepted payment methods">' +
+        PAY.map(function (p) { return '<img src="/img/pay/' + p + '.svg" alt="' + p.replace('-', ' ') + '" width="34" height="22" loading="lazy">'; }).join('') +
+      '</div>' +
+      '<div class="lbc-trust">' +
+        '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>Free US shipping</div>' +
+        '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>30-day money-back guarantee</div>' +
+        '<div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>Secure checkout by Shopify</div>' +
+      '</div>' +
+      '<button class="lbc-more" type="button">Continue shopping</button>' +
       (failed ? '<p class="lbc-err">Something went wrong. Please try again.</p>' : '');
+
+    foot.querySelector('.lbc-more').addEventListener('click', close);
 
     foot.querySelector('.lbc-go').addEventListener('click', function () {
       /* Report what is actually being paid. Sending the pre-discount subtotal here
