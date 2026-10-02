@@ -12,6 +12,20 @@
     </image:image>
   </url>
   <url>
+    <loc>https://lennoxbeauty.com/lash-kit</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://lennoxbeauty.com/img/lash/hero.webp</image:loc>
+      <image:title>The Lash Kit — DIY lash cluster kit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lennoxbeauty.com/img/lash/in-the-box.webp</image:loc>
+      <image:title>Everything in the box: four cluster trays, bond and seal, tweezer, lash brush</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://lennoxbeauty.com/nail-drill</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
