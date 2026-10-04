@@ -62,6 +62,42 @@
            LOCAL_IMG[m.id] || '';
   }
 
+  /* In-drawer offers, 2026-10-04. Each price is a live Shopify automatic discount,
+     read back off real Storefront carts the same day:
+       2 kits 37.48 (+12.49) · 2 drills 74.99 (+25.00) · serum with one kit/drill +12.50
+     The serum half price does NOT stack with a two-of discount (2 kits + serum = 62.47),
+     so the two kinds of offer never show together with a price that would be wrong:
+     the "second one" offer hides once a serum is in the cart, and the serum offer
+     hides once any line is at two. Turn a discount off in Shopify and its row here
+     becomes a lie — change both together. */
+  var LASH  = ['52609395425496', '52609395458264'];
+  var DRILL = ['52527986082008', '52527986049240', '52527986016472'];
+  var SERUM = ['52304320856280', '52304320921816', '52304320889048'];
+  var SERUM_ONE = 'gid://shopify/ProductVariant/52304320856280';
+  function vid(gid) { return String(gid).split('/').pop(); }
+
+  function offers(lines) {
+    var q = { lash: 0, drill: 0, serum: 0 }, first = {};
+    lines.forEach(function (e) {
+      var v = vid(e.node.merchandise.id);
+      var k = LASH.indexOf(v) > -1 ? 'lash' : DRILL.indexOf(v) > -1 ? 'drill' : SERUM.indexOf(v) > -1 ? 'serum' : null;
+      if (!k) return;
+      q[k] += e.node.quantity;
+      if (!first[k]) first[k] = e.node.id;
+    });
+    var out = [];
+    if (!q.serum && q.lash === 1)
+      out.push({ act: 'qty', line: first.lash, sku: 'LB-LASH', img: '/img/lash/card.webp',
+                 name: 'A second Lash Kit', note: 'Second kit half off', add: 12.49, was: 24.99 });
+    if (!q.serum && q.drill === 1)
+      out.push({ act: 'qty', line: first.drill, sku: 'LB-NAIL', img: '/img/nail/card.webp',
+                 name: 'A second Nail Drill', note: 'Second drill half off', add: 25.00, was: 49.99 });
+    if (!q.serum && (q.lash || q.drill) && q.lash < 2 && q.drill < 2)
+      out.push({ act: 'add', variant: SERUM_ONE, sku: 'LB-SILK-1', img: '/img/silk/single.webp',
+                 name: 'The Silk Serum', note: 'Anti-frizz mist · half price with your order', add: 12.50, was: 24.99 });
+    return out.slice(0, 2);
+  }
+
   function api(query, variables) {
     return fetch(API, {
       method: 'POST',
@@ -127,7 +163,11 @@
            the price of what was actually added. InitiateCheckout stays in this file
            because it genuinely is cart-level and fires from the drawer. */
       })
-      .catch(function () { busy = false; paint(true); });
+      .catch(function () {
+        /* Used to repaint a closed drawer, so a failed add looked like a dead button.
+           Open it: the error line is the only feedback the shopper gets. */
+        busy = false; paint(true); open();
+      });
   }
 
   function setQty(lineId, qty) {
@@ -161,9 +201,14 @@
     '.lbc-panel{position:fixed;top:0;right:0;bottom:0;z-index:9996;width:min(400px,100vw);background:#fff;',
     '  display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 34px rgba(20,20,20,.16)}',
     '.lbc-open .lbc-panel{transform:none}',
+    /* Hidden, not just off-screen, while closed: otherwise Tab walks through an
+       invisible cart. The delay lets the slide-out finish before it disappears. */
+    '.lbc-panel{visibility:hidden;transition:transform .28s cubic-bezier(.4,0,.2,1),visibility 0s linear .28s}',
+    '.lbc-open .lbc-panel{visibility:visible;transition:transform .28s cubic-bezier(.4,0,.2,1)}',
     'body.lbc-lock{overflow:hidden}',
     '.lbc-head{display:flex;align-items:center;justify-content:space-between;padding:1.15rem 1.25rem;border-bottom:1px solid #ececec;flex:none}',
     '.lbc-head h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.35rem;font-weight:600;margin:0}',
+    '.lbc-x:focus:not(:focus-visible){outline:none}',
     '.lbc-x{width:34px;height:34px;border:none;background:none;cursor:pointer;font-size:1.3rem;line-height:1;color:#5c5c5c}',
     '.lbc-body{flex:1;overflow-y:auto;padding:1.1rem 1.25rem;font-family:Inter,system-ui,sans-serif}',
     /* #6b655c, not the old #8f887c: that was 3.5:1 on white and failed AA for
@@ -219,18 +264,42 @@
     '.lbc-trust svg{display:block;margin:0 auto .25rem;width:20px;height:20px;stroke:#8a7357;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}',
     '.lbc-more{display:block;width:100%;margin-top:.55rem;background:none;border:none;color:#5c5c5c;font:500 .8rem Inter,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}',
     '.lbc-empty svg{display:block;margin:0 auto .9rem;width:42px;height:42px;stroke:#c9bfae;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}',
+    '.lbc-offers{margin-top:1rem;padding-top:.9rem;border-top:1px solid #f2efea}',
+    '.lbc-offers h3{margin:0 0 .6rem;font:600 .72rem Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6b655c}',
+    '.lbc-offer{display:flex;align-items:center;gap:.7rem;padding:.6rem;border:1px solid #ece5da;border-radius:12px;background:#faf8f4;margin-bottom:.5rem}',
+    '.lbc-offer img{width:48px;height:48px;flex:none;border-radius:8px;object-fit:cover;background:#fff}',
+    '.lbc-offer div{flex:1;min-width:0}',
+    '.lbc-offer b{display:block;font-size:.84rem;color:#141414}',
+    '.lbc-offer small{display:block;font-size:.74rem;color:#6f5c42;margin-top:.1rem}',
+    '.lbc-offer s{color:#6b655c;font-size:.74rem;margin-left:.3rem}',
+    '.lbc-offer button{flex:none;min-height:36px;padding:0 .9rem;border-radius:999px;border:1.5px solid #8a7357;background:#fff;color:#6f5c42;font:600 .8rem Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}',
+    '.lbc-offer button:hover{background:#8a7357;color:#fff}',
+    '.lbc-body .lbc-trust{margin-top:1.1rem;padding-top:.9rem;border-top:1px solid #f2efea}',
     '.lbc-empty a{display:inline-block;margin-top:1.1rem;padding:.8rem 1.6rem;border-radius:999px;background:#8a7357;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none}'
   ].join('');
 
-  /* Same window the product pages print in their shipping checkpoints (today + 7 to
-     today + 13). Change one, change the other. */
+  /* Same window the product pages print in their shipping checkpoints: dispatch 1–2
+     days, then 7–13 in transit, so today + 8 to today + 15. It read +7 to +13 until
+     2026-10-04, which promised 1–2 days earlier than every written policy on the site.
+     Change one, change the other. */
   function eta() {
     var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     function d(n) { var x = new Date(); x.setDate(x.getDate() + n); return MON[x.getMonth()] + ' ' + x.getDate(); }
-    return d(7) + ' – ' + d(13);
+    return d(8) + ' – ' + d(15);
   }
   var PAY = ['visa','mastercard','amex','discover','apple-pay','google-pay','shop-pay'];
   var justAdded = false;
+
+  function offerHtml(lines) {
+    var list = offers(lines);
+    if (!list.length) return '';
+    return '<div class="lbc-offers"><h3>Complete your order</h3>' + list.map(function (o, i) {
+      return '<div class="lbc-offer"><img src="' + o.img + '" alt="" width="48" height="48" loading="lazy">' +
+        '<div><b>' + o.name + '</b><small>' + o.note + '</small></div>' +
+        '<button type="button" data-offer="' + i + '" aria-label="Add ' + o.name + ' for ' + money(o.add) + '">+ ' + money(o.add) +
+        '<s>' + money(o.was) + '</s></button></div>';
+    }).join('') + '</div>';
+  }
 
   function money(a) { return '$' + Number(a).toFixed(2); }
 
@@ -318,7 +387,31 @@
           '</div>' +
           '<button class="lbc-rm" type="button" data-act="rm" data-id="' + l.id + '">Remove</button>' +
         '</div></div>';
-    }).join('');
+    }).join('') + offerHtml(lines) +
+    '<div class="lbc-trust">' +
+      '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>Free US shipping</div>' +
+      '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>30-day money-back guarantee</div>' +
+      '<div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>Secure checkout by Shopify</div>' +
+    '</div>';
+
+    body.querySelectorAll('[data-offer]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var o = offers(lines)[+el.getAttribute('data-offer')];
+        if (!o) return;
+        /* The product pages own AddToCart for their own button; an add made here is
+           otherwise invisible to Meta and GA4, so this one reports itself. Value is
+           what the add actually costs, not the line's full price. */
+        try { fbq('track', 'AddToCart', { content_type: 'product', content_ids: [o.sku], num_items: 1, value: o.add, currency: 'USD' }); } catch (e) {}
+        try { gtag('event', 'add_to_cart', { currency: 'USD', value: o.add, items: [{ item_id: o.sku, quantity: 1, price: o.add }] }); } catch (e) {}
+        if (o.act === 'qty') {
+          var line = lines.filter(function (e) { return e.node.id === o.line; })[0];
+          setQty(o.line, line.node.quantity + 1);
+        } else {
+          justAdded = true;
+          add(o.variant, 1);
+        }
+      });
+    });
 
     body.querySelectorAll('[data-act]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -359,11 +452,6 @@
       '<div class="lbc-pay" aria-label="Accepted payment methods">' +
         PAY.map(function (p) { return '<img src="/img/pay/' + p + '.svg" alt="' + p.replace('-', ' ') + '" width="34" height="22" loading="lazy">'; }).join('') +
       '</div>' +
-      '<div class="lbc-trust">' +
-        '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>Free US shipping</div>' +
-        '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>30-day money-back guarantee</div>' +
-        '<div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>Secure checkout by Shopify</div>' +
-      '</div>' +
       '<button class="lbc-more" type="button">Continue shopping</button>' +
       (failed ? '<p class="lbc-err">Something went wrong. Please try again.</p>' : '');
 
@@ -377,8 +465,21 @@
     });
   }
 
-  function open() { document.body.classList.add('lbc-lock'); root.classList.add('lbc-open'); document.documentElement.classList.add('lbc-open'); }
-  function close() { document.body.classList.remove('lbc-lock'); root.classList.remove('lbc-open'); document.documentElement.classList.remove('lbc-open'); }
+  /* Focus goes into the dialog on open and back to whatever opened it on close, so
+     keyboard and screen-reader users land inside the cart rather than behind it. */
+  var lastFocus = null;
+  function open() {
+    if (!root.classList.contains('lbc-open')) {
+      lastFocus = document.activeElement;
+      setTimeout(function () { var x = root.querySelector('.lbc-x'); if (x) x.focus({ preventScroll: true }); }, 50);
+    }
+    document.body.classList.add('lbc-lock'); root.classList.add('lbc-open'); document.documentElement.classList.add('lbc-open');
+  }
+  function close() {
+    if (!root.classList.contains('lbc-open')) return;
+    document.body.classList.remove('lbc-lock'); root.classList.remove('lbc-open'); document.documentElement.classList.remove('lbc-open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
 
   function start() {
     build();

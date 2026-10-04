@@ -2,8 +2,10 @@
    Scripted brain (intent matching + guided chips). Every answer is traceable to
    copy already published on the homepage, the Silk Serum page and the Nail Drill page —
    do not add claims here that the site doesn't make.
-   Knows both products. On /nail-drill the generic answers (what is it, price, how to use,
-   guarantee, buy) are about the drill; everywhere else they are about the serum.
+   Knows all three products. On /nail-drill and /lash-kit the generic answers (what is it,
+   price, how to use, guarantee, buy) are about that product; everywhere else they are
+   about the serum. The Lash Kit came in 2026-10-04: until then a visitor on the page the
+   ads send traffic to was greeted about the serum.
    Contact is email only — the phone number came off the widget on 2026-09-23.
    Drop-in: <script src="chatbot.js" defer></script> */
 (function () {
@@ -12,8 +14,9 @@
   var EMAIL = 'Lennoxsupport@gmail.com';
   var EMAIL_LINK = '<a href="mailto:' + EMAIL + '">' + EMAIL + '</a>';
   var ON_DRILL = /nail-drill/.test(location.pathname);
-  var SHOP_URL = ON_DRILL ? '/nail-drill' : '/silk-serum';
-  var PRODUCT = ON_DRILL ? 'The Nail Drill' : 'The Silk Serum';
+  var ON_LASH = /lash-kit/.test(location.pathname);
+  var SHOP_URL = ON_DRILL ? '/nail-drill' : ON_LASH ? '/lash-kit' : '/silk-serum';
+  var PRODUCT = ON_DRILL ? 'The Nail Drill' : ON_LASH ? 'The Lash Kit' : 'The Silk Serum';
 
   /* ---------- styles (brand tokens mirrored from the site) ---------- */
   var css = [
@@ -99,7 +102,7 @@
 
     nosub: "No subscription and no fine print. It's a one-time purchase — you buy it once, it ships once.",
 
-    collection: "Two are live today:\n\n• <a href=\"/nail-drill\"><b>The Nail Drill</b></a> — cordless, up to 35,000 rpm, $49.99\n• <a href=\"/silk-serum\"><b>The Silk Serum</b></a> — the daily leave-in mist, from $24.99\n\nTwo more are in development: The Sleek Stick (pocket wax stick for flyaways) and The Heat Shield (pre-styling primer against heat damage).",
+    collection: "Three are live today:\n\n• <a href=\"/lash-kit\"><b>The Lash Kit</b></a> — DIY lash clusters, $24.99\n• <a href=\"/nail-drill\"><b>The Nail Drill</b></a> — cordless, up to 35,000 rpm, $49.99\n• <a href=\"/silk-serum\"><b>The Silk Serum</b></a> — the daily leave-in mist, from $24.99\n\nTwo more are in development: the Sleek Stick and the Heat Shield. <a href=\"/catalog\">See the catalog →</a>",
 
     support: "A real person handles these — email:\n\n✉️ " + EMAIL_LINK + "\n\nOrder questions, refunds, anything I couldn't answer. Put your order number in and it gets sorted faster.",
 
@@ -131,11 +134,46 @@
 
     d_maker: "Straight answer: we don't build the drill ourselves — it's made by a manufacturing partner, and it may carry their markings rather than ours.\n\nWe'd rather tell you that up front than have it surprise you at the door.",
 
-    d_buy: "It's $49.99 in grey, pink or green, with free US shipping.\n\n<a href=\"/nail-drill\">Pick a colour →</a>"
+    d_buy: "It's $49.99 in grey, pink or green, with free US shipping.\n\n<a href=\"/nail-drill\">Pick a colour →</a>",
+
+    /* ---- The Lash Kit. Every line here is on lash-kit.html. The tray numbers are
+       volume grades, not lengths — never print a length. No eye-safety, sensitivity
+       or lash-growth claims (see the claim-level comment at the top of that page). ---- */
+    lash: "The Lash Kit is DIY lash clusters you apply at home — D curl, thin band.\n\nFour trays of clusters, a 2-in-1 bond & seal pen and an applicator tweezer, plus a lash brush. Everything you need is in the box.",
+
+    l_pricing: "<b>The Lash Kit</b> is $24.99, with free US shipping.\n\n• 2 kits — $37.48 (second kit half off)\n• Add The Silk Serum for $12.50 with one kit\n\nNo subscription, no fine print.",
+
+    l_box: "<b>The Lash Kit</b> comes with:\n\n• Four trays of D-curl clusters\n• A 2-in-1 bond & seal (5 ml each, one pen, two ends)\n• An applicator tweezer\n• A lash brush",
+
+    l_howto: "Bond, place, seal:\n\n1. Bond — under your natural lashes\n2. Place — a cluster with the tweezer, press\n3. Seal — the other end of the same pen\n4. Brush — blend with the spoolie\n\nStart with a few and build.",
+
+    l_hold: "The bond and seal are made to hold for up to 72 hours.",
+
+    l_trays: "The numbers are volume — higher is denser.\n\n• 30·40·80·100 — a lighter look\n• 120·150·80·100 — a fuller one\n\nSame price either way; pick on the page before you add to cart.",
+
+    l_guarantee: "30 days, no risk.\n\nIf it isn't for you, email " + EMAIL_LINK + " and we refund every cent — you keep it, no returns to mail, no forms.",
+
+    l_maker: "Straight answer: we don't make the clusters ourselves — they come from a manufacturing partner, and the trays may carry their markings rather than ours.\n\nWe'd rather tell you that up front than have it surprise you at the door.",
+
+    l_buy: "It's $24.99 with free US shipping — or two for $37.48.\n\n<a href=\"/lash-kit\">Pick your trays →</a>"
   };
 
   /* Asked by name, the serum answer is the serum answer on every page. */
   T.what_serum = T.what;
+
+  /* "What's in the box" means the product on the page; off a product page it stays
+     the drill's answer, as it always was. */
+  T.box = ON_LASH ? T.l_box : T.d_box;
+
+  if (ON_LASH) {
+    T.greet = "Hi 👋 I'm the Lennox assistant.\nAsk me anything about The Lash Kit — what's in the box, which trays to pick, how they go on, or when it would arrive.\n\nWhat would you like to know?";
+    T.what = T.lash;
+    T.pricing = T.l_pricing;
+    T.howto = T.l_howto;
+    T.guarantee = T.l_guarantee;
+    T.maker = T.l_maker;
+    T.buy = T.l_buy;
+  }
 
   /* On the drill page the generic questions are about the drill. */
   if (ON_DRILL) {
@@ -148,7 +186,13 @@
     T.buy = T.d_buy;
   }
 
-  var CHIPS_MAIN = ON_DRILL ? [
+  var CHIPS_MAIN = ON_LASH ? [
+    ['What is it?', 'what'],
+    ['Price', 'pricing'],
+    ["What's in the box?", 'box'],
+    ['Which trays?', 'l_trays'],
+    ['Shipping', 'shipping']
+  ] : ON_DRILL ? [
     ['What is it?', 'what'],
     ['Price', 'pricing'],
     ["What's in the box?", 'd_box'],
@@ -162,7 +206,7 @@
     ['How to use', 'howto']
   ];
   var CHIPS_AFTER = [
-    [ON_DRILL ? 'Buy it' : 'Claim the offer', 'buy'],
+    [ON_DRILL || ON_LASH ? 'Buy it' : 'Claim the offer', 'buy'],
     ['Shipping', 'shipping'],
     ['Guarantee', 'guarantee'],
     ['Talk to a human', 'support']
@@ -174,13 +218,22 @@
        policy answer, which otherwise swallows "my order never arrived". */
     { k: /nev(er|ah) (arrived|came|showed)|not arrived|hasn'?t (arrived|come|shipped)|didn'?t (arrive|come|get)|still waiting|lost|missing|stolen|wrong (item|product|order|address)|damaged|broken|leak|empty bottle|refund my|cancel my|charged twice|double charged/i, r: 'support' },
     /* Drill-only questions: specific enough to route correctly on any page. */
-    { k: /in the box|what (comes|do i get)|what'?s included|drill bits?|which bits|sanding|\bbands?\b|usb-?c cable/i, r: 'd_box' },
+    /* Lash questions, ahead of the drill's: "bond" and "band" otherwise collide.
+       An intent with r: null only applies on its own page and is skipped elsewhere. */
+    { k: /\bhold\b|stay on|72|come off|remov|how long (do|will|does) (they|the lashes|the clusters) (last|stay|hold)/i, r: ON_LASH ? 'l_hold' : null },
+    { k: /trays?\b|\b(30|40|80|100|120|150) ?d\b|thin band/i, r: 'l_trays' },
+    { k: /volume|which (set|one)|denser|fuller|lighter/i, r: ON_LASH ? 'l_trays' : null },
+    { k: /how (do|to) (i )?(put|apply|stick)|put (them|it) on/i, r: ON_LASH ? 'l_howto' : null },
+    { k: /\bbond\b|\bseal\b|\bglue\b|tweezer|spoolie/i, r: ON_LASH ? 'l_howto' : 'lash' },
+    { k: /in the box|what (comes|do i get)|what'?s included/i, r: 'box' },
+    { k: /drill bits?|which bits|sanding|\bbands?\b|usb-?c cable/i, r: 'd_box' },
     { k: /batter|recharg|charging|how long to charge|charge (it|time)|\bmah\b|cordless|how long (does it )?run/i, r: 'd_battery' },
     { k: /\bgel\b|acrylic|polish|strong enough|powerful|\brpm\b|speed|how fast/i, r: 'd_gel' },
     /* Not "colour-treated", which is the serum's hair-type question. */
     { k: /colou?rs?\b(?![- ]?treat)|\bgr[ae]y\b|\bpink\b|\bgreen\b/i, r: 'd_colours' },
     { k: /turn (it )?on|power button|f\/?r|reverse|direction|left[- ]handed/i, r: 'd_howto' },
     { k: /nail drill|the drill|\bdrill\b|manicure|nail file|e-?file/i, r: 'drill' },
+    { k: /lash|cluster|eyelash|falsies|false lashes/i, r: 'lash' },
     { k: /silk serum|serum|frizz|leave-?in|mist/i, r: 'what_serum' },
     { k: /eelhoe|ouzhini|who makes|who manufact|manufacturer|label on|different (brand|name)|not lennox|whose brand/i, r: 'maker' },
     { k: /greas|oily|heavy|weigh (it|my hair) down|residue|buildup|build-up|sticky/i, r: 'greasy' },
@@ -258,7 +311,7 @@
 
   function handleFree(text) {
     for (var i = 0; i < INTENTS.length; i++) {
-      if (INTENTS[i].k.test(text)) { route(INTENTS[i].r); return; }
+      if (INTENTS[i].r && INTENTS[i].k.test(text)) { route(INTENTS[i].r); return; }
     }
     route('fallback');
   }

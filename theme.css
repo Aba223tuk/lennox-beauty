@@ -275,6 +275,15 @@ body.drawer-open{overflow:hidden}
    lonely card in column one on desktop. Centre it and give it a sane max width.
    Added 2026-09-21, when the range came down to a single buyable product. */
 .product-grid:has(> :only-child){grid-template-columns:minmax(0,340px);justify-content:center}
+/* Three cards: on the 2-up mobile grid the third sat alone in the left column with a
+   hole beside it, and on the 4-up desktop grid the row ran short on the right. Centre
+   the odd card on mobile; give exactly-three a centred 3-up row on desktop. 2026-10-04. */
+@media(max-width:759px){
+  .product-grid > :last-child:nth-child(odd):not(:only-child){grid-column:1/-1;justify-self:center;width:calc(50% - .4rem)}
+}
+@media(min-width:760px){
+  .product-grid:has(> :nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,340px));justify-content:center}
+}
 .product-grid--3{grid-template-columns:repeat(2,1fr)}
 @media(min-width:760px){.product-grid--3{grid-template-columns:repeat(3,1fr)}}
 .product-card{
@@ -1146,3 +1155,6 @@ body.lb-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .rev-car__rail{scroll-behavior:auto}
 }
+
+/* A phone number broke across lines mid-digits on mobile ("(929) 670-" / "9555"). */
+a[href^="tel:"]{white-space:nowrap}

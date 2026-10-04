@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Nail Drill — Cordless 35,000 RPM Nail Drill | Lennox Beauty</title>
-<meta name="description" content="A cordless nail drill for at-home manicures. Up to 35,000 rpm, USB-C rechargeable, bits and sanding bands in the box. $49.99, free US shipping, 30-day guarantee.">
+<title>The Nail Drill — Cordless 35,000 RPM | Lennox Beauty</title>
+<meta name="description" content="Cordless nail drill for at-home manicures: up to 35,000 rpm, USB-C rechargeable, bits and bands included. $49.99, free US shipping, 30-day guarantee.">
 <link rel="canonical" href="https://lennoxbeauty.com/nail-drill">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#8a7357">
@@ -13,16 +13,16 @@
 <meta property="og:site_name" content="Lennox Beauty">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lennoxbeauty.com/nail-drill">
-<meta property="og:title" content="The Nail Drill — Cordless 35,000 RPM Nail Drill | Lennox Beauty">
+<meta property="og:title" content="The Nail Drill — Cordless 35,000 RPM | Lennox Beauty">
 <meta property="og:description" content="Up to 35,000 rpm, cordless, USB-C. Bits and sanding bands in the box. $49.99, free US shipping.">
-<meta property="og:image" content="https://lennoxbeauty.com/img/nail/hero.webp">
+<meta property="og:image" content="https://lennoxbeauty.com/img/nail/og.jpg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Nail Drill — gunmetal cordless nail drill with a speed display">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Nail Drill — Cordless 35,000 RPM Nail Drill | Lennox Beauty">
+<meta name="twitter:title" content="The Nail Drill — Cordless 35,000 RPM | Lennox Beauty">
 <meta name="twitter:description" content="Up to 35,000 rpm, cordless, USB-C. Bits and sanding bands in the box. $49.99, free US shipping.">
-<meta name="twitter:image" content="https://lennoxbeauty.com/img/nail/hero.webp">
+<meta name="twitter:image" content="https://lennoxbeauty.com/img/nail/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -340,7 +340,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            buttons always show what checkout will charge. Switch a discount off and its number
            here becomes a lie — change both together. -->
       <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout(1)" id="cta">Add to cart — $49.99</button>
-      <button class="btn btn--outline btn--full btn--lg" onclick="goToCheckout(2)" id="cta2" style="margin-top:.6rem">Buy 2, second half off — $74.99</button>
+      <button class="btn btn--outline btn--full btn--lg" onclick="goToCheckout(2)" id="cta2" style="margin-top:.6rem">Buy 2 · 2nd half off — $74.99</button>
 
       <div class="bump" id="bump" style="margin-top:1rem">
         <span class="save">Half price with one drill</span>
@@ -365,7 +365,9 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
       <!-- Real dates, not "7–13 days". theme.js fills each [data-checkpoint] from today's
            date at load, so this can never go stale and nobody has to count on their fingers.
-           The windows match the shipping JSON-LD above: dispatch 1–2, transit 7–13. Change
+           The windows match the shipping JSON-LD above: dispatch 1–2, then transit 7–13, so
+           delivery lands 8–15 days from the order (it read 7–13 until 2026-10-04, which counted
+           transit from the order date and promised 1–2 days early). Change
            one and change the other. -->
       <div class="checkpoints">
         <div class="checkpoints__step">
@@ -380,7 +382,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </div>
         <div class="checkpoints__step">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v11H4zM4 9l2-5h12l2 5M12 4v16"/></svg>
-          <span class="checkpoints__top" data-checkpoint data-min="7" data-max="13">—</span>
+          <span class="checkpoints__top" data-checkpoint data-min="8" data-max="15">—</span>
           <span class="checkpoints__bottom">Delivered</span>
         </div>
       </div>
@@ -561,7 +563,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     <div class="site-footer__grid">
       <div>
         <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
-        <p>Hair and body essentials, each built to do one job well.</p>
+        <p>Lashes, nails and hair care, each built to do one job well.</p>
       </div>
       <div><div data-lb-signup></div></div>
       <div>
@@ -657,7 +659,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     document.getElementById('bump').classList.toggle('taken', addSerum);
     document.getElementById('bump-btn').textContent = addSerum ? 'Added — remove' : 'Add Silk Serum';
     document.getElementById('cta').textContent = 'Add to cart — ' + money(totalFor(1));
-    document.getElementById('cta2').textContent = 'Buy 2, second half off — ' + money(totalFor(2));
+    document.getElementById('cta2').textContent = 'Buy 2 · 2nd half off — ' + money(totalFor(2));
     document.getElementById('bb-total').textContent = money(totalFor(1));
   }
   function toggleSerum(){
