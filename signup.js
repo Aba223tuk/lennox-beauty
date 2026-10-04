@@ -189,7 +189,7 @@
           btn.disabled = false;
           // Never claim success we cannot verify: if the address did not land,
           // the visitor has to know, or they will wait for an email forever.
-          say('That didn\'t go through. Try again, or text us on (929) 670-9555.', 'err');
+          say('That didn\'t go through. Try again, or email Lennoxsupport@gmail.com.', 'err');
         });
     });
   }
