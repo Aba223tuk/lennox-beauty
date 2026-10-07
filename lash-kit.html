@@ -99,7 +99,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 <style>
 @media(max-width:989px){
   .gallery__slide{aspect-ratio:6/5}
-  .gallery__slide:first-child img{object-fit:cover}
+  .gallery__slide:first-child img{object-fit:cover;object-position:50% 32%}
   .product__tagline b{font-weight:600}
 }
 </style>
@@ -274,8 +274,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </button>
         <div class="gallery__slides" id="galleryMain">
           <!-- -720 files are for phones (the slot is ~360px wide); the full files serve desktop and the lightbox. -->
-          <div class="gallery__slide"><img src="/img/lash/hero.webp" srcset="/img/lash/hero-720.webp 720w, /img/lash/hero.webp 1200w" sizes="(min-width:990px) 50vw, 100vw" width="1200" height="1200" fetchpriority="high" decoding="async" alt="The Lash Kit: two open purple cases of D-curl lash clusters with a bond and seal pen, a pink tweezer and a lash brush"></div>
-          <div class="gallery__slide"><img src="/img/lash/in-use.webp" srcset="/img/lash/in-use-720.webp 720w, /img/lash/in-use.webp 900w" sizes="(min-width:990px) 50vw, 100vw" width="900" height="1200" decoding="async" loading="lazy" alt="A woman placing a lash cluster under her natural lashes with the pink tweezer"></div>
+          <!-- The in-use shot leads because it is the same scene as every v2 ad video: the click
+               lands on the picture it just watched, not on a product flat-lay. -->
+          <div class="gallery__slide"><img src="/img/lash/in-use.webp" srcset="/img/lash/in-use-720.webp 720w, /img/lash/in-use.webp 900w" sizes="(min-width:990px) 50vw, 100vw" width="900" height="1200" fetchpriority="high" decoding="async" alt="A woman placing a lash cluster under her natural lashes with the pink tweezer"></div>
+          <div class="gallery__slide"><img src="/img/lash/hero.webp" srcset="/img/lash/hero-720.webp 720w, /img/lash/hero.webp 1200w" sizes="(min-width:990px) 50vw, 100vw" width="1200" height="1200" decoding="async" loading="lazy" alt="The Lash Kit: two open purple cases of D-curl lash clusters with a bond and seal pen, a pink tweezer and a lash brush"></div>
           <div class="gallery__slide"><img src="/img/lash/in-the-box.webp" srcset="/img/lash/in-the-box-720.webp 720w, /img/lash/in-the-box.webp 900w" sizes="(min-width:990px) 50vw, 100vw" width="900" height="1200" decoding="async" loading="lazy" alt="Everything in the box: four trays of lash clusters, the bond and seal pen, the tweezer and the lash brush"></div>
         </div>
         <button class="gallery__arrow gallery__arrow--prev" type="button" aria-label="Previous image">
@@ -291,8 +293,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </div>
       </div>
       <div class="gallery__thumbs">
-        <button class="gallery__thumb is-active" type="button" aria-label="Show image 1"><img src="/img/lash/hero.webp" alt="" width="1200" height="1200" loading="lazy"></button>
-        <button class="gallery__thumb" type="button" aria-label="Show image 2"><img src="/img/lash/in-use.webp" alt="" width="900" height="1200" loading="lazy"></button>
+        <button class="gallery__thumb is-active" type="button" aria-label="Show image 1"><img src="/img/lash/in-use.webp" alt="" width="900" height="1200" loading="lazy"></button>
+        <button class="gallery__thumb" type="button" aria-label="Show image 2"><img src="/img/lash/hero.webp" alt="" width="1200" height="1200" loading="lazy"></button>
         <button class="gallery__thumb" type="button" aria-label="Show image 3"><img src="/img/lash/in-the-box.webp" alt="" width="900" height="1200" loading="lazy"></button>
       </div>
     </div>
@@ -312,10 +314,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <span class="rating-row__label">4.6 from 828 verified purchases</span>
       </a>
 
-      <!-- The tagline is the ad's hook, word for word ("Skip the lash appointment" /
-           "Lash clusters, done at home"), so the click lands on the sentence that earned it.
-           Change the ads, change this. -->
-      <p class="product__tagline"><b>Skip the lash appointment.</b> Lash clusters, done at home.</p>
+      <!-- The tagline is the ad's hook, word for word, so the click lands on the sentence that
+           earned it. The default is LK-04's (the ad with most of the spend); the script at the
+           bottom swaps in LK-05's or LK-06's when utm_content names that ad.
+           Change the ads, change HOOKS. -->
+      <p class="product__tagline" id="tagline"><b>Lashes thinner than they used to be?</b> Clusters add the fullness back.</p>
 
       <!-- "2 for $37.48" is the live "second half off" automatic discount — same number as
            #cta2 and PAIR in the script. Change one, change all three. -->
@@ -717,6 +720,29 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }
 
   render();
+
+  /* Per-ad message match. Meta fills utm_content with the ad name ("LNX-LK-05 Salon Cost")
+     once the ads carry URL parameters; no parameter keeps the LK-04 default in the HTML.
+     The bundle ad also swaps which button is primary, because the click came for the pair. */
+  const HOOKS = {
+    '05': '<b>Skip the lash appointment.</b> Clusters you put on yourself.',
+    '06': '<b>2 kits for $37.48.</b> One for now, one for later.'
+  };
+  (function(){
+    let ad = '';
+    try { ad = new URLSearchParams(location.search).get('utm_content') || ''; } catch (e) {}
+    const m = ad.match(/LK-?0?(\d)/i);
+    const key = m ? '0' + m[1] : '';
+    if (HOOKS[key]) document.getElementById('tagline').innerHTML = HOOKS[key];
+    if (key === '06') {
+      const one = document.getElementById('cta'), two = document.getElementById('cta2');
+      one.classList.replace('btn--accent', 'btn--outline');
+      two.classList.replace('btn--outline', 'btn--accent');
+      two.style.marginTop = '';
+      one.style.marginTop = '.6rem';
+      two.after(one);
+    }
+  })();
 
   /* Fallback for when cart.js has not defined window.Cart — a load failure, a parse
      error, an extension blocking it. Less good than the drawer, but never a dead button. */
