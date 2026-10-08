@@ -316,7 +316,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
       <!-- The tagline is the ad's hook, word for word, so the click lands on the sentence that
            earned it. The default is LK-04's (the ad with most of the spend); the script at the
-           bottom swaps in LK-05's or LK-06's when utm_content names that ad.
+           bottom swaps in another ad's hook (HOOKS) when utm_content names that ad.
            Change the ads, change HOOKS. -->
       <p class="product__tagline" id="tagline"><b>Lashes thinner than they used to be?</b> Clusters add the fullness back.</p>
 
@@ -726,15 +726,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      The bundle ad also swaps which button is primary, because the click came for the pair. */
   const HOOKS = {
     '05': '<b>Skip the lash appointment.</b> Clusters you put on yourself.',
-    '06': '<b>2 kits for $37.48.</b> One for now, one for later.'
+    '06': '<b>2 kits for $37.48.</b> One for now, one for later.',
+    '08': '<b>Still doing mascara every morning?</b> Clusters go under your own lashes, in one evening.',
+    '09': '<b>Hooded eyes? Start here.</b> Soft 30D at the inner corner, fuller toward the centre.',
+    '10': '<b>Still booking fills?</b> Salon-style clusters you put on yourself.',
+    '11': '<b>2 kits for $37.48.</b> One for now, one for later.'
   };
   (function(){
     let ad = '';
     try { ad = new URLSearchParams(location.search).get('utm_content') || ''; } catch (e) {}
-    const m = ad.match(/LK-?0?(\d)/i);
-    const key = m ? '0' + m[1] : '';
+    const m = ad.match(/LK-?(\d{2})/i);
+    const key = m ? m[1] : '';
     if (HOOKS[key]) document.getElementById('tagline').innerHTML = HOOKS[key];
-    if (key === '06') {
+    if (key === '06' || key === '11') {
       const one = document.getElementById('cta'), two = document.getElementById('cta2');
       one.classList.replace('btn--accent', 'btn--outline');
       two.classList.replace('btn--outline', 'btn--accent');
