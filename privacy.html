@@ -39,7 +39,14 @@ fbq('track','PageView');
   var s = document.createElement('script');
   s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
   document.head.appendChild(s);
-  gtag('js', new Date()); gtag('config', window.GA_ID);
+  gtag('js', new Date());
+  /* Cross-domain: checkout leaves for shop.lennoxbeauty.com / shop.app, so without this
+     it starts a new session attributed to a Shopify referral. Same hosts belong in the
+     GA4 property's unwanted-referrals list. */
+  gtag('config', window.GA_ID, {
+    linker: { domains: ['90uhee-je.myshopify.com', 'shop.lennoxbeauty.com',
+                        'shop.app', 'checkout.shopify.com'] }
+  });
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""

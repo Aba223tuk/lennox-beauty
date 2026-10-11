@@ -74,7 +74,14 @@ fbq('track','ViewContent',{
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
   document.head.appendChild(s);
   gtag('js', new Date());
-  gtag('config', window.GA_ID);
+  /* Cross-domain. Checkout leaves for shop.lennoxbeauty.com / shop.app, so without this
+     the checkout is a brand new session attributed to a Shopify referral and the campaign
+     that paid for the click loses the order. Pair it with the same hosts in the GA4
+     property's unwanted-referrals list. */
+  gtag('config', window.GA_ID, {
+    linker: { domains: ['90uhee-je.myshopify.com', 'shop.lennoxbeauty.com',
+                        'shop.app', 'checkout.shopify.com'] }
+  });
   gtag('event','view_item',{
     currency:'USD', value:24.99,
     items:[{item_id:'LB-LASH', item_name:'The Lash Kit', price:24.99, quantity:1}]
