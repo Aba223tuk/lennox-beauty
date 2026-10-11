@@ -12,6 +12,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://lennoxbeauty.com/roll-on</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://lennoxbeauty.com/img/rollon/pack.webp</image:loc>
+      <image:title>The Smoothing Roll-On — 50ml roller bottle and box</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://lennoxbeauty.com/lash-kit</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>

@@ -15,8 +15,10 @@
   var EMAIL_LINK = '<a href="mailto:' + EMAIL + '">' + EMAIL + '</a>';
   var ON_DRILL = /nail-drill/.test(location.pathname);
   var ON_LASH = /lash-kit/.test(location.pathname);
-  var SHOP_URL = ON_DRILL ? '/nail-drill' : ON_LASH ? '/lash-kit' : '/silk-serum';
-  var PRODUCT = ON_DRILL ? 'The Nail Drill' : ON_LASH ? 'The Lash Kit' : 'The Silk Serum';
+  var ON_ROLL = /roll-on/.test(location.pathname);
+  var SHOP_URL = ON_DRILL ? '/nail-drill' : ON_LASH ? '/lash-kit' : ON_ROLL ? '/roll-on' : '/silk-serum';
+  var PRODUCT = ON_DRILL ? 'The Nail Drill' : ON_LASH ? 'The Lash Kit'
+              : ON_ROLL ? 'The Smoothing Roll-On' : 'The Silk Serum';
 
   /* ---------- styles (brand tokens mirrored from the site) ---------- */
   var css = [
@@ -176,6 +178,23 @@
   }
 
   /* On the drill page the generic questions are about the drill. */
+  /* Without this branch the roll-on page greeted cold paid traffic as the Silk Serum
+     and pointed its CTA at /silk-serum. Answers must match roll-on.html: 60-day refund,
+     8-15 days, appearance wording only - no treats, prevents or heals. */
+  if (ON_ROLL) {
+    T.greet = "Hi, I am the Lennox assistant.\nAsk me anything about The Smoothing Roll-On - where it goes, what is in it, the 60 days, or when it would arrive.\n\nWhat would you like to know?";
+    T.roll = "The Smoothing Roll-On is a 50ml roller for the look of bumps two or three days after a shave or wax - bikini line, underarms, legs.\n\nRoller ball, nothing to rinse, once or twice a day on clean dry skin.";
+    T.r_pricing = "<b>The Smoothing Roll-On</b> is sold in pairs.\n\n\u2022 2 bottles - $34.99 ($17.50 each)\n\u2022 3 bottles - $44.97 ($14.99 each)\n\nFree US shipping, and 60 days to change your mind.";
+    T.r_box = "<b>Two 50ml roller bottles</b>, boxed.\n\nOn the box: BHA, AHA, PHA, niacinamide and licorice.";
+    T.r_where = "Bikini line, underarms, legs - anywhere you shave or wax.\n\nNot your face, not broken skin, and away from your eyes.";
+    T.r_sting = "It is an acid formula, so it can tingle for a minute on thin skin.\n\nPatch test inside your arm first and keep it off fresh nicks. If it stings properly, rinse it off - and email us, that is a refund.";
+    T.refund = "Sixty days from the day it lands. Every cent back and you keep the bottles - nothing to post, no form.\n\nEmail " + EMAIL_LINK + ".";
+    T.ship = "Free US shipping, tracked. Dispatched in 1-2 business days, delivered 7-13 days after that.\n\nThe real dates are printed on the page, counted from today.";
+    T.parcel = "Plain - it comes in the maker\'s own box and the name Lennox is not on it. One parcel, tracked.";
+    T.buy = T.r_pricing;
+    T.box = T.r_box;
+  }
+
   if (ON_DRILL) {
     T.greet = "Hi 👋 I'm the Lennox assistant.\nAsk me anything about The Nail Drill — speed, battery, what's in the box, or when it would arrive.\n\nWhat would you like to know?";
     T.what = T.drill;
@@ -186,7 +205,12 @@
     T.buy = T.d_buy;
   }
 
-  var CHIPS_MAIN = ON_LASH ? [
+  var CHIPS_MAIN = ON_ROLL ? [
+    ['Where does it go?', 'r_where'],
+    ['Will it sting?', 'r_sting'],
+    ['When would it arrive?', 'ship'],
+    ['The 60 days', 'refund']
+  ] : ON_LASH ? [
     ['What is it?', 'what'],
     ['Price', 'pricing'],
     ["What's in the box?", 'box'],
@@ -206,7 +230,7 @@
     ['How to use', 'howto']
   ];
   var CHIPS_AFTER = [
-    [ON_DRILL || ON_LASH ? 'Buy it' : 'Claim the offer', 'buy'],
+    [ON_DRILL || ON_LASH || ON_ROLL ? 'Buy it' : 'Claim the offer', 'buy'],
     ['Shipping', 'shipping'],
     ['Guarantee', 'guarantee'],
     ['Talk to a human', 'support']
@@ -393,7 +417,7 @@
       '</div>' +
       '<div class="lcb-msgs" aria-live="polite"></div>' +
       '<div class="lcb-foot">' +
-      '<input class="lcb-in" type="text" placeholder="Ask about the ' + (ON_DRILL ? 'drill' : 'serum') + '…" aria-label="Ask about ' + PRODUCT + '" maxlength="300">' +
+      '<input class="lcb-in" type="text" placeholder="Ask about the ' + (ON_DRILL ? 'drill' : ON_ROLL ? 'roll-on' : 'serum') + '…" aria-label="Ask about ' + PRODUCT + '" maxlength="300">' +
       '<button class="lcb-send" type="button" aria-label="Send"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>' +
       '</div>' +
       '<div class="lcb-brand">Automated assistant · <a href="mailto:' + EMAIL + '">' + EMAIL + '</a></div>' +

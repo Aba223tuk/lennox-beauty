@@ -390,7 +390,7 @@
     }).join('') + offerHtml(lines) +
     '<div class="lbc-trust">' +
       '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>Free US shipping</div>' +
-      '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>30-day money-back guarantee</div>' +
+      '<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Money-back guarantee, keep the product</div>' +
       '<div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>Secure checkout by Shopify</div>' +
     '</div>';
 
