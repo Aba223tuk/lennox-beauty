@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Smoothing Roll-On — after shaving and waxing | Lennox Beauty</title>
-<meta name="description" content="A 50ml roll-on for the look of bumps after shaving or waxing. Two bottles $34.99 — $17.50 each. Free US shipping, 30-day money-back guarantee.">
+<meta name="description" content="A 50ml roll-on for the look of bumps after shaving or waxing. Two bottles $34.99 — $17.50 each. Free US shipping, 60-day money-back guarantee.">
 <link rel="canonical" href="https://lennoxbeauty.com/roll-on">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#8a7357">
@@ -231,6 +231,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Bikini line, underarms, legs — anywhere you shave or wax, and anywhere the bumps keep coming back in the same place. Not your face, not broken skin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it lighten the dark marks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, and one of the reviews on this page says exactly that. It is for the look of bumps and rough texture after shaving or waxing. It is not a brightener and it will not even out the darker patches left behind. If that is what you came for, this is the wrong bottle and we would rather you knew now."
       }
     },
     {
@@ -472,6 +480,18 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
      <p class="err" id="err" role="status"></p>
 
+      <!-- One quote under the button, deliberately the same text as a card at #reviews:
+           the decision is made here, not 600px down. This quote and no other because it
+           answers the objection this page is weakest on — 8 to 15 days — in a buyer's
+           words rather than ours. Not "same ingredients as name brand", however well it
+           would sell: publishing a testimonial adopts its claim, and that one is a
+           comparative claim about a formula nobody has had assayed. -->
+      <aside class="atc-quote">
+        <span class="rev__stars" role="img" aria-label="5 out of 5">★★★★★</span>
+        <p>“It looks of good quality, the size is appropriate, and it arrived earlier than expected …”</p>
+        <a href="#reviews">Verified buyer — read all 16 ratings</a>
+      </aside>
+
       <div class="pay-badges" aria-label="Accepted payment methods">
         <img src="/img/pay/visa.svg" alt="Visa" width="38" height="24" loading="lazy">
         <img src="/img/pay/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy">
@@ -572,9 +592,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
          it prints none the card says "Verified buyer" and a date, because inventing
          initials would be inventing a person. The marketplace is never named.
 
-         The cards are the five-star ones. The kicker still prints 4.6 across all sixteen
-         ratings — the same thing the drill page does with 4.8 over six five-star cards —
-         and that is what keeps a selection a selection. Do not raise it to 5.0.
+         The kicker prints 4.6 across all sixteen ratings and that is what keeps a selection
+         a selection. Do not raise it to 5.0.
+
+         Two of the five cards are three-star on purpose, including "didn't lighten my skin",
+         which the Q&A above answers in our own words. Until 2026-10-13 the set was four
+         cards and every one of them rendered five stars — a wall of fives on a 16-rating
+         product is the thing a shopper checks and stops believing. Do not quietly tidy it
+         back up.
 
          One five-star review is deliberately not here: "Same ingredients as name brand".
          Publishing a testimonial adopts its claim, and that is a comparative claim about
@@ -599,9 +624,22 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <figcaption>Verified buyer · Jul 2026</figcaption>
       </figure>
       <figure class="rev">
-        <div class="rev__stars" role="img" aria-label="5 out of 5">★★★★★</div>
+        <!-- 3 stars because the source listing says 3. It rendered as 5 until 2026-10-13. -->
+        <div class="rev__stars" role="img" aria-label="3 out of 5">★★★☆☆</div>
         <blockquote>It's soothing</blockquote>
         <figcaption>a***r · Aug 2026</figcaption>
+      </figure>
+      <!-- Logged as one of the six and never made it onto the page, which left four cards
+           and a wall of fives on a 16-rating product — the thing the comment above this
+           block says not to do, and this card is the one it names as staying. Verbatim.
+           No month because the listing's date was not recorded with the text; put it in
+           when the listing is next read rather than picking one.
+           "Same ingredients as name brand" stays off, for the reason given above: we
+           would be adopting a comparative formula claim nobody has had assayed. -->
+      <figure class="rev">
+        <div class="rev__stars" role="img" aria-label="3 out of 5">★★★☆☆</div>
+        <blockquote>it did give me softness but it didn't lighten my skin</blockquote>
+        <figcaption>Verified buyer</figcaption>
       </figure>
       </div>
       <button class="rev-car__arrow rev-car__arrow--next" type="button" aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -611,8 +649,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </section>
 
 <div class="page-width content-width mid-cta">
-  <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout()">Add to cart</button>
-  <p>$17.50 a bottle · free US shipping · 60 days, keep the bottles</p>
+  <!-- Needs an id: btns() collects the buttons that the double-tap guard disables and that
+       legacyCheckout relabels. Without one, a double-tap here reported two AddToCarts against
+       one cart line — the numerator the whole test is read on — and this button stayed live
+       and mislabelled while the other two said "Preparing secure checkout…". -->
+  <button class="btn btn--accent btn--full btn--lg" onclick="goToCheckout()" id="cta3">Add 2 bottles — $34.99</button>
+  <p id="cta3-sub">$17.50 a bottle · free US shipping · 60 days, keep the bottles</p>
 </div>
 
 
@@ -696,6 +738,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <details>
         <summary>Where can I use it?</summary>
         <div class="accordion__body"><p>Bikini line, underarms, legs — anywhere you shave or wax, and anywhere the bumps keep coming back in the same place. Not your face, not broken skin.</p></div>
+      </details>
+      <details>
+        <summary>Will it lighten the dark marks?</summary>
+        <div class="accordion__body"><p>No, and one of the reviews on this page says exactly that. It is for the look of bumps and rough texture after shaving or waxing. It is not a brightener and it will not even out the darker patches left behind. If that is what you came for, this is the wrong bottle and we would rather you knew now.</p></div>
       </details>
       <details>
         <summary>When will it arrive, and where from?</summary>
@@ -813,6 +859,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .pack__tag { position:absolute; top:-.6rem; right:.9rem; font-size:.66rem; letter-spacing:.09em;
                text-transform:uppercase; background:var(--accent); color:#fff;
                padding:.16rem .45rem; border-radius:99px; }
+  /* The quote under the add-to-cart. Quiet enough not to compete with the button it sits
+     under, loud enough to be read before the eye reaches the payment icons. */
+  .atc-quote { margin:.1rem 0 1rem; padding:.65rem .9rem; border-left:2px solid var(--accent);
+               background:rgba(138,115,87,.045); border-radius:0 10px 10px 0; }
+  .atc-quote p { margin:.22rem 0 .3rem; font-size:.95rem; line-height:1.5; color:var(--ink); }
+  .atc-quote a { font-size:.78rem; color:var(--ink-faint); text-decoration:underline;
+                 text-underline-offset:2px; }
   /* The carousel dots were 7px and 1.2:1 against white — invisible and untappable. */
   .rev-car__dot, .gallery__dot { position:relative; }
   .rev-car__dot::after { background:#9c948a; }
@@ -847,7 +900,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   var pack  = 2;
 
   function btns(){
-    return ['cta','cta-bar'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    return ['cta','cta-bar','cta3'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   }
 
   function paintPack(){
@@ -858,6 +911,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     if (sub) sub.textContent = pack + ' bottles · $' + per + ' each';
     var bar = document.getElementById('cta-bar');
     if (bar) bar.textContent = 'Add ' + pack + ' — $' + p;
+    /* The mid-page CTA repaints too, or picking the 3-pack left it saying "$17.50 a bottle"
+       while the buy box said $14.99 each. */
+    var mid = document.getElementById('cta3');
+    if (mid) mid.textContent = 'Add ' + pack + ' bottles — $' + p;
+    var midSub = document.getElementById('cta3-sub');
+    if (midSub) midSub.textContent = '$' + per + ' a bottle · free US shipping · 60 days, keep the bottles';
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('.pack'), function(b){
