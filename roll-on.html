@@ -388,33 +388,61 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </a>
 
       <!-- The tagline is the ad's hook, word for word, so the click lands on the sentence
-           that was clicked. RO-01 is the default in the HTML; the script at the bottom
-           swaps in another ad's hook (HOOKS) when utm_content names that ad. -->
+           that was clicked. The script below swaps in the clicked ad's hook (HOOKS) when
+           utm_content names it. What is written here is the fallback for a visit with no
+           utm_content — organic, a shared link, a second visit — so it is deliberately the
+           most universal of the hooks and belongs to no single angle's argument. -->
       <p class="product__tagline" id="tagline"><b>Shaved Tuesday.</b> Bumps by Thursday.</p>
 
       <script>
-  /* Per-ad message match. Meta fills utm_content with the ad name ("RO-03 Strawberry
-     legs") once the ads carry URL parameters; no parameter keeps RO-01 in the HTML.
+  /* Per-ad message match. Meta fills utm_content with the slug baked into each ad's
+     link, and this line becomes that ad's own opening sentence, so the click lands on
+     the sentence that was clicked.
+
+     REKEYED 2026-10-15 for the ABO angle test. The old map was keyed '01'..'06' against
+     the five-angle plan of 10-10, which no longer exists — the campaign is now three
+     angles (A mechanism, B price-per-bottle, C no-promise) over nine ads. Against the
+     built ads that map was wrong for every one of them: three landed on a hook from a
+     different angle (C-02, a trust ad, greeted people with "No cotton pads. One roll."),
+     the statics had no entry at all, and the slugs written on 10-15 are 'ro-b01' style,
+     which the old /RO-?(\d{2})/ could not even parse — so they all fell to the default.
+
+     Keyed on the whole slug now, not a number, because the creatives are immutable: the
+     six reused from 10-13 will send 'ro-01'..'ro-08' forever, while the ones written on
+     10-15 send 'ro-b01'..'ro-c05'. Both forms live in one map rather than in a regex.
+
      One angle per ad set, and this line is the only thing that changes between them —
-     which is what makes cost per landing-page view comparable across angles. */
+     which is what keeps cost per landing-page view comparable across angles. */
   var HOOKS = {
-    '01': '<b>Shaved Tuesday.</b> Bumps by Thursday.',
-    '02': '<b>Every shave.</b> The same three spots.',
-    '03': '<b>Daylight,</b> and the backs of your legs.',
-    '04': '<b>No cotton pads.</b> One roll.',
-    '05': '<b>Waxed Friday.</b> Saturday is the problem.',
-    '06': '<b>One for the shower,</b> one for the bag.'
+    /* A — trapped hair (mechanism) */
+    'ro-01':  '<b>Same spot.</b> Every single time.',
+    'ro-05':  '<b>It was never</b> the razor.',
+    'ro-07':  '<b>Not your technique.</b> A trapped hair.',
+    'ro-02':  '<b>You did everything right.</b> It came back.',
+    'ro-03':  '<b>Day three</b> is when you find out.',
+    /* B — one bottle is the wrong unit (price per bottle) */
+    'ro-b01': '<b>One bottle</b> is the wrong unit.',
+    'ro-b02': '<b>You already bought one.</b> It is still in the cabinet.',
+    'ro-06':  '<b>$14.99 a bottle</b> when you take three.',
+    'ro-b04': '<b>You were rationing it.</b> That is why.',
+    'ro-b05': '<b>$14.99 a bottle.</b> The one that failed was $20.',
+    /* C — no promise (trust) */
+    'ro-c01': '<b>Pick a number.</b> Someone has printed it.',
+    'ro-04':  '<b>No timeline.</b> Just the explanation.',
+    'ro-08':  '<b>Thirty days.</b> Keep the bottles either way.',
+    'ro-c04': '<b>Refund, and keep</b> the bottles.',
+    'ro-c05': '<b>Two things</b> you will not like.'
   };
   (function(){
     var ad = '';
     try { ad = new URLSearchParams(location.search).get('utm_content') || ''; } catch (e) {}
-    var m = ad.match(/RO-?(\d{2})/i);
-    var key = m ? m[1] : '';
+    var key = ad.trim().toLowerCase();
     if (HOOKS[key]) document.getElementById('tagline').innerHTML = HOOKS[key];
-    /* Deliberately nothing else changes, not even for the offer ad RO-06. The lash kit
-       promotes its pair button when the bundle ad sent the click; here the pair IS the
-       default button, and promoting the 3-pack to someone who clicked "one for the
-       shower, one for the bag" would answer a different sentence than the one clicked. */
+    /* Deliberately nothing else changes, not even for the B ads that argue about price.
+       The lash kit promoted its pair button when the bundle ad sent the click; here the
+       pair IS the default button, and promoting the 3-pack to someone who clicked
+       "one bottle is the wrong unit" would answer a different sentence than the one
+       clicked — and would also make the B ad sets a page test rather than an angle test. */
   })();
       </script>
 
