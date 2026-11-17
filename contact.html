@@ -48,10 +48,14 @@ fbq('track','PageView');
   gtag('js', new Date());
   /* Cross-domain: checkout leaves for shop.lennoxbeauty.com / shop.app, so without this
      it starts a new session attributed to a Shopify referral. Same hosts belong in the
-     GA4 property's unwanted-referrals list. */
+     GA4 property's unwanted-referrals list. Our own domain is on the list as well — gtag
+     decorates an outbound link only when its host appears there — and accept_incoming reads
+     the _gl parameter back on the return leg. */
   gtag('config', window.GA_ID, {
-    linker: { domains: ['90uhee-je.myshopify.com', 'shop.lennoxbeauty.com',
-                        'shop.app', 'checkout.shopify.com'] }
+    linker: { domains: ['lennoxbeauty.com', 'www.lennoxbeauty.com',
+                        '90uhee-je.myshopify.com', 'shop.lennoxbeauty.com',
+                        'shop.app', 'checkout.shopify.com'],
+              accept_incoming: true }
   });
 })();
 </script>
