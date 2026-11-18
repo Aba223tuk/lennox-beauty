@@ -400,7 +400,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            utm_content names it. What is written here is the fallback for a visit with no
            utm_content — organic, a shared link, a second visit — so it is deliberately the
            most universal of the hooks and belongs to no single angle's argument. -->
-      <p class="product__tagline" id="tagline"><b>Shaved Tuesday.</b> Bumps by Thursday.</p>
+      <!-- Empty and hidden by default as of 2026-11-17. The element stays because it is
+           what the per-ad hook swaps into: an ad click still opens on its own sentence.
+           A visit with no utm_content now sees nothing here rather than a generic line. -->
+      <p class="product__tagline" id="tagline" hidden></p>
 
       <script>
   /* Per-ad message match. Meta fills utm_content with the slug baked into each ad's
@@ -484,7 +487,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     /* hasOwnProperty, not a truthy index: ?utm_content=constructor or =toString would
        otherwise match Object.prototype and write a function body into the headline. */
     var el = document.getElementById('tagline');
-    if (el && Object.prototype.hasOwnProperty.call(HOOKS, key)) el.innerHTML = HOOKS[key];
+    if (el && Object.prototype.hasOwnProperty.call(HOOKS, key)) {
+      el.innerHTML = HOOKS[key];
+      el.hidden = false;   /* it ships hidden, so only an ad click reveals it */
+    }
     /* Deliberately nothing else changes, not even for the B ads that argue about price.
        The lash kit promoted its pair button when the bundle ad sent the click; here the
        pair IS the default button, and promoting the 3-pack to someone who clicked
@@ -511,11 +517,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <span class="price-row__note" id="bb-note">Three bottles · <b>$14.99 each</b> · free US shipping</span>
       </div>
 
-      <!-- The aisle anchor used to sit in accordion 7 of 8, which is 600px past the
-           decision. It is the entire value case, so it belongs next to the number it
-           argues about. Both figures are from the 10-11 category teardown. -->
-      <p class="price-anchor">A 50ml roller in this aisle runs <b>$18 to $52</b>. The one sold in
-        waxing salons is $34.</p>
+      <!-- The $18-52 aisle anchor was tried here on 2026-11-17 and removed the same day:
+           the buy box was carrying too many lines. The comparison still lives in the
+           "Why two bottles?" accordion. -->
+
+
 
       <!-- The three-icon benefit row was cut 2026-11-17: every line in it was already
            said within 200px. "Bikini line, underarms, legs" is in the job line above and
@@ -555,13 +561,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         </button>
       </div>
 
-      <!-- Objection #1 in this category is "is this safe to use down there", and the
-           page answered it only with a warning, which reads as risk. Reassurance first,
-           the warning still intact in the Q&A. Appearance and use wording only — no
-           safety claim, nothing about results. -->
-      <p class="feels-strip">Fragrance-free. Patch-test first, keep it off broken skin.</p>
+      <!-- The reassurance line above the button was tried on 2026-11-17 and removed the
+           same day for density. "Is it safe down there" is still answered in the Q&A
+           ("Will it sting?" and "Where can I use it?"), just not at the decision. -->
 
-      <button class="btn btn--accent btn--full btn--lg" data-atc-anchor onclick="goToCheckout()" id="cta">Add 3 bottles — $44.97</button>
+<button class="btn btn--accent btn--full btn--lg" data-atc-anchor onclick="goToCheckout()" id="cta">Add 3 bottles — $44.97</button>
 
      <p class="err" id="err" role="status"></p>
 
