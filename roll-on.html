@@ -335,8 +335,12 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <!-- The packshot leads. A macro crop of a blue tube reads as a deodorant to
              someone who has never seen the brand; the box beside the bottle is the
              only frame that answers "what is this and what arrives". srcset matters
-             here because a horizontal scroller defeats loading="lazy" — every slide
-             fetches in the opening burst whatever we mark it. -->
+             here because the slide is wide on mobile. Lazy was REMOVED from slides 2-4 on
+             2026-11-17: this comment used to claim a horizontal scroller defeats loading="lazy"
+             and every slide fetches anyway. It does not — Chrome measures against the viewport,
+             so slides sitting off-screen right are deferred and a swipe can land on a blank
+             panel. ~60KB eager at mobile widths is cheap insurance on a page that sells on
+             photography and is not allowed a before/after. -->
         <div class="gallery__slides" id="galleryMain">
           <div class="gallery__slide"><img src="/img/rollon/pack-800.webp"
             srcset="/img/rollon/pack-400.webp 400w, /img/rollon/pack-800.webp 800w, /img/rollon/pack-1050.webp 1050w, /img/rollon/pack.webp 1400w"
@@ -345,15 +349,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           <div class="gallery__slide"><img src="/img/rollon/hero-800.webp"
             srcset="/img/rollon/hero-400.webp 400w, /img/rollon/hero-800.webp 800w, /img/rollon/hero-1050.webp 1050w, /img/rollon/hero.webp 1330w"
             sizes="(min-width:1400px) 784px, (min-width:990px) calc(100vw - 610px), (min-width:640px) calc(100vw - 80px), calc(100vw - 40px)"
-            width="1330" height="1330" decoding="async" loading="lazy" alt="The roller gliding down a leg, leaving a wet line"></div>
+            width="1330" height="1330" decoding="async" alt="The roller gliding down a leg, leaving a wet line"></div>
           <div class="gallery__slide"><img src="/img/rollon/bag-800.webp"
             srcset="/img/rollon/bag-400.webp 400w, /img/rollon/bag-800.webp 800w, /img/rollon/bag-1050.webp 1050w, /img/rollon/bag.webp 1050w"
             sizes="(min-width:1400px) 784px, (min-width:990px) calc(100vw - 610px), (min-width:640px) calc(100vw - 80px), calc(100vw - 40px)"
-            width="1050" height="1050" decoding="async" loading="lazy" alt="Two bottles on linen beside a woven bag and sunglasses"></div>
+            width="1050" height="1050" decoding="async" alt="Two bottles on linen beside a woven bag and sunglasses"></div>
           <div class="gallery__slide"><img src="/img/rollon/shelf-800.webp"
             srcset="/img/rollon/shelf-400.webp 400w, /img/rollon/shelf-800.webp 800w, /img/rollon/shelf-1050.webp 1050w, /img/rollon/shelf.webp 1400w"
             sizes="(min-width:1400px) 784px, (min-width:990px) calc(100vw - 610px), (min-width:640px) calc(100vw - 80px), calc(100vw - 40px)"
-            width="1400" height="1050" decoding="async" loading="lazy" alt="The bottle on a marble bathroom shelf beside a folded towel and a razor"></div>
+            width="1400" height="1050" decoding="async" alt="The bottle on a marble bathroom shelf beside a folded towel and a razor"></div>
         </div>
         <button class="gallery__arrow gallery__arrow--prev" type="button" aria-label="Previous image">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
@@ -849,7 +853,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       </div>
     </div>
     <div class="site-footer__bottom">
-      <p>© 2026 Lennox Beauty · Free US shipping · 30-day money-back guarantee</p>
+      <!-- 60, not the site-wide 30: this product's exception is stated in returns.html and
+           promised seven times above. A footer contradicting the buy box is the one thing the
+           trust angle cannot afford. -->
+      <p>© 2026 Lennox Beauty · Free US shipping · 60-day money-back guarantee</p>
       <nav class="footer-legal" aria-label="Legal">
         <a href="/terms">Terms of Service</a>
         <a href="/privacy">Privacy Policy</a>
