@@ -507,9 +507,15 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            here at all. Do not add a struck-through "regular price" — there isn't one,
            and with no US return address we cannot afford a credibility question. -->
       <div class="price-row">
-        <span class="price-row__now">$34.99</span>
-        <span class="price-row__note">Two bottles · <b>$17.50 each</b> · free US shipping · 60 days to change your mind</span>
+        <span class="price-row__now" id="bb-now">$44.97</span>
+        <span class="price-row__note" id="bb-note">Three bottles · <b>$14.99 each</b> · free US shipping · 60 days to change your mind</span>
       </div>
+
+      <!-- The aisle anchor used to sit in accordion 7 of 8, which is 600px past the
+           decision. It is the entire value case, so it belongs next to the number it
+           argues about. Both figures are from the 10-11 category teardown. -->
+      <p class="price-anchor">A 50ml roller in this aisle runs <b>$18 to $52</b>. The one sold in
+        waxing salons is $34.</p>
 
       <div class="benefit-row">
         <!-- When · where · how, in that order: the first two say what it is for and the
@@ -538,20 +544,36 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            and the copy above invites exactly that comparison. A radio ladder also lets
            the sticky bar carry whichever pack is selected, which is where most phone
            adds happen — with two fixed buttons the mix was pinned to the 2-pack. -->
+      <!-- The 3-pack leads and is selected by default, 2026-11-17. Reason-why, not a
+           discount frame: the bumps come back after every shave on every area you do,
+           so a four-week routine across legs and bikini line does not fit in one
+           bottle. "$2.51 less a bottle" was a price argument; this is a use argument,
+           which is what the category's own "two to three weeks" copy is built on. On
+           profit per visitor the 3-pack default can lose 22% of its carts and still
+           break even ($33.92 against $26.49), and it lifts the blended CPA ceiling,
+           which is the binding constraint on the whole test. -->
       <div class="packs" role="radiogroup" aria-label="How many bottles">
-        <button class="pack is-on" type="button" role="radio" aria-checked="true" data-pack="2">
+        <button class="pack is-on" type="button" role="radio" aria-checked="true" data-pack="3">
+          <span class="pack__tag">Most people take three</span>
+          <span class="pack__n">3 bottles</span>
+          <span class="pack__sub">One per area — legs, underarms, bikini line</span>
+          <span class="pack__p">$44.97<small>$14.99 each</small></span>
+        </button>
+        <button class="pack" type="button" role="radio" aria-checked="false" data-pack="2">
           <span class="pack__n">2 bottles</span>
           <span class="pack__sub">One for the shower, one for the bag</span>
           <span class="pack__p">$34.99<small>$17.50 each</small></span>
         </button>
-        <button class="pack" type="button" role="radio" aria-checked="false" data-pack="3">
-          <span class="pack__tag">Best value</span>
-          <span class="pack__n">3 bottles</span>
-          <span class="pack__sub">$2.51 less a bottle</span>
-          <span class="pack__p">$44.97<small>$14.99 each</small></span>
-        </button>
       </div>
-      <button class="btn btn--accent btn--full btn--lg" data-atc-anchor onclick="goToCheckout()" id="cta">Add 2 bottles — $34.99</button>
+
+      <!-- Objection #1 in this category is "is this safe to use down there", and the
+           page answered it only with a warning, which reads as risk. Reassurance first,
+           the warning still intact in the Q&A. Appearance and use wording only — no
+           safety claim, nothing about results. -->
+      <p class="feels-strip">Made for the bikini line, underarms and legs. Fragrance-free.
+        Patch-test first, keep it off broken skin.</p>
+
+      <button class="btn btn--accent btn--full btn--lg" data-atc-anchor onclick="goToCheckout()" id="cta">Add 3 bottles — $44.97</button>
 
      <p class="err" id="err" role="status"></p>
 
@@ -975,7 +997,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   var CONTENT_ID = { 2: '52660239794392', 3: '52660239827160' };
   var SKU   = { 2: 'LB-ROLL-2', 3: 'LB-ROLL-3' };
   var PRICE = { 2: 34.99, 3: 44.97 };
-  var pack  = 2;
+  /* Default is the 3-pack as of 2026-11-17 — see the comment on the picker. */
+  var pack  = 3;
 
   function btns(){
     return ['cta','cta-bar','cta3'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
@@ -995,6 +1018,13 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     if (mid) mid.textContent = 'Add ' + pack + ' bottles — $' + p;
     var midSub = document.getElementById('cta3-sub');
     if (midSub) midSub.textContent = '$' + per + ' a bottle · free US shipping · 60 days, keep the bottles';
+    /* The big price above the picker repaints too, or switching to the 2-pack left
+       "$44.97 · Three bottles" sitting over a $34.99 button. */
+    var now = document.getElementById('bb-now');
+    if (now) now.textContent = '$' + p;
+    var note = document.getElementById('bb-note');
+    if (note) note.innerHTML = (pack === 3 ? 'Three' : 'Two') + ' bottles · <b>$' + per +
+      ' each</b> · free US shipping · 60 days to change your mind';
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('.pack'), function(b){
