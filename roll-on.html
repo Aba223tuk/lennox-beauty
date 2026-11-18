@@ -508,7 +508,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            and with no US return address we cannot afford a credibility question. -->
       <div class="price-row">
         <span class="price-row__now" id="bb-now">$44.97</span>
-        <span class="price-row__note" id="bb-note">Three bottles · <b>$14.99 each</b> · free US shipping · 60 days to change your mind</span>
+        <span class="price-row__note" id="bb-note">Three bottles · <b>$14.99 each</b> · free US shipping</span>
       </div>
 
       <!-- The aisle anchor used to sit in accordion 7 of 8, which is 600px past the
@@ -517,25 +517,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <p class="price-anchor">A 50ml roller in this aisle runs <b>$18 to $52</b>. The one sold in
         waxing salons is $34.</p>
 
-      <div class="benefit-row">
-        <!-- When · where · how, in that order: the first two say what it is for and the
-             third says why it is easier than a scrub. The bottle size moved to the spec
-             list — it is a fact, not a reason to buy. -->
-        <div class="benefit-row__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M12 14v4M10 16h4"/></svg>
-          <span>Day two after a shave or wax</span>
-        </div>
-        <div class="benefit-row__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
-          <span>Bikini line, underarms, legs</span>
-        </div>
-        <div class="benefit-row__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M8 12v7a4 4 0 0 0 8 0v-7"/></svg>
-          <span>Rolls on, nothing to rinse</span>
-        </div>
-      </div>
+      <!-- The three-icon benefit row was cut 2026-11-17: every line in it was already
+           said within 200px. "Bikini line, underarms, legs" is in the job line above and
+           in the reassurance line below; "day two after a shave or wax" is the job line's
+           other half; "rolls on, nothing to rinse" is in the spec list and the Q&A. Three
+           icons that repeat their neighbours are noise at the exact point the decision is
+           made. -->
 
-      <!-- Two offers, and two bottles is the default one. The pack ladder is the entire
+<!-- Two offers, and two bottles is the default one. The pack ladder is the entire
            economic case for this product: a single does not pay a CPA, two does, three
            does better. The per-bottle price is printed on the second button because that
            is the comparison that wins — not the total, which is the comparison that loses. -->
@@ -570,8 +559,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
            page answered it only with a warning, which reads as risk. Reassurance first,
            the warning still intact in the Q&A. Appearance and use wording only — no
            safety claim, nothing about results. -->
-      <p class="feels-strip">Made for the bikini line, underarms and legs. Fragrance-free.
-        Patch-test first, keep it off broken skin.</p>
+      <p class="feels-strip">Fragrance-free. Patch-test first, keep it off broken skin.</p>
 
       <button class="btn btn--accent btn--full btn--lg" data-atc-anchor onclick="goToCheckout()" id="cta">Add 3 bottles — $44.97</button>
 
@@ -1024,7 +1012,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     if (now) now.textContent = '$' + p;
     var note = document.getElementById('bb-note');
     if (note) note.innerHTML = (pack === 3 ? 'Three' : 'Two') + ' bottles · <b>$' + per +
-      ' each</b> · free US shipping · 60 days to change your mind';
+      ' each</b> · free US shipping';
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('.pack'), function(b){
