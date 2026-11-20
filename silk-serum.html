@@ -33,6 +33,8 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
+/* "Do not share" opt-out from /privacy#noshare (GPC honoured too). */
+try{if(localStorage.getItem('lb_noshare')==='1'||navigator.globalPrivacyControl)fbq('consent','revoke');}catch(e){}
 fbq('init','2111917956205326');
 fbq('track','PageView');
 /* ViewContent reports the default selection — the single bottle. It used to report
@@ -754,7 +756,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <p>© 2026 Lennox Beauty · Free US shipping · 30-day money-back guarantee</p>
       <nav class="footer-legal" aria-label="Legal">
         <a href="/terms">Terms of Service</a>
-        <a href="/privacy">Privacy Policy</a>
+        <a href="/privacy">Privacy Policy</a> <a href="/privacy#noshare">Do not share my info</a>
         <a href="/returns">Returns &amp; Refunds</a>
         <a href="/shipping">Shipping</a>
       </nav>
