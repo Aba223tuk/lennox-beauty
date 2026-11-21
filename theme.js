@@ -47,7 +47,19 @@
     var btn = $('.burger'), panel = $('.site-drawer');
     if (!btn || !panel) return;
 
+    /* The drawer starts at the header's bottom edge, not at the top of the screen.
+       It used to be inset:0 under the header, so on any page with the ticker above
+       the header the list scrolled up into the ticker's strip and slid over the
+       top of the header. Measured on every open and resize because the header's
+       position depends on how far the page is scrolled. */
+    var head = $('.site-header');
+    function place() {
+      var b = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
+      panel.style.top = b + 'px';
+    }
+    window.addEventListener('resize', function () { if (panel.classList.contains('is-open')) place(); });
     function set(open) {
+      if (open) { if (head) head.classList.remove('is-hidden'); place(); }
       btn.classList.toggle('is-open', open);
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       panel.classList.toggle('is-open', open);

@@ -1865,3 +1865,17 @@ body.sr-lock{overflow:hidden}
 .dr-links{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1rem}
 .site-drawer .dr-links a{font-family:var(--sb-cond);font-weight:800;font-size:1.35rem}
 .sr__field input::-webkit-search-cancel-button{display:none;-webkit-appearance:none}
+
+/* Phone drawer: opens BELOW the header (theme.js sets top), fades rather than sliding
+   down from above the screen — a slide from -100% passes over the ticker and header. */
+html body .site-drawer{
+  top:64px;bottom:0;padding-top:1rem;z-index:59;
+  transform:translateY(-10px);opacity:0;visibility:hidden;
+  transition:transform .25s ease,opacity .25s ease,visibility 0s linear .25s;
+  overscroll-behavior:contain;
+}
+html body .site-drawer.is-open{transform:none;opacity:1;visibility:visible;transition:transform .25s ease,opacity .25s ease}
+/* the chat bubble and the sticky bar sit above page content, not above menus */
+body.drawer-open .lcb-launcher,body.drawer-open .lcb-panel,body.drawer-open .sticky-atc,
+body.sr-lock .lcb-launcher,body.lbc-lock .lcb-launcher,body.lbc-lock .sticky-atc{display:none!important}
+body.drawer-open .site-header{transform:none!important}
