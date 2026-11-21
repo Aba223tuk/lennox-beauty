@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://lennoxbeauty.com/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/img/brand/hero-sm.webp" media="(max-width: 759px)">
 <link rel="preload" as="image" href="/img/brand/hero.webp" media="(min-width: 760px)">
 <!-- Meta Pixel -->
@@ -83,33 +83,26 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </script>
 
 <link rel="stylesheet" href="/theme.css">
-<style>
-  /* Home only. The banner image is set here rather than in theme.css so the
-     phone never downloads the 1600px crop. */
-  .home-banner{background-image:url('/img/brand/hero-sm.webp')}
-  @media(min-width:760px){.home-banner{background-image:url('/img/brand/hero.webp')}}
-  .closing{text-align:center}
-  .closing p{color:var(--ink-soft);max-width:30rem;margin:.6rem auto 1.6rem}
-</style>
+<!-- 2026-11-20: home rebuilt on superbonsai.com's homepage, section for section:
+     ticker → header → hero (wash + clouds) → trust bar → product grid → video rail →
+     dark bento → multi-pack grid → reviews → mission banner → 2-col FAQ → photo CTA →
+     footer. Their numbers ("250,000+ customers", "4.8 across 2,800 ratings") have no
+     Lennox equivalent, so those slots carry the guarantee and shipping instead. -->
 </head>
 <body>
 
-<!-- ============ ticker (header group, block 1) ============ -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
     <div class="ticker__group">
-      <span>Free US shipping</span><span>30-day money-back guarantee</span>
-      <span>Tracked delivery</span><span>Dispatched in 1–2 days</span>
+      <span><b>NEW</b> The Smoothing Roll-On</span><span>Free US shipping on every order</span><span>30-day money-back guarantee</span><span>Tracked delivery</span>
     </div>
     <div class="ticker__group">
-      <span>Free US shipping</span><span>30-day money-back guarantee</span>
-      <span>Tracked delivery</span><span>Dispatched in 1–2 days</span>
+      <span><b>NEW</b> The Smoothing Roll-On</span><span>Free US shipping on every order</span><span>30-day money-back guarantee</span><span>Tracked delivery</span>
     </div>
   </div>
 </div>
 <p class="sr-only">Free US shipping and a 30-day money-back guarantee on every order.</p>
 
-<!-- ============ header ============ -->
 <header class="site-header">
   <div class="site-header__inner">
     <div class="site-header__left">
@@ -117,20 +110,19 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <span></span><span></span><span></span>
       </button>
       <nav class="site-nav" aria-label="Main">
-        <a href="/" aria-current="page">Home</a>
-        <a href="/catalog">Shop</a>
+        <a href="/catalog">Shop All</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
       </nav>
     </div>
-    <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
+    <a class="site-logo" href="/" aria-current="page">Lennox <span>Beauty</span></a>
     <div class="site-header__right"><span id="cart-slot"></span></div>
   </div>
 </header>
 
 <nav class="site-drawer" id="siteDrawer" aria-hidden="true" aria-label="Menu">
   <a href="/">Home</a>
-  <a href="/catalog">Shop</a>
+  <a href="/catalog">Shop All</a>
   <a href="/about">About our brand</a>
   <a href="/contact">Contact</a>
   <div class="drawer-foot">
@@ -138,234 +130,335 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </div>
 </nav>
 
-<!-- ============ image banner ============ -->
-<section class="banner home-banner">
-  <div class="banner__inner">
-    <p class="banner__eyebrow">Small things, done properly</p>
-    <h1>Beauty, made simpler.</h1>
-    <p>Lashes, nails and hair care you do at home — each one built to do a single job
-      well, and priced like an everyday thing.</p>
-    <div class="btn-row">
-      <a class="btn btn--accent btn--lg" href="#shop">Shop now</a>
-      <a class="btn btn--ghost-light btn--lg" href="/about">Our story</a>
+<!-- ============ hero ============ -->
+<section class="sb-hero">
+  <div class="sb-hero__inner">
+    <div class="sb-hero__copy">
+      <p class="sb-hero__eyebrow">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9z"/></svg>
+        Lashes · Nails · Hair · Skin
+      </p>
+      <h1>At-Home Beauty For <em>Everyday Problems</em></h1>
+      <p>Four products, each built to do one job well — and priced like an everyday thing.</p>
+      <a class="sb-btn" href="#shop">Shop the collection</a>
+      <div class="sb-hero__badges"><span>Free US shipping</span><span>30-day money-back guarantee</span></div>
+    </div>
+    <div class="sb-hero__media">
+      <picture>
+        <source media="(min-width:760px)" srcset="/img/brand/hero.webp">
+        <img src="/img/brand/hero-sm.webp" alt="Lennox Beauty products on a warm neutral set" width="1600" height="893" fetchpriority="high">
+      </picture>
     </div>
   </div>
 </section>
 
-<!-- ============ icon bar ============ -->
-<section class="section section--tight">
-  <div class="page-width">
-    <div class="icon-bar__grid">
-      <div class="icon-bar__item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/>
-        </svg>
-        <span>Secure checkout</span>
-      </div>
-      <div class="icon-bar__item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
-        </svg>
-        <span>30-day guarantee</span>
-      </div>
-      <div class="icon-bar__item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>
-        </svg>
-        <span>A real person on email</span>
-      </div>
-    </div>
+<!-- ============ trust bar ============ -->
+<div class="sb-trust">
+  <div class="sb-trust__row">
+    <span class="sb-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>Free shipping on every order</span>
+    <span class="sb-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>30-day money-back guarantee</span>
+    <span class="sb-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/></svg>Tracked to your door</span>
   </div>
-</section>
+</div>
 
-<!-- ============ featured collection ============ -->
+<!-- ============ products ============ -->
+<!-- Ratings are each product's own verified-purchase figures, the same numbers its
+     product page prints with its sourcing note. Never sum them into a store total. -->
 <section class="section" id="shop">
   <div class="page-width">
     <div class="section-head reveal">
-      <div class="kicker">Shop</div>
-      <h2>What we make.</h2>
-      <p>Three products available today. More are in development — when something isn't
-        ready, we say so.</p>
+      <h2>Four Products, <em>Each Built For One Job.</em></h2>
     </div>
-
     <div class="product-grid">
-
-      <a class="product-card reveal" href="/lash-kit">
+      <a class="product-card reveal" href="/roll-on">
         <div class="product-card__media">
-          <img src="/img/lash/card.webp" alt="The Lash Kit, two purple cases of D-curl lash clusters with a bond and seal pen and tweezer" width="600" height="600" loading="lazy" decoding="async">
+          <span class="product-card__badge">New</span>
+          <img src="/img/rollon/pack-400.webp" alt="The Smoothing Roll-On bottle beside its box" width="400" height="400" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.6 · 16 ratings</span>
+          <h3 class="product-card__title">The Smoothing Roll-On</h3>
+          <p class="product-card__desc">For the look of bumps after shaving or waxing</p>
+          <p class="product-card__price">From $34.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+      <a class="product-card reveal" href="/lash-kit">
+        <div class="product-card__media">
+                    <img src="/img/lash/card.webp" alt="The Lash Kit, two cases of D-curl lash clusters with a bond and seal pen and tweezer" width="600" height="600" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.6 · 828 ratings</span>
           <h3 class="product-card__title">The Lash Kit</h3>
-          <p class="product-card__desc">Four trays of clusters, bond &amp; seal and a tweezer.</p>
+          <p class="product-card__desc">Lash clusters you apply at home</p>
           <p class="product-card__price">$24.99</p>
           <span class="product-card__cta">Shop now</span>
         </div>
       </a>
-
       <a class="product-card reveal" href="/nail-drill">
         <div class="product-card__media">
           <img src="/img/nail/card.webp" alt="The Nail Drill, a grey cordless nail drill with a speed display" width="600" height="600" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.8 · 527 ratings</span>
           <h3 class="product-card__title">The Nail Drill</h3>
-          <p class="product-card__desc">Cordless, up to 35,000 rpm, bits and bands in the box.</p>
+          <p class="product-card__desc">Cordless, up to 35,000 rpm, bits in the box</p>
           <p class="product-card__price">$49.99</p>
           <span class="product-card__cta">Shop now</span>
         </div>
       </a>
-
       <a class="product-card reveal" href="/silk-serum">
         <div class="product-card__media">
-          <img src="/img/silk/silk-09.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" loading="lazy" decoding="async">
+          <img src="/img/silk/silk-07.webp" alt="The Silk Serum, an anti-frizz leave-in mist" width="1065" height="1065" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.7 · 22 ratings</span>
           <h3 class="product-card__title">The Silk Serum</h3>
-          <p class="product-card__desc">Smooths flyaways and kills static in about sixty seconds.</p>
+          <p class="product-card__desc">Smooths flyaways and kills static</p>
           <p class="product-card__price">From $24.99</p>
           <span class="product-card__cta">Shop now</span>
         </div>
       </a>
-
-
     </div>
-
-    <p style="text-align:center;margin-top:1.6rem">
-      <a class="link-arrow" href="/catalog">See everything, including what's coming</a>
-    </p>
   </div>
 </section>
 
-<!-- ============ image with text (brand story) ============ -->
-<section class="section section--tight">
+<!-- ============ video rail ============ -->
+<!-- Super Bonsai runs creator clips here with handles and follower counts. Ours are
+     product clips, so the caption names the product and nothing else — no handle, no
+     "customer" label on footage that isn't a customer's. -->
+<section class="sb-ugc section--soft">
+  <div class="section-head reveal">
+    <h2>See It <em>In Use.</em></h2>
+    <p>Tap to play.</p>
+  </div>
+  <div class="sb-ugc__rail">
+    <figure class="sb-ugc__card" data-ugc>
+      <div class="sb-ugc__frame">
+        <video src="/video/r2-routine.mp4" poster="/img/ugc/r2-routine.jpg" preload="none" playsinline loop></video>
+        <button class="sb-ugc__play" type="button" aria-label="Play the roll-on video"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></button>
+      </div>
+      <figcaption class="sb-ugc__cap"><b>The Roll-On</b><a href="/roll-on">Shop →</a></figcaption>
+    </figure>
+    <figure class="sb-ugc__card" data-ugc>
+      <div class="sb-ugc__frame">
+        <video poster="/img/lash/loop-poster.webp" preload="none" playsinline loop muted>
+          <source src="/video/lash-loop.webm" type="video/webm"><source src="/video/lash-loop.mp4" type="video/mp4">
+        </video>
+        <button class="sb-ugc__play" type="button" aria-label="Play the lash kit video"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></button>
+      </div>
+      <figcaption class="sb-ugc__cap"><b>The Lash Kit</b><a href="/lash-kit">Shop →</a></figcaption>
+    </figure>
+    <figure class="sb-ugc__card" data-ugc>
+      <div class="sb-ugc__frame">
+        <video poster="/img/nail/loop-poster.webp" preload="none" playsinline loop muted>
+          <source src="/video/nail-loop.webm" type="video/webm"><source src="/video/nail-loop.mp4" type="video/mp4">
+        </video>
+        <button class="sb-ugc__play" type="button" aria-label="Play the nail drill video"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></button>
+      </div>
+      <figcaption class="sb-ugc__cap"><b>The Nail Drill</b><a href="/nail-drill">Shop →</a></figcaption>
+    </figure>
+    <figure class="sb-ugc__card" data-ugc>
+      <div class="sb-ugc__frame">
+        <video src="/video/silk-orbit.mp4" poster="/img/silk/silk-orbit-poster.jpg" preload="none" playsinline loop muted></video>
+        <button class="sb-ugc__play" type="button" aria-label="Play the silk serum video"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></button>
+      </div>
+      <figcaption class="sb-ugc__cap"><b>The Silk Serum</b><a href="/silk-serum">Shop →</a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ dark bento ============ -->
+<section class="section sb-dark sb-curve-top">
+  <div class="section-head reveal">
+    <h2>Ten Products Don't Fix One Problem. <em>One Should.</em></h2>
+  </div>
+  <div class="sb-bento">
+    <div class="sb-bento__card sb-bento__a reveal">
+      <h3>One Job, <em>Done Properly.</em></h3>
+      <p>Every product here does one thing. If we don't have a good version of something yet, it isn't on the shelf.</p>
+      <img src="/img/rollon/pack-800.webp" alt="The Smoothing Roll-On beside its box" width="800" height="800" loading="lazy" decoding="async">
+    </div>
+    <div class="sb-bento__card sb-bento__b reveal">
+      <h3>Priced Like <em>An Everyday Thing.</em></h3>
+      <p>From $24.99. Multi-packs cost less per unit.</p>
+      <img src="/img/lash/card.webp" alt="The Lash Kit" width="600" height="600" loading="lazy" decoding="async">
+    </div>
+    <div class="sb-bento__card sb-bento__c reveal">
+      <h3>No Subscription. <em>Ever.</em></h3>
+      <p>Nothing renews. Nothing is cheaper only if you sign up.</p>
+      <img src="/img/nail/card.webp" alt="The Nail Drill" width="600" height="600" loading="lazy" decoding="async">
+    </div>
+    <div class="sb-bento__card sb-bento__d reveal">
+      <img src="/img/lash/in-use.webp" alt="Applying lash clusters at home" width="900" height="1200" loading="lazy" decoding="async">
+      <h3>30 Days To <em>Change Your Mind.</em></h3>
+      <p>Every cent back, and you keep it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ multi-packs (their bundle grid) ============ -->
+<!-- Prices must match the pack ladders on roll-on.html and silk-serum.html. -->
+<section class="section sb-dark" style="padding-top:0">
   <div class="page-width">
-    <div class="image-text__grid reveal">
-      <div class="image-text__media">
-        <img src="/img/brand/hero-alt.webp" alt="Lennox Beauty products on a warm neutral set" width="1600" height="893" loading="lazy" decoding="async">
-      </div>
-      <div class="image-text__content">
-        <div class="kicker">Our story</div>
-        <h2>Beauty shouldn't have to cost a fortune.</h2>
-        <!-- Founder's own words, first person. Kept verbatim from the previous build:
-             the reason comes first and the philosophy lands as the conclusion. -->
-        <p>I started Lennox because I genuinely love beauty — and because I watched a simple
-          routine turn into hundreds of dollars of products you barely use. I wanted a brand
-          built on things that earn their place, without buying ten of them to solve one problem.</p>
-        <p style="font-family:var(--serif);font-size:1.35rem;line-height:1.3;color:#fff">Which is
-          why we'd rather sell you less.</p>
-        <div class="btn-row"><a class="btn btn--light" href="/about">Learn more</a></div>
-      </div>
+    <div class="section-head reveal">
+      <h2>Take More. <em>Pay Less Each.</em></h2>
+    </div>
+    <div class="product-grid">
+      <a class="product-card reveal" href="/roll-on">
+        <div class="product-card__media">
+          <span class="product-card__badge">Best value</span>
+          <img src="/img/rollon/bag-400.webp" alt="Roll-on bottles on linen beside a woven bag" width="400" height="400" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Roll-On × 3</h3>
+          <p class="product-card__desc">Legs, underarms, bikini line</p>
+          <p class="product-card__price">$44.97 · $14.99 each</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+      <a class="product-card reveal" href="/roll-on">
+        <div class="product-card__media">
+          <img src="/img/rollon/shelf-400.webp" alt="The roll-on on a bathroom shelf" width="400" height="300" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Roll-On × 2</h3>
+          <p class="product-card__desc">One for the shower, one for the bag</p>
+          <p class="product-card__price">$34.99 · $17.50 each</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+      <a class="product-card reveal" href="/silk-serum">
+        <div class="product-card__media">
+          <span class="product-card__badge">Save $36</span>
+          <img src="/img/silk/silk-09.webp" alt="Three bottles of The Silk Serum" width="1065" height="1065" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Silk Serum × 3</h3>
+          <p class="product-card__desc">Three 100ml bottles</p>
+          <p class="product-card__price">$38.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+      <a class="product-card reveal" href="/silk-serum">
+        <div class="product-card__media">
+          <span class="product-card__badge">Save $70</span>
+          <img src="/img/silk/silk-08.webp" alt="Five bottles of The Silk Serum" width="1065" height="1065" loading="lazy" decoding="async">
+        </div>
+        <div class="product-card__body">
+          <h3 class="product-card__title">Silk Serum × 5</h3>
+          <p class="product-card__desc">Five 100ml bottles</p>
+          <p class="product-card__price">$54.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ============ reviews ============ -->
-<!-- The ported theme puts a review carousel here. It stays empty on purpose: this shop
-     has one real customer, so there is nothing truthful to put in it, and inventing
-     quotes is the exact thing the brand says it doesn't do. The markup below is the
-     theme's card, ready for real ones — drop them in and delete the comment wrapper.
+<!-- Verbatim from each product page's review block (same sources, same trims). The
+     product tag on every card keeps a lash quote from reading as a roll-on quote. -->
+<section class="section section--soft">
+  <div class="section-head reveal">
+    <div class="sb-review__stars" aria-hidden="true" style="font-size:1.4rem">★★★★★</div>
+    <h2>Don't Just Take <em>Our Word</em> For It.</h2>
+    <p>What verified buyers say about each product.</p>
+  </div>
+  <div class="sb-reviews__rail">
+    <figure class="sb-review">
+      <div class="sb-review__stars" role="img" aria-label="5 out of 5">★★★★★</div>
+      <blockquote>“This has been a game changer for me to remove gel polish and to clean up my nails. Love it so much and highly recommend!”</blockquote>
+      <figcaption><span class="sb-review__ok">Verified buyer</span><span class="sb-review__product">Nail Drill</span></figcaption>
+    </figure>
+    <figure class="sb-review">
+      <div class="sb-review__stars" role="img" aria-label="5 out of 5">★★★★★</div>
+      <blockquote>“Ngl if ur new to lash clusters it's perfect and comes with everything you need to do them and do them perfectly …”</blockquote>
+      <figcaption><span class="sb-review__ok">Verified buyer</span><span class="sb-review__product">Lash Kit</span></figcaption>
+    </figure>
+    <figure class="sb-review">
+      <div class="sb-review__stars" role="img" aria-label="5 out of 5">★★★★★</div>
+      <blockquote>“It looks of good quality, the size is appropriate, and it arrived earlier than expected. I recommend it.”</blockquote>
+      <figcaption><span class="sb-review__ok">Verified buyer</span><span class="sb-review__product">Roll-On</span></figcaption>
+    </figure>
+    <figure class="sb-review">
+      <div class="sb-review__stars" role="img" aria-label="5 out of 5">★★★★★</div>
+      <blockquote>“This product is perfect, it comes with several files, it's heavy, you can feel the quality, and the battery lasts a long time.”</blockquote>
+      <figcaption><span class="sb-review__ok">Verified buyer</span><span class="sb-review__product">Nail Drill</span></figcaption>
+    </figure>
+    <figure class="sb-review">
+      <div class="sb-review__stars" role="img" aria-label="5 out of 5">★★★★★</div>
+      <blockquote>“The lashes are amazing they're soft and they're strong! As well as the glue it's long lasting”</blockquote>
+      <figcaption><span class="sb-review__ok">Verified buyer</span><span class="sb-review__product">Lash Kit</span></figcaption>
+    </figure>
+  </div>
+</section>
 
-<section class="section" data-rail>
+<!-- ============ mission banner ============ -->
+<section class="section section--soft" style="padding-top:0">
   <div class="page-width">
-    <div class="section-head"><div class="kicker">Reviews</div><h2>What customers say.</h2></div>
-    <div class="reviews__rail">
-      <figure class="review-card">
-        <div class="stars stars--green">…</div>
-        <p>REAL QUOTE HERE.</p>
-        <figcaption class="review-card__author">Name — verified purchase</figcaption>
-      </figure>
+    <div class="sb-mission reveal">
+      <div class="sb-mission__copy">
+        <h2>“Beauty Shouldn't Cost A Fortune. <em>Or Ten Products To Fix One Problem.”</em></h2>
+        <p>The Lennox idea</p>
+        <a class="btn btn--light" href="/about" style="align-self:flex-start">Our story</a>
+      </div>
+      <div class="sb-mission__media">
+        <img src="/img/brand/hero-alt.webp" alt="Lennox Beauty products on a warm neutral set" width="1600" height="893" loading="lazy" decoding="async">
+      </div>
     </div>
   </div>
 </section>
--->
 
 <!-- ============ FAQ ============ -->
-<section class="section" id="faq">
-  <div class="content-width">
-    <div class="section-head reveal">
-      <div class="kicker">Questions</div>
-      <h2>FAQs</h2>
-    </div>
-    <div class="accordion">
-      <details>
-        <summary>What does Lennox actually make?</summary>
-        <div class="accordion__body"><p>Three things today: the Lash Kit, DIY lash clusters you apply at home; the Nail Drill, a cordless drill for at-home manicures; and the Silk Serum, a daily leave-in mist for frizz. More are in development and we'd rather show them late than early. All three are on the <a href="/catalog">catalog</a>.</p></div>
-      </details>
-      <details>
-        <summary>When will my order arrive?</summary>
-        <div class="accordion__body"><p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. You get the tracking number by email the moment it ships.</p></div>
-      </details>
-      <details>
-        <summary>What's the guarantee?</summary>
-        <div class="accordion__body"><p>30 days on everything. If it isn't for you, email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — you don't ship anything back, and there's no form to fill in.</p></div>
-      </details>
-      <details>
-        <summary>Is there a subscription?</summary>
-        <div class="accordion__body"><p>No. Nothing here renews, and nothing is cheaper only if you sign up for something. Multi-packs cost less per unit because you bought more, not because you joined anything.</p></div>
-      </details>
-      <details>
-        <summary>Do you ship outside the US?</summary>
-        <div class="accordion__body"><p>Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door.</p></div>
-      </details>
-      <details>
-        <summary>Why are there only three products?</summary>
-        <div class="accordion__body"><p>Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says "in development" and stays that way until it's real.</p></div>
-      </details>
-    </div>
+<section class="section section--soft" id="faq" style="padding-top:0">
+  <div class="section-head reveal">
+    <h2>Questions People Ask <em>Before They Buy.</em></h2>
+  </div>
+  <div class="sb-faq">
+    <details>
+      <summary>What does Lennox make?</summary>
+      <div class="sb-faq__body"><p>Four things today: the Smoothing Roll-On, for the look of bumps after shaving or waxing; the Lash Kit, DIY lash clusters; the Nail Drill, a cordless drill for at-home manicures; and the Silk Serum, a daily anti-frizz mist. All four are on the <a href="/catalog">catalog</a>.</p></div>
+    </details>
+    <details>
+      <summary>When will my order arrive?</summary>
+      <div class="sb-faq__body"><p>Dispatched within 1–2 business days and typically arriving 7–13 days later, tracked the whole way. You get the tracking number by email the moment it ships.</p></div>
+    </details>
+    <details>
+      <summary>What's the guarantee?</summary>
+      <div class="sb-faq__body"><p>30 days on everything (60 on the Roll-On). If it isn't for you, email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a> and we refund every cent — you don't ship anything back.</p></div>
+    </details>
+    <details>
+      <summary>Is there a subscription?</summary>
+      <div class="sb-faq__body"><p>No. Nothing here renews. Multi-packs cost less per unit because you bought more, not because you joined anything.</p></div>
+    </details>
+    <details>
+      <summary>Do you ship outside the US?</summary>
+      <div class="sb-faq__body"><p>Not yet. US only for now — we'd rather do one country properly than take money for a parcel we can't track to your door.</p></div>
+    </details>
+    <details>
+      <summary>Why only four products?</summary>
+      <div class="sb-faq__body"><p>A product goes up when there's a reason for it to exist, not to fill a shelf.</p></div>
+    </details>
   </div>
 </section>
 
-<!-- ============ feature cards ============ -->
-<section class="section section--soft">
+<!-- ============ closing CTA ============ -->
+<section class="section section--soft" style="padding-top:0">
   <div class="page-width">
-    <div class="features__grid">
-      <div class="feature-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M1 3h13v13H1zM14 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/>
-        </svg>
-        <h3>Free tracked shipping</h3>
-        <p>On every order, no minimum. Dispatched in 1–2 days and tracked the whole way.</p>
-      </div>
-      <div class="feature-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
-        </svg>
-        <h3>30 days to change your mind</h3>
-        <p>We refund every cent and you keep it. No returns to mail, no form to fill in.</p>
-      </div>
-      <div class="feature-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 5h6l2 5-3 2a11 11 0 005 5l2-3 5 2v6a15 15 0 01-17-17z"/>
-        </svg>
-        <h3>A person, not a queue</h3>
-        <p>Email Lennoxsupport@gmail.com and reach someone who can actually fix it.</p>
-      </div>
+    <div class="sb-cta reveal" style="background-image:url('/img/rollon/bag-1050.webp')">
+      <h2>Look After Yourself <em>Without The Guesswork</em></h2>
+      <div class="sb-cta__ticks"><span>30-day money-back guarantee</span><span>Free US shipping</span><span>Tracked delivery</span></div>
+      <a class="btn btn--accent" href="/catalog">Shop the collection</a>
     </div>
   </div>
 </section>
 
-<!-- ============ closing ============ -->
-<section class="section closing">
-  <div class="content-width">
-    <h2>Start with one.</h2>
-    <p>Free US shipping, and 30 days to change your mind on any of it.</p>
-    <div class="btn-row btn-row--center"><a class="btn btn--accent btn--lg" href="/catalog">Shop the collection</a></div>
-  </div>
-</section>
-
-<!-- ============ footer ============ -->
-<div class="divider-wave" aria-hidden="true">
-  <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"></path></svg>
-</div>
 <footer class="site-footer">
   <div class="page-width">
+    <div class="sb-footer-logo"><a class="site-logo" href="/">Lennox <span>Beauty</span></a></div>
     <div class="site-footer__grid">
-      <div>
-        <a class="site-logo" href="/">Lennox <span>Beauty</span></a>
-        <p>Lashes, nails and hair care, each built to do one job well.</p>
-      </div>
-      <div>
-        <div data-lb-signup></div>
-      </div>
+      <div><div data-lb-signup></div></div>
       <div>
         <h3>Support</h3>
         <p>Email <a href="mailto:Lennoxsupport@gmail.com">Lennoxsupport@gmail.com</a><br>
@@ -379,6 +472,11 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           <li><a href="/lash-kit">The Lash Kit</a></li>
           <li><a href="/nail-drill">The Nail Drill</a></li>
           <li><a href="/silk-serum">The Silk Serum</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <ul>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -438,8 +536,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   ]
 }
 </script>
-<!-- FAQPage markup mirrors the six questions actually on this page. It used to carry
-     the Silk Serum's FAQ instead, which is a mismatch Google treats as ineligible. -->
+<!-- FAQPage markup mirrors the questions actually on this page. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -447,10 +544,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What does Lennox actually make?",
+      "name": "What does Lennox make?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Three things today: the Lash Kit, DIY lash clusters you apply at home; the Nail Drill, a cordless drill for at-home manicures; and the Silk Serum, a daily leave-in mist for frizz. More are in development and we'd rather show them late than early."
+        "text": "Four things today: the Smoothing Roll-On, for the look of bumps after shaving or waxing; the Lash Kit, DIY lash clusters; the Nail Drill, a cordless drill for at-home manicures; and the Silk Serum, a daily anti-frizz mist. All four are on the catalog."
       }
     },
     {
@@ -466,7 +563,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "name": "What's the guarantee?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "30 days on everything. If it isn't for you, email Lennoxsupport@gmail.com and we refund every cent — you don't ship anything back, and there's no form to fill in."
+        "text": "30 days on everything (60 on the Roll-On). If it isn't for you, email Lennoxsupport@gmail.com and we refund every cent — you don't ship anything back."
       }
     },
     {
@@ -474,7 +571,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       "name": "Is there a subscription?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Nothing here renews, and nothing is cheaper only if you sign up for something. Multi-packs cost less per unit because you bought more, not because you joined anything."
+        "text": "No. Nothing here renews. Multi-packs cost less per unit because you bought more, not because you joined anything."
       }
     },
     {
@@ -487,10 +584,10 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     },
     {
       "@type": "Question",
-      "name": "Why are there only three products?",
+      "name": "Why only four products?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Because a product goes up when there's a reason for it to exist, not to fill a shelf. When we don't have a good version of something yet, the card says in development and stays that way until it's real."
+        "text": "A product goes up when there's a reason for it to exist, not to fill a shelf."
       }
     }
   ]

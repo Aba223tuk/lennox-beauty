@@ -225,9 +225,35 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
+  /* ---------------------------------------------------------- video rail
+     Tap to play, tap again to pause. preload="none" in the markup, so a phone
+     downloads nothing until someone asks; one clip plays at a time. */
+  function ugc() {
+    var cards = $$('[data-ugc]');
+    cards.forEach(function (card) {
+      var v = card.querySelector('video');
+      if (!v) return;
+      function toggle() {
+        if (v.paused) {
+          cards.forEach(function (c) {
+            var o = c.querySelector('video');
+            if (o && o !== v && !o.paused) { o.pause(); c.classList.remove('is-playing'); }
+          });
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+          card.classList.add('is-playing');
+        } else {
+          v.pause();
+          card.classList.remove('is-playing');
+        }
+      }
+      card.querySelector('.sb-ugc__frame').addEventListener('click', toggle);
+    });
+  }
+
   /* ---------------------------------------------------------- init */
   function start() {
-    header(); drawer(); gallery(); breaks(); stickyAtc(); rails(); checkpoints(); reveal();
+    header(); drawer(); gallery(); breaks(); stickyAtc(); rails(); checkpoints(); reveal(); ugc();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
