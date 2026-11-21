@@ -1702,3 +1702,108 @@ h1 em,h2 em,h3 em,.sb-ital{
 .product__info .benefit-row{display:none}
 .sw,.wd{border:solid var(--sb-dark)!important;border-width:1px 2px 3px 1px!important;border-radius:12px!important}
 @media(max-width:759px){.sb-ing{flex-basis:140px}.sb-ing h3{font-size:1.15rem}}
+
+/* ======================================================================
+   READABILITY PASS — 2026-11-20
+   Illia: "make sure everything is easy to read, the text is all bolded and
+   stands out from the back colors." So: every line of text is semi-bold or
+   heavier, greys are pulled almost to the ink, nothing is faded with opacity,
+   small print has a floor, and text on dark or on photos is near-white with a
+   scrim behind it. Contrast is checked by script against the real background.
+   ====================================================================== */
+:root{
+  --ink-soft:#2b241d;
+  --ink-faint:#3a3128;
+  --sb-text-soft:#2b241d;
+  --line:#d9ccb8;
+}
+html body{font-weight:600;color:var(--sb-dark)}
+html body p,html body li,html body span,html body figcaption,html body blockquote,
+html body summary,html body label,html body td,html body dd,html body small,html body a{font-weight:inherit}
+html body b,html body strong{font-weight:800;color:inherit}
+html body summary{font-weight:800}
+
+/* nothing faded */
+html body .howto figcaption,html body .product__job,html body .pack__sub,html body .pack__p small,
+html body [class*="__sub"],html body [class*="__note"],html body [class*="__caption"],
+html body .muted,html body .fineprint{opacity:1;color:var(--ink-soft)}
+
+/* small-print floor */
+html body .kicker,html body .sb-eyebrow,html body .rating-row__label,html body .rating-row__note,
+html body .product-card__stars,html body .price-row__note,html body .break__caption,html body .pack__sub,
+html body .sb-ugc__cap span,html body .sb-src,html body .sb-ings-note,html body .sb-review figcaption,
+html body .checkpoints__bottom,html body .site-footer__bottom p,html body .footer-legal a,
+html body .pay-badges__note,html body .ba-cap,html body .rev figcaption,html body .review figcaption{font-size:max(.82rem,1em)}
+html body .kicker,html body .sb-eyebrow{color:#5e4a33;font-weight:800}
+html body .product-card__desc,html body .break__caption,html body .rating-row__note,
+html body .price-row__note,html body .rev figcaption,html body .sb-review figcaption,
+html body .checkpoints__bottom,html body .spec-list span{color:var(--sb-dark)}
+html body .spec-list b{color:#5e4a33}
+html body .sb-review__product{color:#5e4a33}
+html body .break__compare,html body .price-row__was{color:#4a4037}
+
+/* on dark: near-white, never beige-grey */
+html body .sb-dark,html body .site-footer,html body .sb-why,html body .image-text__content,
+html body .sb-mission__copy,html body .sb-ing,html body .checkpoints.is-dark{color:#fff}
+html body .sb-dark p,html body .sb-dark .section-head p,html body .sb-src[style],
+html body .image-text__content p,html body .image-text__content li,
+html body .sb-ing p,html body .sb-ing b,
+html body .site-footer p,html body .site-footer li,html body .site-footer__bottom p,
+html body .footer-legal a,html body .site-footer .lbs .lbs-p,html body .site-footer .lbs .lbs-fine{color:#f4eee6!important}
+html body .sb-ing p{border-top-color:rgba(255,255,255,.25)}
+html body .ticker,html body .sb-pticker{color:#fff}
+html body .sb-pticker .ticker__group{font-size:.74rem}
+
+/* light cards inside the dark bento stay dark-on-light */
+html body .sb-dark .sb-bento__card:not(.sb-bento__d) p{color:var(--sb-dark)!important}
+
+/* text on photographs: a real scrim, plus shadow */
+html body .sb-bento__d::after{background:linear-gradient(180deg,rgba(20,16,12,.85) 0%,rgba(20,16,12,.55) 45%,rgba(20,16,12,.1) 80%)}
+html body .sb-bento__d h3,html body .sb-bento__d p{text-shadow:0 2px 12px rgba(0,0,0,.6)}
+html body .sb-cta::before{background:linear-gradient(90deg,rgba(20,16,12,.92) 0%,rgba(20,16,12,.75) 55%,rgba(20,16,12,.35) 100%)}
+html body .sb-cta h2,html body .sb-cta__ticks{text-shadow:0 2px 10px rgba(0,0,0,.5)}
+html body .banner::before{background:linear-gradient(180deg,rgba(18,14,10,.62),rgba(18,14,10,.72))}
+html body .banner p,html body .banner__eyebrow{color:#fff}
+
+/* gold italic accents on dark get brighter; on light, darker */
+html body .sb-dark h2 em,html body .sb-dark h3 em,html body .sb-mission__copy h2 em,
+html body .sb-cta h2 em,html body .image-text__content h2 em,html body .sb-why h2 span{color:#ecd3a3}
+html body h1 em,html body h2 em,html body h3 em{font-weight:700}
+html body .sb-bento__card:not(.sb-bento__d) h3 em{color:#5e4a33}
+
+/* sand pills/tags: dark text, heavier */
+html body .sb-steps__tag,html body .break__benefit,html body .product-card__badge,
+html body .sb-hero__badges,html body .sb-trust__item{color:var(--sb-dark);font-weight:800}
+html body .sb-steps__tag{background:var(--sb-sand-deep)}
+html body .sb-steps p,html body .sb-timeline__head p,html body .sb-hero p,html body .section-head p{color:var(--sb-dark)}
+html body .sb-ugc__cap a{font-weight:800;color:#5e4a33}
+
+/* stars a touch deeper so they read on white and sand */
+html body .sb-review__stars,html body .rev__stars,html body .product-card__stars i,html body .rating-row .stars{color:#d99a00}
+/* readability pass, round 2 — fixes from the contrast/size audit */
+html body .sb-dark .sb-point:not(:nth-child(3)) p{color:var(--sb-dark)!important}
+html body .sb-dark .kicker,html body .image-text__content .kicker,html body .section--dark .kicker{color:#ecd3a3}
+html body .site-logo span{color:#6a5640}
+html body .site-footer .site-logo span{color:#ecd3a3}
+html body .price-row__per{font-weight:700;color:var(--sb-dark)}
+/* 13px floor on every label that was below it */
+html body .ticker__group,html body .sb-pticker .ticker__group{font-size:.82rem}
+html body .gallery__badge,html body .pack__tag,html body .pack__p small,html body .checkpoints__top,
+html body .sb-why__foot,html body .picker__label,html body .sw span,html body .sw b,html body .wd span,
+html body .save,html body .sb-steps__tag,html body .breaks__title,html body .break__badge,
+html body .break__benefit,html body .tester-tag,html body .clip__cap,html body .atc-quote a,
+html body .sb-review__product,html body .sb-hero__badges,html body .sticky-atc .btn,
+html body .sticky-atc__price,html body .rating-row__pill,html body .product-card__badge{font-size:max(.82rem,13px)}
+html body .save{color:#fff;background:#5e4a33}
+html body .sb-review__stars,html body .rev__stars{color:#b97f00}
+:root body .pack__tag,:root body .pack__p small,:root body .bump .save,:root body .src-label,
+:root body .disc,:root body .src-bar i,:root body .src-chips b,:root body .break__compare,
+:root body .cl-label,:root body .buy-trust li,:root body .cl-value{font-size:max(.82rem,13px)}
+:root body .bump .save{color:#fff;background:#5e4a33}
+:root body .src-chips b{font-weight:700}
+:root body .site-footer .lbs button,:root body .lbs button{background:#ecd3a3!important;color:#1e1914!important;font-weight:800}
+:root body .site-nav a:hover,:root body .site-nav a[aria-current=page]{color:#5e4a33}
+:root body .cl-value{font-weight:700}
+:root body .form-note,:root body .src-bar em{font-size:max(.82rem,13px)}
+/* "all bolded": body copy at 700, labels and buttons already 800 */
+html body{font-weight:700}
