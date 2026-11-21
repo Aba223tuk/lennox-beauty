@@ -1879,3 +1879,50 @@ html body .site-drawer.is-open{transform:none;opacity:1;visibility:visible;trans
 body.drawer-open .lcb-launcher,body.drawer-open .lcb-panel,body.drawer-open .sticky-atc,
 body.sr-lock .lcb-launcher,body.lbc-lock .lcb-launcher,body.lbc-lock .sticky-atc{display:none!important}
 body.drawer-open .site-header{transform:none!important}
+
+/* ======================================================================
+   REVIEWS FIX — 2026-11-20
+   The carousel clipped its last card at the page edge, its arrows sat on top of
+   the first and last cards' text, and the dots implied pages that weren't there.
+   Super Bonsai shows reviews as evenly sized slabs, centred, nothing cut off.
+   Desktop: every card visible in a centred wrap, three to a row, equal heights,
+   no arrows, no dots. Phone: one swipeable row, ~85% cards so the next one
+   peeks, inset from the screen edge, dots kept (they track the swipe).
+   Same rules for the product pages' .rev-car and the homepage .sb-reviews__rail.
+   ====================================================================== */
+html body .rev-car__arrow{display:none!important}
+html body .rev-car__rail,html body .sb-reviews__rail{
+  display:flex;gap:.9rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--gutter);
+  padding:.3rem var(--gutter) 1rem;margin:0 calc(var(--gutter) * -1);align-items:stretch;
+}
+html body .rev,html body .sb-review{
+  flex:0 0 85%;max-width:340px;scroll-snap-align:start;min-height:190px;
+  display:flex;flex-direction:column;gap:.6rem;padding:1.3rem 1.25rem 1.15rem;
+}
+html body .rev blockquote,html body .sb-review blockquote{font-size:.98rem;line-height:1.45;overflow-wrap:anywhere}
+html body .rev figcaption,html body .sb-review figcaption{margin-top:auto;padding-top:.6rem;border-top:1px solid #eadfcf}
+html body .rev__stars,html body .sb-review__stars{font-size:1rem;letter-spacing:.1em}
+html body .sb-reviews__rail{max-width:none}
+@media(min-width:760px){
+  html body .rev-car__rail,html body .sb-reviews__rail{
+    flex-wrap:wrap;justify-content:center;overflow:visible;scroll-snap-type:none;
+    max-width:1060px;margin:0 auto;padding:.3rem 0 .4rem;gap:1.1rem;
+  }
+  html body .rev,html body .sb-review{flex:0 0 calc((100% - 2.2rem) / 3);max-width:none}
+  html body .rev-car__dots{display:none}
+}
+/* Silk Serum's tester review + ratings panel: same slab as every other review */
+html body .review{background:#fff;border-radius:var(--sb-r);border:solid var(--sb-dark);border-width:var(--sb-slab);box-shadow:none;padding:1.3rem 1.25rem}
+html body .review .stars{color:#b97f00;font-size:1.05rem;letter-spacing:.1em}
+html body .review blockquote{font-size:1rem;line-height:1.5}
+html body .src{border-radius:var(--sb-r);border:solid var(--sb-dark);border-width:var(--sb-slab);box-shadow:none}
+html body .src .stars{color:#b97f00}
+html body .src-chips b{border:1.5px solid var(--sb-dark)}
+/* phone: one whole card per swipe — a peeking neighbour showed half-sentences at
+   both edges once the autoplay moved. The homepage rail is full-bleed already, so
+   it gets no negative margin (that was a 5px sideways scroll). */
+@media(max-width:759px){
+  html body .rev,html body .sb-review{flex:0 0 100%;max-width:none}
+  html body .sb-reviews__rail{margin:0}
+}
+@media(max-width:759px){html body .rev-car__rail,html body .sb-reviews__rail{gap:var(--gutter)}}
