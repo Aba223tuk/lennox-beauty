@@ -228,9 +228,23 @@
     '.lbc-bar{position:relative;height:9px;border-radius:999px;background:' + SAND + ';margin-top:.45rem;overflow:hidden;border:1.5px solid ' + D + '}',
     '.lbc-bar i{position:absolute;inset:0;background:linear-gradient(90deg,#cfa865,' + HI + ')}',
     '.lbc-body{flex:1;overflow-y:auto;padding:.9rem 1rem 1rem}',
-    '.lbc-empty{text-align:center;font-size:1rem;font-weight:800;padding:2.5rem 1rem}',
-    '.lbc-empty svg{display:block;margin:0 auto .9rem;width:46px;height:46px;stroke:' + D + ';fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}',
-    '.lbc-empty a{display:inline-block;margin-top:1.1rem;padding:.85rem 1.8rem;border-radius:10px;' + SLAB + 'background:' + D + ';color:#fff;font:800 1.05rem ' + COND + ';text-transform:uppercase;text-decoration:none}',
+    '.lbc-is-empty{background:linear-gradient(180deg,#fff 0%,#fff 45%,' + SAND + ' 100%)}',
+    '.lbc-is-empty .lbc-foot{background:transparent;border-top:none}',
+    '.lbc-empty{min-height:100%;display:flex;flex-direction:column;text-align:center;padding:.4rem 0 1rem}',
+    '.lbc-empty h3{font:800 1.75rem/1 ' + COND + ';margin:.2rem 0 .4rem}',
+    '.lbc-empty p{font-size:.92rem;margin:0}',
+    '.lbc-cats{display:flex;flex-direction:column;gap:.7rem;margin:auto 0;padding-top:1.4rem}',
+    '.lbc-cat{position:relative;display:flex;align-items:center;height:96px;padding:0 1rem;border-radius:12px;' + SLAB +
+    '  overflow:hidden;text-decoration:none;color:' + D + ';background:linear-gradient(90deg,#fbf6ee 0%,' + SAND + ' 100%);transition:transform .15s ease}',
+    '.lbc-cat:hover{transform:translateY(-2px)}',
+    '@media(max-height:700px){.lbc-cat{height:74px}.lbc-cats{padding-top:1rem;gap:.55rem}}',
+    '.lbc-cat b{position:relative;z-index:1;font:800 1.55rem/1 ' + COND + '}',
+    '.lbc-cat img{position:absolute;right:0;top:0;width:46%;height:100%;object-fit:cover;',
+    '  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%);mask-image:linear-gradient(90deg,transparent 0,#000 38%)}',
+    '.lbc-all{position:relative;overflow:hidden;isolation:isolate;display:block;text-align:center;padding:.95rem;border-radius:10px;' + SLAB +
+    '  background:' + D + ';color:#fff;font:800 1.2rem ' + COND + ';text-transform:uppercase;text-decoration:none}',
+    '.lbc-all::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:5%;width:16%;transform:skewX(-35deg);',
+    '  background:linear-gradient(90deg,rgba(255,255,255,.16) 0 38%,transparent 38% 58%,rgba(255,255,255,.16) 58% 100%)}',
     '.lbc-line{position:relative;display:flex;gap:.8rem;padding:.75rem;border-radius:14px;' + SLAB + 'margin-bottom:.7rem;background:#fff}',
     '.lbc-thumb{width:76px;height:76px;flex:none;border-radius:10px;border:1px solid #e3d8c7;background:#faf6f0;object-fit:cover}',
     '.lbc-info{flex:1;min-width:0;padding-right:1.6rem}',
@@ -301,6 +315,12 @@
     return d(8) + ' – ' + d(15);
   }
   function money(a) { return '$' + Number(a).toFixed(2); }
+  var CATS = [
+    { name: 'Shave &amp; Wax', url: '/roll-on', img: '/img/rollon/pack-400.webp' },
+    { name: 'Lashes', url: '/lash-kit', img: '/img/lash/card.webp' },
+    { name: 'Nails', url: '/nail-drill', img: '/img/nail/card.webp' },
+    { name: 'Hair', url: '/silk-serum', img: '/img/silk/silk-07.webp' }
+  ];
   /* 60 days on the roll-on, 30 on everything else — the footer of each page says the same. */
   function guaranteeDays(lines) {
     var t = tally(lines).q;
@@ -352,10 +372,21 @@
     root.querySelector('.lbc-head h2 span').textContent = 'Cart (' + n + ')';
     ship.style.display = lines.length ? '' : 'none';
 
+    /* Empty state, Super Bonsai's: title and one line up top, a stack of "shop by
+       need" cards (label left, product right), and a full-width Shop All pinned at
+       the bottom. Theirs says "Shop our bestsellers"; we don't have the sales to call
+       anything a bestseller, so ours says what each card is for. */
+    drawer.classList.toggle('lbc-is-empty', !lines.length);
     if (!lines.length) {
-      body.innerHTML = '<div class="lbc-empty">' + BAG + 'Your Cart Is Empty!<br><a href="/catalog">Shop all</a></div>';
-      foot.innerHTML = failed ? '<p class="lbc-err">Something went wrong. Please try again.</p>' : '';
-      foot.style.display = failed ? '' : 'none';
+      body.innerHTML = '<div class="lbc-empty"><h3>Your Cart Is Empty!</h3>' +
+        '<p>Not sure where to start? Shop by what you need.</p>' +
+        '<div class="lbc-cats">' + CATS.map(function (c) {
+          return '<a class="lbc-cat" href="' + c.url + '"><b>' + c.name + '</b>' +
+            '<img src="' + c.img + '" alt="" width="160" height="160" loading="lazy"></a>';
+        }).join('') + '</div></div>';
+      foot.innerHTML = '<a class="lbc-all" href="/catalog">Shop all</a>' +
+        (failed ? '<p class="lbc-err">Something went wrong. Please try again.</p>' : '');
+      foot.style.display = '';
       return;
     }
     foot.style.display = '';
