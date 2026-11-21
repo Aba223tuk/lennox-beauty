@@ -251,9 +251,145 @@
     });
   }
 
+  /* ---------------------------------------------------------- mega menus + search
+     superbonsai.com's header: "Shop All" and "Bundles" on the left, each opening a
+     full-width panel (pitch + ticks + Shop All button left, four product cards right),
+     search and cart on the right. Injected here so all 13 pages get it from one place;
+     the plain links already in each page's markup stay as the no-JS fallback.
+     Bundle prices are the live pack prices (read off Storefront carts 2026-11-20). */
+  var PRODUCTS = [
+    { url: '/roll-on', name: 'The Smoothing Roll-On', line: 'For the look of bumps after shaving or waxing', price: 'From $34.99', img: '/img/rollon/pack-400.webp', badge: 'New', keys: 'roll on roller ingrown bumps shave shaving wax waxing bikini underarm legs razor acid bha' },
+    { url: '/lash-kit', name: 'The Lash Kit', line: 'Lash clusters you apply at home', price: '$24.99', img: '/img/lash/card.webp', keys: 'lash lashes eyelash clusters extensions diy bond seal tweezer' },
+    { url: '/nail-drill', name: 'The Nail Drill', line: 'Cordless, up to 35,000 rpm', price: '$49.99', img: '/img/nail/card.webp', keys: 'nail nails drill manicure gel file cordless electric' },
+    { url: '/silk-serum', name: 'The Silk Serum', line: 'Smooths flyaways and kills static', price: 'From $24.99', img: '/img/silk/silk-07.webp', keys: 'silk serum hair frizz anti-frizz mist spray flyaways static leave-in keratin' }
+  ];
+  var BUNDLES = [
+    { url: '/roll-on?pack=3', name: 'Roll-On × 3', line: 'Legs, underarms, bikini line', price: '$44.97 · $14.99 each', img: '/img/rollon/bag-400.webp', badge: 'Best value', keys: 'roll on bundle 3 three pack' },
+    { url: '/silk-serum?pack=3', name: 'Silk Serum × 3', line: 'Three 100ml bottles', price: '$38.99', img: '/img/silk/silk-09.webp', badge: 'Save $36', keys: 'silk serum bundle 3 three pack' },
+    { url: '/lash-kit', name: 'Lash Kit × 2', line: 'Second kit half off', price: '$37.48', img: '/img/lash/card.webp', badge: '2nd half off', keys: 'lash bundle two 2 pack' },
+    { url: '/nail-drill', name: 'Nail Drill × 2', line: 'Second drill half off', price: '$74.99', img: '/img/nail/card.webp', badge: '2nd half off', keys: 'nail drill bundle two 2 pack' }
+  ];
+  var CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  var SEARCH = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
+
+  function card(p) {
+    return '<a class="mm-card" href="' + p.url + '">' +
+      '<span class="mm-card__media">' + (p.badge ? '<em>' + p.badge + '</em>' : '') +
+      '<img src="' + p.img + '" alt="" width="300" height="300" loading="lazy"></span>' +
+      '<b>' + p.name + '</b><small>' + p.line + '</small><span class="mm-card__price">' + p.price + '</span></a>';
+  }
+  function panel(id, title, list) {
+    return '<div class="mm-panel" id="' + id + '" hidden><div class="mm-panel__inner">' +
+      '<div class="mm-pitch"><h2>' + title + '</h2><ul>' +
+      '<li>Free US shipping, tracked</li><li>30-day money-back guarantee</li><li>No subscription</li></ul>' +
+      '<a class="sb-btn sb-btn--sand mm-all" href="/catalog">Shop all</a></div>' +
+      '<div class="mm-cards">' + list.map(card).join('') + '</div></div></div>';
+  }
+
+  function megamenu() {
+    var head = $('.site-header');
+    var nav = $('.site-nav');
+    if (!head || !nav) return;
+    nav.innerHTML =
+      '<button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mmShop">Shop All' + CHEV + '</button>' +
+      '<button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mmBundles">Bundles' + CHEV + '</button>';
+    head.insertAdjacentHTML('beforeend',
+      panel('mmShop', 'Four Products, <em>Each Built For One Job.</em>', PRODUCTS) +
+      panel('mmBundles', 'Take More. <em>Pay Less Each.</em>', BUNDLES));
+
+    var triggers = $$('.mm-trigger', nav), timer;
+    function show(t) {
+      triggers.forEach(function (o) {
+        var on = o === t, p = document.getElementById(o.getAttribute('aria-controls'));
+        o.setAttribute('aria-expanded', on); p.hidden = !on;
+      });
+      head.classList.toggle('mm-open', !!t);
+    }
+    triggers.forEach(function (t) {
+      var p = document.getElementById(t.getAttribute('aria-controls'));
+      t.addEventListener('click', function () { show(t.getAttribute('aria-expanded') === 'true' ? null : t); });
+      [t, p].forEach(function (el) {
+        el.addEventListener('mouseenter', function () {
+          if (!window.matchMedia('(hover:hover)').matches) return;
+          clearTimeout(timer); show(t);
+        });
+        el.addEventListener('mouseleave', function () { timer = setTimeout(function () { show(null); }, 160); });
+      });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') show(null); });
+    document.addEventListener('click', function (e) { if (!head.contains(e.target)) show(null); });
+
+    /* phone drawer: the same two menus as lists */
+    var dr = $('#siteDrawer');
+    if (dr) {
+      var row = function (p) {
+        return '<a class="dr-row" href="' + p.url + '"><img src="' + p.img + '" alt="" width="56" height="56" loading="lazy">' +
+          '<span><b>' + p.name + '</b><small>' + p.price + '</small></span></a>';
+      };
+      var foot = $('.drawer-foot', dr);
+      dr.innerHTML = '<p class="dr-h">Shop All</p>' + PRODUCTS.map(row).join('') +
+        '<p class="dr-h">Bundles</p>' + BUNDLES.map(row).join('') +
+        '<div class="dr-links"><a href="/catalog">Shop all</a><a href="/about">About</a><a href="/contact">Contact</a></div>';
+      if (foot) dr.appendChild(foot);
+    }
+  }
+
+  function search() {
+    var right = $('.site-header__right');
+    if (!right) return;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'sr-btn'; b.setAttribute('aria-label', 'Search products');
+    b.innerHTML = SEARCH;
+    right.insertBefore(b, right.firstChild);
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sr'; wrap.hidden = true;
+    wrap.innerHTML = '<div class="sr__back"></div><div class="sr__box" role="dialog" aria-label="Search">' +
+      '<label class="sr__field">' + SEARCH + '<input type="search" placeholder="Search products" autocomplete="off" aria-label="Search products">' +
+      '<button type="button" class="sr__x" aria-label="Close search">&#10005;</button></label><div class="sr__list"></div></div>';
+    document.body.appendChild(wrap);
+    var input = $('input', wrap), list = $('.sr__list', wrap);
+    var all = PRODUCTS.concat(BUNDLES);
+
+    function render() {
+      var q = input.value.trim().toLowerCase();
+      var hits = q ? all.filter(function (p) {
+        var hay = (p.name + ' ' + p.line + ' ' + p.keys).toLowerCase();
+        return q.split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; });
+      }) : [];
+      list.innerHTML = !q ? '' : hits.length ? hits.map(function (p) {
+        return '<a class="sr__hit" href="' + p.url + '"><img src="' + p.img + '" alt="" width="48" height="48" loading="lazy">' +
+          '<span><b>' + p.name + '</b><small>' + p.price + '</small></span></a>';
+      }).join('') : '<p class="sr__none">No products match “' + input.value.replace(/[<>&"]/g, '') + '”.</p>';
+    }
+    function open() { wrap.hidden = false; document.body.classList.add('sr-lock'); setTimeout(function () { input.focus(); }, 30); }
+    function close() { wrap.hidden = true; document.body.classList.remove('sr-lock'); input.value = ''; render(); b.focus(); }
+    b.addEventListener('click', open);
+    input.addEventListener('input', render);
+    $('.sr__x', wrap).addEventListener('click', close);
+    $('.sr__back', wrap).addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !wrap.hidden) close(); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { var h = $('.sr__hit', list); if (h) location.href = h.getAttribute('href'); }
+    });
+  }
+
+  /* ?pack=N from the Bundles menu preselects that pack on the product page. */
+  function packParam() {
+    var n;
+    try { n = new URLSearchParams(location.search).get('pack'); } catch (e) { return; }
+    if (!n || !/^\d$/.test(n)) return;
+    var btn = $('.pack[data-pack="' + n + '"]');
+    if (btn) { btn.click(); return; }
+    var br = $('.break[data-qty="' + n + '"]');
+    if (br) br.click();
+  }
+
   /* ---------------------------------------------------------- init */
   function start() {
+    megamenu(); search();
     header(); drawer(); gallery(); breaks(); stickyAtc(); rails(); checkpoints(); reveal(); ugc();
+    packParam();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
