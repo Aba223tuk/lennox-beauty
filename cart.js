@@ -148,6 +148,21 @@
       .catch(function () { return null; });
   }
 
+  /* Hidden cart attributes (_fbp, _fbc, _ua) ride onto the order, where the Shopify Flow
+     "Meta CAPI - Purchase" workflow reads them for the server-side Purchase. Skipped when
+     the visitor opted out ("Do not share") or sends Global Privacy Control. */
+  function cookie(n) { var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  function tagCart(id) {
+    try {
+      if (localStorage.getItem('lb_noshare') === '1' || navigator.globalPrivacyControl) return;
+      var attrs = [['_fbp', cookie('_fbp')], ['_fbc', cookie('_fbc')], ['_ua', navigator.userAgent.slice(0, 250)]]
+        .filter(function (a) { return a[1]; })
+        .map(function (a) { return { key: a[0], value: a[1] }; });
+      if (!attrs.length) return;
+      api('mutation($id:ID!,$a:[AttributeInput!]!){ cartAttributesUpdate(cartId:$id,attributes:$a){ userErrors{message} } }', { id: id, a: attrs }).catch(function () {});
+    } catch (e) {}
+  }
+
   /* add(variantId, qty) or add([{merchandiseId, quantity}, ...]) */
   function add(variantId, qty) {
     if (busy) return Promise.resolve();
@@ -171,6 +186,7 @@
         if (!c) throw new Error('cart failed');
         cart = c; setId(c.id);
         busy = false; paint(); open();
+        tagCart(c.id);
         /* No AddToCart here: the product pages own that event (they know sku, qty and
            price). InitiateCheckout stays in this file because it is cart-level. */
       })
