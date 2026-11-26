@@ -70,7 +70,11 @@
       'max-width:26rem;margin:0 auto}' +
     '.lbs-form input{flex:1 1 12rem;min-width:0;font:inherit;font-size:.92rem;' +
       'padding:.7rem .85rem;border:1px solid var(--line,#e7e2d9);border-radius:999px;' +
-      'background:#fff;color:var(--ink,#2b2620)}' +
+      /* Hard-coded, not var(--ink): inside the dark footer --ink is the light cream
+         text colour, which made typed addresses cream-on-white and unreadable. */
+      'background:#fff;color:#2b2620;-webkit-text-fill-color:#2b2620;caret-color:#2b2620}' +
+    '.lbs-form input::placeholder{color:#8a8278;-webkit-text-fill-color:#8a8278;opacity:1}' +
+    '.lbs-form input:-webkit-autofill{-webkit-box-shadow:0 0 0 40px #fff inset;-webkit-text-fill-color:#2b2620}' +
     '.lbs-form input:focus{outline:2px solid var(--accent,#8b6f47);outline-offset:1px;border-color:transparent}' +
     '.lbs-form button{flex:0 0 auto;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;' +
       'padding:.7rem 1.3rem;border-radius:999px;border:1.5px solid var(--accent,#8b6f47);' +
