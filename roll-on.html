@@ -771,6 +771,26 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
       <h2>Don't Just Take <em>Our Word</em> For It.</h2>
     </div>
 
+    <!-- Buyer photos, added 2026-11-26. Illia confirmed these four are real Lennox roll-on
+         buyers who agreed to be shown. Photos only: they are NOT paired with the quote cards
+         below, because those quotes come from the supply-side listing (see the comment
+         under this), not from these people. Don't put a quote under a face unless that
+         person wrote it. -->
+    <div class="buyer-pics" role="list" aria-label="Buyer photos">
+      <img role="listitem" src="/img/ugc/rollon/buyer-1.jpg" alt="Buyer holding The Smoothing Roll-On" width="600" height="750" loading="lazy" decoding="async">
+      <img role="listitem" src="/img/ugc/rollon/buyer-2.jpg" alt="Buyer holding The Smoothing Roll-On" width="600" height="750" loading="lazy" decoding="async">
+      <img role="listitem" src="/img/ugc/rollon/buyer-3.jpg" alt="Buyer holding The Smoothing Roll-On" width="600" height="750" loading="lazy" decoding="async">
+      <img role="listitem" src="/img/ugc/rollon/buyer-4.jpg" alt="Buyer holding The Smoothing Roll-On" width="600" height="750" loading="lazy" decoding="async">
+    </div>
+    <p class="buyer-pics__cap">Buyer photos</p>
+    <style>
+      .buyer-pics{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--gutter,20px) * -1) .4rem;padding:0 var(--gutter,20px);scrollbar-width:none}
+      .buyer-pics::-webkit-scrollbar{display:none}
+      .buyer-pics img{flex:0 0 42%;width:42%;min-width:0;max-width:none;aspect-ratio:4/5;object-fit:cover;border-radius:12px;scroll-snap-align:start;height:auto}
+      .buyer-pics__cap{font-size:.8rem;opacity:.65;margin:0 0 1.4rem}
+      @media(min-width:760px){.buyer-pics{overflow:visible;margin:0 0 .4rem;padding:0}.buyer-pics img{flex:1 1 0;min-width:0}}
+    </style>
+
     <!-- Same construction as nail-drill.html: kicker with the real count and average,
          then the cards, quoted word for word from the supply-side listing's English and
          trimmed only with an ellipsis. Handles exactly as that listing prints them; where
