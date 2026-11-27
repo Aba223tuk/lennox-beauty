@@ -334,6 +334,8 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           </svg>
           <span>Zoom</span>
         </button>
+        <!-- SB puts its guarantee disc on the hero image. Ours is 60 days (same as the FAQ). -->
+        <div class="gallery__seal" aria-hidden="true"><b>60</b><span>day<br>money-back</span></div>
         <!-- The roller on skin leads, not the bottle: the mechanism is the one thing a
              shopper can read in three seconds, and we are not allowed a before/after. -->
         <!-- The packshot leads. A macro crop of a blue tube reads as a deodorant to
@@ -638,7 +640,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           <span class="pack__tag">Most people take three</span>
           <span class="pack__n">3 bottles</span>
           <span class="pack__sub">One per area — legs, underarms, bikini line</span>
-          <span class="pack__p">$44.97<small>$14.99 each</small></span>
+          <span class="pack__p">$44.97<small>$14.99 each</small><em class="pack__save">You save $7.53</em></span>
         </button>
         <button class="pack" type="button" role="radio" aria-checked="false" data-pack="2">
           <span class="pack__n">2 bottles</span>
@@ -651,7 +653,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <button class="pack" type="button" role="radio" aria-checked="false" data-pack="4" hidden>
           <span class="pack__n">4 bottles</span>
           <span class="pack__sub">Every area, plus one for the bag</span>
-          <span class="pack__p">$54.99<small>$13.75 each</small></span>
+          <span class="pack__p">$54.99<small>$13.75 each</small><em class="pack__save">You save $15.01</em></span>
         </button>
       </div>
 
@@ -732,6 +734,83 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   </div>
 </div>
 
+<style>
+  /* 2026-11-26 SB product-page pass: seal, pack savings, four places, comparison */
+  .gallery__stage{position:relative}
+  .gallery__seal{position:absolute;left:12px;top:12px;z-index:3;width:74px;height:74px;border-radius:50%;background:var(--sb-dark,#1e1914);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1;box-shadow:0 3px 10px rgba(0,0,0,.18);pointer-events:none}
+  .gallery__seal b{font-family:var(--sb-cond);font-size:1.6rem;font-weight:900}
+  .gallery__seal span{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+  @media(min-width:760px){.gallery__seal{width:92px;height:92px;left:16px;top:16px}.gallery__seal b{font-size:2rem}.gallery__seal span{font-size:.64rem}}
+  .pack__save{display:block;font-style:normal;font-size:.74rem;font-weight:800;color:#1f7a3f;margin-top:2px}
+  .sb-fronts{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;max-width:1020px;margin:0 auto;padding:0 var(--gutter)}
+  @media(min-width:760px){.sb-fronts{grid-template-columns:repeat(4,1fr);gap:1rem}}
+  .sb-front{background:#fff;border:1.5px solid var(--sb-dark,#1e1914);border-width:1px 3px 4px 1px;border-radius:var(--sb-r,20px);padding:1rem .95rem 1.1rem;display:flex;flex-direction:column;gap:.35rem}
+  .sb-front__n{font-family:var(--sb-cond);font-weight:900;font-size:.9rem;width:38px;height:38px;border-radius:10px;background:var(--sb-sand,#efe6d8);display:grid;place-items:center;color:var(--sb-dark,#1e1914)}
+  .sb-front h3{font-size:1.2rem}
+  .sb-front p{font-size:.86rem;line-height:1.35}
+  section .sb-compare{display:block!important;max-width:760px;margin:0 auto;padding:0 var(--gutter)}
+  .sb-compare__row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;align-items:stretch;border-bottom:1px solid rgba(30,25,20,.14);width:100%}
+  .sb-compare__row>*{padding:.8rem .35rem;text-align:center;display:flex;align-items:center;justify-content:center}
+  .sb-compare__row>span:first-child{justify-content:flex-start}
+  .sb-compare__row>span:first-child{text-align:left;font-weight:800;font-size:.86rem;line-height:1.25}
+  .sb-compare__head span{font-family:var(--sb-cond);font-weight:900;font-size:.95rem;text-transform:uppercase;line-height:1.1}
+  .sb-compare .is-us{background:var(--sb-dark,#1e1914);color:#fff}
+  .sb-compare__head .is-us{border-radius:14px 14px 0 0}
+  .sb-compare__row:last-child .is-us{border-radius:0 0 14px 14px}
+  .sb-compare i{font-style:normal;font-size:1.15rem;font-weight:900}
+  .sb-compare i.y{color:#1f7a3f}.sb-compare i.n{color:#b3412f}
+  .sb-compare i.is-us.y{color:#9fe0b4}
+</style>
+<!-- ========== SB "working on four fronts" -> where it goes (2026-11-26) ==========
+     Their four cards are four benefits of the formula. Ours are four places, because a
+     benefit card would have to claim a result; a place card only says where it goes. -->
+<section class="section">
+  <div class="section-head reveal"><div class="kicker">Where it goes</div><h2>One Bottle, <em>Four Places.</em></h2></div>
+  <div class="sb-fronts">
+    <div class="sb-front reveal"><span class="sb-front__n">01</span><h3>Bikini line</h3><p>Right after you shave. One pass along the line.</p></div>
+    <div class="sb-front reveal"><span class="sb-front__n">02</span><h3>Underarms</h3><p>Clean, dry skin after shaving. Nothing to rinse.</p></div>
+    <div class="sb-front reveal"><span class="sb-front__n">03</span><h3>Legs</h3><p>Shins, knees, the backs of the legs: wherever the bumps show up.</p></div>
+    <div class="sb-front reveal"><span class="sb-front__n">04</span><h3>After a wax</h3><p>From day two after you wax, once or twice a day.</p></div>
+  </div>
+</section>
+
+<section class="section section--soft">
+  <div class="section-head reveal"><h2>Five Actives. <em>Printed On The Box.</em></h2></div>
+  <div class="sb-ings">
+      <div class="sb-ing reveal">
+        <span class="sb-ing__icon">01</span>
+        <h3>BHA</h3>
+        <b>Salicylic acid, the oil-soluble one</b>
+        
+      </div>
+      <div class="sb-ing reveal">
+        <span class="sb-ing__icon">02</span>
+        <h3>AHA</h3>
+        <b>The water-soluble half of the pair</b>
+        
+      </div>
+      <div class="sb-ing reveal">
+        <span class="sb-ing__icon">03</span>
+        <h3>PHA</h3>
+        <b>Bigger molecule, slower</b>
+        
+      </div>
+      <div class="sb-ing reveal">
+        <span class="sb-ing__icon">04</span>
+        <h3>Niacinamide</h3>
+        <b>Vitamin B3</b>
+        
+      </div>
+      <div class="sb-ing reveal">
+        <span class="sb-ing__icon">05</span>
+        <h3>Licorice root</h3>
+        
+        
+      </div>
+  </div>
+  <p class="sb-ings-note">An acid formula. Intact skin only — not a fresh nick.</p>
+</section>
+
 <!-- ========== the problem, in four lines ========== -->
 <section class="section sb-dark sb-curve-top sb-curve-bottom">
   <div class="section-head reveal"><h2>The Shave Goes Fine. <em>Thursday Doesn't.</em></h2></div>
@@ -744,6 +823,87 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </section>
 
 
+<!-- ========== how to use ========== -->
+<section class="section section--tight">
+  <div class="page-width">
+    <div class="section-head">
+      <div class="kicker">How to use</div>
+      <h2>Three Steps, <em>Twice A Day At Most.</em></h2>
+    </div>
+    <div class="howto">
+      <figure>
+        <img src="/img/rollon/step1.webp" alt="Rolling the bottle down a clean leg" width="474" height="696" loading="lazy" decoding="async">
+        <figcaption><b>1.</b> Roll it on — clean, dry skin.</figcaption>
+      </figure>
+      <figure>
+        <img src="/img/rollon/step2.webp" alt="Smoothing it in with one hand" width="474" height="696" loading="lazy" decoding="async">
+        <figcaption><b>2.</b> Smooth it in. Nothing to rinse.</figcaption>
+      </figure>
+      <figure>
+        <img src="/img/rollon/step3-pack.webp" alt="The bottle and its box" width="474" height="696" loading="lazy" decoding="async">
+        <figcaption><b>3.</b> Cap on, out of the sun.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== SB "not the same as every other..." -> format comparison (2026-11-26) ==========
+     SB compares against rival brands. We compare against the two things people already
+     own (a scrub, a bottle + cotton pads), and every row is a fact about the format, not a
+     result. Don't add rows that claim it works better; add rows you can check by looking. -->
+<section class="section section--soft">
+  <div class="section-head reveal"><div class="kicker">Compare</div><h2>Not Another <em>Scrub.</em></h2><p>What you're actually choosing between after a shave.</p></div>
+  <div class="sb-compare reveal" role="table" aria-label="The Roll-On compared with a scrub and a bottle with cotton pads">
+    <div class="sb-compare__row sb-compare__head" role="row"><span role="columnheader"></span><span role="columnheader" class="is-us">The Roll-On</span><span role="columnheader">A scrub</span><span role="columnheader">Bottle + pads</span></div>
+    <div class="sb-compare__row" role="row"><span role="rowheader">No grit on fresh-shaved skin</span><i class="y is-us" role="cell" aria-label="yes">✓</i><i class="n" role="cell" aria-label="no">✕</i><i class="y" role="cell" aria-label="yes">✓</i></div>
+    <div class="sb-compare__row" role="row"><span role="rowheader">Nothing to rinse</span><i class="y is-us" role="cell" aria-label="yes">✓</i><i class="n" role="cell" aria-label="no">✕</i><i class="y" role="cell" aria-label="yes">✓</i></div>
+    <div class="sb-compare__row" role="row"><span role="rowheader">No cotton pads to buy or bin</span><i class="y is-us" role="cell" aria-label="yes">✓</i><i class="y" role="cell" aria-label="yes">✓</i><i class="n" role="cell" aria-label="no">✕</i></div>
+    <div class="sb-compare__row" role="row"><span role="rowheader">No dabbing spot by spot</span><i class="y is-us" role="cell" aria-label="yes">✓</i><i class="y" role="cell" aria-label="yes">✓</i><i class="n" role="cell" aria-label="no">✕</i></div>
+    <div class="sb-compare__row" role="row"><span role="rowheader">One item, cap on, into the bag</span><i class="y is-us" role="cell" aria-label="yes">✓</i><i class="n" role="cell" aria-label="no">✕</i><i class="n" role="cell" aria-label="no">✕</i></div>
+  </div>
+</section>
+
+<!-- ========== Q&A ========== -->
+
+<!-- ========== more from Lennox (Super Bonsai runs its product grid here) ========== -->
+<section class="section">
+  <div class="page-width">
+    <div class="section-head reveal"><h2>Pairs Well <em>With These.</em></h2></div>
+    <div class="product-grid">
+      <a class="product-card reveal" href="/lash-kit">
+        <div class="product-card__media"><img src="/img/lash/card.webp" alt="The Lash Kit" width="600" height="600" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.6 · 828 ratings</span>
+          <h3 class="product-card__title">The Lash Kit</h3>
+          <p class="product-card__desc">Lash clusters you apply at home</p>
+          <p class="product-card__price">$24.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+      <a class="product-card reveal" href="/nail-drill">
+        <div class="product-card__media"><img src="/img/nail/card.webp" alt="The Nail Drill" width="600" height="600" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.8 · 527 ratings</span>
+          <h3 class="product-card__title">The Nail Drill</h3>
+          <p class="product-card__desc">Cordless, up to 35,000 rpm, bits in the box</p>
+          <p class="product-card__price">$49.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+      <a class="product-card reveal" href="/silk-serum">
+        <div class="product-card__media"><img src="/img/silk/silk-07.webp" alt="The Silk Serum" width="1065" height="1065" loading="lazy" decoding="async"></div>
+        <div class="product-card__body">
+          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.7 · 22 ratings</span>
+          <h3 class="product-card__title">The Silk Serum</h3>
+          <p class="product-card__desc">Smooths flyaways and kills static</p>
+          <p class="product-card__price">From $24.99</p>
+          <span class="product-card__cta">Shop now</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 <!-- ========== reviews ==========
      WHERE THESE COME FROM, and read this before touching the wording.
 
@@ -863,129 +1023,6 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 </div>
 
 
-<!-- ========== photo + text ========== -->
-<section class="section section--tight">
-  <div class="page-width">
-    <div class="image-text__grid reveal">
-      <div class="image-text__media">
-        <img src="/img/rollon/hero.webp" alt="The roller ball gliding down a leg, leaving a wet line" width="1400" height="1400" loading="lazy" decoding="async">
-      </div>
-      <div class="image-text__content">
-        <div class="kicker">Roll, don't rub</div>
-        <h2>One Pass. <em>No Cotton Pads.</em></h2>
-        <ul class="tick-list">
-          <li><b>A roller ball</b> — your hands stay clean</li>
-          <li><b>Nothing to rinse</b>, it dries where you put it</li>
-          <li><b>Cap on, into the bag</b> — 50ml</li>
-          <li><b>No scrubbing</b> anywhere near freshly shaved skin</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--soft">
-  <div class="section-head reveal"><h2>Five Actives. <em>Printed On The Box.</em></h2></div>
-  <div class="sb-ings">
-      <div class="sb-ing reveal">
-        <span class="sb-ing__icon">01</span>
-        <h3>BHA</h3>
-        <b>Salicylic acid, the oil-soluble one</b>
-        
-      </div>
-      <div class="sb-ing reveal">
-        <span class="sb-ing__icon">02</span>
-        <h3>AHA</h3>
-        <b>The water-soluble half of the pair</b>
-        
-      </div>
-      <div class="sb-ing reveal">
-        <span class="sb-ing__icon">03</span>
-        <h3>PHA</h3>
-        <b>Bigger molecule, slower</b>
-        
-      </div>
-      <div class="sb-ing reveal">
-        <span class="sb-ing__icon">04</span>
-        <h3>Niacinamide</h3>
-        <b>Vitamin B3</b>
-        
-      </div>
-      <div class="sb-ing reveal">
-        <span class="sb-ing__icon">05</span>
-        <h3>Licorice root</h3>
-        
-        
-      </div>
-  </div>
-  <p class="sb-ings-note">An acid formula. Intact skin only — not a fresh nick.</p>
-</section>
-
-<!-- ========== how to use ========== -->
-<section class="section section--tight">
-  <div class="page-width">
-    <div class="section-head">
-      <div class="kicker">How to use</div>
-      <h2>Three Steps, <em>Twice A Day At Most.</em></h2>
-    </div>
-    <div class="howto">
-      <figure>
-        <img src="/img/rollon/step1.webp" alt="Rolling the bottle down a clean leg" width="474" height="696" loading="lazy" decoding="async">
-        <figcaption><b>1.</b> Roll it on — clean, dry skin.</figcaption>
-      </figure>
-      <figure>
-        <img src="/img/rollon/step2.webp" alt="Smoothing it in with one hand" width="474" height="696" loading="lazy" decoding="async">
-        <figcaption><b>2.</b> Smooth it in. Nothing to rinse.</figcaption>
-      </figure>
-      <figure>
-        <img src="/img/rollon/step3-pack.webp" alt="The bottle and its box" width="474" height="696" loading="lazy" decoding="async">
-        <figcaption><b>3.</b> Cap on, out of the sun.</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== Q&A ========== -->
-
-<!-- ========== more from Lennox (Super Bonsai runs its product grid here) ========== -->
-<section class="section">
-  <div class="page-width">
-    <div class="section-head reveal"><h2>Pairs Well <em>With These.</em></h2></div>
-    <div class="product-grid">
-      <a class="product-card reveal" href="/lash-kit">
-        <div class="product-card__media"><img src="/img/lash/card.webp" alt="The Lash Kit" width="600" height="600" loading="lazy" decoding="async"></div>
-        <div class="product-card__body">
-          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.6 · 828 ratings</span>
-          <h3 class="product-card__title">The Lash Kit</h3>
-          <p class="product-card__desc">Lash clusters you apply at home</p>
-          <p class="product-card__price">$24.99</p>
-          <span class="product-card__cta">Shop now</span>
-        </div>
-      </a>
-      <a class="product-card reveal" href="/nail-drill">
-        <div class="product-card__media"><img src="/img/nail/card.webp" alt="The Nail Drill" width="600" height="600" loading="lazy" decoding="async"></div>
-        <div class="product-card__body">
-          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.8 · 527 ratings</span>
-          <h3 class="product-card__title">The Nail Drill</h3>
-          <p class="product-card__desc">Cordless, up to 35,000 rpm, bits in the box</p>
-          <p class="product-card__price">$49.99</p>
-          <span class="product-card__cta">Shop now</span>
-        </div>
-      </a>
-      <a class="product-card reveal" href="/silk-serum">
-        <div class="product-card__media"><img src="/img/silk/silk-07.webp" alt="The Silk Serum" width="1065" height="1065" loading="lazy" decoding="async"></div>
-        <div class="product-card__body">
-          <span class="product-card__stars"><i aria-hidden="true">★★★★★</i>4.7 · 22 ratings</span>
-          <h3 class="product-card__title">The Silk Serum</h3>
-          <p class="product-card__desc">Smooths flyaways and kills static</p>
-          <p class="product-card__price">From $24.99</p>
-          <span class="product-card__cta">Shop now</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
 <section class="section section--soft">
   <div class="page-width">
     <div class="section-head"><h2>Questions People Ask <em>Before They Buy.</em></h2></div>
