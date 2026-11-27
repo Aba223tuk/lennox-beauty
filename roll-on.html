@@ -14,14 +14,14 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lennoxbeauty.com/roll-on">
 <meta property="og:title" content="The Smoothing Roll-On — after shaving and waxing | Lennox Beauty">
-<meta property="og:description" content="Rolls on after you shave or wax. Two bottles $34.99 — $17.50 each. Free US shipping.">
+<meta property="og:description" content="Rolls on after you shave, or from day two after you wax. Two bottles $34.99 — $17.50 each. Free US shipping.">
 <meta property="og:image" content="https://lennoxbeauty.com/img/rollon/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Smoothing Roll-On — a blue 50ml roller bottle and its box">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Smoothing Roll-On — after shaving and waxing | Lennox Beauty">
-<meta name="twitter:description" content="Rolls on after you shave or wax. Two bottles $34.99 — $17.50 each. Free US shipping.">
+<meta name="twitter:description" content="Rolls on after you shave, or from day two after you wax. Two bottles $34.99 — $17.50 each. Free US shipping.">
 <meta name="twitter:image" content="https://lennoxbeauty.com/img/rollon/og.jpg">
 <!-- og:type is product, so Meta's catalog crawler and the ad link preview look for these. -->
 <meta property="product:price:amount" content="34.99">
@@ -501,7 +501,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     /* C — no promise (trust) */
     'ro-c01': '<b>Pick a number.</b> Someone has printed it.',
     'ro-04':  '<b>No timeline.</b> Just the explanation.',
-    'ro-08':  '<b>Thirty days.</b> Keep the bottles either way.',
+    'ro-08':  '<b>Sixty days.</b> Keep the bottles either way.',
     /* Unbuilt, same as ro-b04/b05. */
     'ro-c04': '<b>Refund, and keep</b> the bottles.',
     'ro-c05': '<b>Two things</b> you will not like.',
@@ -527,7 +527,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     'ro-ct2-d1':  '<b>Freshly shaved skin</b> doesn\'t need a scrub.',
     'ro-ct2-d3':  '<b>No pads, no dabbing.</b> One pass.',
     'ro-ct2-vid': '<b>Two days later.</b> Same spot. Here\'s the routine.',
-    'ro-ct2-ugc': '<b>Day two</b> is when you roll this on.',
+    'ro-ct2-ugc': '<b>Day two after waxing</b> is when you roll this on.',
     'ro-ct2-s01': '<b>Not your technique.</b> A trapped hair.',
     /* CT2 v3, 2026-11-19 — proven concepts only (us vs them, before/after, founder), VO videos. */
     'ro-v-scrub':  '<b>Still scrubbing</b> after you shave?',
@@ -588,7 +588,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
 
       <!-- The three-icon benefit row was cut 2026-11-17: every line in it was already
            said within 200px. "Bikini line, underarms, legs" is in the job line above and
-           in the reassurance line below; "day two after a shave or wax" is the job line's
+           in the reassurance line below; "after shaving or waxing" is the job line's
            other half; "rolls on, nothing to rinse" is in the spec list and the Q&A. Three
            icons that repeat their neighbours are noise at the exact point the decision is
            made. -->
@@ -621,6 +621,14 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
           <span class="pack__n">2 bottles</span>
           <span class="pack__sub">One for the shower, one for the bag</span>
           <span class="pack__p">$34.99<small>$17.50 each</small></span>
+        </button>
+        <!-- 4-pack rung, approved 2026-11-26 (four-pack-rung-01). Maps to DSers 4 PCS
+             ($13.92 landed, ~$39 margin). Stays hidden until VARIANTS[4] holds a real
+             Shopify variant id — the script unhides it, so the button can't send an empty cart. -->
+        <button class="pack" type="button" role="radio" aria-checked="false" data-pack="4" hidden>
+          <span class="pack__n">4 bottles</span>
+          <span class="pack__sub">Every area, plus one for the bag</span>
+          <span class="pack__p">$54.99<small>$13.75 each</small></span>
         </button>
       </div>
 
@@ -680,7 +688,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
         <li><b>In the box</b><span id="bb-box">Three 50ml roller bottles</span></li>
         <li><b>Formula</b><span>BHA, AHA, PHA, niacinamide, licorice</span></li>
         <li><b>Where</b><span>Bikini line, underarms, legs</span></li>
-        <li><b>How often</b><span>Once or twice a day, after you shave or wax</span></li>
+        <li><b>How often</b><span>Once or twice a day, after you shave, or from day two after you wax</span></li>
         <li><b>Size</b><span>50ml / 1.69 fl oz · use within 12 months of opening</span></li>
         <li><b>Not for</b><span>Broken skin, a fresh nick, or your face</span></li>
       </ul>
@@ -1066,6 +1074,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   .product__job b { font-weight:600; opacity:1; }
   /* A picker, not two Add buttons — see the comment in the markup. */
   .packs { display:grid; gap:.55rem; margin:0 0 .85rem; }
+  .pack[hidden] { display:none; }
   .pack { position:relative; display:grid; grid-template-columns:1fr auto; align-items:center;
           gap:.2rem 1rem; text-align:left; padding:.85rem 1rem; border:1.5px solid var(--line);
           border-radius:14px; background:#fff; cursor:pointer; font:inherit; color:inherit; }
@@ -1112,14 +1121,23 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
      ship four bottles. */
   var VARIANTS = {
     2: 'gid://shopify/ProductVariant/52660239794392',
-    3: 'gid://shopify/ProductVariant/52660239827160'
+    3: 'gid://shopify/ProductVariant/52660239827160',
+    /* 4-pack: fill with the new variant gid (and CONTENT_ID[4]) once it exists in
+       Shopify and is mapped to DSers 4 PCS. Empty = the rung stays hidden. */
+    4: ''
   };
   /* Per-pack ids, because a single shared content_id told Meta that one product had
      two different prices and matched nothing in the catalog. These are the Shopify
      variant ids, which is what a catalog feed keys on. */
-  var CONTENT_ID = { 2: '52660239794392', 3: '52660239827160' };
-  var SKU   = { 2: 'LB-ROLL-2', 3: 'LB-ROLL-3' };
-  var PRICE = { 2: 34.99, 3: 44.97 };
+  var CONTENT_ID = { 2: '52660239794392', 3: '52660239827160', 4: '' };
+  var SKU   = { 2: 'LB-ROLL-2', 3: 'LB-ROLL-3', 4: 'LB-ROLL-4' };
+  var PRICE = { 2: 34.99, 3: 44.97, 4: 54.99 };
+  var PER   = { 2: '17.50', 3: '14.99', 4: '13.75' };
+  var WORD  = { 2: 'Two', 3: 'Three', 4: 'Four' };
+  if (VARIANTS[4]) {
+    var four = document.querySelector('.pack[data-pack="4"]');
+    if (four) four.hidden = false;
+  }
   /* Default is the 3-pack as of 2026-11-17 — see the comment on the picker. */
   var pack  = 3;
 
@@ -1128,7 +1146,7 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
   }
 
   function paintPack(){
-    var p = PRICE[pack].toFixed(2), per = (pack === 3 ? '14.99' : '17.50');
+    var p = PRICE[pack].toFixed(2), per = PER[pack];
     document.getElementById('cta').textContent = 'Add ' + pack + ' bottles — $' + p;
     var t = document.getElementById('bb-total'), sub = document.getElementById('bb-sub');
     if (t) t.textContent = '$' + p;
@@ -1146,16 +1164,17 @@ src="https://www.facebook.com/tr?id=2111917956205326&ev=PageView&noscript=1"></n
     var now = document.getElementById('bb-now');
     if (now) now.textContent = '$' + p;
     var note = document.getElementById('bb-note');
-    if (note) note.innerHTML = (pack === 3 ? 'Three' : 'Two') + ' bottles · <b>$' + per +
+    if (note) note.innerHTML = WORD[pack] + ' bottles · <b>$' + per +
       ' each</b> · free US shipping';
     /* The spec list said "Two 50ml roller bottles" under a 3-pack default. */
     var box = document.getElementById('bb-box');
-    if (box) box.textContent = (pack === 3 ? 'Three' : 'Two') + ' 50ml roller bottles';
+    if (box) box.textContent = WORD[pack] + ' 50ml roller bottles';
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('.pack'), function(b){
     b.addEventListener('click', function(){
-      pack = Number(b.dataset.pack) === 3 ? 3 : 2;
+      var n = Number(b.dataset.pack);
+      pack = (n === 4 && VARIANTS[4]) ? 4 : (n === 3 ? 3 : 2);
       Array.prototype.forEach.call(document.querySelectorAll('.pack'), function(x){
         var on = x === b;
         x.classList.toggle('is-on', on);
